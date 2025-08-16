@@ -1,0 +1,680 @@
+'use client';
+
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useDropzone } from 'react-dropzone';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { 
+  FaCloudUploadAlt, 
+  FaPlus, 
+  FaTimes, 
+  FaClock, 
+  FaUsers, 
+  FaFileAlt,
+  FaCheck,
+  FaExclamationTriangle
+} from 'react-icons/fa';
+import GNB from '@/components/GNB';
+import Footer from '@/components/Footer';
+
+// Validation schema
+const schema = yup.object({
+  customerName: yup.string().required('주문자명을 입력해주세요'),
+  customerPhone: yup.string().required('연락처를 입력해주세요'),
+  customerEmail: yup.string().email('올바른 이메일을 입력해주세요').required('이메일을 입력해주세요'),
+  files: yup.array().min(1, '최소 1개의 파일을 업로드해주세요'),
+  fileFormat: yup.string().required('파일 형식을 선택해주세요'),
+  deliveryOption: yup.string().required('배송 옵션을 선택해주세요'),
+  agree: yup.boolean().oneOf([true], '이용약관에 동의해주세요')
+});
+
+interface FileData {
+  id: string;
+  file: File;
+  name: string;
+  size: number;
+  type: '전체' | '부분';
+  startTime?: string;
+  endTime?: string;
+  speakers: string[];
+  recordDate?: string;
+  recordTime?: string;
+  detail?: string;
+}
+
+interface FormData {
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  files: FileData[];
+  fileFormat: string;
+  deliveryOption: string;
+  agree: boolean;
+}
+
+export default function Reception() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [estimatedPrice, setEstimatedPrice] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    formState: { errors }
+  } = useForm<FormData>({
+    resolver: yupResolver(schema) as any,
+    defaultValues: {
+      files: [],
+      fileFormat: 'hwp',
+      deliveryOption: 'file',
+      agree: false
+    }
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'files'
+  });
+
+  const watchedFiles = watch('files');
+
+  // Calculate estimated price
+  const calculatePrice = (files: FileData[]) => {
+    let basePrice = 0;
+    let deliveryPrice = 0;
+
+    // Base price calculation (simplified)
+    files.forEach(file => {
+      // Assume 1 minute = 1MB for calculation
+      const duration = Math.ceil(file.size / (1024 * 1024)); // minutes
+      basePrice += duration * 1500; // 1500원 per minute
+    });
+
+    // Delivery option price
+    const deliveryOption = watch('deliveryOption');
+    switch (deliveryOption) {
+      case 'file':
+        deliveryPrice = 0;
+        break;
+      case 'registered':
+        deliveryPrice = 5000;
+        break;
+      case 'cd':
+        deliveryPrice = 6000;
+        break;
+      case 'usb':
+        deliveryPrice = 10000;
+        break;
+    }
+
+    return basePrice + deliveryPrice;
+  };
+
+  // Update price when files or delivery option changes
+  useEffect(() => {
+    const price = calculatePrice(watchedFiles);
+    setEstimatedPrice(price);
+  }, [watchedFiles, watch('deliveryOption')]);
+
+  const onDrop = (acceptedFiles: File[]) => {
+    acceptedFiles.forEach(file => {
+      const fileData: FileData = {
+        id: Math.random().toString(36).substr(2, 9),
+        file,
+        name: file.name,
+        size: file.size,
+        type: '전체',
+        speakers: ['화자 1']
+      };
+      append(fileData);
+    });
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'audio/*': ['.mp3', '.wav', '.m4a', '.cda', '.mod', '.ogg', '.wma', '.flac', '.asf'],
+      'video/*': ['.avi', '.mp4', '.asf', '.wmv', '.m2v', '.mpeg', '.dpg', '.webm', '.mts', '.divx', '.amv']
+    },
+    maxFiles: 5,
+    maxSize: 10 * 1024 * 1024 * 1024 // 10GB
+  });
+
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setShowSuccess(true);
+      setCurrentStep(2);
+    } catch (error) {
+      console.error('Submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const addSpeaker = (fileIndex: number) => {
+    const newFiles = [...watchedFiles];
+    newFiles[fileIndex].speakers.push(`화자 ${newFiles[fileIndex].speakers.length + 1}`);
+    setValue('files', newFiles);
+  };
+
+  const removeSpeaker = (fileIndex: number, speakerIndex: number) => {
+    const newFiles = [...watchedFiles];
+    newFiles[fileIndex].speakers.splice(speakerIndex, 1);
+    setValue('files', newFiles);
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  if (showSuccess) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <GNB />
+        <div className="container mx-auto px-4 py-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-2xl mx-auto text-center"
+          >
+            <div className="bg-white rounded-2xl shadow-large p-12">
+              <div className="w-20 h-20 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <FaCheck className="text-success-600 text-3xl" />
+              </div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">신청이 완료되었습니다!</h1>
+              <p className="text-gray-600 mb-8">
+                신청하신 내용을 검토한 후 빠른 시일 내에 연락드리겠습니다.
+              </p>
+              <button
+                onClick={() => window.location.reload()}
+                className="btn-primary"
+              >
+                새로운 신청하기
+              </button>
+            </div>
+          </motion.div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <GNB />
+      
+      <div className="container mx-auto px-4 py-8">
+        {/* Progress Steps */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="flex items-center justify-center space-x-8">
+            <div className="flex items-center space-x-3">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
+                currentStep >= 1 ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-400'
+              }`}>
+                {currentStep > 1 ? <FaCheck /> : '1'}
+              </div>
+              <span className={`font-medium ${currentStep >= 1 ? 'text-primary-600' : 'text-gray-400'}`}>
+                신청서 작성
+              </span>
+            </div>
+            <div className="flex-1 h-1 bg-gray-200 max-w-32">
+              <div className={`h-full bg-primary-600 transition-all duration-500 ${
+                currentStep >= 2 ? 'w-full' : 'w-0'
+              }`} />
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
+                currentStep >= 2 ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-400'
+              }`}>
+                {currentStep > 2 ? <FaCheck /> : '2'}
+              </div>
+              <span className={`font-medium ${currentStep >= 2 ? 'text-primary-600' : 'text-gray-400'}`}>
+                제출 완료
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Form */}
+            <div className="lg:col-span-2">
+              <form onSubmit={handleSubmit(onSubmit as any)} className="space-y-8">
+                {/* File Upload Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="card"
+                >
+                  <h2 className="text-xl font-semibold text-gray-900 mb-6">파일 업로드</h2>
+                  
+                  <div
+                    {...getRootProps()}
+                    className={`file-upload-zone ${isDragActive ? 'dragover' : ''}`}
+                  >
+                    <input {...getInputProps()} />
+                    <FaCloudUploadAlt className="text-4xl text-gray-400 mx-auto mb-4" />
+                    <p className="text-lg font-medium text-gray-700 mb-2">
+                      {isDragActive ? '파일을 여기에 놓으세요' : '클릭하거나 파일을 이곳에 끌어다 놓으세요'}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      최대 5개 파일 등록 가능 (최대 10GB)
+                    </p>
+                    <p className="text-xs text-gray-400 mt-2">
+                      지원 형식: mp3, wav, m4a, avi, mp4, wmv 등
+                    </p>
+                  </div>
+
+                  {errors.files && (
+                    <p className="form-error mt-2">{errors.files.message}</p>
+                  )}
+                </motion.div>
+
+                {/* File Details */}
+                <AnimatePresence>
+                  {watchedFiles.map((file, fileIndex) => (
+                    <motion.div
+                      key={file.id}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="card"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-lg font-semibold text-gray-900">파일 {fileIndex + 1}</h3>
+                        <button
+                          type="button"
+                          onClick={() => remove(fileIndex)}
+                          className="text-gray-400 hover:text-error-600 transition-colors"
+                        >
+                          <FaTimes />
+                        </button>
+                      </div>
+
+                      <div className="space-y-6">
+                        {/* File Info */}
+                        <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                          <FaFileAlt className="text-2xl text-primary-600" />
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900">{file.name}</p>
+                            <p className="text-sm text-gray-500">{formatFileSize(file.size)}</p>
+                          </div>
+                        </div>
+
+                        {/* Record Type */}
+                        <div>
+                          <label className="form-label">녹취 종류</label>
+                          <div className="flex space-x-4">
+                            <label className="flex items-center">
+                              <input
+                                type="radio"
+                                value="전체"
+                                checked={file.type === '전체'}
+                                onChange={(e) => {
+                                  const newFiles = [...watchedFiles];
+                                  newFiles[fileIndex].type = e.target.value as '전체' | '부분';
+                                  setValue('files', newFiles);
+                                }}
+                                className="mr-2"
+                              />
+                              전체 녹취
+                            </label>
+                            <label className="flex items-center">
+                              <input
+                                type="radio"
+                                value="부분"
+                                checked={file.type === '부분'}
+                                onChange={(e) => {
+                                  const newFiles = [...watchedFiles];
+                                  newFiles[fileIndex].type = e.target.value as '전체' | '부분';
+                                  setValue('files', newFiles);
+                                }}
+                                className="mr-2"
+                              />
+                              부분 녹취
+                            </label>
+                          </div>
+                        </div>
+
+                        {/* Partial Record Time */}
+                        {file.type === '부분' && (
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <label className="form-label">시작 시간</label>
+                              <input
+                                type="time"
+                                value={file.startTime || ''}
+                                onChange={(e) => {
+                                  const newFiles = [...watchedFiles];
+                                  newFiles[fileIndex].startTime = e.target.value;
+                                  setValue('files', newFiles);
+                                }}
+                                className="form-input"
+                              />
+                            </div>
+                            <div>
+                              <label className="form-label">종료 시간</label>
+                              <input
+                                type="time"
+                                value={file.endTime || ''}
+                                onChange={(e) => {
+                                  const newFiles = [...watchedFiles];
+                                  newFiles[fileIndex].endTime = e.target.value;
+                                  setValue('files', newFiles);
+                                }}
+                                className="form-input"
+                              />
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Speakers */}
+                        <div>
+                          <label className="form-label">화자 정보</label>
+                          <div className="space-y-2">
+                            {file.speakers.map((speaker, speakerIndex) => (
+                              <div key={speakerIndex} className="flex items-center space-x-2">
+                                <span className="text-sm text-gray-500 w-8">No.{speakerIndex + 1}</span>
+                                <input
+                                  type="text"
+                                  value={speaker}
+                                  onChange={(e) => {
+                                    const newFiles = [...watchedFiles];
+                                    newFiles[fileIndex].speakers[speakerIndex] = e.target.value;
+                                    setValue('files', newFiles);
+                                  }}
+                                  placeholder="화자 이름 입력 (최대 10글자)"
+                                  maxLength={10}
+                                  className="form-input flex-1"
+                                />
+                                {file.speakers.length > 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => removeSpeaker(fileIndex, speakerIndex)}
+                                    className="text-gray-400 hover:text-error-600"
+                                  >
+                                    <FaTimes />
+                                  </button>
+                                )}
+                              </div>
+                            ))}
+                            <button
+                              type="button"
+                              onClick={() => addSpeaker(fileIndex)}
+                              className="flex items-center text-primary-600 hover:text-primary-700 text-sm"
+                            >
+                              <FaPlus className="mr-1" />
+                              추가
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Record Date/Time */}
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="form-label">녹음 일시</label>
+                            <input
+                              type="date"
+                              value={file.recordDate || ''}
+                              onChange={(e) => {
+                                const newFiles = [...watchedFiles];
+                                newFiles[fileIndex].recordDate = e.target.value;
+                                setValue('files', newFiles);
+                              }}
+                              className="form-input"
+                            />
+                          </div>
+                          <div>
+                            <label className="form-label">시간</label>
+                            <input
+                              type="time"
+                              value={file.recordTime || ''}
+                              onChange={(e) => {
+                                const newFiles = [...watchedFiles];
+                                newFiles[fileIndex].recordTime = e.target.value;
+                                setValue('files', newFiles);
+                              }}
+                              className="form-input"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Detail */}
+                        <div>
+                          <label className="form-label">상세 정보 (선택)</label>
+                          <textarea
+                            value={file.detail || ''}
+                            onChange={(e) => {
+                              const newFiles = [...watchedFiles];
+                              newFiles[fileIndex].detail = e.target.value;
+                              setValue('files', newFiles);
+                            }}
+                            placeholder="추가로 전달하고 싶은 정보가 있으시면 입력해주세요"
+                            rows={3}
+                            className="form-input"
+                            maxLength={100}
+                          />
+                          <p className="text-xs text-gray-500 mt-1">
+                            {file.detail?.length || 0} / 100
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+
+                {/* Order Options */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="card"
+                >
+                  <h2 className="text-xl font-semibold text-gray-900 mb-6">주문 정보</h2>
+                  
+                  <div className="space-y-6">
+                    {/* File Format */}
+                    <div>
+                      <label className="form-label">열람 파일 형식</label>
+                      <div className="grid grid-cols-3 gap-3">
+                        {[
+                          { value: 'hwp', label: '한글(.hwp)' },
+                          { value: 'docx', label: '워드(.docx)' },
+                          { value: 'txt', label: '텍스트(.txt)' }
+                        ].map(format => (
+                          <label key={format.value} className="flex items-center p-3 border border-gray-200 rounded-lg hover:border-primary-300 cursor-pointer">
+                            <input
+                              type="radio"
+                              value={format.value}
+                              {...register('fileFormat')}
+                              className="mr-2"
+                            />
+                            {format.label}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Delivery Option */}
+                    <div>
+                      <label className="form-label">최종본 옵션</label>
+                      <div className="space-y-2">
+                        {[
+                          { value: 'file', label: '파일', price: 0 },
+                          { value: 'registered', label: '파일 + 등기 우편', price: 5000 },
+                          { value: 'cd', label: '파일 + 등기 우편 + CD', price: 6000 },
+                          { value: 'usb', label: '파일 + 등기 우편 + USB', price: 10000 }
+                        ].map(option => (
+                          <label key={option.value} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:border-primary-300 cursor-pointer">
+                            <div className="flex items-center">
+                              <input
+                                type="radio"
+                                value={option.value}
+                                {...register('deliveryOption')}
+                                className="mr-2"
+                              />
+                              {option.label}
+                            </div>
+                            {option.price > 0 && (
+                              <span className="text-sm text-gray-600">(+{option.price.toLocaleString()}원)</span>
+                            )}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Customer Information */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="card"
+                >
+                  <h2 className="text-xl font-semibold text-gray-900 mb-6">주문자 정보</h2>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="form-label">주문자명 *</label>
+                      <input
+                        type="text"
+                        {...register('customerName')}
+                        className="form-input"
+                        placeholder="주문자명을 입력해주세요"
+                      />
+                      {errors.customerName && (
+                        <p className="form-error">{errors.customerName.message}</p>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label className="form-label">연락처 *</label>
+                      <input
+                        type="tel"
+                        {...register('customerPhone')}
+                        className="form-input"
+                        placeholder="010-0000-0000"
+                      />
+                      {errors.customerPhone && (
+                        <p className="form-error">{errors.customerPhone.message}</p>
+                      )}
+                    </div>
+                    
+                    <div className="md:col-span-2">
+                      <label className="form-label">이메일 *</label>
+                      <input
+                        type="email"
+                        {...register('customerEmail')}
+                        className="form-input"
+                        placeholder="example@email.com"
+                      />
+                      {errors.customerEmail && (
+                        <p className="form-error">{errors.customerEmail.message}</p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Terms and Submit */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="card"
+                >
+                  <div className="space-y-6">
+                    <div className="flex items-start space-x-3">
+                      <input
+                        type="checkbox"
+                        {...register('agree')}
+                        className="mt-1"
+                      />
+                      <div className="text-sm text-gray-600">
+                        <p>주문 내용, 서비스 이용약관 및 개인정보처리방침을 확인했으며, 정보 제공에 동의합니다.</p>
+                        {errors.agree && (
+                          <p className="form-error mt-1">{errors.agree.message}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full btn-primary text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? '처리 중...' : '접수 완료하기'}
+                    </button>
+                  </div>
+                </motion.div>
+              </form>
+            </div>
+
+            {/* Sidebar - Price Estimate */}
+            <div className="lg:col-span-1">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="sticky top-8"
+              >
+                <div className="card">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-6">예상 견적</h2>
+                  
+                  <div className="space-y-4">
+                    <div className="text-3xl font-bold text-primary-600">
+                      {estimatedPrice.toLocaleString()}원
+                    </div>
+                    
+                    <div className="space-y-2 text-sm text-gray-600">
+                      {watchedFiles.map((file, index) => (
+                        <div key={file.id} className="flex justify-between">
+                          <span>- 속기록 제작 ({Math.ceil(file.size / (1024 * 1024))}분)</span>
+                          <span>{(Math.ceil(file.size / (1024 * 1024)) * 1500).toLocaleString()}원</span>
+                        </div>
+                      ))}
+                      
+                      {watch('deliveryOption') !== 'file' && (
+                        <div className="flex justify-between border-t pt-2">
+                          <span>- 최종본: {watch('deliveryOption') === 'registered' ? '파일+등기우편' : 
+                            watch('deliveryOption') === 'cd' ? '파일+등기우편+CD' : '파일+등기우편+USB'}</span>
+                          <span>{watch('deliveryOption') === 'registered' ? '5,000' : 
+                            watch('deliveryOption') === 'cd' ? '6,000' : '10,000'}원</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Notice */}
+                <div className="card mt-6">
+                  <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
+                    <FaExclamationTriangle className="text-warning-500 mr-2" />
+                    유의사항
+                  </h3>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li>• 음성 파일의 녹음 상태로 인해 신청이 반려될 수 있습니다.</li>
+                    <li>• 작업 순서에 따라 안내가 지연될 수 있습니다.</li>
+                    <li>• 작업 과정에서 추가 화자가 확인되는 경우 등 화자수에 따라 추가 요금이 청구될 수 있습니다.</li>
+                    <li>• 상단 더하기(+) 버튼을 눌러 최대 5개의 파일을 한 번에 등록할 수 있습니다.</li>
+                  </ul>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <Footer />
+    </div>
+  );
+} 

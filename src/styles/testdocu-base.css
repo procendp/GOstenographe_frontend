@@ -1,0 +1,811 @@
+/* testDocu 디자인 기반 스타일 */
+
+/* 폰트 정의 */
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-ExtraLight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  src: url('/fonts/SpoqaHanSansNeo-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  src: url('/fonts/SpoqaHanSansNeo-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  src: url('/fonts/SpoqaHanSansNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  src: url('/fonts/SpoqaHanSansNeo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  src: url('/fonts/SpoqaHanSansNeo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CSS 변수 정의 - testDocu 정확한 값들 */
+:root {
+  /* testDocu 색상 팔레트 */
+  --td-blue: #1c58af;
+  --td-blue80: rgba(28, 88, 175, 0.8);
+  --td-light-beige: #f8f6f3;
+  --td-black: #0f1213;
+  --td-text-light: #ecf0ef;
+  --td-text-dark: #333;
+  --td-beige: #e4c896;
+  --td-grey: #666;
+  --td-deep-grey: #333;
+  --td-light-grey: #999;
+  
+  /* 폰트 */
+  --td-font-primary: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --td-font-accent: 'SpoqaHanSansNeo', Verdana, sans-serif;
+  --td-font-body: "Instrument Sans", sans-serif;
+  
+  /* testDocu 정확한 폰트 크기 */
+  --td-text-h1: 3rem;          /* pc-h1 */
+  --td-text-h2: 2.25rem;       /* pc_h2 */
+  --td-text-h3: 1.5rem;        /* pc_h3 */
+  --td-text-h4: 1.375rem;      /* pc_h4 */
+  --td-text-h5: 1.125rem;      /* pc_h5 */
+  --td-text-h6: 1rem;          /* pc_h6 */
+  --td-text-base: 1rem;        /* pc_p-button */
+  --td-text-lg: 1.125rem;
+  --td-text-xl: 1.25rem;
+  
+  /* 모바일 폰트 크기 */
+  --td-m-h1: 2.2rem;           /* m-h1 */
+  --td-m-h2: 1.8rem;           /* m-h2 */
+  --td-m-h3: 1.5rem;           /* m-h3 */
+  --td-m-h4: 1.2rem;           /* m-h4 */
+  --td-m-h5: 1rem;             /* m-h5 */
+  --td-m-h6: 0.9rem;           /* m-h6 */
+  --td-m-button: 0.95rem;      /* m-p-button */
+  
+  /* 간격 */
+  --td-spacing-xs: 0.5rem;
+  --td-spacing-sm: 1rem;
+  --td-spacing-md: 1.5rem;
+  --td-spacing-lg: 2rem;
+  --td-spacing-xl: 3rem;
+  --td-spacing-2xl: 4rem;
+  
+  /* 그림자 */
+  --td-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --td-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --td-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* 기본 스타일 */
+.td-font-primary {
+  font-family: var(--td-font-primary);
+}
+
+.td-font-accent {
+  font-family: var(--td-font-accent);
+}
+
+.td-font-body {
+  font-family: var(--td-font-body);
+}
+
+/* 네비게이션 바 스타일 */
+.td-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  padding: 15px 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.td-navbar.scrolled {
+  background-color: rgba(28, 88, 175, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--td-shadow-md);
+}
+
+.td-navbar-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.td-navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.td-navbar-brand img {
+  height: 50px;  /* testDocu 크기에 맞춤 */
+  width: auto;
+}
+
+.td-navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--td-spacing-xl);
+}
+
+.td-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: var(--td-spacing-lg);
+}
+
+.td-navbar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--td-text-base);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.td-navbar-link:hover {
+  color: #ffeb99;
+}
+
+.td-navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ffeb99;
+  transition: width 0.3s ease;
+}
+
+.td-navbar-link:hover::after {
+  width: 100%;
+}
+
+.td-navbar-button {
+  background-color: #222;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: var(--td-text-base);
+}
+
+.td-navbar-button:hover {
+  background-color: #333;
+  transform: translateY(-1px);
+}
+
+/* 모바일 메뉴 */
+.td-mobile-menu-button {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.td-mobile-menu-line {
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.td-mobile-menu-button.active .td-mobile-menu-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.td-mobile-menu-button.active .td-mobile-menu-line:nth-child(2) {
+  opacity: 0;
+}
+
+.td-mobile-menu-button.active .td-mobile-menu-line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.td-mobile-menu {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  background-color: var(--td-blue);
+  padding: var(--td-spacing-lg);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.td-mobile-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.td-mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--td-spacing-md);
+  margin-bottom: var(--td-spacing-lg);
+}
+
+.td-mobile-menu-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--td-text-lg);
+  padding: var(--td-spacing-sm) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* testDocu Hero 섹션 스타일 */
+.td-section-hero {
+  background-color: var(--td-blue);
+  background-image: url('/new_goStenographe_resource/backgrounds/bg-b-vl.png');
+  background-position: 0 0;
+  background-repeat: repeat;
+  color: var(--td-text-light);
+  padding: 2rem 0 3rem;  /* 4000포트에 맞게 축소 */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.td-hero-container {
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 2rem 0 calc(8% + 2rem);  /* testDocu fn-container-grid 패딩 + 컨테이너 패딩 */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+  grid-column-gap: 1.2rem;
+  grid-row-gap: 1.2rem;
+  align-items: center;
+  min-height: auto; /* 4000포트에 맞게 고정 높이 제거 */
+}
+
+.td-hero-title {
+  font-family: var(--td-font-accent);
+  font-size: var(--td-text-h1);
+  font-weight: 500;
+  line-height: 65px;  /* testDocu fn-heading-jambo 높이 */
+  margin: 0;
+  height: 65px;
+  white-space: nowrap;
+}
+
+.td-hero-subtitle {
+  color: #cdd3d2;
+  font-size: var(--td-text-h4);  /* testDocu b-hero-subtitle 크기 */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  max-width: 480px;
+  margin-bottom: 0;
+  font-weight: 300;
+  line-height: 1.6em;
+}
+
+.td-hero-description {
+  color: var(--td-light-beige);  /* testDocu b-paragraph.large 색상 */
+  font-size: var(--td-text-h4);  /* testDocu b-paragraph.large 크기 */
+  line-height: 1.6;
+  margin-bottom: var(--td-spacing-lg);
+  opacity: 0.9;
+}
+
+.td-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  float: right;
+  vertical-align: text-bottom;
+  position: static;
+  overflow: visible;
+}
+
+/* Features 섹션 스타일 */
+.td-section-features {
+  background-color: white;
+  padding: var(--td-spacing-2xl) 0;
+}
+
+.td-section-title {
+  text-align: center;
+  margin-bottom: var(--td-spacing-2xl);
+}
+
+.td-section-subtitle {
+  color: var(--td-blue);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--td-spacing-sm);
+}
+
+.td-section-heading {
+  font-family: var(--td-font-accent);
+  font-size: var(--td-text-h2);
+  font-weight: 500;
+  color: var(--td-text-dark);
+  margin: 0;
+}
+
+.td-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--td-spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.td-feature-card {
+  text-align: center;
+  padding: var(--td-spacing-lg);
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--td-shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.td-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--td-shadow-lg);
+}
+
+.td-feature-icon {
+  width: 4.5rem;  /* testDocu c-icon-features 크기 */
+  height: 4.5rem;
+  margin: 0 auto var(--td-spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(28, 88, 175, 0.1);
+  border-radius: 50%;
+}
+
+.td-feature-icon img {
+  width: 4.5rem;  /* testDocu와 동일 */
+  height: 4.5rem;
+  object-fit: contain;
+  display: block;
+}
+
+.td-feature-title {
+  font-family: var(--td-font-accent);
+  font-size: var(--td-text-h3);  /* testDocu c-heading-features */
+  font-weight: 500;
+  color: var(--td-text-dark);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  line-height: 128%;
+}
+
+.td-feature-description {
+  font-size: var(--td-text-base);
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* testDocu 정확한 스타일 FAQ 섹션 - 성능 최적화 */
+.td-faq-tabs-container {
+  display: flex;
+  background: transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.td-faq-tab {
+  border: 1px solid var(--td-light-grey);
+  font-family: var(--td-font-accent);
+  color: var(--td-grey);
+  background-color: white;
+  font-size: var(--td-text-h5);
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  min-width: 150px;
+  min-height: 38px;
+  padding: 10px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  will-change: transform, background-color;
+  transform: translateZ(0);
+}
+
+.td-faq-tab.first {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.td-faq-tab.middle {
+  border-left-width: 0.5px;
+  border-right-width: 0.5px;
+  border-radius: 0;
+}
+
+.td-faq-tab.last {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.td-faq-tab:hover:not(.active) {
+  border-color: var(--td-deep-grey);
+  color: var(--td-deep-grey);
+  transform: translateZ(0);
+}
+
+.td-faq-tab.active {
+  border-color: var(--td-deep-grey);
+  background-color: var(--td-deep-grey);
+  color: white;
+  font-weight: 400;
+  transform: translateZ(0);
+  z-index: 2;
+}
+
+.td-faq-tab.active:hover {
+  border-color: var(--td-deep-grey);
+}
+
+.td-faq-tab-text {
+  position: relative;
+  z-index: 1;
+}
+
+.td-faq-item {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e5e7eb;
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+.td-faq-item:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px) translateZ(0);
+}
+
+.td-faq-question {
+  width: 100%;
+  padding: 24px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  outline: none;
+  position: relative;
+}
+
+.td-faq-question:hover {
+  background-color: rgba(28, 88, 175, 0.02);
+}
+
+.td-faq-question:focus-visible {
+  outline: 2px solid var(--td-blue);
+  outline-offset: 2px;
+}
+
+.td-faq-question-text {
+  font-size: var(--td-text-lg);
+  font-weight: 600;
+  color: var(--td-blue);
+  margin: 0;
+  padding-right: 1rem;
+  line-height: 1.4;
+}
+
+.td-faq-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  color: var(--td-blue);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.td-faq-icon.open {
+  transform: rotate(180deg) translateZ(0);
+}
+
+.td-faq-answer-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  will-change: max-height, opacity;
+}
+
+.td-faq-answer-container.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.td-faq-answer {
+  padding: 0 24px 24px;
+  color: #4b5563;
+  line-height: 1.7;
+  font-size: var(--td-text-base);
+  border-top: 1px solid #f3f4f6;
+  margin-top: -1px;
+}
+
+/* 버튼 스타일 */
+.td-button-primary {
+  background-color: #222;
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: var(--td-shadow-md);
+}
+
+.td-button-primary:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: var(--td-shadow-lg);
+}
+
+/* 컨테이너 */
+.td-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.td-container-grid {
+  display: grid;
+  gap: var(--td-spacing-lg);
+  align-items: center;
+  min-height: 100vh;
+  grid-template-columns: 1fr auto;
+  padding: var(--td-spacing-xl) 0;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .td-navbar-links {
+    display: none;
+  }
+  
+  .td-mobile-menu-button {
+    display: flex;
+  }
+
+  .td-hero-title {
+    font-size: var(--td-m-h1);
+    white-space: normal;
+    line-height: normal;
+    height: auto;
+  }
+
+  .td-hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .td-hero-subtitle {
+    font-size: var(--td-m-h4);
+  }
+
+  .td-hero-description {
+    font-size: var(--td-m-h4);
+  }
+  
+  .td-container {
+    padding: 0 1rem;
+  }
+
+  .td-features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--td-spacing-lg);
+  }
+
+  .td-section-heading {
+    font-size: var(--td-m-h2);
+  }
+
+  .td-feature-title {
+    font-size: var(--td-m-h3);
+  }
+
+  .td-faq-tabs-container {
+    flex-direction: column;
+    border-radius: 8px;
+  }
+
+  .td-faq-tab {
+    padding: 12px 16px;
+    border-radius: 0 !important;
+    min-width: auto;
+    border-width: 1px;
+  }
+
+  .td-faq-tab.first {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+  }
+
+  .td-faq-tab.middle {
+    border-top-width: 0.5px;
+    border-bottom-width: 0.5px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+  }
+
+  .td-faq-tab.last {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+
+  .td-faq-question {
+    padding: 20px;
+  }
+
+  .td-faq-question-text {
+    font-size: var(--td-text-base);
+  }
+
+  .td-faq-answer {
+    padding: 0 20px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .td-hero-title {
+    font-size: var(--td-m-h1);
+  }
+  
+  .td-hero-description {
+    font-size: var(--td-m-button);
+  }
+
+  .td-feature-card {
+    padding: var(--td-spacing-md);
+  }
+
+  .td-navbar-button {
+    font-size: var(--td-m-button);
+  }
+
+  .td-faq-tab {
+    padding: 10px 12px;
+    font-size: var(--td-text-base);
+  }
+
+  .td-faq-question {
+    padding: 16px;
+  }
+
+  .td-faq-question-text {
+    font-size: var(--td-text-base);
+  }
+
+  .td-faq-answer {
+    padding: 0 16px 16px;
+    font-size: 0.85rem;
+  }
+} 

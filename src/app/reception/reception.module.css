@@ -1,0 +1,176 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.container h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #333;
+}
+
+.form {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.uploadArea {
+  border: 2px dashed #ccc;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.supportedFormats {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.recordingInfo {
+  display: grid;
+  gap: 1rem;
+}
+
+.dateTime {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.speakerInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.speakerInfo small {
+  color: #666;
+}
+
+.detailInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detailInfo textarea {
+  min-height: 150px;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.customerInfo {
+  display: grid;
+  gap: 1rem;
+}
+
+.customerInfo label,
+.recordingInfo label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputField {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 2rem;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+/* 완료 페이지 스타일 */
+.completionBox {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.completionBox h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  color: #007bff;
+  font-weight: bold;
+  margin: 1.5rem 0;
+}
+
+.paymentInfo {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.amount,
+.account {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.notice {
+  text-align: left;
+  margin: 2rem 0;
+}
+
+.notice p {
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.faq {
+  text-align: left;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.faqItem h3 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.faqItem p {
+  color: #666;
+} 
