@@ -43,7 +43,7 @@ export default function NewGNB() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/new_goStenographe_resource/Logo/LogoNavy2.png" alt="로고" width={40} height={40} />
-          <span className={`text-xl font-bold tracking-tight ${isScrolled ? "text-gray-900" : "text-white"}`}>속기사무소 정</span>
+          <span className={`text-lg font-bold tracking-tight ${isScrolled ? "text-gray-900" : "text-white"}`}>속기사무소 정</span>
         </Link>
         <div className="hidden md:flex items-center gap-8">
           <ul className="flex items-center gap-8">

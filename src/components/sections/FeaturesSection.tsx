@@ -7,32 +7,38 @@ const features = [
   {
     icon: "/new_goStenographe_resource/icons/solar_rocket-2-bold.png",
     title: "신속성",
-    description: "24시간 이내 완성되는 녹취록"
+    description: "24시간 이내 완성되는 녹취록",
+    backgroundColor: "#f4f6f9"
   },
   {
     icon: "/new_goStenographe_resource/icons/solar_cup-bold.png", 
     title: "정확성",
-    description: "오탈자 ZERO\n10년차 1급 국가공인 속기사가 직접 검수"
+    description: "오탈자 ZERO\n10년차 1급 국가공인 속기사가 직접 검수",
+    backgroundColor: "#f4f6f9"
   },
   {
     icon: "/new_goStenographe_resource/icons/solar_clock-square-bold.png",
     title: "정시성", 
-    description: "약속된 시간에 정확히 전달"
+    description: "약속된 시간에 정확히 전달",
+    backgroundColor: "#f4f6f9"
   },
   {
     icon: "/new_goStenographe_resource/icons/solar_smile-square-bold.png",
     title: "간편함",
-    description: "3단계만에 신청 완료\n방문 없이, 모든 과정 비대면 진행"
+    description: "3단계만에 신청 완료\n방문 없이, 모든 과정 비대면 진행",
+    backgroundColor: "#f4f6f9"
   },
   {
     icon: "/new_goStenographe_resource/icons/solar_devices-bold.png",
     title: "높은 접근성", 
-    description: "음성·영상 파일만 있으면 OK\n전국 어디서나 신청 가능\n(출장 서비스 포함)"
+    description: "음성·영상 파일만 있으면 OK\n전국 어디서나 신청 가능\n(출장 서비스 포함)",
+    backgroundColor: "#f4f6f9"
   },
   {
     icon: "/new_goStenographe_resource/icons/solar_chat-round-call-bold.png",
     title: "빠른 CS 대응",
-    description: "접수부터 납품까지 1:1 고객응대\n카카오톡 · 이메일 · 전화 상담"
+    description: "접수부터 납품까지 1:1 고객응대\n카카오톡 · 이메일 · 전화 상담",
+    backgroundColor: "#f4f6f9"
   }
 ];
 
@@ -77,7 +83,8 @@ function FeatureCard({ feature, index }: { feature: typeof features[0], index: n
   return (
     <div 
       ref={cardRef}
-      className="td-feature-card"
+      className={`td-feature-card ${(feature.title === "신속성" || feature.title === "빠른 CS 대응") ? "td-feature-card-wide" : ""}`}
+      style={{ backgroundColor: feature.backgroundColor }}
     >
       <div 
         ref={iconRef}
@@ -86,12 +93,19 @@ function FeatureCard({ feature, index }: { feature: typeof features[0], index: n
         <Image
           src={feature.icon}
           alt={`${feature.title} 아이콘`}
-          width={72}
-          height={72}
+          width={68}  // 아이콘 크기 적당히 축소: 80 → 68
+          height={68} // 아이콘 크기 적당히 축소: 80 → 68
         />
       </div>
       <h5 className="td-feature-title">{feature.title}</h5>
-      <p className="td-feature-description">
+      <p 
+        className="td-feature-description"
+        style={{
+          // 신속성과 빠른 CS 대응 카드는 가로 폭 더 넓게
+          maxWidth: (feature.title === "신속성" || feature.title === "빠른 CS 대응") ? "none" : "auto",
+          whiteSpace: feature.title === "신속성" ? "nowrap" : "pre-line"
+        }}
+      >
         {feature.description.split('\n').map((line, lineIndex) => (
           <React.Fragment key={lineIndex}>
             {line}

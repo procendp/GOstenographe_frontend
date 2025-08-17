@@ -101,8 +101,8 @@ export default function MainGNB() {
           <Image
             src="/new_goStenographe_resource/Logo/LogoWhite2.png"
             alt="속기사무소 정 로고"
-            width={200} // 더 작게 축소
-            height={62} // 비율에 맞게 축소
+            width={190} // 조금 더 키우기: 180 → 190
+            height={59} // 비율에 맞게: 56 → 59
             priority
             className="h-auto w-auto"
             style={{ 

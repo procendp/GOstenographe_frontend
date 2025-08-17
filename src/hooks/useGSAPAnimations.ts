@@ -9,7 +9,143 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, TextPlugin);
 }
 
-// 텍스트 타이핑 애니메이션
+// 웹플로우 스타일 글자별 fade 애니메이션
+export const useWebflowTextAnimation = <T extends HTMLElement = HTMLElement>(
+  texts: string[],
+  delay: number = 3
+) => {
+  const elementRef = useRef<T>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  useEffect(() => {
+    if (!elementRef.current || texts.length === 0) return;
+
+    const loadSplitType = async () => {
+      try {
+        // SplitType 동적 임포트
+        const { default: SplitType } = await import('split-type');
+        
+        const element = elementRef.current!;
+        
+        // 기존 타임라인 정리
+        if (timelineRef.current) {
+          timelineRef.current.kill();
+        }
+        
+        // HTML 구조 생성 (웹플로우와 동일)
+        element.innerHTML = '';
+        texts.forEach((item) => {
+          const span = document.createElement('span');
+          span.style.position = 'absolute';
+          span.style.top = '0';
+          span.style.left = '0';
+          span.textContent = item;
+          element.appendChild(span);
+        });
+
+        // SplitType으로 글자별 분리
+        const textElements = Array.from(element.querySelectorAll('span')).map((item) => {
+          return new SplitType(item as HTMLElement);
+        });
+
+        // 초기 상태 설정 (모든 글자 숨김)
+        textElements.forEach((item) => {
+          gsap.set(item.chars, {
+            opacity: 0,
+          });
+        });
+
+        // 첫 번째 텍스트만 보이게 설정
+        gsap.set(textElements[0].chars, {
+          opacity: 1,
+        });
+
+        // 타임라인 생성 (무한 반복)
+        const tl = gsap.timeline({
+          repeat: -1,
+        });
+
+        // 첫 번째 텍스트 fade out
+        const firstChars = textElements[0].chars ? [...textElements[0].chars] : [];
+        firstChars.reverse();
+        tl.fromTo(
+          firstChars,
+          {
+            autoAlpha: 1,
+          },
+          {
+            autoAlpha: 0,
+            delay: delay,
+            stagger: 0.1,
+            onComplete: () => {
+              if (textElements[0].chars) {
+                textElements[0].chars.reverse();
+              }
+            },
+          }
+        );
+
+        // 중간 텍스트들 순환
+        for (let i = 1; i < texts.length; i++) {
+          const chars = textElements[i].chars || [];
+          const currentTextChars = textElements[i].chars;
+          const reversedChars = currentTextChars ? [...currentTextChars] : [];
+          reversedChars.reverse();
+          
+          tl.fromTo(
+            chars,
+            {
+              autoAlpha: 0,
+            },
+            {
+              autoAlpha: 1,
+              stagger: 0.1,
+            },
+            '>0.2'
+          ).to(reversedChars, {
+            autoAlpha: 0,
+            stagger: 0.1,
+            delay: delay,
+            onComplete: () => {
+              const currentChars = textElements[i]?.chars;
+              if (currentChars) {
+                currentChars.reverse();
+              }
+            },
+          });
+        }
+
+        // 첫 번째 텍스트로 돌아가기
+        const finalChars = textElements[0].chars ? [...textElements[0].chars] : [];
+        finalChars.reverse();
+        tl.to(
+          finalChars,
+          {
+            autoAlpha: 1,
+            stagger: 0.1,
+          },
+          '>0.2'
+        );
+
+        timelineRef.current = tl;
+      } catch (error) {
+        console.error('SplitType 로딩 실패:', error);
+      }
+    };
+
+    loadSplitType();
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+      }
+    };
+  }, [texts, delay]);
+
+  return elementRef;
+};
+
+// 텍스트 타이핑 애니메이션 (백업용)
 export const useTypewriterAnimation = <T extends HTMLElement = HTMLElement>(
   texts: string[],
   duration: number = 4000,

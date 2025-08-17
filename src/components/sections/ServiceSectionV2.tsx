@@ -47,18 +47,18 @@ export default function ServiceSectionV2() {
                   <div className="text-2xl sm:text-3xl text-gray-900 mb-2 leading-tight">녹취록 속기<br /><span className="font-normal">(음성·영상 파일 속기)</span></div>
                   <ul className="mb-4">
                     <li className="flex items-start mb-0.5">
-                      <span className="inline-block w-5 h-5 mr-2 mt-0.5"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#5B3DF5"/><path d="M6 10.5l2.5 2.5L14 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                      <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
                       <div className="flex flex-col">
                         <span className="text-gray-900" style={{fontSize: '13px'}}>법적 효력을 가진 녹취 증거 제출이 필요할 때</span>
                         <span className="text-gray-500" style={{fontSize: '13px'}}>(민형사 사건 소송, 노무 관련 사건/민원 등)</span>
                       </div>
                     </li>
                     <li className="flex items-start mb-1">
-                      <span className="inline-block w-5 h-5 mr-2 mt-0.5"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#5B3DF5"/><path d="M6 10.5l2.5 2.5L14 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                      <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
                       <span className="text-gray-900" style={{fontSize: '13px'}}>국가공인 속기사 날인 포함</span>
                     </li>
                     <li className="flex items-start mb-1">
-                      <span className="inline-block w-5 h-5 mr-2 mt-0.5"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#5B3DF5"/><path d="M6 10.5l2.5 2.5L14 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                      <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
                       <span className="text-gray-900" style={{fontSize: '13px'}}>24시간 내 결과물 작성</span>
                     </li>
                   </ul>
@@ -77,7 +77,7 @@ export default function ServiceSectionV2() {
                       className={`w-full text-left rounded-xl p-6 flex items-start gap-3 border transition-all duration-200 ${ntab==='process' ? 'bg-[#e2c89d] border-[#e2c89d]' : 'bg-[#ede9d4] border-[#ede9d4]'} group hover:opacity-80`}
                       onClick={()=>setNtab('process')}
                     >
-                      <span className={`inline-block w-6 h-6 mt-1 transition-opacity duration-200 ${ntab==='process' ? '' : 'opacity-60'}`}><svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="12" fill="#bfa76a"/></svg></span>
+                      <span className={`inline-block w-6 h-6 mt-1 transition-opacity duration-200 ${ntab==='process' ? '' : 'opacity-60'}`}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#272929" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4"></path><rect width="8" height="8" x="13" y="13" rx="2"></rect></svg></span>
                       <div>
                         <div className={`text-lg mb-1 text-gray-900 transition-colors duration-200`}>진행 과정</div>
                         <AnimatePresence>
@@ -112,7 +112,7 @@ export default function ServiceSectionV2() {
                       className={`w-full text-left rounded-xl p-6 flex items-start gap-3 border transition-all duration-200 ${ntab==='price' ? 'bg-[#e2c89d] border-[#e2c89d]' : 'bg-[#ede9d4] border-[#ede9d4]'} group hover:opacity-80`}
                       onClick={()=>setNtab('price')}
                     >
-                      <span className={`inline-block w-6 h-6 mt-1 transition-opacity duration-200 ${ntab==='price' ? '' : 'opacity-60'}`}><svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="12" fill="#bfa76a"/></svg></span>
+                      <span className={`inline-block w-6 h-6 mt-1 transition-opacity duration-200 ${ntab==='price' ? '' : 'opacity-60'}`}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#272929" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
                       <div>
                         <div className={`text-lg mb-1 text-gray-900 transition-colors duration-200`}>이용 요금</div>
                         <AnimatePresence>
@@ -251,15 +251,15 @@ export default function ServiceSectionV2() {
                   <div className="text-2xl sm:text-3xl text-gray-900 mb-2 leading-tight">회의록 속기<br /><span className="font-normal">(대면·비대면)</span></div>
                   <ul className="mb-4">
                     <li className="flex items-start mb-1">
-                      <span className="inline-block w-5 h-5 mr-2 mt-0.5"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#5B3DF5"/><path d="M6 10.5l2.5 2.5L14 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                      <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
                       <span className="text-gray-900 text-[13px]">대면/비대면 회의의 공식 회의록이 필요할 때<br className="block sm:hidden" /><span className="text-gray-500">(재개발·재건축 현장, 법인 주주총회 등)</span></span>
                     </li>
                     <li className="flex items-start mb-1">
-                      <span className="inline-block w-5 h-5 mr-2 mt-0.5"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#5B3DF5"/><path d="M6 10.5l2.5 2.5L14 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                      <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
                       <span className="text-gray-900 text-[13px]">국가공인 속기사 날인 포함</span>
                     </li>
                     <li className="flex items-start mb-1">
-                      <span className="inline-block w-5 h-5 mr-2 mt-0.5"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#5B3DF5"/><path d="M6 10.5l2.5 2.5L14 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                      <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
                       <span className="text-gray-900 text-[13px]">현장 방문(출장) 속기 가능</span>
                     </li>
                   </ul>
@@ -279,7 +279,7 @@ export default function ServiceSectionV2() {
                       className={`w-full text-left rounded-xl p-6 flex items-start gap-3 border transition-all duration-200 ${ntab==='process' ? 'bg-[#e2c89d] border-[#e2c89d]' : 'bg-[#ede9d4] border-[#ede9d4]'} group hover:opacity-80`}
                       onClick={()=>setNtab('process')}
                     >
-                      <span className={`inline-block w-6 h-6 mt-1 transition-opacity duration-200 ${ntab==='process' ? '' : 'opacity-60'}`}><svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="12" fill="#bfa76a"/></svg></span>
+                      <span className={`inline-block w-6 h-6 mt-1 transition-opacity duration-200 ${ntab==='process' ? '' : 'opacity-60'}`}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#272929" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4"></path><rect width="8" height="8" x="13" y="13" rx="2"></rect></svg></span>
                       <div>
                         <div className={`text-lg mb-1 text-gray-900 transition-colors duration-200`}>진행 과정</div>
                       </div>
@@ -298,7 +298,7 @@ export default function ServiceSectionV2() {
                       className={`w-full text-left rounded-xl p-6 flex items-start gap-3 border transition-all duration-200 ${ntab==='price' ? 'bg-[#e2c89d] border-[#e2c89d]' : 'bg-[#ede9d4] border-[#ede9d4]'} group hover:opacity-80`}
                       onClick={()=>setNtab('price')}
                     >
-                      <span className={`inline-block w-6 h-6 mt-1 transition-opacity duration-200 ${ntab==='price' ? '' : 'opacity-60'}`}><svg width="24" height="24" fill="none"><circle cx="12" cy="12" r="12" fill="#bfa76a"/></svg></span>
+                      <span className={`inline-block w-6 h-6 mt-1 transition-opacity duration-200 ${ntab==='price' ? '' : 'opacity-60'}`}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#272929" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
                       <div>
                         <div className={`text-lg mb-1 text-gray-900 transition-colors duration-200`}>이용 요금</div>
                         <AnimatePresence>
