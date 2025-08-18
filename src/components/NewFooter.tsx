@@ -34,36 +34,51 @@ export default function NewFooter() {
           <div className="flex flex-col items-start gap-6 text-left w-full md:w-auto mt-6">
             {/* 소개 */}
             <div>
-              <div className="font-bold mb-2">소개</div>
-              <div className="flex flex-col gap-1 text-base text-gray-700">
-                <a href="#service" className="hover:underline cursor-pointer">주요 서비스</a>
-                <a href="#faq" className="hover:underline cursor-pointer">자주 묻는 질문</a>
-                <a href="#contact" className="hover:underline cursor-pointer">고객센터</a>
+              <div className="mb-2 text-left" style={{fontSize: '0.83rem', fontWeight: 'normal', color: 'rgba(29, 31, 30, 0.6)'}}>소개</div>
+              <div className="flex flex-col gap-1 items-start">
+                <a href="#service" className="hover:underline cursor-pointer text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>주요 서비스</a>
+                <a href="#faq" className="hover:underline cursor-pointer text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>자주 묻는 질문</a>
+                <a href="#contact" className="hover:underline cursor-pointer text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>고객센터</a>
               </div>
             </div>
             {/* 약관 */}
             <div>
-              <div className="font-bold mb-2">약관</div>
-              <div className="flex flex-col gap-1 text-base text-gray-700">
-                <Link href="/terms" className="hover:underline">서비스 이용약관</Link>
-                <Link href="/privacy" className="hover:underline">개인정보처리방침</Link>
+              <div className="mb-2 text-left" style={{fontSize: '0.83rem', fontWeight: 'normal', color: 'rgba(29, 31, 30, 0.6)'}}>약관</div>
+              <div className="flex flex-col gap-1 items-start">
+                <Link href="/terms" className="hover:underline text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>서비스 이용약관</Link>
+                <Link href="/privacy" className="hover:underline text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>개인정보처리방침</Link>
               </div>
             </div>
             {/* 회사 정보 */}
             <div>
-              <div className="font-bold mb-2">회사 정보</div>
-              <div className="flex flex-col gap-1 text-base text-gray-700">
-                <span><span className="font-bold">사업자번호</span>: 174-58-00563</span>
-                <span><span className="font-bold">국가기술자격번호</span>: 16-G1-RT0932</span>
+              <div className="mb-2 text-left" style={{fontSize: '0.83rem', fontWeight: 'normal', color: 'rgba(29, 31, 30, 0.6)'}}>회사 정보</div>
+              <div className="flex flex-col gap-1 items-start">
+                <div className="flex items-center">
+                  <span style={{fontSize: '1rem', fontWeight: 600, color: '#1d1f1e', whiteSpace: 'nowrap', marginRight: '8px'}}>사업자번호</span>
+                  <span style={{fontSize: '1rem', fontWeight: 300, color: '#1d1f1e', whiteSpace: 'nowrap'}}>174-58-00563</span>
+                </div>
+                <div className="flex items-center">
+                  <span style={{fontSize: '1rem', fontWeight: 600, color: '#1d1f1e', whiteSpace: 'nowrap', marginRight: '8px'}}>국가기술자격번호</span>
+                  <span style={{fontSize: '1rem', fontWeight: 300, color: '#1d1f1e', whiteSpace: 'nowrap'}}>16-G1-RT0932</span>
+                </div>
               </div>
             </div>
             {/* 고객센터 */}
             <div>
-              <div className="font-bold mb-2">고객센터</div>
-              <div className="flex flex-col gap-1 text-base text-gray-700">
-                <span><span className="font-bold">연락처</span>: 010-2681-2571</span>
-                <span><span className="font-bold">이메일</span>: sokgijung@gmail.com</span>
-                <span><span className="font-bold">카카오톡</span>: 오픈채팅 '속기사무소 정'</span>
+              <div className="mb-2 text-left" style={{fontSize: '0.83rem', fontWeight: 'normal', color: 'rgba(29, 31, 30, 0.6)'}}>고객센터</div>
+              <div className="flex flex-col gap-1 items-start">
+                <div className="flex items-center">
+                  <span style={{fontSize: '1rem', fontWeight: 600, color: '#1d1f1e', whiteSpace: 'nowrap', marginRight: '8px'}}>연락처</span>
+                  <span style={{fontSize: '1rem', fontWeight: 300, color: '#1d1f1e', whiteSpace: 'nowrap'}}>010-2681-2571</span>
+                </div>
+                <div className="flex items-center">
+                  <span style={{fontSize: '1rem', fontWeight: 600, color: '#1d1f1e', whiteSpace: 'nowrap', marginRight: '8px'}}>이메일</span>
+                  <span style={{fontSize: '1rem', fontWeight: 300, color: '#1d1f1e', whiteSpace: 'nowrap'}}>sokgijung@gmail.com</span>
+                </div>
+                <div className="flex items-center">
+                  <span style={{fontSize: '1rem', fontWeight: 600, color: '#1d1f1e', whiteSpace: 'nowrap', marginRight: '8px'}}>카카오톡</span>
+                  <span style={{fontSize: '1rem', fontWeight: 300, color: '#1d1f1e', whiteSpace: 'nowrap'}}>오픈채팅 '속기사무소 정'</span>
+                </div>
               </div>
             </div>
           </div>

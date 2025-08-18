@@ -45,18 +45,17 @@ export default function ContactSectionV2() {
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">도움이 필요하신가요?</h2>
       </div>
       <div
-        className="w-full max-w-5xl bg-white/95 rounded-2xl shadow-2xl px-8 md:px-28 pt-20 pb-32 flex flex-col items-center"
-        style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)', minHeight: '600px' }}
+        className="w-full bg-white/95 rounded-2xl shadow-2xl px-8 md:px-20 pt-24 pb-40 flex flex-col items-center"
+        style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)', minHeight: '700px', maxWidth: '900px' }}
       >
         <div className="text-center mb-10">
-          <div className="text-xl md:text-2xl font-semibold mb-2" style={{color: blue}}>고객센터 운영 시간</div>
-          <div className="text-gray-700 text-lg md:text-xl leading-relaxed">
-            <span className="font-bold">평일 09:00 ~ 18:00</span><br />
-            <span className="font-bold">점심시간 12-13시</span><br />
-            <span className="font-bold">주말 및 공휴일 휴무</span>
+          <div className="mb-2" style={{color: '#1c58af', fontSize: '1.375rem', fontWeight: 'bold'}}>고객센터 운영 시간</div>
+          <div className="text-center" style={{color: '#1d1f1e', fontSize: '1.375rem', lineHeight: '1.3em', fontWeight: 'bold'}}>
+            평일 09:00 ~ 18:00<br />
+            <sub style={{fontSize: '0.875rem', fontWeight: 'bold'}}>점심시간 12-13시<br />주말 및 공휴일 휴무</sub>
           </div>
         </div>
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
           {contacts.map((c, i) => (
             <motion.div
               key={c.title}
@@ -65,22 +64,22 @@ export default function ContactSectionV2() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -8 }}
-              className="p-8 rounded-xl shadow text-center flex flex-col items-center"
-              style={{ backgroundColor: lightBlue }}
+              className="px-16 py-12 rounded-xl shadow-lg text-center flex flex-col items-center border-none"
+              style={{ backgroundColor: '#f4f6f9' }}
             >
               <div className="w-12 h-12 mb-3 flex items-center justify-center">
                 <Image src={c.icon} alt={c.title} width={48} height={48} className="object-contain" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">{c.title}</h3>
-              <p className="text-gray-600 text-sm mb-2">{c.desc}</p>
+              <p className="text-gray-600 text-sm mb-2 whitespace-nowrap">{c.desc}</p>
               {c.contactType === "email" && (
-                <p className="font-semibold text-base break-all" style={{color: blue}}>{c.contact}</p>
+                <p className="text-base whitespace-nowrap" style={{color: blue}}>{c.contact}</p>
               )}
               {c.contactType === "chat" && (
-                <p className="font-semibold text-base break-all" style={{color: blue}}>{c.contact}</p>
+                <p className="text-base whitespace-nowrap" style={{color: blue}}>{c.contact}</p>
               )}
               {c.contactType === "phone" && (
-                <p className="text-black font-normal text-base break-all">{c.contact}</p>
+                <p className="text-black text-base whitespace-nowrap">{c.contact}</p>
               )}
             </motion.div>
           ))}

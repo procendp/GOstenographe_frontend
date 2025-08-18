@@ -16,8 +16,8 @@ export default function ServiceSectionV2() {
   const lineBeige = '#e5dcc3';  // 세로 라인
 
   return (
-    <section id="service" className="bg-[url('/new_goStenographe_resource/backgrounds/Background-Beige.png')] bg-cover bg-center w-full py-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="service" className="bg-[url('/new_goStenographe_resource/backgrounds/Background-Beige.png')] bg-cover bg-center w-full py-20" style={{padding: '8rem 5%'}}>
+      <div className="w-full max-w-[1280px] mx-auto">
         <div className="text-center mb-6">
           <h2 className="text-base sm:text-lg font-medium text-gray-800 mb-2">어떤 상황에서도 완벽하게</h2>
           <h3 className="text-3xl sm:text-4xl text-gray-900 mb-8">맞춤형 속기 서비스</h3>
@@ -49,17 +49,17 @@ export default function ServiceSectionV2() {
                     <li className="flex items-start mb-0.5">
                       <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
                       <div className="flex flex-col">
-                        <span className="text-gray-900" style={{fontSize: '13px'}}>법적 효력을 가진 녹취 증거 제출이 필요할 때</span>
-                        <span className="text-gray-500" style={{fontSize: '13px'}}>(민형사 사건 소송, 노무 관련 사건/민원 등)</span>
+                        <span className="text-gray-900" style={{fontSize: '16px'}}>법적 효력을 가진 녹취 증거 제출이 필요할 때</span>
+                        <span className="text-gray-500" style={{fontSize: '16px'}}>(민형사 사건 소송, 노무 관련 사건/민원 등)</span>
                       </div>
                     </li>
                     <li className="flex items-start mb-1">
                       <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
-                      <span className="text-gray-900" style={{fontSize: '13px'}}>국가공인 속기사 날인 포함</span>
+                      <span className="text-gray-900" style={{fontSize: '16px'}}>국가공인 속기사 날인 포함</span>
                     </li>
                     <li className="flex items-start mb-1">
                       <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
-                      <span className="text-gray-900" style={{fontSize: '13px'}}>24시간 내 결과물 작성</span>
+                      <span className="text-gray-900" style={{fontSize: '16px'}}>24시간 내 결과물 작성</span>
                     </li>
                   </ul>
                 </div>
@@ -94,10 +94,10 @@ export default function ServiceSectionV2() {
                                 <li>다양한 형식의 녹음 음성 파일, 영상 파일 접수 가능</li>
                                 <li>대용량 파일은 메일로 접수</li>
                               </ul>
-        </motion.div>
+                            </motion.div>
                           )}
                         </AnimatePresence>
-            </div>
+                      </div>
                     </button>
                   </motion.div>
                   <motion.div
@@ -175,21 +175,43 @@ export default function ServiceSectionV2() {
                             )}
                             {/* 원형 아이콘 */}
                             <span className="flex items-center justify-center" style={{width:50, height:50, borderRadius:999, background:'#e2c89d', zIndex:1, marginRight:20}}>
-                              {/* 임시 SVG 아이콘 (25px) */}
+                              {/* 웹플로우와 동일한 SVG 아이콘들 */}
                               {step.icon==='document' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h2"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <path d="M11 11a5 5 0 0 1 0 6"></path>
+                                  <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                  <path d="M4 6.765V4a2 2 0 0 1 2-2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-.93-.23"></path>
+                                  <path d="M7 10.51a.5.5 0 0 0-.826-.38l-1.893 1.628A1 1 0 0 1 3.63 12H2.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1.129a1 1 0 0 1 .652.242l1.893 1.63a.5.5 0 0 0 .826-.38z"></path>
+                                </svg>
                               )}
                               {step.icon==='search' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <path d="m8 11 2 2 4-4"></path>
+                                  <circle cx="11" cy="11" r="8"></circle>
+                                  <path d="m21 21-4.3-4.3"></path>
+                                </svg>
                               )}
                               {step.icon==='card' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M2 10h20"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                                  <line x1="2" x2="22" y1="10" y2="10"></line>
+                                </svg>
                               )}
                               {step.icon==='text' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <path d="m6 16 6-12 6 12"></path>
+                                  <path d="M8 12h8"></path>
+                                  <path d="m16 20 2 2 4-4"></path>
+                                </svg>
                               )}
                               {step.icon==='box' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <path d="m16 16 2 2 4-4"></path>
+                                  <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"></path>
+                                  <path d="m7.5 4.27 9 5.15"></path>
+                                  <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                                  <line x1="12" x2="12" y1="22" y2="12"></line>
+                                </svg>
                               )}
                             </span>
                             <span className="text-base text-gray-900 font-normal" style={{letterSpacing:'-0.5px'}}>{step.label}</span>
@@ -252,15 +274,18 @@ export default function ServiceSectionV2() {
                   <ul className="mb-4">
                     <li className="flex items-start mb-1">
                       <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
-                      <span className="text-gray-900 text-[13px]">대면/비대면 회의의 공식 회의록이 필요할 때<br className="block sm:hidden" /><span className="text-gray-500">(재개발·재건축 현장, 법인 주주총회 등)</span></span>
+                      <div className="flex flex-col">
+                        <span className="text-gray-900" style={{fontSize: '16px'}}>대면/비대면 회의의 공식 회의록이 필요할 때</span>
+                        <span className="text-gray-500" style={{fontSize: '16px'}}>(재개발·재건축 현장, 법인 주주총회 등)</span>
+                      </div>
                     </li>
                     <li className="flex items-start mb-1">
                       <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
-                      <span className="text-gray-900 text-[13px]">국가공인 속기사 날인 포함</span>
+                      <span className="text-gray-900" style={{fontSize: '16px'}}>국가공인 속기사 날인 포함</span>
                     </li>
                     <li className="flex items-start mb-1">
                       <span className="inline-block w-6 h-6 mr-2 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.0002 19.6386C7.78126 19.6386 4.36133 16.2187 4.36133 11.9997C4.36133 7.78077 7.78126 4.36084 12.0002 4.36084C16.2192 4.36084 19.6391 7.78077 19.6391 11.9997C19.6391 16.2187 16.2192 19.6386 12.0002 19.6386ZM11.2386 15.0553L16.6393 9.65383L15.5592 8.57369L11.2386 12.895L9.07758 10.734L7.99744 11.8141L11.2386 15.0553Z" fill="#272929"/></svg></span>
-                      <span className="text-gray-900 text-[13px]">현장 방문(출장) 속기 가능</span>
+                      <span className="text-gray-900" style={{fontSize: '16px'}}>현장 방문(출장) 속기 가능</span>
                     </li>
                   </ul>
                 </div>
@@ -356,21 +381,43 @@ export default function ServiceSectionV2() {
                             )}
                             {/* 원형 아이콘 */}
                             <span className="flex items-center justify-center" style={{width:50, height:50, borderRadius:999, background:'#e2c89d', zIndex:1, marginRight:20}}>
-                              {/* 아이콘 */}
+                              {/* 웹플로우와 동일한 SVG 아이콘들 */}
                               {step.icon==='document' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h2"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <path d="M11 11a5 5 0 0 1 0 6"></path>
+                                  <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                  <path d="M4 6.765V4a2 2 0 0 1 2-2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-.93-.23"></path>
+                                  <path d="M7 10.51a.5.5 0 0 0-.826-.38l-1.893 1.628A1 1 0 0 1 3.63 12H2.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1.129a1 1 0 0 1 .652.242l1.893 1.63a.5.5 0 0 0 .826-.38z"></path>
+                                </svg>
                               )}
                               {step.icon==='card' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M2 10h20"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                                  <line x1="2" x2="22" y1="10" y2="10"></line>
+                                </svg>
                               )}
                               {step.icon==='wave' && (
-                                <svg width="25" height="25" fill="none" viewBox="0 0 24 24"><path d="M3 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <path d="m6 16 6-12 6 12"></path>
+                                  <path d="M8 12h8"></path>
+                                  <path d="M4 21c1.1 0 1.1-1 2.3-1s1.1 1 2.3 1c1.1 0 1.1-1 2.3-1 1.1 0 1.1 1 2.3 1 1.1 0 1.1-1 2.3-1 1.1 0 1.1 1 2.3 1 1.1 0 1.1-1 2.3-1"></path>
+                                </svg>
                               )}
                               {step.icon==='text' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <path d="m6 16 6-12 6 12"></path>
+                                  <path d="M8 12h8"></path>
+                                  <path d="m16 20 2 2 4-4"></path>
+                                </svg>
                               )}
                               {step.icon==='box' && (
-                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+                                <svg width="25" height="25" fill="none" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                  <path d="m16 16 2 2 4-4"></path>
+                                  <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"></path>
+                                  <path d="m7.5 4.27 9 5.15"></path>
+                                  <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                                  <line x1="12" x2="12" y1="22" y2="12"></line>
+                                </svg>
                               )}
                             </span>
                             <span className="text-base text-gray-900 font-normal" style={{letterSpacing:'-0.5px'}}>{step.label}</span>

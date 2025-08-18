@@ -79,7 +79,7 @@ const FAQItem = React.memo<{
   }, [onToggle]);
 
   return (
-    <div className="faq-item td-faq-item">
+    <div className={`faq-item td-faq-item ${isOpen ? 'open' : ''}`}>
       <button
         type="button"
         onClick={handleClick}
@@ -97,7 +97,7 @@ const FAQItem = React.memo<{
       
       <div 
         id={`faq-answer-${item.id}`}
-        className={`td-faq-answer-container ${isOpen ? 'open' : ''}`}
+        className="td-faq-answer-container"
         aria-hidden={!isOpen}
       >
         <div className="td-faq-answer">
@@ -245,16 +245,16 @@ export default function FAQSectionV2() {
   const tabs = useMemo(() => Object.keys(faqData), []);
 
   return (
-    <section id="FAQ-Section" className="bg-gray-50 py-20">
-      <div className="max-w-4xl mx-auto px-4">
+    <section id="FAQ-Section" className="bg-white" style={{padding: '8rem 5%'}}>
+      <div className="w-full max-w-[800px] mx-auto">
         {/* 섹션 제목 - 애니메이션 최적화 */}
         <div 
           ref={titleRef} 
-          className="text-center mb-16"
+          className="text-center mb-12"
           style={{ opacity: animationsInitialized ? 1 : 0 }}
         >
-          <div className="text-sm font-bold text-blue-600 mb-4 tracking-widest">F A Q</div>
-          <h2 className="text-4xl font-bold text-gray-900 td-font-accent">자주 묻는 질문</h2>
+          <div className="text-base font-normal text-black mb-4 tracking-wider uppercase">F A Q</div>
+          <h2 className="text-gray-900 td-font-accent" style={{fontSize: '42px'}}>자주 묻는 질문</h2>
         </div>
 
         {/* testDocu 스타일 탭 메뉴 - 애니메이션 최적화 */}
