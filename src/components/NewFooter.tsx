@@ -23,7 +23,7 @@ export default function NewFooter() {
         <div className="flex flex-row items-start w-full md:w-auto gap-8 mt-6">
           {/* 서비스 신청 버튼 */}
           <motion.a
-            href="#contact"
+            href="/apply"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="flex justify-center items-center text-center bg-[#222] hover:bg-[#333] text-white px-10 py-3 w-[220px] rounded-xl font-bold text-lg transition-colors duration-300 mt-6"

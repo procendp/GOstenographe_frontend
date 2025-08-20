@@ -56,7 +56,7 @@ export default function GNB() {
             </div>
             
             {/* CTA 버튼 */}
-            <Link href="/reception" className="td-navbar-button">
+            <Link href="/apply" className="td-navbar-button">
               신청하기
             </Link>
           </div>
@@ -89,7 +89,7 @@ export default function GNB() {
           ))}
         </div>
         <Link 
-          href="/reception" 
+          href="/apply" 
           className="td-navbar-button"
           onClick={() => setIsMobileMenuOpen(false)}
         >

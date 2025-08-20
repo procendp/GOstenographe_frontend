@@ -93,7 +93,7 @@ const Footer = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link href="/reception">
+              <Link href="/apply">
                 <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold text-sm transition-colors duration-300">
                   서비스 신청
                 </button>

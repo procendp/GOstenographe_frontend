@@ -139,7 +139,7 @@ export default function ServiceSectionV2() {
                 </div>
                 {/* 서비스 신청/상담 문의 버튼 */}
                 <div className="flex flex-col gap-2">
-                  <Link href="/reception">
+                  <Link href="/apply">
                     <button className="w-full py-3 rounded-lg bg-black text-white text-lg">서비스 신청</button>
                   </Link>
                   <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-white">상담 문의</button>
@@ -233,9 +233,9 @@ export default function ServiceSectionV2() {
                         <table className="min-w-full text-center text-base">
                           <thead style={{backgroundColor: darkBeige}}>
                             <tr>
-                              <th className="py-2 px-3">분량</th>
-                              <th className="py-2 px-3">통화 녹음</th>
-                              <th className="py-2 px-3">현장 녹음</th>
+                              <th className="py-2 px-3 font-normal">분량</th>
+                              <th className="py-2 px-3 font-normal">통화 녹음</th>
+                              <th className="py-2 px-3 font-normal">현장 녹음</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -251,7 +251,7 @@ export default function ServiceSectionV2() {
                             ].map((row, i) => (
                               <tr key={i} className={i%2===0 ? 'bg-[#f6f1e7]' : ''}>
                                 {row.map((cell, j) => (
-                                  <td key={j} className="py-2 px-3">{cell}</td>
+                                  <td key={j} className="py-2 px-3 font-normal">{cell}</td>
                                 ))}
                               </tr>
                             ))}
@@ -439,9 +439,9 @@ export default function ServiceSectionV2() {
                         <table className="min-w-full text-center text-base">
                           <thead style={{backgroundColor: '#e2c89d'}}>
                             <tr>
-                              <th className="py-2 px-3">분량</th>
-                              <th className="py-2 px-3">녹음 파일<br/>(비대면 회의)</th>
-                              <th className="py-2 px-3">출장 속기<br/>(대면 회의)</th>
+                              <th className="py-2 px-3 font-normal">분량</th>
+                              <th className="py-2 px-3 font-normal">녹음 파일<br/>(비대면 회의)</th>
+                              <th className="py-2 px-3 font-normal">출장 속기<br/>(대면 회의)</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -451,7 +451,7 @@ export default function ServiceSectionV2() {
                             ].map((row, i) => (
                               <tr key={i} className={i%2===0 ? 'bg-[#f6f1e7]' : ''}>
                                 {row.map((cell, j) => (
-                                  <td key={j} className="py-2 px-3">{cell}</td>
+                                  <td key={j} className="py-2 px-3 font-normal">{cell}</td>
                                 ))}
                               </tr>
                             ))}

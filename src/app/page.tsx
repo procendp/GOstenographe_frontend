@@ -1,16 +1,13 @@
 "use client";
 
 import React from "react";
-// import GNB from "../components/GNB";
 import MainGNB from "../components/MainGNB";
 import NewFooter from "../components/NewFooter";
 import HeroSection from "../components/sections/HeroSection";
 import FeaturesSection from "../components/sections/FeaturesSection";
-import ServiceSection from "../components/sections/ServiceSectionV2";
-// import ProcessSection from "../components/sections/ProcessSectionV2";
-// import PriceSection from "../components/sections/PriceSectionV2";
-import FAQSection from "../components/sections/FAQSectionV2";
-import ContactSection from "../components/sections/ContactSectionV2";
+import ServiceSectionV2 from "../components/sections/ServiceSectionV2";
+import FAQSectionV2 from "../components/sections/FAQSectionV2";
+import ContactSectionV2 from "../components/sections/ContactSectionV2";
 
 export default function Home() {
   return (
@@ -20,11 +17,9 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <FeaturesSection />
-        <ServiceSection />
-        {/* <ProcessSection /> */}
-        {/* <PriceSection /> */}
-        <FAQSection />
-        <ContactSection />
+        <ServiceSectionV2 />
+        <FAQSectionV2 />
+        <ContactSectionV2 />
       </main>
       <NewFooter />
     </div>

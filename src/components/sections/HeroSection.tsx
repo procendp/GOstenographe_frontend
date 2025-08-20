@@ -117,7 +117,7 @@ export default function HeroSection() {
         >
           <a 
             ref={buttonRef}
-            href="/reception" 
+            href="/apply" 
             className="td-button-primary"
             title="속기 서비스 신청하기"
           >

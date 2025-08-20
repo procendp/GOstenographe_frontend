@@ -19,4 +19,446 @@ html {
 
 #service, #process, #price, #customer {
   scroll-margin-top: 88px;
+}
+
+/* 웹플로우 스타일 */
+.c-apply-section {
+  color: #64748b;
+  background-color: #cad5e5;
+  background-image: url('/new_goStenographe_resource/backgrounds/Background-Blue20-s.png');
+  background-position: 0 0;
+  background-size: auto;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10rem 5%;
+  display: flex;
+}
+
+.c-apply-container {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+}
+
+.c-apply-title-wrapper {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.c-section-heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2rem;
+}
+
+.f-margin-bottom-73 {
+  margin-bottom: 73px;
+}
+
+.f-text-weight-bold {
+  font-weight: 700;
+}
+
+.c-step-component {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.c-steps-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.c-steps-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.c-steps-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  background-color: #d1d5db;
+}
+
+.c-steps-dot.current {
+  background-color: #2563eb;
+}
+
+.c-step-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #374151;
+}
+
+.c-step-title.hold {
+  color: #9ca3af;
+}
+
+.c-steps-sub-title {
+  font-size: 0.875rem;
+  text-align: center;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.c-steps-sub-title.hold {
+  color: #9ca3af;
+}
+
+.c-steps-line {
+  flex: 1;
+  height: 2px;
+  margin: 0 1rem;
+  position: relative;
+}
+
+.c-steps-line-dot {
+  width: 100%;
+  height: 2px;
+  background: repeating-linear-gradient(to right, #d1d5db 0, #d1d5db 4px, transparent 4px, transparent 8px);
+}
+
+.c-steps-line-dot.ongoing {
+  background: repeating-linear-gradient(to right, #2563eb 0, #2563eb 4px, transparent 4px, transparent 8px);
+}
+
+.c-tab-container {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+
+.c-tab-menu {
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 0;
+  display: flex;
+}
+
+.c-tab-content {
+  width: 100%;
+  margin-bottom: 10rem;
+  overflow: visible;
+}
+
+.c-tab-pane {
+  box-sizing: border-box;
+  background-color: #ffffff;
+  object-fit: fill;
+  border-radius: 0 0 20px 20px;
+  width: 100%;
+  padding: 4.5rem;
+  overflow: visible;
+}
+
+/* 웹플로우 탭 버튼 스타일 */
+.c-file-tab-button-left {
+  border: 1px solid #e2e8f0;
+  font-family: 'Pretendard', sans-serif;
+  color: #64748b;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  background-color: #fff;
+  border-radius: 8px 8px 0 0;
+  padding: 12px 20px;
+  font-weight: 400;
+  line-height: 24px;
+  transition: all 0.3s ease;
+}
+
+.c-file-tab-button-left:hover {
+  border-color: #1d4ed8;
+  background-color: #f8fafc;
+  color: #374151;
+  font-weight: 500;
+}
+
+.c-file-tab-button-left.w--current {
+  border-color: #1d4ed8;
+  background-color: #1d4ed8;
+  color: #ffffff;
+  padding: 15px 30px;
+  font-weight: 500;
+  box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.38);
+}
+
+.c-file-tab-button-mid {
+  border: 1px solid #e2e8f0;
+  font-family: 'Pretendard', sans-serif;
+  color: #64748b;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  background-color: #fff;
+  border-radius: 8px 8px 0 0;
+  padding: 12px 20px;
+  line-height: 24px;
+  transition: all 0.3s ease;
+}
+
+.c-file-tab-button-mid:hover {
+  border-color: #1d4ed8;
+  background-color: #f8fafc;
+  color: #374151;
+  font-weight: 500;
+}
+
+.c-file-tab-button-mid.w--current {
+  background-color: #1d4ed8;
+  color: #ffffff;
+  padding: 15px 30px;
+  font-weight: 500;
+  box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.38);
+}
+
+.c-file-tab-button-right {
+  border: 1px solid #e2e8f0;
+  font-family: 'Pretendard', sans-serif;
+  color: #64748b;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  background-color: #fff;
+  border-radius: 8px 8px 0 0;
+  padding: 12px 20px;
+  line-height: 24px;
+  transition: all 0.3s ease;
+}
+
+.c-file-tab-button-right:hover {
+  background-color: #f8fafc;
+  color: #374151;
+  font-weight: 500;
+}
+
+.c-file-tab-button-right.w--current {
+  background-color: #1d4ed8;
+  color: #ffffff;
+  font-weight: 500;
+  box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.38);
+}
+
+.c-tab-button-text {
+  display: block;
+}
+
+.c-tab-button-text-mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .c-tab-button-text {
+    display: none;
+  }
+  
+  .c-tab-button-text-mobile {
+    display: block;
+  }
+}
+
+/* 웹플로우 컨텐츠 스타일 */
+.c-file-title-block {
+  margin-bottom: 1.5rem;
+}
+
+.c-file-heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin-bottom: 0.5rem;
+}
+
+.c-paragraph-title {
+  color: #374151;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.c-file-block {
+  margin-bottom: 2rem;
+}
+
+.c-file-block-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.c-file-block-title.between {
+  justify-content: space-between;
+}
+
+.c-file-block-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin-right: 0.5rem;
+}
+
+.c-file-block-heading.light {
+  color: #6b7280;
+}
+
+.c-file-block-heading.highlight {
+  color: #dc2626;
+}
+
+.c-file-block-title-tag {
+  background-color: #fef2f2;
+  color: #dc2626;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.c-paragraph-caution {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.c-timestamp-block {
+  margin-top: 1rem;
+}
+
+.c-timestamp-wrapper {
+  margin-bottom: 1rem;
+}
+
+.c-time-input-grid {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.c-input-text {
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.c-input-placeholder {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.c-timestamp-delete {
+  color: #dc2626;
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.c-timestamp-warning {
+  color: #dc2626;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.c-button-add-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1d4ed8;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+/* 웹플로우 모바일 반응형 스타일 */
+@media screen and (max-width: 767px) {
+  .c-apply-section {
+    padding: 5rem 2.5%;
+  }
+  
+  .c-apply-container {
+    max-width: 100%;
+  }
+  
+  .c-apply-title-wrapper {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .c-section-heading {
+    font-size: 1.875rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .f-margin-bottom-73 {
+    margin-bottom: 2rem;
+  }
+  
+  .c-steps-grid {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .c-steps-line {
+    width: 2px;
+    height: 2rem;
+    margin: 0;
+    transform: rotate(90deg);
+  }
+  
+  .c-tab-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+  
+  .c-file-tab-button-left,
+  .c-file-tab-button-mid,
+  .c-file-tab-button-right {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-width: 60px;
+  }
+  
+  .c-tab-pane {
+    padding: 2rem 1rem;
+  }
+  
+  .c-file-block-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .c-file-block-title.between {
+    justify-content: flex-start;
+  }
+  
+  .c-file-block-heading {
+    font-size: 1.125rem;
+  }
+  
+  .c-delete-button {
+    padding: 8px 16px;
+    font-size: 12px;
+    min-height: 32px;
+  }
 } 

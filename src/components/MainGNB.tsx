@@ -148,7 +148,7 @@ export default function MainGNB() {
             {/* CTA 버튼 - 4000포트 스타일 */}
             <div style={{ marginLeft: '20px' }}>
               <Link
-                href="/reception"
+                href="/apply"
                 className="inline-block font-semibold transition-all duration-300 hover:opacity-90"
                 style={{
                   fontFamily: 'var(--_concept-1---font-accent, "Pretendard", sans-serif)',
@@ -243,7 +243,7 @@ export default function MainGNB() {
             {/* 모바일 CTA 버튼 - 4000포트 스타일 */}
             <div className="pb-6">
               <Link
-                href="/reception"
+                href="/apply"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-center font-semibold transition-colors duration-300 hover:opacity-90"
                 style={{
