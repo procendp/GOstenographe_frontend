@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import '../styles/testdocu-base.css'
+import '../styles/webflow-gnb.css'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -137,6 +138,20 @@ export default function RootLayout({
         <link
           rel="preload"
           href="/fonts/SpoqaHanSansNeo-Regular.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Pretendard-Bold.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/SpoqaHanSansNeo-Bold.woff"
           as="font"
           type="font/woff"
           crossOrigin="anonymous"

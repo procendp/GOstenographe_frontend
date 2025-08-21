@@ -72,7 +72,7 @@ html {
 
 .c-step-component {
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1rem; /* 여백 축소: 2rem에서 1rem으로 */
 }
 
 .c-steps-grid {
@@ -80,7 +80,8 @@ html {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 500px; /* 원 사이 간격을 줄이기 위해 600px에서 500px로 */
+  gap: 2rem; /* 원 사이 간격을 줄이기 위해 3rem에서 2rem으로 */
 }
 
 .c-steps-item {
@@ -90,55 +91,74 @@ html {
   flex: 1;
 }
 
-.c-steps-dot {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  margin-bottom: 8px;
-  background-color: #d1d5db;
-}
-
-.c-steps-dot.current {
-  background-color: #2563eb;
-}
-
-.c-step-title {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: #374151;
-}
-
-.c-step-title.hold {
-  color: #9ca3af;
-}
-
-.c-steps-sub-title {
-  font-size: 0.875rem;
-  text-align: center;
-  color: #6b7280;
-  line-height: 1.4;
-}
-
-.c-steps-sub-title.hold {
-  color: #9ca3af;
-}
-
+/* 점선 길이 웹플로우와 동일하게 조정 */
 .c-steps-line {
-  flex: 1;
-  height: 2px;
-  margin: 0 1rem;
-  position: relative;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 80px; /* 원 사이 간격에 맞춰 조정: 120px에서 80px로 */
+  padding-top: 5px;
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  margin: 0 -20px; /* 원 사이에 가깝게 배치하기 위해 음수 마진 추가 */
 }
 
-.c-steps-line-dot {
-  width: 100%;
-  height: 2px;
-  background: repeating-linear-gradient(to right, #d1d5db 0, #d1d5db 4px, transparent 4px, transparent 8px);
+/* 진행 단계 스타일은 webflow-gnb.css에서 관리하므로 완전히 제거 */
+
+/* 점선 스타일 직접 추가 - 웹플로우와 동일 */
+.c-step-component .c-steps-line .c-steps-line-dot {
+  /* 웹플로우와 동일한 구조 */
+  border-style: none none dotted !important;
+  border-width: 0 0 5px 0 !important; /* 웹플로우: 5px */
+  border-color: transparent transparent #a4bcdf transparent !important; /* 웹플로우: blue40 */
+  width: 100% !important;
+  height: 10px !important; /* 웹플로우: 10px */
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
-.c-steps-line-dot.ongoing {
-  background: repeating-linear-gradient(to right, #2563eb 0, #2563eb 4px, transparent 4px, transparent 8px);
+/* 진행 상태일 때 웹플로우 색상 */
+.c-step-component .c-steps-line .c-steps-line-dot.ongoing {
+  border-bottom-color: #4979bf !important; /* 웹플로우: 진한 파란색 */
+}
+
+/* 디버깅용 더 강력한 선택자 - 웹플로우 스타일 */
+.debug-dot {
+  border-style: none none dotted !important;
+  border-width: 0 0 5px 0 !important; /* 웹플로우: 5px */
+  border-color: transparent transparent #a4bcdf transparent !important; /* 웹플로우: blue40 */
+  width: 100% !important;
+  height: 10px !important; /* 웹플로우: 10px */
+  background-color: transparent !important; /* 배경색 제거 */
+  display: block !important;
+}
+
+/* 모든 점선 관련 요소에 웹플로우 스타일 강제 적용 */
+[class*="c-steps-line-dot"] {
+  border-style: none none dotted !important;
+  border-width: 0 0 5px 0 !important; /* 웹플로우: 5px */
+  border-color: transparent transparent #a4bcdf transparent !important; /* 웹플로우: blue40 */
+  width: 100% !important;
+  height: 10px !important; /* 웹플로우: 10px */
+  background-color: transparent !important; /* 배경색 제거 */
+}
+
+/* 백업 방법: repeating-linear-gradient */
+.c-step-component .c-steps-line .c-steps-line-dot.gradient {
+  background: repeating-linear-gradient(
+    to right,
+    #ff0000 0,
+    #ff0000 8px,
+    transparent 8px,
+    transparent 16px
+  ) !important;
+  border: none !important;
+  width: 100% !important;
+  height: 15px !important;
+  margin: 0 2rem !important;
 }
 
 .c-tab-container {
@@ -417,13 +437,6 @@ html {
     gap: 1rem;
   }
   
-  .c-steps-line {
-    width: 2px;
-    height: 2rem;
-    margin: 0;
-    transform: rotate(90deg);
-  }
-  
   .c-tab-menu {
     flex-wrap: wrap;
     justify-content: center;
@@ -461,4 +474,12 @@ html {
     font-size: 12px;
     min-height: 32px;
   }
+} 
+
+.c-steps-sub-title {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.4;
+  white-space: nowrap; /* 한 줄로 고정 */
 } 
