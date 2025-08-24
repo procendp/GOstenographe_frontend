@@ -1,0 +1,1139 @@
+/* 웹플로우 GNB 스타일 */
+
+/* 웹플로우 폰트 정의 */
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  src: url('/fonts/SpoqaHanSansNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 웹플로우 GNB 스타일 */
+.webflow-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  padding: 1rem 0;
+}
+
+.webflow-navbar.apply-page {
+  background-color: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* 스크롤 시 배경색 변화 제거 - 웹플로우와 동일하게 항상 투명 */
+/* .webflow-navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+} */
+
+.webflow-navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%; /* 웹플로우와 동일한 패딩 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.webflow-navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.webflow-navbar-brand img {
+  height: 70px;
+  width: auto;
+}
+
+.webflow-navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* 웹플로우와 동일한 간격 */
+}
+
+.webflow-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* 웹플로우와 동일한 간격 */
+}
+
+.webflow-navbar-link {
+  font-family: 'SpoqaHanSansNeo', 'Verdana', sans-serif; /* 웹플로우 폰트 */
+  color: #272929; /* 웹플로우 회색 */
+  font-size: 16px; /* 웹플로우 폰트 크기 */
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.3s ease;
+  padding-right: 20px; /* 웹플로우와 동일한 패딩 */
+}
+
+.webflow-navbar-link:hover {
+  color: #ffc107; /* 웹플로우 강조색 */
+}
+
+.webflow-navbar-button {
+  background-color: #272929; /* 웹플로우 회색 */
+  color: white;
+  padding: 12px 24px; /* 웹플로우와 동일한 패딩 */
+  border-radius: 8px; /* 웹플로우와 동일한 둥근 모서리 */
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  font-family: 'SpoqaHanSansNeo', sans-serif;
+}
+
+.webflow-navbar-button:hover {
+  background-color: #1a1a1a;
+}
+
+/* 모바일 메뉴 버튼 */
+.webflow-mobile-menu-button {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.webflow-mobile-menu-line {
+  width: 25px;
+  height: 3px;
+  background-color: #272929; /* 웹플로우 회색 */
+  transition: all 0.3s ease;
+}
+
+.webflow-mobile-menu-line.green-line {
+  background-color: #272929; /* 웹플로우 회색 */
+}
+
+.webflow-mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #0f1213; /* 웹플로우 모바일 배경색 */
+  padding: 2rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.webflow-mobile-menu.active {
+  display: flex;
+}
+
+.webflow-mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.webflow-mobile-menu-link {
+  color: #ecf0ef; /* 웹플로우 모바일 링크 색상 */
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.webflow-mobile-menu-link:hover {
+  color: #ffc107;
+}
+
+.webflow-mobile-menu-link:first-child {
+  margin-top: 1rem;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .webflow-navbar-menu {
+    display: none;
+  }
+  
+  .webflow-mobile-menu-button {
+    display: flex;
+  }
+  
+  .webflow-navbar-container {
+    padding: 0 5%;
+  }
+}
+
+@media (min-width: 769px) {
+  .webflow-mobile-menu {
+    display: none !important;
+  }
+}
+
+/* 예상 견적란 - 웹플로우와 동일한 사이즈와 간격 */
+
+.c-checkout-section {
+  background-color: #ffffff;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 -1px 10px -2px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  padding: 0;
+  min-height: 150px;
+}
+
+.c-checkout-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  flex-wrap: nowrap;
+}
+
+/* 더 구체적인 선택자로 우선순위 강화 */
+section.c-checkout-section > div > div.c-checkout-right {
+  flex: 1 !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+/* Flexbox 컨테이너 강화 */
+.c-checkout-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  flex-wrap: nowrap;
+}
+
+.c-sum-block-title {
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.c-sum-block-title.between {
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-content: space-between;
+}
+
+.c-app-sum-heading {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.div-block-11 {
+  background-color: #64748b;
+  width: 100%;
+  height: 1px;
+}
+
+.flex-block-11 {
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  width: 100%;
+}
+
+.c-checkout-factor {
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.c-checkout-factor.between {
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-content: space-between;
+}
+
+.c-checkout-f-text {
+  font-family: 'Pretendard', sans-serif;
+  color: #64748b;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  margin: 0;
+  font-weight: 400;
+}
+
+.flex-block-12 {
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.c-checkout-agreement-text {
+  font-family: 'Pretendard', sans-serif;
+  color: #ffffff;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.c-button-checkout {
+  background-color: #ffffff;
+  font-family: 'Pretendard', sans-serif;
+  color: #1c58af;
+  font-size: 0.875rem;
+  text-align: center;
+  letter-spacing: 0;
+  text-transform: none;
+  border-radius: 5px;
+  width: 100%;
+  padding: 12px 25px;
+  font-weight: 500;
+  line-height: 20px;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.c-button-checkout:hover {
+  border: 1.5px solid #64748b;
+  background-color: #64748b;
+  color: #fff;
+}
+
+.c-button-checkout:active {
+  background-color: #64748b;
+}
+
+/* 반응형 견적 섹션 */
+@media (max-width: 768px) {
+  .c-checkout-container {
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+  }
+  
+  .c-checkout-left,
+  .c-checkout-right {
+    padding: 16px 20px; /* 모바일에서 더 작게 */
+  }
+  
+  .c-app-sum-heading {
+    font-size: 18px; /* 모바일에서 더 작게 */
+  }
+  
+  .c-checkout-f-text {
+    font-size: 13px; /* 모바일에서 더 작게 */
+  }
+}
+
+/* 웹플로우 상단 타이틀 및 진행 단계 스타일 */
+.c-apply-section {
+  padding: 10rem 5%;
+  display: flex;
+}
+
+.c-apply-container {
+  width: 100%;
+  max-width: 1200px; /* 웹플로우보다 넓게 */
+  margin: 0 auto;
+}
+
+.apply-title-wrapper {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* max-width 제거하여 전체 너비 사용 */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  padding: 0 2rem; /* 좌우 여백 추가 */
+}
+
+.c-apply-title-wrapper {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* max-width 제거하여 전체 너비 사용 */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  padding: 0 2rem; /* 좌우 여백 추가 */
+}
+
+.c-section-heading {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c;
+  font-size: 2.49rem; /* 웹플로우와 동일 */
+  max-width: 800px; /* 웹플로우보다 넓게 */
+  margin-top: 0;
+  margin-bottom: 60px; /* 여백 증가 */
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.c-step-component {
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  margin-top: 1rem; /* 상단 여백 줄임: 2rem에서 1rem으로 */
+}
+
+.c-steps-grid {
+  grid-column-gap: 0rem;
+  grid-row-gap: 0rem;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 800px; /* 웹플로우보다 넓게 */
+  display: grid;
+  gap: 7rem; /* 단계 간 간격 더 증가: 6rem에서 7rem으로 */
+  position: relative; /* 점선의 절대 위치 기준점 */
+}
+
+.c-steps-item {
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding-left: 0;
+  padding-right: 0;
+  flex: 1; /* 균등하게 분배 */
+}
+
+.c-steps-dot {
+  background-color: #a4bcdf; /* 웹플로우와 동일한 연한 파란색 */
+  color: #a4bcdf;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 32px; /* 크기 줄임 */
+  height: 32px; /* 크기 줄임 */
+  margin-bottom: 20px; /* 여백 줄임 */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.c-steps-dot.current {
+  background-color: #4979bf; /* 웹플로우와 동일한 진한 파란색 */
+}
+
+.c-step-title {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c;
+  font-size: 1.5rem; /* 크기 증가: 1.25rem에서 1.5rem으로 */
+  white-space: nowrap;
+  object-fit: fill;
+  font-weight: 500;
+  overflow: visible;
+  margin-bottom: 15px; /* 여백 줄임 */
+}
+
+.c-step-title.hold {
+  color: #9ca3af;
+}
+
+.c-steps-sub-title {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c;
+  font-size: 1rem; /* 크기 증가: 0.875rem에서 1rem으로 */
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.c-steps-sub-title.hold {
+  color: #9ca3af;
+}
+
+.c-steps-line {
+  position: absolute;
+  top: 15px; /* 원의 중앙보다 더 위로 올려서 우상향 효과 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px; /* 두 원 사이의 거리에 맞춤: 300px에서 350px로 더 증가 */
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 진행 단계 점선 - 우선순위 높임 */
+.c-step-component .c-steps-line .c-steps-line-dot {
+  border-style: none none dotted;
+  border-width: 0 0 5px 0;
+  border-color: transparent transparent #a4bcdf transparent;
+  width: 100%;
+  height: 10px;
+  background-color: transparent;
+  display: block;
+}
+
+/* 진행 상태일 때 웹플로우 색상 */
+.c-steps-line-dot.ongoing {
+  border-bottom-color: #4979bf;
+}
+
+/* 웹플로우 탭 컨테이너 스타일 */
+.c-tab-container {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  display: flex;
+}
+
+/* 탭 메뉴와 삭제 버튼을 감싸는 상위 컨테이너 */
+.c-tab-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* 탭 메뉴 */
+.c-tab-menu {
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-bottom: 0;
+  display: flex;
+  flex: 0 0 auto;
+}
+
+/* 웹플로우 탭 버튼 스타일 */
+.c-file-tab-button-left {
+  border: 1px solid #a4bcdf;
+  font-family: 'SpoqaHanSansNeo', sans-serif;
+  color: #9ca3af;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  background-color: #fff;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 12px 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.c-file-tab-button-left:hover {
+  border-color: #a4bcdf;
+  background-color: #f8fafc;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.c-file-tab-button-left.w--current {
+  border-color: #4979bf;
+  background-color: #1c58af;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 15px 30px;
+}
+
+.c-file-tab-button-mid {
+  border: 1px solid #a4bcdf;
+  font-family: 'SpoqaHanSansNeo', sans-serif;
+  color: #9ca3af;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  background-color: #fff;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 12px 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.c-file-tab-button-mid:hover {
+  border-color: #a4bcdf;
+  background-color: #f8fafc;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.c-file-tab-button-mid.w--current {
+  border-color: #4979bf;
+  background-color: #1c58af;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 15px 30px;
+}
+
+.c-file-tab-button-right {
+  border: 1px solid #a4bcdf;
+  font-family: 'SpoqaHanSansNeo', sans-serif;
+  color: #9ca3af;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  background-color: #fff;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 12px 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.c-file-tab-button-right:hover {
+  border-color: #a4bcdf;
+  background-color: #f8fafc;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.c-file-tab-button-right.w--current {
+  border-color: #4979bf;
+  background-color: #1c58af;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 15px 30px;
+}
+
+/* 탭 콘텐츠 */
+.c-tab-content {
+  width: 100%;
+  margin-bottom: 10rem;
+  overflow: visible;
+}
+
+/* 탭 콘텐츠 내부 정렬 */
+.c-file-tab-pane {
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 0 0 20px 20px;
+  width: 100%;
+  padding: 3rem 2rem; /* 패딩을 줄여서 더 왼쪽에 가깝게 */
+  overflow: visible;
+}
+
+.c-file-tab-pane.w--tab-active {
+  display: block;
+}
+
+/* 삭제 버튼 */
+.c-delete-button {
+  border: 1px solid #f97316;
+  background-color: #f97316;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: -0.02em;
+  border-radius: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.c-delete-button:hover {
+  border-color: #ea580c;
+  background-color: #ea580c;
+  color: #ffffff;
+}
+
+.text-block-2 {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 삭제 버튼 컨테이너 */
+.c-delete-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex: 0 0 auto;
+}
+
+/* 탭 버튼 텍스트 */
+.c-tab-button-text {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.c-tab-button-text-mobile {
+  display: none;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* 파일 탭 컨테이너 */
+.file-tab-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%; /* 최대 너비를 100%로 설정 */
+}
+
+/* 파일 제목 블록 */
+.c-file-title-block {
+  margin-bottom: 2rem;
+  text-align: left; /* 왼쪽 정렬 */
+}
+
+/* 파일 헤딩 */
+.c-file-heading {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c;
+  font-size: 1.75rem; /* 크기 증가: 1.5rem에서 1.75rem으로 */
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* 파일 제목 블록 내용 */
+.c-paragraph-title {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
+  font-size: 1rem; /* 크기 증가: 0.875rem에서 1rem으로 */
+  line-height: 1.6;
+}
+
+/* 파일 블록 */
+.c-file-block {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: left; /* 왼쪽 정렬 */
+}
+
+/* 파일 블록 제목 */
+.c-file-block-heading {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c;
+  font-size: 1.5rem; /* 크기 증가: 1.25rem에서 1.5rem으로 */
+  font-weight: 600;
+}
+
+.c-file-block-heading.light {
+  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
+  font-weight: 400;
+}
+
+.c-file-block-heading.highlight {
+  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
+  font-weight: 600;
+}
+
+.c-file-block-heading.h5 {
+  font-size: 1.25rem; /* 크기 증가: 1.125rem에서 1.25rem으로 */
+  font-weight: 500;
+}
+
+/* 파일 블록 제목 태그 */
+.c-file-block-title-tag {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+.c-tag-text {
+  color: #dc2626;
+  font-size: 0.875rem; /* 크기 증가: 0.75rem에서 0.875rem으로 */
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* 파일 블록 내용 */
+.c-paragraph-caution {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
+  font-size: 1rem; /* 크기 증가: 0.875rem에서 1rem으로 */
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* 링크 블록 */
+.link-block {
+  display: inline-block;
+  width: 100%;
+}
+
+/* 파일 업로더 */
+.c-paragraph-uploader {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
+  font-size: 1rem; /* 크기 증가: 0.875rem에서 1rem으로 */
+  line-height: 1.6;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* 웹플로우 레이아웃 클래스들 */
+.w-layout-vflex {
+  display: flex;
+  flex-direction: column;
+}
+
+.w-layout-hflex {
+  display: flex;
+  flex-direction: row;
+}
+
+.w-layout-hflex.between {
+  justify-content: space-between;
+}
+
+.flex-block-9 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 웹플로우 탭 관련 클래스 */
+.w-tabs {
+  display: block;
+}
+
+.w-tab-menu {
+  display: flex;
+}
+
+.w-tab-link {
+  display: inline-block;
+}
+
+.w-tab-content {
+  display: block;
+}
+
+.w-tab-pane {
+  display: none;
+}
+
+.w--tab-active {
+  display: block;
+}
+
+.w--current {
+  display: block;
+}
+
+.w-inline-block {
+  display: inline-block;
+}
+
+/* 웹플로우 apply GNB - 완벽 일치 스타일 */
+
+/* 메인 GNB 컨테이너 */
+.c-navbar-section-fixed {
+  background-color: #ffffff;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  inset: 0% 0% auto;
+}
+
+/* GNB 컨테이너 */
+.fn-navbar-container-second {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* 로고 브랜드 */
+.c-gnb-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.c-gnb-brand-image {
+  height: auto;
+  width: auto;
+  max-height: 60px;
+}
+
+/* 네비게이션 메뉴 */
+.fn-navbar-menu-box-second {
+  display: flex;
+  align-items: center;
+}
+
+.fn-navbar-menu-wrapper-second {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.fn-navbar-links-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* 네비게이션 링크 */
+.fn-navbar-link-second-2 {
+  font-family: 'Pretendard', sans-serif;
+  color: #1a202c;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.fn-navbar-link-second-2:hover {
+  color: #4979bf;
+}
+
+.fn-navbar-link-second-2._5 {
+  padding: 0.5rem 0;
+}
+
+.fn-navbar-link-second-2.last-link-on-mobile {
+  margin-right: 1rem;
+}
+
+/* CTA 버튼 래퍼 */
+.fn-gnb-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* CTA 버튼 */
+.fn-button._4 {
+  font-family: 'Pretendard', sans-serif;
+  background-color: #272929;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  border: none;
+}
+
+.fn-button._4:hover {
+  background-color: #1a1c1c;
+}
+
+.fn-button._4.w--current {
+  background-color: #272929;
+}
+
+/* 모바일 메뉴 버튼 */
+.fn-menu-button-second {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.nav-menu-button-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* 모바일 메뉴 라인 */
+.fn-nav-line-1,
+.fn-nav-line-2,
+.fn-nav-line-3 {
+  width: 20px;
+  height: 2px;
+  background-color: #4979bf;
+  transition: all 0.3s ease;
+}
+
+.green-line {
+  background-color: #4979bf;
+}
+
+/* 모바일 메뉴 */
+.webflow-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.webflow-mobile-menu.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.webflow-mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 2rem;
+}
+
+.webflow-mobile-menu-link {
+  font-family: 'Pretendard', sans-serif;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.webflow-mobile-menu-link:hover {
+  color: #4979bf;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .fn-navbar-menu-box-second {
+    display: none;
+  }
+  
+  .fn-menu-button-second {
+    display: flex;
+  }
+  
+  .fn-navbar-container-second {
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .fn-menu-button-second {
+    display: none;
+  }
+}
+
+/* 웹플로우 레이아웃 클래스들 */
+.w-layout-hflex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.w-layout-vflex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 견적란 컨테이너 - 웹플로우 클래스와 매칭 */
+.w-layout-hflex.c-checkout-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  flex-wrap: nowrap;
+}
+
+/* 견적란 좌측 - 웹플로우 클래스와 매칭 */
+.w-layout-vflex.c-checkout-left {
+  flex: 1;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  border: 1px none #e2e8f0;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 2rem;
+}
+
+/* 견적란 우측 - 웹플로우 클래스와 매칭 */
+.w-layout-vflex.c-checkout-right {
+  flex: 1 !important;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  border: 1px none #e2e8f0;
+  background-color: #1c58af;
+  justify-content: space-between;
+  align-items: center;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 1.5rem 2rem 0;
+  min-width: 0;
+  max-width: none !important;
+  box-sizing: border-box;
+}

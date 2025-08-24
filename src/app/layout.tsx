@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import '../styles/testdocu-base.css'
-import '../styles/webflow-gnb.css'
+import '../styles/webflow-apply.css'
 import './globals.css'
 
 export const metadata: Metadata = {

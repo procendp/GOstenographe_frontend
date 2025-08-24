@@ -1,6 +1,6 @@
 'use client';
 
-import GNB from '@/components/GNB';
+import ApplyGNB from '@/components/ApplyGNB';
 import Footer from '@/components/Footer';
 import { useState, useRef, useEffect } from 'react';
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
@@ -71,7 +71,7 @@ function Reception() {
   // 스텝 인디케이터
   const Stepper = ({ step }: { step: number }) => {
     return (
-      <div className="c-steps-grid max-w-[600px] gap-8 mx-auto">
+      <div className="c-steps-grid max-w-[600px] mx-auto relative">
         <div className="c-steps-item">
           <div className={`c-steps-dot ${step >= 1 ? 'current' : ''}`}>
             <div className={`c-steps-dot-inner ${step >= 1 ? 'current' : ''}`}></div>
@@ -80,17 +80,10 @@ function Reception() {
           <p className="c-steps-sub-title">파일과 정보를<br/>입력해 주세요.</p>
         </div>
         
-        <div className="w-full flex justify-center items-center py-4">
+        {/* 점선을 절대 위치로 두 원 사이 중앙에 배치 */}
+        <div className="c-steps-line">
           <div 
-            className={`c-steps-line-dot debug-dot ${step >= 2 ? 'ongoing' : ''}`}
-            style={{
-              borderStyle: 'none none dotted',
-              borderWidth: '0 0 5px 0',
-              borderColor: 'transparent transparent #a4bcdf transparent',
-              height: '10px',
-              width: '100%',
-              backgroundColor: 'transparent'
-            }}
+            className={`c-steps-line-dot ${step >= 2 ? 'ongoing' : ''}`}
           ></div>
         </div>
         
@@ -287,7 +280,7 @@ function Reception() {
 
   return showComplete ? (
     <div className="min-h-screen bg-[#F8FAFC] pt-20">
-      <GNB />
+      <ApplyGNB />
       <div className="w-full max-w-[960px] mx-auto pt-12 pb-0 px-4 sm:px-6">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-12">서비스 신청</h1>
         <div className="flex justify-center items-center mb-12">
@@ -312,15 +305,15 @@ function Reception() {
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight mb-2">
               감사합니다. 정상 접수되었습니다.
             </h2>
-            <div className="text-lg sm:text-xl font-bold leading-normal">
-              <span className="text-blue-500">작업 가능 여부 확인 후</span>
-              <span className="text-gray-900"> 비용 안내드리겠습니다.</span>
-            </div>
+                          <div className="text-lg sm:text-xl font-bold leading-normal">
+                <span className="text-gray-900">작업 가능 여부 확인 후</span>
+                <span className="text-gray-900"> 비용 안내드리겠습니다.</span>
+              </div>
             <p className="text-xs sm:text-sm text-red-500 mt-2">
               * 작업 순서에 따라 안내가 지연될 수 있습니다.
             </p>
           </div>
-          <div className="w-full max-w-[960px] mx-auto rounded-2xl bg-blue-500 flex flex-row items-center justify-between px-8 py-6 mb-10">
+          <div className="w-2/5 max-w-[400px] mx-auto rounded-2xl bg-blue-500 flex flex-row items-center justify-between px-8 py-6 mb-10">
             <div className="font-extrabold text-white text-lg sm:text-2xl">예상 견적</div>
             <div className="font-extrabold text-white text-lg sm:text-2xl">100,000원</div>
           </div>
@@ -341,7 +334,7 @@ function Reception() {
       backgroundPosition: '0 0',
       backgroundSize: 'auto'
     }}>
-      <GNB />
+      <ApplyGNB />
       <div className="pt-20"></div> {/* GNB 높이만큼 상단 여백 추가 */}
       <section className="c-apply-section">
         <div className="c-apply-container">
@@ -361,26 +354,47 @@ function Reception() {
           <div className="h-16"></div>
 
           {/* 탭 컨테이너 */}
-          <div className="c-tab-container">
-            <div className="c-tab-menu">
-              {tabs.map((tab, index) => (
+          <div className="c-tab-container w-tabs">
+            {/* 탭 헤더 - 탭 메뉴와 삭제 버튼을 감싸는 컨테이너 */}
+            <div className="c-tab-header">
+              <div className="c-tab-menu w-tab-menu">
+                {tabs.map((tab, index) => (
+                  <button
+                    key={index}
+                    className={`c-file-tab-button-${index === 0 ? 'left' : index === tabs.length - 1 ? 'right' : 'mid'} w-inline-block w-tab-link ${activeTab === index ? 'w--current' : ''}`}
+                    onClick={() => setActiveTab(index)}
+                  >
+                    <div className="c-tab-button-text">파일 {index + 1}</div>
+                    <div className="c-tab-button-text-mobile">{index + 1}</div>
+                  </button>
+                ))}
+                
+                {tabs.length < 5 && (
+                  <button
+                    className="c-file-tab-button-right w-inline-block w-tab-link"
+                    onClick={handleAddTab}
+                  >
+                    <div className="c-tab-button-text">+</div>
+                    <div className="c-tab-button-text-mobile">+</div>
+                  </button>
+                )}
+              </div>
+              
+              {/* 삭제 버튼 - 맨 우측에 고정 배치 */}
+              <div className="c-delete-button-container">
                 <button
-                  key={index}
-                  className={`c-file-tab-button-${index === 0 ? 'left' : index === tabs.length - 1 ? 'right' : 'mid'} ${activeTab === index ? 'w--current' : ''}`}
-                  onClick={() => setActiveTab(index)}
+                  className="c-delete-button w-inline-block"
+                  onClick={() => handleRemoveTab(activeTab)}
                 >
-                  <span className="c-tab-button-text">파일 {index + 1}</span>
-                  <span className="c-tab-button-text-mobile">파일 {index + 1}</span>
+                  <div className="text-block-2">삭제</div>
                 </button>
-              ))}
+              </div>
             </div>
-            
-            <div className="c-tab-content w-tab-content w-full">
+
+            <div className="c-tab-content w-tab-content">
               {tabs.map((tab, index) => (
                 <div key={index} className={`c-file-tab-pane w-tab-pane ${index === activeTab ? 'w--tab-active' : ''}`}>
-                  <div className="w-layout-vflex file-tab-container w-full">
-                    {/* 삭제 버튼 제거 */}
-                    
+                  <div className="w-layout-vflex file-tab-container">
                     <div className="c-file-title-block">
                       <h2 className="c-file-heading">유의사항</h2>
                       <p className="c-paragraph-title">- 음성 파일의 녹음 상태로 인해 신청이 반려될 수 있습니다.<br/>- 작업 순서에 따라 안내가 지연될 수 있습니다.<br/>- 작업 과정에서 추가 화자가 확인되는 경우 등 화자수에 따라 추가 요금이 청구될 수 있습니다.<br/>- 상단 더하기(+) 버튼을 눌러 최대 5개의 파일을 한 번에 등록할 수 있습니다.</p>
@@ -469,143 +483,30 @@ function Reception() {
             </div>
           </div>
           
-          {/* 주문 정보 섹션 */}
-          <div className="w-full flex justify-center py-12">
-            <div className="max-w-5xl w-full bg-[#E9ECF1] rounded-2xl p-10 space-y-8">
-              <div className="mb-8">
-                <span className="text-2xl font-bold text-gray-900">주문 정보</span>
-              </div>
-              
-              {/* 열람 파일 형식 선택 */}
-              <div className="bg-white rounded-xl p-8 shadow-sm">
-                <div className="flex items-center mb-4">
-                  <h2 className="text-xl font-bold mr-2">열람 파일 형식</h2>
-                  <span className="bg-red-100 text-red-500 text-xs font-bold px-2 py-1 rounded ml-2">필수</span>
-                </div>
-                <p className="text-gray-600 mb-4">속기 초안 완성 후 확인을 위해 고객님 메일로 발송해 드립니다. 열람하기 편한 파일 형식을 선택해 주세요.</p>
-                <div className="space-y-3">
-                  {[
-                    { value: 'hwp', label: '한글(.hwp)' },
-                    { value: 'docx', label: '워드(.docx)' },
-                    { value: 'txt', label: '텍스트(.txt)' }
-                  ].map((format) => (
-                    <label key={format.value} className="flex items-center">
-                      <input
-                        type="radio"
-                        name="fileFormat"
-                        value={format.value}
-                        checked={selectedFileFormat === format.value}
-                        onChange={(e) => setSelectedFileFormat(e.target.value)}
-                        className="mr-3 accent-blue-500"
-                      />
-                      <span className="text-gray-700">{format.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-              
-              {/* 최종본 옵션 선택 */}
-              <div className="bg-white rounded-xl p-8 shadow-sm">
-                <div className="flex items-center mb-4">
-                  <h2 className="text-xl font-bold mr-2">최종본 옵션</h2>
-                  <span className="bg-red-100 text-red-500 text-xs font-bold px-2 py-1 rounded ml-2">필수</span>
-                </div>
-                <div className="space-y-3">
-                  {[
-                    { value: 'file', label: '파일' },
-                    { value: 'file_post', label: '파일 +등기 우편 (+5,000원)' },
-                    { value: 'file_post_cd', label: '파일 +등기 우편 +CD (+6,000원)' },
-                    { value: 'file_post_usb', label: '파일 +등기 우편 +USB (+10,000원)' }
-                  ].map((option) => (
-                    <label key={option.value} className="flex items-center">
-                      <input
-                        type="radio"
-                        name="finalOption"
-                        value={option.value}
-                        checked={selectedFinalOption === option.value}
-                        onChange={(e) => setSelectedFinalOption(e.target.value)}
-                        className="mr-3 accent-blue-500"
-                      />
-                      <span className="text-gray-700">{option.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-xl p-8 shadow-sm">
-                <div className="flex items-center mb-4">
-                  <h2 className="text-xl font-bold mr-2">주문자 정보</h2>
-                  <span className="bg-red-100 text-red-500 text-xs font-bold px-2 py-1 rounded ml-2">필수</span>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <FaUser className="text-gray-400 w-5 h-5" />
-                    <input type="text" placeholder="신청인 성함" className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value={customerName} onChange={e => setCustomerName(e.target.value)} />
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <FaPhone className="text-gray-400 w-5 h-5" />
-                    <input type="tel" placeholder="연락처 (숫자만, 10~11자리)" className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value={customerPhone} onChange={e => {
-                      const onlyNum = e.target.value.replace(/[^0-9]/g, '');
-                      setCustomerPhone(onlyNum);
-                      if (!validatePhone(onlyNum)) {
-                        setPhoneError('숫자만 입력, 10~11자리여야 합니다.');
-                      } else {
-                        setPhoneError('');
-                      }
-                    }} />
-                    {phoneError && <span className="text-red-500 text-xs ml-2">{phoneError}</span>}
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <FaEnvelope className="text-gray-400 w-5 h-5" />
-                    <input type="email" placeholder="이메일 (example@email.com)" className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value={customerEmail} onChange={e => {
-                      setCustomerEmail(e.target.value);
-                      if (!validateEmail(e.target.value)) {
-                        setEmailError('이메일 형식이 올바르지 않습니다.');
-                      } else {
-                        setEmailError('');
-                      }
-                    }} />
-                    {emailError && <span className="text-red-500 text-xs ml-2">{emailError}</span>}
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <FaMapMarkerAlt className="text-gray-400 w-5 h-5" />
-                    <input type="text" placeholder="주소 (최종본 수령지, 5자 이상)" className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" value={customerAddress} onChange={e => {
-                      setCustomerAddress(e.target.value);
-                      if (!validateAddress(e.target.value)) {
-                        setAddressError('주소를 5자 이상 입력하세요.');
-                      } else {
-                        setAddressError('');
-                      }
-                    }} />
-                    {addressError && <span className="text-red-500 text-xs ml-2">{addressError}</span>}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </section>
       
       {/* 견적 섹션과 겹치지 않도록 하단 여백 추가 */}
       <div className="pb-32"></div>
       
-      {/* 웹플로우와 동일한 스타일의 견적 섹션 */}
+      {/* 예상 견적란 - 웹플로우와 동일한 구조 */}
       <section className="c-checkout-section">
         <div className="w-layout-hflex c-checkout-container">
           <div className="w-layout-vflex c-checkout-left">
             <div className="w-layout-hflex c-sum-block-title between">
               <h2 className="c-app-sum-heading">예상 견적</h2>
-              <h2 className="c-app-sum-heading">{calculateTotalPrice().toLocaleString()}원</h2>
+              <h2 className="c-app-sum-heading">100,000원</h2>
             </div>
             <div className="div-block-11"></div>
             <div className="w-layout-vflex flex-block-11">
               <div className="w-layout-hflex c-checkout-factor">
-                <h6 className="c-checkout-f-text">- 속기록 제작 ({calculateTotalDuration()}분)</h6>
-                <h6 className="c-checkout-f-text">{calculateTranscriptionPrice().toLocaleString()}원</h6>
+                <h6 className="c-checkout-f-text">- 속기록 제작 (60분)</h6>
+                <h6 className="c-checkout-f-text">90,000원</h6>
               </div>
               <div className="w-layout-hflex c-checkout-factor">
-                <h6 className="c-checkout-f-text">- 최종본: {getSelectedOptionText()}</h6>
-                <h6 className="c-checkout-f-text">{getSelectedOptionPrice().toLocaleString()}원</h6>
+                <h6 className="c-checkout-f-text">- 최종본: 파일+등기우편+USB</h6>
+                <h6 className="c-checkout-f-text">10,000원</h6>
               </div>
             </div>
           </div>
@@ -613,13 +514,7 @@ function Reception() {
             <div className="w-layout-hflex flex-block-12">
               <h6 className="c-checkout-agreement-text">주문 내용, 서비스 이용약관 및 개인정보처리방침을 확인 했으며, 정보 제공에 동의합니다.</h6>
             </div>
-            <button
-              className="c-button-checkout w-button"
-              disabled={!isFormValid()}
-              onClick={handleSubmit}
-            >
-              접수 완료하기
-            </button>
+            <a href="#" className="c-button-checkout w-button">접수 완료하기</a>
           </div>
         </div>
       </section>
