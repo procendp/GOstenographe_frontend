@@ -214,42 +214,44 @@
   box-shadow: 0 -1px 10px -2px rgba(0, 0, 0, 0.2);
   margin: 0;
   padding: 0;
-  min-height: 150px;
+  min-height: 120px;
 }
 
 .c-checkout-container {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
+  display: flex !important;
   justify-content: center;
-  place-items: start stretch;
+  align-items: stretch;
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
   padding: 0;
   height: 100%;
+  flex-wrap: nowrap;
 }
 
-/* 웹플로우 원본과 동일한 오른쪽 섹션 설정 */
-.c-checkout-right {
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  border: 1px none #e2e8f0;
-  background-color: #1c58af;
-  justify-content: space-between;
-  align-items: center;
+/* 더 구체적인 선택자로 우선순위 강화 */
+section.c-checkout-section > div > div.c-checkout-right {
+  flex: 1 !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+/* Flexbox 컨테이너 강화 */
+.c-checkout-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: stretch;
   width: 100%;
-  max-width: 400px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
   height: 100%;
-  padding: 1.25rem 2rem 1rem;
+  flex-wrap: nowrap;
 }
 
-/* 웹플로우 원본과 동일한 왼쪽 섹션 설정 */
 .c-checkout-left {
+  flex: 1;
   grid-column-gap: 15px;
   grid-row-gap: 15px;
   border: 1px none #e2e8f0;
@@ -258,6 +260,43 @@
   width: 100%;
   height: 100%;
   padding: 1.5rem 2rem;
+}
+
+.c-checkout-right {
+  flex: 1 !important;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  border: 1px none #e2e8f0;
+  background-color: #1c58af;
+  justify-content: space-between;
+  align-items: center;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 1.25rem 2rem 0;
+  min-width: 0;
+  max-width: none !important;
+  box-sizing: border-box;
+}
+
+/* 더 구체적인 선택자로 우선순위 강화 */
+section.c-checkout-section > div > div.c-checkout-right {
+  flex: 1 !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+/* Flexbox 컨테이너 강화 */
+.c-checkout-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  flex-wrap: nowrap;
 }
 
 .c-sum-block-title {
@@ -359,29 +398,24 @@
   background-color: #64748b;
 }
 
-/* 반응형 견적 섹션 - 웹플로우 원본과 동일 */
+/* 반응형 견적 섹션 */
 @media (max-width: 768px) {
   .c-checkout-container {
-    grid-template-rows: auto auto;
     grid-template-columns: 1fr;
+    grid-auto-flow: row;
   }
   
-  .c-checkout-left {
-    grid-column-gap: 7px;
-    grid-row-gap: 7px;
-    padding-bottom: 1rem;
-  }
-  
+  .c-checkout-left,
   .c-checkout-right {
-    max-width: none;
+    padding: 16px 20px; /* 모바일에서 더 작게 */
   }
   
   .c-app-sum-heading {
-    font-size: 18px;
+    font-size: 18px; /* 모바일에서 더 작게 */
   }
   
   .c-checkout-f-text {
-    font-size: 13px;
+    font-size: 13px; /* 모바일에서 더 작게 */
   }
 }
 
@@ -1110,4 +1144,45 @@
   align-items: center;
 }
 
-/* 웹플로우 레이아웃 클래스 조합 - 중복 제거됨 */
+/* 견적란 컨테이너 - 웹플로우 클래스와 매칭 */
+.w-layout-hflex.c-checkout-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  flex-wrap: nowrap;
+}
+
+/* 견적란 좌측 - 웹플로우 클래스와 매칭 */
+.w-layout-vflex.c-checkout-left {
+  flex: 1;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  border: 1px none #e2e8f0;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 2rem;
+}
+
+/* 견적란 우측 - 웹플로우 클래스와 매칭 */
+.w-layout-vflex.c-checkout-right {
+  flex: 1 !important;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  border: 1px none #e2e8f0;
+  background-color: #1c58af;
+  justify-content: space-between;
+  align-items: center;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 1.25rem 2rem 0;
+  min-width: 0;
+  max-width: none !important;
+  box-sizing: border-box;
+}
