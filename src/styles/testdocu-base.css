@@ -1,4 +1,7 @@
 /* testDocu 디자인 기반 스타일 */
+@import url('/css/normalize.css');
+@import url('/css/webflow.css');
+@import url('/css/professional-transcription-service.webflow.css');
 
 /* 폰트 정의 */
 @font-face {
@@ -829,4 +832,363 @@
     padding: 0 16px 16px;
     font-size: 0.85rem;
   }
+}
+
+/* Apply 페이지 전용 스타일 추가 */
+.c-apply-section {
+  padding-top: 120px;
+  padding-bottom: 140px;
+  background-color: #cad5e5;
+  background-image: url('/testDocu/images/Background-Blue20-s.png');
+  background-position: 0 0;
+  background-size: auto;
+  min-height: 100vh;
+}
+
+.c-apply-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 5%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* 체크아웃 섹션 - 플로팅 스타일 */
+.c-checkout-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 20px 0;
+}
+
+.c-checkout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 웹플로우 레이아웃 클래스 */
+.w-layout-vflex {
+  display: flex;
+  flex-direction: column;
+}
+
+.w-layout-hflex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.c-tab-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.w-tabs {
+  position: relative;
+  width: 100%;
+}
+
+/* Apply 페이지 탭 메뉴 래퍼 - 구체적인 선택자로 우선순위 확보 */
+.c-apply-section .c-tab-container .c-tab-menu-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: -10px;
+  margin-top: -1rem;
+  width: 100%;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0;
+  transform: translateY(-0.5rem);
+}
+
+.w-tab-menu {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0;
+  gap: 0px;
+}
+
+.w-tab-content {
+  width: 100%;
+  background: transparent;
+  border-radius: 0 0 12px 12px;
+  margin-top: 0;
+  margin-bottom: 10rem;
+}
+
+.w-tab-pane {
+  display: none;
+}
+
+.w-tab-pane.w--tab-active {
+  display: block;
+}
+
+.c-delete-button-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.w-inline-block {
+  display: inline-block;
+}
+
+.w-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #3b82f6;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.w-button:hover {
+  background-color: #2563eb;
+}
+
+/* 완료 페이지에서는 체크아웃 섹션 숨기기 */
+.c-checkout-section.hide {
+  display: none;
+}
+
+/* Apply 페이지 탭 버튼 스타일 - 구체적인 선택자로 우선순위 확보 */
+.c-apply-section .c-file-tab-button-left,
+.c-apply-section .c-file-tab-button-mid,
+.c-apply-section .c-file-tab-button-right {
+  border: 1px solid #b3c3d8;
+  font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
+  color: #666;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: -0.01em;
+  background-color: #fff;
+  padding: 12px 20px;
+  font-weight: 400;
+  line-height: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.c-apply-section .c-file-tab-button-left {
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin-right: 2px;
+}
+
+.c-apply-section .c-file-tab-button-mid {
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin-right: 2px;
+}
+
+.c-apply-section .c-file-tab-button-right {
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin-right: 0;
+}
+
+.c-apply-section .c-file-tab-button-left:hover,
+.c-apply-section .c-file-tab-button-mid:hover,
+.c-apply-section .c-file-tab-button-right:hover {
+  background-color: #f5f7f9;
+  font-weight: 500;
+}
+
+.c-apply-section .c-file-tab-button-left.w--current,
+.c-apply-section .c-file-tab-button-mid.w--current,
+.c-apply-section .c-file-tab-button-right.w--current {
+  border-color: #1c58af;
+  background-color: #1c58af;
+  color: white;
+  padding: 12px 20px;
+  font-weight: 500;
+  box-shadow: 0 0 20px -10px rgba(0,0,0,0.38);
+  position: relative;
+  z-index: 10;
+  border-bottom: none;
+}
+
+/* 탭 콘텐츠 스타일 */
+.c-file-tab-pane {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.file-tab-container {
+  padding: 0 0 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 섹션 블록 스타일 - webflow와 동일 */
+.c-file-block {
+  background-color: #f8f6f3;
+  color: #333;
+  border-radius: 20px;
+  padding: 1rem 1.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.c-personal-info-block {
+  background-color: white;
+  color: #333;
+  border-radius: 20px;
+  padding: 1rem 1.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* 파일 제목 블록 */
+.c-file-title-block {
+  background: transparent;
+  padding: 0;
+  margin-bottom: 0.75rem;
+}
+
+.c-file-heading {
+  font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.c-paragraph-title {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 삭제 버튼 스타일 - webflow와 동일 */
+.c-delete-button {
+  background-color: #f99029;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid #f99029;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
+  letter-spacing: -0.02em;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-delete-button:hover {
+  background-color: #666;
+  border-color: #666;
+}
+
+/* 블록 제목 스타일 */
+.c-file-block-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.c-file-block-title.between {
+  justify-content: space-between;
+}
+
+.c-file-block-heading {
+  font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
+  color: #666;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.c-file-block-heading.light {
+  font-size: 1.125rem;
+  font-weight: 300;
+}
+
+.c-file-block-heading.highlight {
+  color: #666;
+  font-size: 1.125rem;
+}
+
+/* 태그 스타일 */
+.c-file-block-title-tag {
+  background-color: #ff9966;
+  border: 1px solid #ff8855;
+  border-radius: 10px;
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-tag-text {
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* 입력 필드 스타일 */
+.c-text-input-field {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.c-text-input-field:focus {
+  outline: none;
+  border-color: #1c58af;
+}
+
+/* 라디오 버튼 스타일 */
+.radio-button-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.c-apply-form {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.c-apply-form.vertical {
+  flex-direction: column;
+  gap: 12px;
 } 

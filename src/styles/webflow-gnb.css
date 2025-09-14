@@ -466,14 +466,7 @@ section.c-checkout-section > div > div.c-checkout-right {
   line-height: 120%;
 }
 
-.c-step-component {
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  display: flex;
-  margin-top: 1rem; /* 상단 여백 줄임: 2rem에서 1rem으로 */
-}
+/* .c-step-component 스타일은 webflow-apply.css에서 관리 */
 
 .c-steps-grid {
   grid-column-gap: 0rem;
@@ -573,13 +566,7 @@ section.c-checkout-section > div > div.c-checkout-right {
 }
 
 /* 웹플로우 탭 컨테이너 스타일 */
-.c-tab-container {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  display: flex;
-}
+/* .c-tab-container 스타일은 webflow-apply.css에서 관리 */
 
 /* 탭 메뉴와 삭제 버튼을 감싸는 상위 컨테이너 */
 .c-tab-header {
@@ -802,8 +789,8 @@ section.c-checkout-section > div > div.c-checkout-right {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0.5rem;
   text-align: left; /* 왼쪽 정렬 */
 }
 

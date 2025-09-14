@@ -1,5 +1,7 @@
-import { ReceptionFormData } from '@/types/reception';
-import { useState } from 'react';
+import { ReceptionFormData, TimestampRange } from '@/types/reception';
+import { useState, useEffect, useCallback } from 'react';
+import TimestampInput from './TimestampInput';
+import { createEmptyTimestampRange, calculateTotalDuration } from '@/utils/timestampUtils';
 
 interface RequestInfoSectionProps {
   formData: ReceptionFormData;
@@ -9,7 +11,29 @@ interface RequestInfoSectionProps {
 }
 
 export default function RequestInfoSection({ formData, setFormData, onNext, onBack }: RequestInfoSectionProps) {
-  const [selectedType, setSelectedType] = useState<'전체' | '부분'>('전체');
+  const [totalDuration, setTotalDuration] = useState('00:00:00');
+  const MAX_TIMESTAMP_RANGES = 3; // Configurable maximum
+
+  // Initialize timestamp ranges if not present
+  useEffect(() => {
+    if (!formData.timestampRanges || formData.timestampRanges.length === 0) {
+      const defaultRanges = [
+        createEmptyTimestampRange()
+      ];
+      setFormData({
+        ...formData,
+        timestampRanges: defaultRanges
+      });
+    }
+  }, [formData, setFormData]);
+
+  // Calculate total duration whenever timestamp ranges change
+  useEffect(() => {
+    if (formData.timestampRanges) {
+      const duration = calculateTotalDuration(formData.timestampRanges);
+      setTotalDuration(duration);
+    }
+  }, [formData.timestampRanges]);
 
   const handleSpeakerCountChange = (count: number) => {
     const newCount = Math.min(5, Math.max(1, count));
@@ -38,181 +62,151 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
     setFormData({ ...formData, detail });
   };
 
-  // 시:분:초 핀 리스트 관련 (스크롤 방식)
-  const handleTimestampChange = (index: number, type: 'hour' | 'minute' | 'second', value: string) => {
-    const newTimestamps = [...formData.timestamps];
-    // 기존 값 분해
-    const [h, m, s] = (newTimestamps[index] || '00:00:00').split(':');
-    let hour = h, minute = m, second = s;
-    if (type === 'hour') hour = value;
-    if (type === 'minute') minute = value;
-    if (type === 'second') second = value;
-    newTimestamps[index] = `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}:${second.padStart(2, '0')}`;
-    setFormData({ ...formData, timestamps: newTimestamps });
-  };
-  const handleTimestampAdd = () => {
-    setFormData({ ...formData, timestamps: [...formData.timestamps, '00:00:00'] });
-  };
-  const handleTimestampRemove = (index: number) => {
-    const newTimestamps = [...formData.timestamps];
-    newTimestamps.splice(index, 1);
-    setFormData({ ...formData, timestamps: newTimestamps });
-  };
+  // New timestamp range handlers
+  const handleTimestampRangeUpdate = useCallback((index: number, updatedRange: TimestampRange) => {
+    const newRanges = [...(formData.timestampRanges || [])];
+    newRanges[index] = updatedRange;
+    setFormData({ ...formData, timestampRanges: newRanges });
+  }, [formData, setFormData]);
+
+  const handleTimestampRangeDelete = useCallback((index: number) => {
+    const newRanges = [...(formData.timestampRanges || [])];
+    newRanges.splice(index, 1);
+    setFormData({ ...formData, timestampRanges: newRanges });
+  }, [formData, setFormData]);
+
+  const handleTimestampRangeAdd = useCallback(() => {
+    if ((formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES) {
+      const newRanges = [...(formData.timestampRanges || []), createEmptyTimestampRange()];
+      setFormData({ ...formData, timestampRanges: newRanges });
+    }
+  }, [formData, setFormData, MAX_TIMESTAMP_RANGES]);
+
 
   return (
-    <div className="space-y-8">
-      {/* 파일 업로드 섹션은 상위에서 렌더링됨(주석 처리) */}
-      {/* <div className="bg-white rounded-xl p-8 shadow-sm mb-8">
-        <div className="flex items-center mb-4">
-          <h3 className="text-lg font-semibold mr-2">파일 업로드</h3>
-          <span className="bg-red-100 text-red-500 text-xs font-bold px-2 py-1 rounded ml-2">필수</span>
-        </div>
-        ...
-      </div> */}
-
-      {/* 녹취 종류 카드형 */}
-      <div className="bg-white rounded-xl p-8 shadow-sm">
-        <div className="flex items-center mb-4">
-          <h3 className="text-lg font-semibold mr-2">녹취 종류</h3>
-          <span className="bg-red-100 text-red-500 text-xs font-bold px-2 py-1 rounded ml-2">필수</span>
-        </div>
-        <div className="flex gap-4 mb-4">
+    <div className="w-layout-hflex c-type-wrapper">
+      <div data-current="부분 녹취" data-easing="ease" data-duration-in="300" data-duration-out="100" className="tabs-993 w-tabs">
+        <div className="tabs-menu w-tab-menu" style={{ display: 'flex', gap: '0' }}>
           <button
-            className={`px-6 py-2 rounded-lg border font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${selectedType === '전체' ? 'bg-blue-50 text-blue-700 border-blue-300' : 'bg-white text-gray-700 border-gray-300'}`}
-            onClick={() => setSelectedType('전체')}
+            data-w-tab="전체 녹취"
+            className={`c-button-type left w-inline-block w-tab-link ${formData.recordType === '전체' ? 'w--current' : ''}`}
+            onClick={() => setFormData({ ...formData, recordType: '전체' })}
+            style={{
+              backgroundColor: formData.recordType === '전체' ? '#374151' : 'white',
+              color: formData.recordType === '전체' ? 'white' : '#374151',
+              border: formData.recordType === '전체' ? '1.5px solid #374151' : '1px solid #374151',
+              borderRadius: '0',
+              padding: '15px 30px',
+              fontSize: '14px',
+              fontWeight: formData.recordType === '전체' ? '700' : '500',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
           >
-            전체 녹취
+            <div>전체 녹취</div>
           </button>
           <button
-            className={`px-6 py-2 rounded-lg border font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${selectedType === '부분' ? 'bg-blue-50 text-blue-700 border-blue-300' : 'bg-white text-gray-700 border-gray-300'}`}
-            onClick={() => setSelectedType('부분')}
+            data-w-tab="부분 녹취"
+            className={`c-button-type right w-inline-block w-tab-link ${formData.recordType === '부분' ? 'w--current' : ''}`}
+            onClick={() => setFormData({ ...formData, recordType: '부분' })}
+            style={{
+              backgroundColor: formData.recordType === '부분' ? '#374151' : 'white',
+              color: formData.recordType === '부분' ? 'white' : '#374151',
+              border: formData.recordType === '부분' ? '1.5px solid #374151' : '1px solid #374151',
+              borderLeft: formData.recordType === '부분' ? '1.5px solid #374151' : 'none',
+              borderRadius: '0',
+              padding: '15px 30px',
+              fontSize: '14px',
+              fontWeight: formData.recordType === '부분' ? '700' : '500',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
           >
-            부분 녹취
+            <div>부분 녹취</div>
           </button>
         </div>
-        {/* 시:분:초 핀 리스트 입력 UI (스크롤 방식) */}
-        <div className="space-y-2">
-          <div className="flex items-center mb-2">
-            <h4 className="text-base font-medium mr-2">동영상 시점</h4>
-            <span className="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">선택</span>
-          </div>
-          {formData.timestamps.map((ts, idx) => {
-            const [h, m, s] = (ts || '00:00:00').split(':');
-            return (
-              <div key={idx} className="flex items-center gap-2 mb-1">
-                <select value={h} onChange={e => handleTimestampChange(idx, 'hour', e.target.value)} className="px-2 py-1 border border-gray-300 rounded-md">
-                  {Array.from({ length: 24 }).map((_, i) => (
-                    <option key={i} value={i.toString().padStart(2, '0')}>{i.toString().padStart(2, '0')}</option>
+        
+        {formData.recordType === '부분' && (
+          <div className="w-tab-content" style={{ marginTop: '0.5rem', paddingBottom: '0.5rem' }}>
+            <div data-w-tab="부분 녹취" className="w-tab-pane w--tab-active">
+              <div className="c-timestamp-block" style={{ marginBottom: '0' }}>
+                <h2 className="c-file-block-heading h5" style={{ textAlign: 'left', marginBottom: '0.75rem' }}>부분 녹취 구간 입력</h2>
+                <div className="w-layout-vflex timestampt-input-wrapper" style={{ alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0' }}>
+                  {(formData.timestampRanges || []).map((range, index) => (
+                    <TimestampInput
+                      key={`${range.id}-${index}`}
+                      range={range}
+                      onUpdate={(updatedRange) => handleTimestampRangeUpdate(index, updatedRange)}
+                      onDelete={() => handleTimestampRangeDelete(index)}
+                      canDelete={(formData.timestampRanges?.length || 0) > 1}
+                    />
                   ))}
-                </select>
-                <span>:</span>
-                <select value={m} onChange={e => handleTimestampChange(idx, 'minute', e.target.value)} className="px-2 py-1 border border-gray-300 rounded-md">
-                  {Array.from({ length: 60 }).map((_, i) => (
-                    <option key={i} value={i.toString().padStart(2, '0')}>{i.toString().padStart(2, '0')}</option>
-                  ))}
-                </select>
-                <span>:</span>
-                <select value={s} onChange={e => handleTimestampChange(idx, 'second', e.target.value)} className="px-2 py-1 border border-gray-300 rounded-md">
-                  {Array.from({ length: 60 }).map((_, i) => (
-                    <option key={i} value={i.toString().padStart(2, '0')}>{i.toString().padStart(2, '0')}</option>
-                  ))}
-                </select>
-                <button type="button" onClick={() => handleTimestampRemove(idx)} className="ml-2 text-red-500 hover:text-red-700 font-medium">삭제</button>
+                  
+                  {/* Add button */}
+                  {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (
+                    <div className="w-layout-hflex c-timestamp-wrapper">
+                      <button
+                        type="button"
+                        onClick={handleTimestampRangeAdd}
+                        className="w-layout-hflex timestamp-h-flex"
+                        style={{
+                          width: '100%',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          padding: '0'
+                        }}
+                      >
+                        <div className="c-time-add-btn-grid" style={{
+                          border: '1.5px dashed #3b82f6',
+                          borderRadius: '5px',
+                          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+                          gridColumnGap: '0px',
+                          gridRowGap: '0px',
+                          placeItems: 'center stretch',
+                          width: '100%',
+                          maxWidth: '400px',
+                          padding: '2px 0',
+                          display: 'grid',
+                          cursor: 'pointer',
+                          backgroundColor: 'transparent'
+                        }}>
+                          <div className="c-button-add-text" style={{
+                            gridColumnGap: '5px',
+                            gridRowGap: '5px',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: '5px',
+                            display: 'flex',
+                            color: '#3b82f6'
+                          }}>
+                            <div className="c-icon-image-wrapper">
+                              <span style={{ 
+                                fontSize: '16px', 
+                                color: '#3b82f6',
+                                minWidth: '16px',
+                                maxWidth: '80%',
+                                display: 'inline-block'
+                              }}>+</span>
+                            </div>
+                            <p className="c-input-text" style={{ 
+                              margin: 0, 
+                              color: '#3b82f6',
+                              fontSize: '14px'
+                            }}>추가</p>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            );
-          })}
-          <button type="button" onClick={handleTimestampAdd} className="text-blue-600 hover:text-blue-700 font-medium">+ 추가</button>
-        </div>
-      </div>
-
-      {/* 화자 정보 카드형 */}
-      <div className="bg-white rounded-xl p-8 shadow-sm">
-        <div className="flex items-center mb-4">
-          <h3 className="text-lg font-semibold mr-2">화자 정보</h3>
-          <span className="bg-red-100 text-red-500 text-xs font-bold px-2 py-1 rounded ml-2">필수</span>
-        </div>
-        <div className="flex space-x-4 mb-4">
-          <input
-            type="number"
-            min="1"
-            max="5"
-            value={formData.speakerCount}
-            onChange={(e) => handleSpeakerCountChange(parseInt(e.target.value) || 1)}
-            className="w-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <div className="text-gray-500">화자 수의 최대값은 5명입니다.</div>
-        </div>
-        <div className="space-y-4">
-          {Array.from({ length: formData.speakerCount }).map((_, index) => (
-            <div key={index} className="flex items-center space-x-4">
-              <span className="text-gray-500 w-24">화자 {index + 1}</span>
-              <input
-                type="text"
-                placeholder="화자 이름 입력"
-                value={formData.speakerNames[index] || ''}
-                onChange={(e) => handleSpeakerNameChange(index, e.target.value)}
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 녹음 일시 카드형 */}
-      <div className="bg-white rounded-xl p-8 shadow-sm">
-        <div className="flex items-center mb-4">
-          <h3 className="text-lg font-semibold mr-2">녹음 일시</h3>
-          <span className="bg-red-100 text-red-500 text-xs font-bold px-2 py-1 rounded ml-2">필수</span>
-        </div>
-        <div className="space-y-4">
-          {formData.selectedDates.map((_, index) => (
-            <div key={index} className="flex items-center">
-              <input
-                type="date"
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          ))}
-          <button
-            onClick={handleDateAdd}
-            className="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            + 추가
-          </button>
-        </div>
-      </div>
-
-      {/* 상세 정보 카드형 */}
-      <div className="bg-white rounded-xl p-8 shadow-sm">
-        <div className="flex items-center mb-4">
-          <h3 className="text-lg font-semibold mr-2">상세 정보</h3>
-          <span className="bg-gray-200 text-blue-600 text-xs font-bold px-2 py-1 rounded ml-2">선택</span>
-        </div>
-        <textarea
-          rows={4}
-          placeholder="추가로 전달하실 내용이 있다면 자유롭게 작성해 주세요."
-          value={formData.detail}
-          onChange={(e) => handleDetailChange(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      <div className="flex justify-between">
-        {onBack && (
-          <button
-            onClick={onBack}
-            className="px-6 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors"
-          >
-            이전
-          </button>
-        )}
-        {onNext && (
-          <button
-            onClick={onNext}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-          >
-            다음
-          </button>
+          </div>
         )}
       </div>
     </div>

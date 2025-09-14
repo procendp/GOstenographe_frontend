@@ -1,7 +1,7 @@
 'use client';
 
 import ApplyGNB from '@/components/ApplyGNB';
-import Footer from '@/components/Footer';
+import NewFooter from '@/components/NewFooter';
 import { useState, useRef, useEffect } from 'react';
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
@@ -13,34 +13,61 @@ import { ReceptionFormData } from '@/types/reception';
 
 function Reception() {
   // 기본 상태들
-  const [customerName, setCustomerName] = useState('');
-  const [customerPhone, setCustomerPhone] = useState('');
-  const [customerEmail, setCustomerEmail] = useState('');
-  const [customerAddress, setCustomerAddress] = useState('');
-  const [tabs, setTabs] = useState([{ files: [] as { file: File, file_key: string }[], speakerNames: [''], selectedDates: [] as string[], detail: '', speakerCount: 1, timestamps: [] as string[], recordType: '전체' as '전체' | '부분' }]);
+  const [customerName, setCustomerName] = useState('김테스트');
+  const [customerPhone, setCustomerPhone] = useState('010-1234-5678');
+  const [customerEmail, setCustomerEmail] = useState('test@example.com');
+  const [customerAddress, setCustomerAddress] = useState('서울특별시 강남구 테헤란로 123, 456호');
+  const [tabs, setTabs] = useState([
+    { 
+      files: [{ file: { name: '20241201_회의록음.m4a' } as File, file_key: 'test' }], 
+      speakerNames: ['김대표', '이부장', '박과장'], 
+      selectedDates: [] as string[], 
+      detail: '분기별 실적 검토 회의 내용입니다. 중요한 의사결정 사항이 포함되어 있습니다.', 
+      speakerCount: 3, 
+      timestamps: ['00:45:30'] as string[], 
+      timestampRanges: [] as any[], 
+      recordType: '부분' as '전체' | '부분', 
+      recordingDate: '2024-12-01', 
+      recordingTime: '14:30', 
+      recordingUnsure: false 
+    },
+    { 
+      files: [{ file: { name: '20241202_인터뷰.wav' } as File, file_key: 'test2' }], 
+      speakerNames: ['면접관A', '면접관B', '지원자'], 
+      selectedDates: [] as string[], 
+      detail: '신입사원 채용 면접 녹음 파일입니다.', 
+      speakerCount: 3, 
+      timestamps: ['01:20:15'] as string[], 
+      timestampRanges: [] as any[], 
+      recordType: '전체' as '전체' | '부분', 
+      recordingDate: '2024-12-02', 
+      recordingTime: '10:00', 
+      recordingUnsure: false 
+    }
+  ]);
   const [activeTab, setActiveTab] = useState(0);
   const [agree, setAgree] = useState(false);
   const router = useRouter();
   const [requestId, setRequestId] = useState<number|null>(null);
   const [filesData, setFilesData] = useState<any[]>([]);
-  const [showComplete, setShowComplete] = useState(false);
-  const [openIndexes, setOpenIndexes] = useState([0]);
+  const [showComplete, setShowComplete] = useState(true);
+  const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(null);
   const [phoneError, setPhoneError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [addressError, setAddressError] = useState('');
-  const [selectedFileFormat, setSelectedFileFormat] = useState('hwp');
-  const [selectedFinalOption, setSelectedFinalOption] = useState('file');
+  const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
+  const [selectedFinalOption, setSelectedFinalOption] = useState('file_post_usb');
 
   // 기본 함수들
   const handleNewRequest = () => {
     setShowComplete(false);
-    setTabs([{ files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], recordType: '전체' }]);
+    setTabs([{ files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], timestampRanges: [], recordType: '전체', recordingDate: '', recordingTime: '', recordingUnsure: false }]);
     router.push('/apply');
   };
 
   const handleAddTab = () => {
     if (tabs.length >= 5) return;
-    setTabs([...tabs, { files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], recordType: '전체' }]);
+    setTabs([...tabs, { files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], timestampRanges: [], recordType: '전체', recordingDate: '', recordingTime: '', recordingUnsure: false }]);
     setActiveTab(tabs.length);
   };
 
@@ -61,17 +88,13 @@ function Reception() {
   };
 
   const toggleFile = (idx: number) => {
-    setOpenIndexes((prev) =>
-      prev.includes(idx)
-        ? prev.filter((i) => i !== idx)
-        : [...prev, idx]
-    );
+    setOpenAccordionIndex(prev => prev === idx ? null : idx);
   };
 
   // 스텝 인디케이터
   const Stepper = ({ step }: { step: number }) => {
     return (
-      <div className="c-steps-grid max-w-[600px] mx-auto relative">
+      <div className="c-steps-grid max-w-[800px] mx-auto relative" style={{ gap: '4rem' }}>
         <div className="c-steps-item">
           <div className={`c-steps-dot ${step >= 1 ? 'current' : ''}`}>
             <div className={`c-steps-dot-inner ${step >= 1 ? 'current' : ''}`}></div>
@@ -81,7 +104,7 @@ function Reception() {
         </div>
         
         {/* 점선을 절대 위치로 두 원 사이 중앙에 배치 */}
-        <div className="c-steps-line">
+        <div className="c-steps-line" style={{ width: '320px' }}>
           <div 
             className={`c-steps-line-dot ${step >= 2 ? 'ongoing' : ''}`}
           ></div>
@@ -169,11 +192,16 @@ function Reception() {
 
   // 제출 처리
   const handleSubmit = async () => {
-    if (!isFormValid()) {
-      alert('모든 필수 항목을 입력해주세요.');
+    if (!agree) {
+      alert('약관에 동의해주세요.');
       return;
     }
 
+    // 조건 없이 바로 완료 페이지 표시
+    setShowComplete(true);
+    
+    // 실제 API 호출 (주석 처리)
+    /*
     try {
       const formData = {
         customer_name: customerName,
@@ -219,6 +247,7 @@ function Reception() {
       console.error('신청 처리 중 오류:', error);
       alert('신청 처리 중 오류가 발생했습니다.');
     }
+    */
   };
 
   // 동적 견적 계산 함수들
@@ -248,11 +277,11 @@ function Reception() {
       case 'file':
         return '파일';
       case 'file_post':
-        return '파일 +등기 우편 (+5,000원)';
+        return '파일+등기우편';
       case 'file_post_cd':
-        return '파일 +등기 우편 +CD (+6,000원)';
+        return '파일+등기우편+CD';
       case 'file_post_usb':
-        return '파일 +등기 우편 +USB (+10,000원)';
+        return '파일+등기우편+USB';
       default:
         return '파일';
     }
@@ -279,53 +308,229 @@ function Reception() {
   };
 
   return showComplete ? (
-    <div className="min-h-screen bg-[#F8FAFC] pt-20">
+    <div className="flex flex-col min-h-screen" style={{
+      backgroundColor: '#cad5e5',
+      backgroundImage: 'url(/new_goStenographe_resource/backgrounds/Background-Blue20-s.png)',
+      backgroundPosition: '0 0',
+      backgroundSize: 'auto'
+    }}>
       <ApplyGNB />
-      <div className="w-full max-w-[960px] mx-auto pt-12 pb-0 px-4 sm:px-6">
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-12">서비스 신청</h1>
-        <div className="flex justify-center items-center mb-12">
-          <div className="flex flex-col items-center flex-1">
-            <div className="w-6 h-6 rounded-full bg-blue-500 mb-2"></div>
-            <span className="text-base font-bold text-gray-500">신청서 작성</span>
-            <span className="text-xs text-gray-400 mt-1">파일과 정보를 입력해 주세요.</span>
+      <div className="pt-20"></div>
+      <section className="c-apply-section">
+        <div className="c-apply-container">
+          {/* 서비스 신청 제목 */}
+          <div className="text-center mb-0">
+            <h1 className="c-section-heading text-[2.49rem] font-medium text-gray-900 max-w-[600px] mx-auto leading-[120%]">
+              서비스 신청
+            </h1>
           </div>
-          <div className="flex-1 h-1 bg-blue-100 mx-2 relative flex items-center">
-            <div className="w-full h-1 border-dashed border-b-2 border-blue-400"></div>
-          </div>
-          <div className="flex flex-col items-center flex-1">
-            <div className="w-6 h-6 rounded-full bg-blue-500 mb-2"></div>
-            <span className="text-base font-bold text-gray-900">제출 완료</span>
-            <span className="text-xs text-gray-400 mt-1">접수된 신청 정보를 확인해 주세요.</span>
-          </div>
-        </div>
-      </div>
-      <main className="w-full min-h-screen flex flex-col items-center bg-white py-0 px-0">
-        <div className="w-full max-w-[960px] mx-auto pt-0 pb-12 px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight mb-2">
-              감사합니다. 정상 접수되었습니다.
-            </h2>
-                          <div className="text-lg sm:text-xl font-bold leading-normal">
-                <span className="text-gray-900">작업 가능 여부 확인 후</span>
-                <span className="text-gray-900"> 비용 안내드리겠습니다.</span>
+
+          {/* 진행 단계 */}
+          <div className="c-step-component">
+            <div className="c-steps-grid max-w-[800px] mx-auto relative" style={{ gap: '4rem' }}>
+              <div className="c-steps-item">
+                <div className="c-steps-dot">
+                  <div className="c-steps-dot-inner"></div>
+                </div>
+                <h3 className="c-step-title" style={{color: '#6b7280'}}>신청서 작성</h3>
+                <p className="c-steps-sub-title" style={{color: '#6b7280'}}>파일과 정보를<br/>입력해 주세요.</p>
               </div>
-            <p className="text-xs sm:text-sm text-red-500 mt-2">
-              * 작업 순서에 따라 안내가 지연될 수 있습니다.
-            </p>
+              
+              <div className="c-steps-line" style={{ width: '320px' }}>
+                <div className="c-steps-line-dot"></div>
+              </div>
+              
+              <div className="c-steps-item">
+                <div className="c-steps-dot current">
+                  <div className="c-steps-dot-inner current"></div>
+                </div>
+                <h3 className="c-step-title">제출 완료</h3>
+                <p className="c-steps-sub-title">신청 정보를<br/>확인해 주세요.</p>
+              </div>
+            </div>
           </div>
-          <div className="w-2/5 max-w-[400px] mx-auto rounded-2xl bg-blue-500 flex flex-row items-center justify-between px-8 py-6 mb-10">
-            <div className="font-extrabold text-white text-lg sm:text-2xl">예상 견적</div>
-            <div className="font-extrabold text-white text-lg sm:text-2xl">100,000원</div>
+
+          {/* 완료 메시지 */}
+          <div className="w-layout-vflex flex-block-14" style={{marginTop: '2rem'}}>
+            <div className="c-finito-subtitle-block text-center" style={{marginBottom: '2rem'}}>
+              <h2 className="c-heading-4 centered" style={{fontSize: '1.75rem', fontWeight: 'normal', lineHeight: '1.2', marginBottom: '0.5rem'}}>
+                감사합니다. 정상 접수되었습니다.<br/>
+                <span className="text-span" style={{color: '#1c58af'}}><strong>작업 가능 여부 확인 후</strong></span>
+                <strong> 비용 안내드리겠습니다.</strong>
+              </h2>
+              <p className="c-finito-subtitle-pharagraph" style={{color: '#ef4444', fontSize: '1rem', marginTop: '0.5rem'}}>
+                * 작업 순서에 따라 안내가 지연될 수 있습니다.
+              </p>
+            </div>
+
+            <div className="w-layout-vflex c-app-info-block">
+              {/* 예상 견적 */}
+              <div style={{
+                backgroundColor: '#1c58af',
+                borderRadius: '20px',
+                padding: '2rem 2rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '90%',
+                margin: '0 auto 2rem auto'
+              }}>
+                <h2 style={{color: 'white', fontSize: '1.5rem', fontWeight: 'bold', margin: '0'}}>예상 견적</h2>
+                <h2 style={{color: 'white', fontSize: '1.5rem', fontWeight: 'bold', margin: '0'}}>{calculateTotalPrice().toLocaleString()}원</h2>
+              </div>
+
+              {/* 서비스 신청 내역 */}
+              <div className="w-layout-vflex application-info-container" style={{marginBottom: '2rem', width: '90%', margin: '0 auto 2rem auto'}}>
+                <div className="c-app-info-title-block" style={{textAlign: 'center', marginBottom: '1.5rem'}}>
+                  <h2 className="c-app-info-heading" style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937'}}>서비스 신청 내역</h2>
+                </div>
+                <div className="container small-container" style={{maxWidth: '1000px', margin: '0 auto'}}>
+                  <div className="flex-vertical">
+                    {tabs.map((tab, index) => (
+                      <details key={index} className="accordion blue" style={{
+                        backgroundColor: 'white',
+                        border: '1px solid #d1d5db',
+                        borderRadius: '10px',
+                        marginBottom: '1rem',
+                        overflow: 'hidden'
+                      }} open={openAccordionIndex === index}>
+                        <summary className="c-accordion-title" style={{
+                          backgroundColor: openAccordionIndex === index ? '#edead9' : '#f3f4f6',
+                          padding: '1rem 1.5rem',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          fontWeight: 'bold',
+                          fontSize: '1.1rem'
+                        }} onClick={(e) => {
+                          e.preventDefault();
+                          const newIndex = openAccordionIndex === index ? null : index;
+                          setOpenAccordionIndex(newIndex);
+                        }}>
+                          파일 {index + 1}
+                          <span style={{
+                            fontSize: '0.8rem',
+                            color: '#6b7280',
+                            transition: 'transform 0.2s'
+                          }}>▼</span>
+                        </summary>
+                        <div className="c-accordion-content-box" style={{padding: '1.5rem'}}>
+                          <div className="w-layout-grid c-order-info-grid" style={{
+                            display: 'grid',
+                            gridTemplateColumns: '1fr 2fr',
+                            gap: '0.75rem',
+                            alignItems: 'start'
+                          }}>
+                            <div className="c-app-info-grid-title-block">
+                              <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>첨부 파일</div>
+                            </div>
+                            <div className="c-app-info-grid-contents-block">
+                              <div className="c-app-info-grid-contents">{tab.files.map(f => f.file.name).join(', ') || '파일 없음'}</div>
+                            </div>
+                            
+                            <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                              <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>녹취 종류</div>
+                            </div>
+                            <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                              <div className="c-app-info-grid-contents">{tab.recordType} 녹취</div>
+                            </div>
+                            
+                            <div className="c-app-info-grid-title-block">
+                              <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>화자 정보</div>
+                            </div>
+                            <div className="c-app-info-grid-contents-block">
+                              <div className="c-app-info-grid-contents">총 {tab.speakerCount}명 ({tab.speakerNames.join(', ')})</div>
+                            </div>
+                            
+                            <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                              <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>녹음 일시</div>
+                            </div>
+                            <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                              <div className="c-app-info-grid-contents">{tab.recordingDate || '미입력'} {tab.recordingTime || ''}</div>
+                            </div>
+                            
+                            <div className="c-app-info-grid-title-block">
+                              <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>상세 정보</div>
+                            </div>
+                            <div className="c-app-info-grid-contents-block">
+                              <div className="c-app-info-grid-contents">{tab.detail || '없음'}</div>
+                            </div>
+                            
+                            <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                              <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>열람 파일 형식</div>
+                            </div>
+                            <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                              <div className="c-app-info-grid-contents">
+                                {selectedFileFormat === 'hwp' ? '한글 (.hwp)' : 
+                                 selectedFileFormat === 'docx' ? '워드 (.docx)' : '텍스트 (.txt)'}
+                              </div>
+                            </div>
+                            
+                            <div className="c-app-info-grid-title-block">
+                              <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>최종본 옵션</div>
+                            </div>
+                            <div className="c-app-info-grid-contents-block">
+                              <div className="c-app-info-grid-contents">{getSelectedOptionText()} {getSelectedOptionPrice() > 0 && `(+${getSelectedOptionPrice().toLocaleString()}원)`}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 주문자 정보 */}
+              <div className="w-layout-vflex application-info-container" style={{width: '90%', margin: '0 auto'}}>
+                <div className="c-app-info-title-block" style={{textAlign: 'center', marginBottom: '1.5rem'}}>
+                  <h2 className="c-app-info-heading" style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937'}}>주문자 정보</h2>
+                </div>
+                <div className="container small-container" style={{maxWidth: '1000px', margin: '0 auto'}}>
+                  <div className="w-layout-grid c-client-info-grid" style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 2fr',
+                    gap: '0.75rem',
+                    backgroundColor: 'white',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '10px',
+                    padding: '1.5rem'
+                  }}>
+                    <div className="c-app-info-grid-title-block">
+                      <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>성함</div>
+                    </div>
+                    <div className="c-app-info-grid-contents-block">
+                      <div className="c-app-info-grid-contents">{customerName || '미입력'}</div>
+                    </div>
+                    
+                    <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                      <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>연락처</div>
+                    </div>
+                    <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                      <div className="c-app-info-grid-contents">{customerPhone || '미입력'}</div>
+                    </div>
+                    
+                    <div className="c-app-info-grid-title-block">
+                      <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>이메일</div>
+                    </div>
+                    <div className="c-app-info-grid-contents-block">
+                      <div className="c-app-info-grid-contents">{customerEmail || '미입력'}</div>
+                    </div>
+                    
+                    <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                      <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>주소</div>
+                    </div>
+                    <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                      <div className="c-app-info-grid-contents">{customerAddress || '미입력'}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <button
-            onClick={handleNewRequest}
-            className="w-full max-w-[960px] mx-auto py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-bold mt-8 text-lg shadow transition-colors duration-200"
-          >
-            새로운 서비스 신청
-          </button>
         </div>
-      </main>
-      <Footer />
+      </section>
+      <NewFooter />
     </div>
   ) : (
     <div className="flex flex-col min-h-screen" style={{
@@ -339,7 +544,7 @@ function Reception() {
       <section className="c-apply-section">
         <div className="c-apply-container">
           {/* 서비스 신청 제목 */}
-          <div className="text-center mb-4">
+          <div className="text-center mb-0">
             <h1 className="c-section-heading text-[2.49rem] font-medium text-gray-900 max-w-[600px] mx-auto leading-[120%]">
               서비스 신청
             </h1>
@@ -349,9 +554,6 @@ function Reception() {
           <div className="c-step-component">
             <Stepper step={1} />
           </div>
-
-          {/* 간격 추가 */}
-          <div className="h-16"></div>
 
           {/* 탭 컨테이너 */}
           <div className="c-tab-container w-tabs">
@@ -394,7 +596,12 @@ function Reception() {
             <div className="c-tab-content w-tab-content">
               {tabs.map((tab, index) => (
                 <div key={index} className={`c-file-tab-pane w-tab-pane ${index === activeTab ? 'w--tab-active' : ''}`}>
-                  <div className="w-layout-vflex file-tab-container">
+                  <div className="w-layout-vflex file-tab-container" style={{
+                    backgroundColor: 'white',
+                    borderBottomRightRadius: '20px',
+                    borderBottomLeftRadius: '20px',
+                    padding: '0 2rem 1rem'
+                  }}>
                     <div className="c-file-title-block">
                       <h2 className="c-file-heading">유의사항</h2>
                       <p className="c-paragraph-title">- 음성 파일의 녹음 상태로 인해 신청이 반려될 수 있습니다.<br/>- 작업 순서에 따라 안내가 지연될 수 있습니다.<br/>- 작업 과정에서 추가 화자가 확인되는 경우 등 화자수에 따라 추가 요금이 청구될 수 있습니다.<br/>- 상단 더하기(+) 버튼을 눌러 최대 5개의 파일을 한 번에 등록할 수 있습니다.</p>
@@ -404,11 +611,27 @@ function Reception() {
                       <h2 className="c-file-heading">파일 정보</h2>
                     </div>
                     
-                    <div className="c-file-block">
+                    <div className="c-file-block" style={{
+                      backgroundColor: '#f4f6f9',
+                      borderRadius: '20px',
+                      padding: '2rem'
+                    }}>
                       <div className="w-layout-hflex c-file-block-title">
                         <h2 className="c-file-block-heading">파일 업로드</h2>
-                        <div className="c-file-block-title-tag">
-                          <div className="c-tag-text">필수</div>
+                        <div className="c-file-block-title-tag" style={{
+                          border: '1px solid #fee9d4',
+                          backgroundColor: '#faa654',
+                          borderRadius: '10px',
+                          padding: '2px 8px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}>
+                          <div className="c-tag-text" style={{
+                            color: 'white',
+                            fontFamily: 'Pretendard',
+                            fontSize: '14px'
+                          }}>필수</div>
                         </div>
                       </div>
                       <p className="c-paragraph-caution">* 첨부 가능한 파일 형식<br/>- 영상 : mp3, wav, m4a, cda, mod, ogg, wma, flac, asf<br/>- 음성 : avi, mp4, asf, wmv, m2v, mpeg, dpg, mts, webm, divx, amv</p>
@@ -425,21 +648,43 @@ function Reception() {
                       </div>
                     </div>
                     
-                    <div className="c-file-block">
+                    <div className="c-file-block" style={{
+                      backgroundColor: '#f4f6f9',
+                      borderRadius: '20px',
+                      padding: tab.recordType === '부분' ? '2rem 2rem 0.125rem 2rem' : '2rem'
+                    }}>
                       <div className="w-layout-hflex c-file-block-title between">
                         <div className="w-layout-hflex flex-block-9">
                           <h2 className="c-file-block-heading">녹취 종류</h2>
-                          <div className="c-file-block-title-tag">
-                            <div className="c-tag-text">필수</div>
+                          <div className="c-file-block-title-tag" style={{
+                            border: '1px solid #fee9d4',
+                            backgroundColor: '#faa654',
+                            borderRadius: '10px',
+                            padding: '2px 8px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                          }}>
+                            <div className="c-tag-text" style={{
+                              color: 'white',
+                              fontFamily: 'Pretendard',
+                              fontSize: '14px'
+                            }}>필수</div>
                           </div>
                         </div>
                         <div className="w-layout-hflex c-type-static-wrapper">
-                          <h2 className="c-file-block-heading light">속기록 제작 구간 길이</h2>
+                          <h2 className="c-file-block-heading light">속기 구간 길이</h2>
                           <h2 className="c-file-block-heading highlight">
-                            {tab.timestamps.length > 0 ? 
-                              tab.timestamps[tab.timestamps.length - 1] : 
-                              '00시간 00분 00초'
-                            }
+                            {(() => {
+                              // Calculate total duration from timestampRanges if available
+                              if (tab.timestampRanges && tab.timestampRanges.length > 0) {
+                                const { calculateTotalDuration } = require('@/utils/timestampUtils');
+                                const totalDuration = calculateTotalDuration(tab.timestampRanges);
+                                const [hours, minutes, seconds] = totalDuration.split(':');
+                                return `${hours}시간 ${minutes}분 ${seconds}초`;
+                              }
+                              return '00시간 00분 00초';
+                            })()}
                           </h2>
                         </div>
                       </div>
@@ -454,12 +699,28 @@ function Reception() {
                       />
                     </div>
                     
-                    <div className="c-file-block">
+                    <div className="c-file-block" style={{
+                      backgroundColor: '#f4f6f9',
+                      borderRadius: '20px',
+                      padding: '2rem'
+                    }}>
                       <div className="w-layout-hflex c-file-block-title between">
                         <div className="w-layout-hflex flex-block-9">
                           <h2 className="c-file-block-heading">화자 정보</h2>
-                          <div className="c-file-block-title-tag">
-                            <div className="c-tag-text">필수</div>
+                          <div className="c-file-block-title-tag" style={{
+                            border: '1px solid #fee9d4',
+                            backgroundColor: '#faa654',
+                            borderRadius: '10px',
+                            padding: '2px 8px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                          }}>
+                            <div className="c-tag-text" style={{
+                              color: 'white',
+                              fontFamily: 'Pretendard',
+                              fontSize: '14px'
+                            }}>필수</div>
                           </div>
                         </div>
                         <div className="w-layout-hflex c-type-static-wrapper">
@@ -477,12 +738,421 @@ function Reception() {
                         }}
                       />
                     </div>
+                    
+                    {/* 녹음 일시 섹션 */}
+                    <div className="c-file-block" style={{
+                      backgroundColor: '#f4f6f9',
+                      borderRadius: '20px',
+                      padding: '2rem'
+                    }}>
+                      <div className="w-layout-hflex c-file-block-title">
+                        <h2 className="c-file-block-heading">녹음 일시</h2>
+                      </div>
+                      
+                      <div className="c-datetime-container" style={{
+                        backgroundColor: '#f4f6f9',
+                        borderRadius: '10px',
+                        padding: '2rem',
+                        marginTop: '0.5rem',
+                        width: 'calc(100% + 4rem)',
+                        marginLeft: '-2rem',
+                        marginRight: '-2rem'
+                      }}>
+                        <div className="c-datetime-block">
+                          <div className="div-w-layout-vflex c-datetime-table-wrapper" style={{
+                            border: '1px solid #d1d5db',
+                            borderRadius: '10px',
+                            overflow: 'hidden',
+                            backgroundColor: 'white',
+                            width: '100%',
+                            maxWidth: 'none',
+                            marginLeft: '0',
+                            marginRight: '0'
+                          }}>
+                            {/* Content Section */}
+                            <div className="c-datetime-content" style={{
+                              padding: '1.5rem'
+                            }}>
+                              <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr 1fr',
+                                alignItems: 'center',
+                                gap: '1rem'
+                              }}>
+                                <div style={{ position: 'relative' }}>
+                                  <input
+                                    type="date"
+                                    value={tab.recordingDate || ''}
+                                    onChange={(e) => {
+                                      const newTabs = [...tabs];
+                                      newTabs[index] = { ...tab, recordingDate: e.target.value };
+                                      setTabs(newTabs);
+                                    }}
+                                    disabled={tab.recordingUnsure}
+                                    style={{
+                                      width: '100%',
+                                      padding: '12px 16px',
+                                      border: '1px solid #d1d5db',
+                                      borderRadius: '8px',
+                                      fontSize: '14px',
+                                      backgroundColor: tab.recordingUnsure ? '#f3f4f6' : 'white',
+                                      outline: 'none',
+                                      cursor: tab.recordingUnsure ? 'not-allowed' : 'pointer',
+                                      opacity: 0,
+                                      position: 'absolute',
+                                      top: 0,
+                                      left: 0,
+                                      zIndex: 1
+                                    }}
+                                    onFocus={(e) => {
+                                      if (!tab.recordingUnsure) {
+                                        e.target.showPicker?.();
+                                      }
+                                    }}
+                                  />
+                                  <div style={{
+                                    width: '100%',
+                                    padding: '12px 16px',
+                                    border: '1px solid #d1d5db',
+                                    borderRadius: '8px',
+                                    fontSize: '14px',
+                                    backgroundColor: tab.recordingUnsure ? '#f3f4f6' : 'white',
+                                    color: tab.recordingDate ? '#111827' : '#9ca3af',
+                                    cursor: tab.recordingUnsure ? 'not-allowed' : 'pointer',
+                                    opacity: tab.recordingUnsure ? 0.5 : 1,
+                                    position: 'relative',
+                                    textAlign: 'left'
+                                  }}>
+                                    {tab.recordingDate || '날짜 선택'}
+                                  </div>
+                                </div>
+                                <div style={{ position: 'relative' }}>
+                                  <input
+                                    type="time"
+                                    value={tab.recordingTime || ''}
+                                    onChange={(e) => {
+                                      const newTabs = [...tabs];
+                                      newTabs[index] = { ...tab, recordingTime: e.target.value };
+                                      setTabs(newTabs);
+                                    }}
+                                    disabled={tab.recordingUnsure}
+                                    min="00:00"
+                                    max="23:59"
+                                    style={{
+                                      width: '100%',
+                                      padding: '12px 16px',
+                                      border: '1px solid #d1d5db',
+                                      borderRadius: '8px',
+                                      fontSize: '14px',
+                                      backgroundColor: tab.recordingUnsure ? '#f3f4f6' : 'white',
+                                      outline: 'none',
+                                      cursor: tab.recordingUnsure ? 'not-allowed' : 'pointer',
+                                      opacity: 0,
+                                      position: 'absolute',
+                                      top: 0,
+                                      left: 0,
+                                      zIndex: 1
+                                    }}
+                                    onFocus={(e) => {
+                                      if (!tab.recordingUnsure) {
+                                        e.target.showPicker?.();
+                                      }
+                                    }}
+                                  />
+                                  <div style={{
+                                    width: '100%',
+                                    padding: '12px 16px',
+                                    border: '1px solid #d1d5db',
+                                    borderRadius: '8px',
+                                    fontSize: '14px',
+                                    backgroundColor: tab.recordingUnsure ? '#f3f4f6' : 'white',
+                                    color: tab.recordingTime ? '#111827' : '#9ca3af',
+                                    cursor: tab.recordingUnsure ? 'not-allowed' : 'pointer',
+                                    opacity: tab.recordingUnsure ? 0.5 : 1,
+                                    position: 'relative',
+                                    textAlign: 'left'
+                                  }}>
+                                    {tab.recordingTime || '시간 선택'}
+                                  </div>
+                                </div>
+                                <div>
+                                  <label style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    cursor: 'pointer',
+                                    justifyContent: 'center'
+                                  }}>
+                                    <input
+                                      type="checkbox"
+                                      checked={tab.recordingUnsure || false}
+                                      onChange={(e) => {
+                                        const newTabs = [...tabs];
+                                        if (e.target.checked) {
+                                          newTabs[index] = { 
+                                            ...tab, 
+                                            recordingUnsure: true,
+                                            recordingDate: '',
+                                            recordingTime: ''
+                                          };
+                                        } else {
+                                          newTabs[index] = { ...tab, recordingUnsure: false };
+                                        }
+                                        setTabs(newTabs);
+                                      }}
+                                      style={{
+                                        width: '16px',
+                                        height: '16px',
+                                        accentColor: '#3b82f6'
+                                      }}
+                                    />
+                                    <span style={{
+                                      fontSize: '14px',
+                                      color: '#374151'
+                                    }}>
+                                      잘 모르겠어요
+                                    </span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* 상세 정보 섹션 */}
+                    <div className="c-file-block" style={{
+                      backgroundColor: '#f4f6f9',
+                      borderRadius: '20px',
+                      padding: '2rem'
+                    }}>
+                      <div className="w-layout-hflex c-file-block-title">
+                        <h2 className="c-file-block-heading">상세 정보</h2>
+                      </div>
+                      
+                      <div className="c-detail-container" style={{
+                        backgroundColor: '#f4f6f9',
+                        borderRadius: '10px',
+                        padding: '2rem',
+                        marginTop: '0.5rem',
+                        width: 'calc(100% + 4rem)',
+                        marginLeft: '-2rem',
+                        marginRight: '-2rem'
+                      }}>
+                        <div className="c-detail-block">
+                          <div className="div-w-layout-vflex c-detail-table-wrapper" style={{
+                            border: '1px solid #d1d5db',
+                            borderRadius: '10px',
+                            overflow: 'hidden',
+                            backgroundColor: 'white',
+                            width: '100%',
+                            maxWidth: 'none',
+                            marginLeft: '0',
+                            marginRight: '0'
+                          }}>
+                            {/* Header Section */}
+                            <div className="c-detail-header" style={{
+                              backgroundColor: '#cad5e5',
+                              padding: '1rem 1.5rem',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '0.25rem'
+                            }}>
+                              <div className="c-file-block-heading" style={{
+                                textAlign: 'left',
+                                margin: '0',
+                                fontSize: '14px',
+                                fontWeight: 'normal'
+                              }}>
+                                추가 정보 (선택 사항)
+                              </div>
+                              <p className="c-paragraph-caution" style={{
+                                margin: '0',
+                                fontSize: '14px',
+                                color: '#3b82f6',
+                                textAlign: 'left'
+                              }}>
+                                • 업무 진행에 도움이 될 수 있는 정보가 있다면 입력해 주세요.
+                              </p>
+                            </div>
+                            
+                            {/* Content Section */}
+                            <div className="c-detail-content" style={{
+                              padding: '1.5rem'
+                            }}>
+                              <div style={{ position: 'relative' }}>
+                                <textarea
+                                  value={tab.detail || ''}
+                                  onChange={(e) => {
+                                    if (e.target.value.length <= 100) {
+                                      const newTabs = [...tabs];
+                                      newTabs[index] = { ...tab, detail: e.target.value };
+                                      setTabs(newTabs);
+                                    }
+                                  }}
+                                  placeholder="예: 회의 주제, 특수한 용어, 화자 특징 등"
+                                  style={{
+                                    width: '100%',
+                                    minHeight: '120px',
+                                    padding: '12px 16px',
+                                    border: '1px solid #d1d5db',
+                                    borderRadius: '8px',
+                                    fontSize: '14px',
+                                    backgroundColor: 'white',
+                                    outline: 'none',
+                                    resize: 'vertical',
+                                    fontFamily: 'inherit'
+                                  }}
+                                />
+                                
+                                {/* Character counter */}
+                                <div style={{
+                                  position: 'absolute',
+                                  bottom: '8px',
+                                  right: '16px',
+                                  fontSize: '12px',
+                                  color: '#6b7280',
+                                  backgroundColor: 'white',
+                                  padding: '2px 4px',
+                                  borderRadius: '3px'
+                                }}>
+                                  {(tab.detail || '').length}/100
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          
+
+          {/* 주문 정보 섹션 - 탭 컨테이너와 분리 */}
+          <div className="personal-info-container w-layout-vflex" style={{
+            backgroundColor: '#ece8d7',
+            backgroundImage: 'url(/new_goStenographe_resource/backgrounds/Background-Beige.png)',
+            backgroundPosition: '0 0',
+            backgroundSize: 'auto',
+            borderRadius: '20px',
+            padding: '2rem 2rem 1rem',
+            marginTop: '0.25rem'
+          }}>
+            <div className="c-file-title-block">
+              <h2 className="c-file-heading">주문 정보</h2>
+            </div>
+            
+            <div className="c-file-block">
+              <div className="w-layout-hflex c-file-block-title">
+                <h2 className="c-file-block-heading">열람 파일 형식</h2>
+                <div className="c-file-block-title-tag" style={{
+                  border: '1px solid #fee9d4',
+                  backgroundColor: '#faa654',
+                  borderRadius: '10px',
+                  padding: '2px 8px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                  <div className="c-tag-text" style={{
+                    color: 'white',
+                    fontFamily: 'Pretendard',
+                    fontSize: '14px'
+                  }}>필수</div>
+                </div>
+              </div>
+              <p className="c-paragraph-caution" style={{marginTop: '0.5rem', marginBottom: '1.25rem', fontSize: '1rem'}}>열람하기 편한 파일 형식을 선택해 주세요. <br/>완성된 속기록을 고객님 메일로 발송해 드립니다.</p>
+              <div className="w-form">
+                <div className="c-apply-form">
+                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
+                    <input type="radio" name="file-format" value="hwp" checked={selectedFileFormat === 'hwp'} onChange={(e) => setSelectedFileFormat(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <span className="radio-button-label w-form-label" style={{fontSize: '1rem'}}>한글(.hwp)</span>
+                  </label>
+                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
+                    <input type="radio" name="file-format" value="docx" checked={selectedFileFormat === 'docx'} onChange={(e) => setSelectedFileFormat(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>워드(.docx)</span>
+                  </label>
+                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
+                    <input type="radio" name="file-format" value="txt" checked={selectedFileFormat === 'txt'} onChange={(e) => setSelectedFileFormat(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>텍스트(.txt)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="c-file-block">
+              <div className="w-layout-hflex c-file-block-title">
+                <h2 className="c-file-block-heading">최종본 옵션</h2>
+                <div className="c-file-block-title-tag" style={{
+                  border: '1px solid #fee9d4',
+                  backgroundColor: '#faa654',
+                  borderRadius: '10px',
+                  padding: '2px 8px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                  <div className="c-tag-text" style={{
+                    color: 'white',
+                    fontFamily: 'Pretendard',
+                    fontSize: '14px'
+                  }}>필수</div>
+                </div>
+              </div>
+              <div className="w-form">
+                <div className="c-apply-form vertical">
+                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
+                    <input type="radio" name="final-option" value="file" checked={selectedFinalOption === 'file'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <span className="radio-button-label w-form-label" style={{fontSize: '1rem'}}>파일</span>
+                  </label>
+                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
+                    <input type="radio" name="final-option" value="file_post" checked={selectedFinalOption === 'file_post'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 (+5,000원)</span>
+                  </label>
+                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
+                    <input type="radio" name="final-option" value="file_post_cd" checked={selectedFinalOption === 'file_post_cd'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +CD (+6,000원)</span>
+                  </label>
+                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
+                    <input type="radio" name="final-option" value="file_post_usb" checked={selectedFinalOption === 'file_post_usb'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +USB (+10,000원)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="c-personal-info-block">
+              <div className="w-layout-hflex c-file-block-title">
+                <h2 className="c-file-block-heading">주문자 정보</h2>
+                <div className="c-file-block-title-tag" style={{
+                  border: '1px solid #fee9d4',
+                  backgroundColor: '#faa654',
+                  borderRadius: '10px',
+                  padding: '2px 8px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                  <div className="c-tag-text" style={{
+                    color: 'white',
+                    fontFamily: 'Pretendard',
+                    fontSize: '14px'
+                  }}>필수</div>
+                </div>
+              </div>
+              <div className="form-block w-form">
+                <div className="c-apply-form vertical" style={{gap: '0.25rem'}}>
+                  <input className="c-text-input-field w-input" maxLength={256} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
+                  <input className="c-text-input-field w-input" maxLength={256} name="customer-phone" placeholder="연락처 (000-0000-0000)" type="text" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} required />
+                  <input className="c-text-input-field w-input" maxLength={256} name="customer-email" placeholder="이메일 (example@email.com)" type="email" value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} required />
+                  <input className="c-text-input-field w-input" maxLength={256} name="customer-address" placeholder="주소 (최종본 수령지)" type="text" value={customerAddress} onChange={(e) => setCustomerAddress(e.target.value)} required />
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </section>
@@ -496,25 +1166,33 @@ function Reception() {
           <div className="w-layout-vflex c-checkout-left">
             <div className="w-layout-hflex c-sum-block-title between">
               <h2 className="c-app-sum-heading">예상 견적</h2>
-              <h2 className="c-app-sum-heading">100,000원</h2>
+              <h2 className="c-app-sum-heading">{calculateTotalPrice().toLocaleString()}원</h2>
             </div>
             <div className="div-block-11"></div>
             <div className="w-layout-vflex flex-block-11">
               <div className="w-layout-hflex c-checkout-factor">
                 <h6 className="c-checkout-f-text">- 속기록 제작 (60분)</h6>
-                <h6 className="c-checkout-f-text">90,000원</h6>
+                <h6 className="c-checkout-f-text">{calculateTranscriptionPrice().toLocaleString()}원</h6>
               </div>
               <div className="w-layout-hflex c-checkout-factor">
-                <h6 className="c-checkout-f-text">- 최종본: 파일+등기우편+USB</h6>
-                <h6 className="c-checkout-f-text">10,000원</h6>
+                <h6 className="c-checkout-f-text">- 최종본: {getSelectedOptionText()}</h6>
+                <h6 className="c-checkout-f-text">{getSelectedOptionPrice().toLocaleString()}원</h6>
               </div>
             </div>
           </div>
           <div className="w-layout-vflex c-checkout-right">
             <div className="w-layout-hflex flex-block-12">
-              <h6 className="c-checkout-agreement-text">주문 내용, 서비스 이용약관 및 개인정보처리방침을 확인 했으며, 정보 제공에 동의합니다.</h6>
+              <label style={{display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer'}}>
+                <input 
+                  type="checkbox" 
+                  checked={agree} 
+                  onChange={(e) => setAgree(e.target.checked)}
+                  style={{width: '16px', height: '16px', accentColor: '#3b82f6'}}
+                />
+                <h6 className="c-checkout-agreement-text">주문 내용, 서비스 이용약관 및 개인정보처리방침을 확인 했으며, 정보 제공에 동의합니다.</h6>
+              </label>
             </div>
-            <a href="#" className="c-button-checkout w-button">접수 완료하기</a>
+            <button onClick={handleSubmit} className="c-button-checkout w-button" disabled={!agree} style={{opacity: agree ? 1 : 0.5, cursor: agree ? 'pointer' : 'not-allowed'}}>접수 완료하기</button>
           </div>
         </div>
       </section>

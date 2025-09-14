@@ -1,3 +1,11 @@
+export interface TimestampRange {
+  id: string;
+  startTime: string; // HH:MM:SS format
+  endTime: string;   // HH:MM:SS format
+  isValid: boolean;
+  error?: string;
+}
+
 export interface ReceptionFormData {
   customerName: string;
   customerPhone: string;
@@ -8,6 +16,7 @@ export interface ReceptionFormData {
   selectedDates: string[];
   detail: string;
   files: { file: File, file_key: string }[];
-  timestamps: string[];
+  timestamps: string[]; // Keep for backward compatibility
+  timestampRanges: TimestampRange[]; // New timestamp ranges for partial recording
   recordType: '전체' | '부분';
 } 

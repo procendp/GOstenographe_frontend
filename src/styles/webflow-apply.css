@@ -385,8 +385,34 @@
   }
 }
 
+/* 웹플로우 원본 색상 및 폰트 변수 */
+:root {
+  --_concept-1---color-set-1--calm-d-blue: #407be5;
+  --_concept-1---color-set-2--white: white;
+  --_concept-1---color-set-1--calm-blue: #4686ec;
+  --_concept-1---color-set-2--grey: #272929;
+  --_concept-1---color-set-1--deep-grey: #1d1f1e;
+  --_concept-1---color-set-2--blue: #1c58af;
+  --_concept-1---color-set-1--grey: #797c83;
+  --_concept-1---color-set-2--light-grey: #797c83;
+  --_concept-1---color-set-1--black: #000000;
+  --_concept-1---color-set-1--background: #cad5e5;
+  
+  /* 폰트 패밀리 변수 */
+  --_concept-1---font-normal: 'Pretendard', sans-serif;
+  --_concept-1---font-accent: 'SpoqaHanSansNeo', sans-serif;
+  
+  /* 폰트 사이즈 변수 */
+  --_concept-1---font-size--m-h6: 14px;
+  --_concept-1---font-size--m-h5: 16px;
+  --_concept-1---font-size--m-h4: 18px;
+  --_concept-1---font-size--pc_h5: 18px;
+  --_concept-1---font-size--pc_h4: 20px;
+}
+
 /* 웹플로우 상단 타이틀 및 진행 단계 스타일 */
 .c-apply-section {
+  background-color: var(--_concept-1---color-set-1--background);
   padding: 10rem 5%;
   display: flex;
 }
@@ -439,6 +465,7 @@
   width: 100%;
   display: flex;
   margin-top: 1rem; /* 상단 여백 줄임: 2rem에서 1rem으로 */
+  margin-bottom: 6rem; /* 하단 여백 추가: 탭과의 간격 */
 }
 
 .c-steps-grid {
@@ -666,13 +693,13 @@
   overflow: visible;
 }
 
-/* 탭 콘텐츠 내부 정렬 */
+/* 탭 콘텐츠 내부 정렬 - 웹플로우 원본과 동일 */
 .c-file-tab-pane {
   box-sizing: border-box;
   background-color: #ffffff;
   border-radius: 0 0 20px 20px;
   width: 100%;
-  padding: 3rem 2rem; /* 패딩을 줄여서 더 왼쪽에 가깝게 */
+  padding: 2.5rem 2.5rem; /* 웹플로우 원본 패딩 */
   overflow: visible;
 }
 
@@ -740,84 +767,120 @@
   max-width: 100%; /* 최대 너비를 100%로 설정 */
 }
 
-/* 파일 제목 블록 */
+/* 파일 제목 블록 - 웹플로우 원본과 동일 */
 .c-file-title-block {
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
   margin-bottom: 2rem;
-  text-align: left; /* 왼쪽 정렬 */
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
 }
 
-/* 파일 헤딩 */
+/* 파일 헤딩 - 웹플로우 원본과 동일 */
 .c-file-heading {
   font-family: 'Pretendard', sans-serif;
-  color: #1a202c;
-  font-size: 1.75rem; /* 크기 증가: 1.5rem에서 1.75rem으로 */
+  color: #272929; /* 웹플로우 원본 색상 */
+  font-size: 1.5rem; /* 웹플로우 원본 크기 */
+  margin-top: 0;
+  margin-bottom: 0;
   font-weight: 600;
-  margin-bottom: 1rem;
 }
 
-/* 파일 제목 블록 내용 */
+/* 파일 제목 블록 내용 - 웹플로우 원본과 동일 */
 .c-paragraph-title {
   font-family: 'Pretendard', sans-serif;
-  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
-  font-size: 1rem; /* 크기 증가: 0.875rem에서 1rem으로 */
+  color: #64748b; /* 웹플로우 원본 색상 */
+  font-size: 1rem; /* 웹플로우 원본 크기 */
+  text-align: left;
+  font-weight: 300;
   line-height: 1.6;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-/* 파일 블록 */
+/* 파일 블록 - 웹플로우 원본과 동일 */
 .c-file-block {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  text-align: left; /* 왼쪽 정렬 */
+  border-radius: 20px; /* 웹플로우 원본 값 */
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1.25rem; /* 패딩 축소 */
+  display: flex;
 }
 
-/* 파일 블록 제목 */
+/* 웹플로우 원본 c-file-block-heading 스타일 */
 .c-file-block-heading {
-  font-family: 'Pretendard', sans-serif;
-  color: #1a202c;
-  font-size: 1.5rem; /* 크기 증가: 1.25rem에서 1.5rem으로 */
+  font-family: var(--_concept-1---font-accent);
+  color: var(--_concept-1---color-set-2--grey);
+  font-size: var(--_concept-1---font-size--pc_h4);
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.c-file-block-heading.bold {
+  color: var(--_concept-1---color-set-1--black);
   font-weight: 600;
 }
 
 .c-file-block-heading.light {
-  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
-  font-weight: 400;
-}
-
-.c-file-block-heading.highlight {
-  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
-  font-weight: 600;
+  font-size: var(--_concept-1---font-size--pc_h5);
+  font-weight: 300;
 }
 
 .c-file-block-heading.h5 {
-  font-size: 1.25rem; /* 크기 증가: 1.125rem에서 1.25rem으로 */
-  font-weight: 500;
+  font-size: var(--_concept-1---font-size--pc_h5);
 }
 
-/* 파일 블록 제목 태그 */
+.c-file-block-heading.highlight {
+  color: var(--_concept-1---color-set-2--grey);
+  font-size: var(--_concept-1---font-size--pc_h5);
+}
+
+/* 웹플로우 원본 필수 태그 스타일 */
 .c-file-block-title-tag {
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 6px;
-  padding: 4px 8px;
+  background-color: var(--_concept-1---color-set-1--calm-d-blue);
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  display: flex;
+}
+
+.c-file-block-title-tag.opt {
+  border-color: var(--_concept-1---color-set-2--light-grey);
+  background-color: var(--_concept-1---color-set-2--white);
 }
 
 .c-tag-text {
-  color: #dc2626;
-  font-size: 0.875rem; /* 크기 증가: 0.75rem에서 0.875rem으로 */
-  font-weight: 600;
-  text-transform: uppercase;
+  font-family: var(--_concept-1---font-normal);
+  color: var(--_concept-1---color-set-2--white);
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
-/* 파일 블록 내용 */
+.c-tag-text.opt {
+  color: var(--_concept-1---color-set-2--light-grey);
+}
+
+/* 파일 블록 내용 - 웹플로우 원본과 동일 */
 .c-paragraph-caution {
   font-family: 'Pretendard', sans-serif;
-  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
-  font-size: 1rem; /* 크기 증가: 0.875rem에서 1rem으로 */
+  color: #64748b; /* 웹플로우 원본 색상 */
+  font-size: 0.875rem; /* 웹플로우 원본 크기 */
   line-height: 1.6;
+  margin-top: 1rem;
   margin-bottom: 1.5rem;
+  font-weight: 400;
 }
 
 /* 링크 블록 */
@@ -826,14 +889,15 @@
   width: 100%;
 }
 
-/* 파일 업로더 */
+/* 파일 업로더 - 웹플로우 원본과 동일 */
 .c-paragraph-uploader {
   font-family: 'Pretendard', sans-serif;
-  color: #1a202c !important; /* 파란색에서 검은색으로 변경 - 우선순위 높임 */
-  font-size: 1rem; /* 크기 증가: 0.875rem에서 1rem으로 */
+  color: #64748b; /* 웹플로우 원본 색상 */
+  font-size: 0.875rem; /* 웹플로우 원본 크기 */
   line-height: 1.6;
   text-align: center;
   margin-top: 1rem;
+  font-weight: 400;
 }
 
 /* 웹플로우 레이아웃 클래스들 */
@@ -1108,6 +1172,369 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* 웹플로우 폼 스타일 */
+.c-apply-form {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.c-apply-form.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.radio-button-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+.w-radio-input {
+  margin: 0;
+  margin-right: 8px;
+}
+
+.radio-button-label,
+.w-form-label {
+  font-family: 'Pretendard', sans-serif;
+  color: #272929;
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin: 0;
+  cursor: pointer;
+}
+
+.c-text-input-field {
+  font-family: 'Pretendard', sans-serif;
+  color: #272929;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.c-text-input-field:focus {
+  outline: none;
+  border-color: #1c58af;
+  box-shadow: 0 0 0 3px rgba(28, 88, 175, 0.1);
+}
+
+.c-text-input-field::placeholder {
+  color: #9ca3af;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 0.75rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Pretendard', sans-serif;
+}
+
+/* 웹플로우 원본 주문 정보 컨테이너 - 시각적 분리 강화 */
+.personal-info-container {
+  margin-top: 0.5rem;  /* 간격 최소화 */
+  width: 100%;
+  position: relative;
+  background-color: transparent; /* 배경 투명 */
+  padding: 0; /* 상하 패딩 제거 */
+}
+
+/* .personal-info-container::before 제거 - 상단 구분선 제거 */
+
+/* 웹플로우 원본 개인정보 블록 */
+.c-personal-info-block {
+  background-color: var(--_concept-1---color-set-2--white);
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 웹플로우 탭 헤더 - 탭 메뉴와 삭제 버튼을 감싸는 컨테이너 */
+.c-tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* 삭제 버튼 컨테이너 - 탭 헤더 우측에 배치 */
+.c-delete-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+/* 삭제 버튼 컨테이너 - 제자리 */
+.div-block-8 {
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* 웹플로우 원본 제목 래퍼 스타일 */
+.apply-title-wrapper {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.c-apply-title-wrapper {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.f-margin-bottom-0 {
+  margin-bottom: 0;
+}
+
+.f-margin-bottom-73 {
+  margin-bottom: 73px;
+}
+
+.f-text-weight-bold {
+  font-weight: bold;
+}
+
+/* 웹플로우 원본 체크아웃 섹션 - 완전히 분리된 하단 고정 섹션 */
+.c-checkout-section {
+  background-color: var(--_concept-1---color-set-2--white);
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  inset: auto 0% 0%;
+  box-shadow: 0 -1px 10px -2px rgba(0, 0, 0, 0.2);
+}
+
+.c-checkout-container {
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr auto;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  justify-content: center;
+  place-items: start stretch;
+  width: 100%;
+  max-width: 1000px;
+  padding-left: 0%;
+  padding-right: 0%;
+  display: grid;
+}
+
+.c-checkout-left {
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  border: 1px none var(--_concept-1---color-set-1--grey);
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 2rem;
+}
+
+.c-checkout-right {
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  border: 1px none var(--_concept-1---color-set-1--grey);
+  background-color: var(--_concept-1---color-set-2--blue);
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  padding: 1.25rem 2rem 1rem;
+}
+
+.c-sum-block-title {
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.c-sum-block-title.between {
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-content: space-between;
+}
+
+.c-app-sum-heading {
+  font-family: var(--_concept-1---font-normal);
+  color: var(--_concept-1---color-set-1--black);
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.div-block-11 {
+  background-color: var(--_concept-1---color-set-1--grey);
+  width: 100%;
+  height: 1px;
+}
+
+.flex-block-11 {
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  width: 100%;
+}
+
+.c-checkout-factor {
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.c-checkout-factor.between {
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-content: space-between;
+}
+
+.c-checkout-f-text {
+  font-family: var(--_concept-1---font-normal);
+  color: var(--_concept-1---color-set-1--deep-grey);
+  font-size: var(--_concept-1---font-size--m-h6);
+  letter-spacing: 0.05em;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.c-checkout-f-text.bold {
+  color: var(--_concept-1---color-set-1--black);
+  font-weight: 600;
+}
+
+.c-checkout-f-text.light {
+  font-weight: 300;
+}
+
+.c-checkout-f-text.h5 {
+  font-size: var(--_concept-1---font-size--pc_h5);
+}
+
+.c-checkout-f-text.highlight {
+  color: var(--_concept-1---color-set-1--calm-d-blue);
+}
+
+.flex-block-12 {
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.c-checkout-agreement-text {
+  font-family: var(--_concept-1---font-normal);
+  color: var(--_concept-1---color-set-2--white);
+  font-size: var(--_concept-1---font-size--m-h6);
+  letter-spacing: 0.05em;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.c-button-checkout {
+  background-color: var(--_concept-1---color-set-1--calm-d-blue);
+  border-radius: 10px;
+  color: var(--_concept-1---color-set-2--white);
+  font-family: var(--_concept-1---font-normal);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.c-button-checkout:hover {
+  background-color: var(--_concept-1---color-set-1--calm-blue);
+}
+
+.c-button-checkout:disabled {
+  background-color: var(--_concept-1---color-set-1--grey);
+  cursor: not-allowed;
+}
+
+/* 웹플로우 원본 반응형 스타일 */
+@media (max-width: 768px) {
+  /* 체크아웃 섹션 */
+  .c-checkout-container {
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+  }
+  
+  .c-checkout-right {
+    max-width: none;
+  }
+  
+  .c-checkout-f-text {
+    font-size: 13px;
+  }
+  
+  /* 파일 블록 헤딩 */
+  .c-file-block-heading {
+    font-size: var(--_concept-1---font-size--m-h4);
+  }
+  
+  .c-file-block-heading.h5 {
+    font-size: var(--_concept-1---font-size--m-h5);
+  }
+  
+  /* 삭제 버튼 - 모바일에서도 제자리 */
+  .div-block-8 {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* 개인정보 블록 패딩 조정 */
+  .c-personal-info-block {
+    padding: 1.5rem 1rem;
+  }
 }
 
 /* 웹플로우 레이아웃 클래스 조합 - 중복 제거됨 */

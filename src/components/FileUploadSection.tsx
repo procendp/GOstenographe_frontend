@@ -55,7 +55,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           onClick={() => fileInputRef.current?.click()}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
-          className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 transition-colors bg-white"
+          className="border-4 border-dashed border-gray-400 rounded-lg p-12 text-center cursor-pointer hover:border-blue-500 transition-colors bg-white min-h-[200px] flex flex-col justify-center"
         >
           <FaCloudUploadAlt className="mx-auto text-4xl text-gray-400 mb-4" />
           <div className="text-gray-500 mb-4">
@@ -79,10 +79,10 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
               "클릭하거나 파일을 드래그하여 업로드하세요."
             )}
           </div>
-          <div className="text-sm text-gray-400">
-            • 파일 형식: txt, hwp, doc, docx, pdf, ppt, pptx, xls, xlsx<br />
-            • 용량: mp3, mp4, asf, m4v, mov, wmv, avi, wav<br />
-            • 압축: zip, mp3, asf, m4v, mov, wmv, avi, wav
+          <div className="text-sm text-gray-400 space-y-1">
+            <div>• 파일 형식: txt, hwp, doc, docx, pdf, ppt, pptx, xls, xlsx</div>
+            <div>• 용량: mp3, mp4, asf, m4v, mov, wmv, avi, wav</div>
+            <div>• 압축: zip, mp3, asf, m4v, mov, wmv, avi, wav</div>
           </div>
           <div className="text-xs text-red-500 mt-1">※ 파일당 최대 3GB까지 업로드 가능합니다.</div>
         </div>
