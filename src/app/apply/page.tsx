@@ -9,6 +9,7 @@ import OrdererInfoSection from '@/components/OrdererInfoSection';
 import RequestInfoSection from '@/components/RequestInfoSection';
 import FileUploadSection from '@/components/FileUploadSection';
 import { ReceptionFormData } from '@/types/reception';
+import { uploadMultipleFiles } from '@/utils/fileUpload';
 
 
 function Reception() {
@@ -50,19 +51,18 @@ function Reception() {
   const router = useRouter();
   const [requestId, setRequestId] = useState<number|null>(null);
   const [filesData, setFilesData] = useState<any[]>([]);
-  const [showComplete, setShowComplete] = useState(true);
+  const [showComplete, setShowComplete] = useState(false);
   const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(null);
   const [phoneError, setPhoneError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [addressError, setAddressError] = useState('');
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
-  const [selectedFinalOption, setSelectedFinalOption] = useState('file_post_usb');
+  const [selectedFinalOption, setSelectedFinalOption] = useState('file');
 
   // 기본 함수들
   const handleNewRequest = () => {
-    setShowComplete(false);
-    setTabs([{ files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], timestampRanges: [], recordType: '전체', recordingDate: '', recordingTime: '', recordingUnsure: false }]);
-    router.push('/apply');
+    // 페이지 새로고침으로 초기 상태로 돌아가기
+    window.location.reload();
   };
 
   const handleAddTab = () => {
@@ -84,7 +84,47 @@ function Reception() {
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    setTabs(tabs => tabs.map((tab, idx) => idx === activeTab ? {...tab, files: files.map(file => ({file, file_key: ''}))} : tab));
+    
+    // 임시로 파일 정보를 상태에 저장 (업로드 시작 표시)
+    setTabs(tabs => tabs.map((tab, idx) => 
+      idx === activeTab ? {
+        ...tab, 
+        files: files.map(file => ({file, file_key: 'uploading'}))
+      } : tab
+    ));
+    
+    try {
+      // 파일들을 S3에 업로드
+      const uploadedFiles = await uploadMultipleFiles(
+        files,
+        customerName,
+        customerEmail,
+        (fileIndex, progress) => {
+          // TODO: 업로드 진행상황 UI 업데이트
+          console.log(`파일 ${fileIndex + 1} 업로드 진행률: ${progress}%`);
+        }
+      );
+      
+      // 업로드 완료 후 file_key 업데이트
+      setTabs(tabs => tabs.map((tab, idx) => 
+        idx === activeTab ? {
+          ...tab,
+          files: uploadedFiles.map(({file, fileKey}) => ({file, file_key: fileKey}))
+        } : tab
+      ));
+      
+      console.log('파일 업로드 완료:', uploadedFiles);
+      alert('파일 업로드 완료!');
+      
+    } catch (error) {
+      console.error('파일 업로드 실패:', error);
+      alert(`파일 업로드 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
+      
+      // 업로드 실패 시 파일 목록에서 제거
+      setTabs(tabs => tabs.map((tab, idx) => 
+        idx === activeTab ? {...tab, files: []} : tab
+      ));
+    }
   };
 
   const toggleFile = (idx: number) => {
@@ -197,37 +237,75 @@ function Reception() {
       return;
     }
 
-    // 조건 없이 바로 완료 페이지 표시
-    setShowComplete(true);
+    // 파일이 업로드되지 않은 탭이 있는지 확인
+    const hasUnuploadedFiles = tabs.some(tab => 
+      tab.files.some(f => !f.file_key || f.file_key === 'uploading')
+    );
     
-    // 실제 API 호출 (주석 처리)
-    /*
+    if (hasUnuploadedFiles) {
+      alert('모든 파일이 업로드될 때까지 기다려주세요.');
+      return;
+    }
+    
+    // 실제 API 호출
     try {
-      const formData = {
-        customer_name: customerName,
-        customer_phone: customerPhone,
-        customer_email: customerEmail,
-        customer_address: customerAddress,
-        tabs: tabs.map(tab => ({
-          files: tab.files.map(f => f.file_key),
-          speaker_names: tab.speakerNames,
-          selected_dates: tab.selectedDates,
-          detail: tab.detail,
-          speaker_count: tab.speakerCount,
-          timestamps: tab.timestamps,
-          record_type: tab.recordType,
-        })),
+      const requestData = {
+        name: customerName,
+        phone: customerPhone,
+        email: customerEmail,
+        address: customerAddress,
+        draft_format: selectedFileFormat,
+        final_option: selectedFinalOption,
+        speaker_count: tabs.reduce((max, tab) => Math.max(max, tab.speakerCount), 1),
+        speaker_info: tabs.flatMap(tab => tab.speakerNames.filter(name => name.trim())),
+        has_detail: tabs.some(tab => tab.detail && tab.detail.trim()),
+        detail_info: tabs.map(tab => tab.detail).filter(detail => detail?.trim()).join('\n\n'),
+        recording_date: tabs[0]?.recordingDate ? new Date(tabs[0].recordingDate).toISOString() : null,
+        recording_location: '',
+        agreement: agree,
+        is_temporary: false,
       };
 
-      const response = await fetch('http://localhost:8000/api/reception/', {
+      console.log('전송할 요청 데이터:', requestData);
+
+      const response = await fetch('http://localhost:8000/api/requests/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(requestData),
       });
+      
+      console.log('응답 상태:', response.status);
 
       if (response.ok) {
         const result = await response.json();
+        console.log('요청 생성 완료:', result);
         setRequestId(result.id);
+        
+        // 파일 정보를 백엔드에 저장
+        const allFiles = tabs.flatMap(tab => tab.files);
+        for (const fileObj of allFiles) {
+          if (fileObj.file_key && fileObj.file_key !== 'uploading') {
+            try {
+              const fileResponse = await fetch(`http://localhost:8000/api/requests/${result.id}/upload_file/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  file_name: fileObj.file.name,
+                  file_type: fileObj.file.type,
+                  file_size: fileObj.file.size,
+                  file_key: fileObj.file_key,
+                }),
+              });
+              
+              if (!fileResponse.ok) {
+                console.error('파일 정보 저장 실패:', fileObj.file.name);
+              }
+            } catch (fileError) {
+              console.error('파일 정보 저장 중 오류:', fileError);
+            }
+          }
+        }
+        
         setShowComplete(true);
         setFilesData(tabs.map(tab => ({
           name: tab.files.map(f => f.file.name).join(', '),
@@ -236,18 +314,27 @@ function Reception() {
           speakers: tab.speakerNames.join(', '),
           date: tab.selectedDates.join(', '),
           detail: tab.detail,
-          format: 'hwp',
-          option: 'file+usb',
+          format: selectedFileFormat,
+          option: selectedFinalOption,
         })));
       } else {
-        const errorData = await response.json();
-        alert(`신청 실패: ${errorData.error || '알 수 없는 오류'}`);
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (e) {
+          errorData = { error: '응답 파싱 실패' };
+        }
+        console.error('API 오류:', {
+          status: response.status,
+          statusText: response.statusText,
+          data: errorData
+        });
+        alert(`신청 실패 (${response.status}): ${JSON.stringify(errorData)}`);
       }
     } catch (error) {
       console.error('신청 처리 중 오류:', error);
       alert('신청 처리 중 오류가 발생했습니다.');
     }
-    */
   };
 
   // 동적 견적 계산 함수들
@@ -276,11 +363,9 @@ function Reception() {
     switch (selectedFinalOption) {
       case 'file':
         return '파일';
-      case 'file_post':
+      case 'file_usb':
         return '파일+등기우편';
-      case 'file_post_cd':
-        return '파일+등기우편+CD';
-      case 'file_post_usb':
+      case 'file_usb_post':
         return '파일+등기우편+USB';
       default:
         return '파일';
@@ -292,11 +377,9 @@ function Reception() {
     switch (selectedFinalOption) {
       case 'file':
         return 0;
-      case 'file_post':
+      case 'file_usb':
         return 5000;
-      case 'file_post_cd':
-        return 6000;
-      case 'file_post_usb':
+      case 'file_usb_post':
         return 10000;
       default:
         return 0;
@@ -527,6 +610,32 @@ function Reception() {
                 </div>
               </div>
             </div>
+          </div>
+          
+          {/* 새 신청하기 버튼 */}
+          <div style={{textAlign: 'center', marginTop: '3rem'}}>
+            <button 
+              onClick={handleNewRequest}
+              style={{
+                backgroundColor: '#1c58af',
+                color: 'white',
+                padding: '1rem 2rem',
+                borderRadius: '10px',
+                border: 'none',
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = '#164a94';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = '#1c58af';
+              }}
+            >
+              새 신청하기
+            </button>
           </div>
         </div>
       </section>
@@ -1109,15 +1218,11 @@ function Reception() {
                     <span className="radio-button-label w-form-label" style={{fontSize: '1rem'}}>파일</span>
                   </label>
                   <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
-                    <input type="radio" name="final-option" value="file_post" checked={selectedFinalOption === 'file_post'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <input type="radio" name="final-option" value="file_usb" checked={selectedFinalOption === 'file_usb'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
                     <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 (+5,000원)</span>
                   </label>
                   <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
-                    <input type="radio" name="final-option" value="file_post_cd" checked={selectedFinalOption === 'file_post_cd'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
-                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +CD (+6,000원)</span>
-                  </label>
-                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
-                    <input type="radio" name="final-option" value="file_post_usb" checked={selectedFinalOption === 'file_post_usb'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <input type="radio" name="final-option" value="file_usb_post" checked={selectedFinalOption === 'file_usb_post'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
                     <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +USB (+10,000원)</span>
                   </label>
                 </div>
