@@ -510,6 +510,14 @@
   background-color: #4979bf; /* 웹플로우와 동일한 진한 파란색 */
 }
 
+.c-steps-dot.completed {
+  background-color: #9ca3af; /* 완료된 단계는 회색으로 */
+}
+
+.c-steps-dot.inactive {
+  background-color: #a4bcdf; /* 비활성 단계는 연한 파란색으로 (원래대로) */
+}
+
 .c-step-title {
   font-family: 'Pretendard', sans-serif;
   color: #1a202c;
@@ -525,6 +533,10 @@
   color: #9ca3af;
 }
 
+.c-step-title.completed {
+  color: #9ca3af; /* 완료된 단계 제목은 회색으로 */
+}
+
 .c-steps-sub-title {
   font-family: 'Pretendard', sans-serif;
   color: #1a202c;
@@ -535,6 +547,10 @@
 
 .c-steps-sub-title.hold {
   color: #9ca3af;
+}
+
+.c-steps-sub-title.completed {
+  color: #9ca3af; /* 완료된 단계 부제목도 회색으로 */
 }
 
 .c-steps-line {

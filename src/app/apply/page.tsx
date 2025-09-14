@@ -136,11 +136,11 @@ function Reception() {
     return (
       <div className="c-steps-grid max-w-[800px] mx-auto relative" style={{ gap: '4rem' }}>
         <div className="c-steps-item">
-          <div className={`c-steps-dot ${step >= 1 ? 'current' : ''}`}>
-            <div className={`c-steps-dot-inner ${step >= 1 ? 'current' : ''}`}></div>
+          <div className={`c-steps-dot ${step >= 1 ? 'current' : ''} ${step >= 2 ? 'completed' : ''}`}>
+            <div className={`c-steps-dot-inner ${step >= 1 ? 'current' : ''} ${step >= 2 ? 'completed' : ''}`}></div>
           </div>
-          <h3 className="c-step-title">신청서 작성</h3>
-          <p className="c-steps-sub-title">파일과 정보를<br/>입력해 주세요.</p>
+          <h3 className={`c-step-title ${step >= 2 ? 'completed' : ''}`}>신청서 작성</h3>
+          <p className={`c-steps-sub-title ${step >= 2 ? 'completed' : ''}`}>파일과 정보를<br/>입력해 주세요.</p>
         </div>
         
         {/* 점선을 절대 위치로 두 원 사이 중앙에 배치 */}
@@ -151,11 +151,11 @@ function Reception() {
         </div>
         
         <div className="c-steps-item">
-          <div className={`c-steps-dot ${step >= 2 ? 'current' : ''}`}>
-            <div className={`c-steps-dot-inner ${step >= 2 ? 'current' : ''}`}></div>
+          <div className={`c-steps-dot ${step >= 2 ? 'current' : 'inactive'}`}>
+            <div className={`c-steps-dot-inner ${step >= 2 ? 'current' : 'inactive'}`}></div>
           </div>
-          <h3 className="c-step-title">제출 완료</h3>
-          <p className="c-steps-sub-title">신청 정보를<br/>확인해 주세요.</p>
+          <h3 className={`c-step-title ${step >= 2 ? '' : 'hold'}`}>제출 완료</h3>
+          <p className={`c-steps-sub-title ${step >= 2 ? '' : 'hold'}`}>신청 정보를<br/>확인해 주세요.</p>
         </div>
       </div>
     );
@@ -365,6 +365,8 @@ function Reception() {
         return '파일';
       case 'file_usb':
         return '파일+등기우편';
+      case 'file_usb_cd':
+        return '파일+등기우편+CD';
       case 'file_usb_post':
         return '파일+등기우편+USB';
       default:
@@ -379,6 +381,8 @@ function Reception() {
         return 0;
       case 'file_usb':
         return 5000;
+      case 'file_usb_cd':
+        return 6000;
       case 'file_usb_post':
         return 10000;
       default:
@@ -1220,6 +1224,10 @@ function Reception() {
                   <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
                     <input type="radio" name="final-option" value="file_usb" checked={selectedFinalOption === 'file_usb'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
                     <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 (+5,000원)</span>
+                  </label>
+                  <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
+                    <input type="radio" name="final-option" value="file_usb_cd" checked={selectedFinalOption === 'file_usb_cd'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +CD (+6,000원)</span>
                   </label>
                   <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
                     <input type="radio" name="final-option" value="file_usb_post" checked={selectedFinalOption === 'file_usb_post'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
