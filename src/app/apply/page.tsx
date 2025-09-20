@@ -14,35 +14,22 @@ import { uploadMultipleFiles } from '@/utils/fileUpload';
 
 function Reception() {
   // 기본 상태들
-  const [customerName, setCustomerName] = useState('김테스트');
-  const [customerPhone, setCustomerPhone] = useState('010-1234-5678');
-  const [customerEmail, setCustomerEmail] = useState('test@example.com');
-  const [customerAddress, setCustomerAddress] = useState('서울특별시 강남구 테헤란로 123, 456호');
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
   const [tabs, setTabs] = useState([
     { 
-      files: [{ file: { name: '20241201_회의록음.m4a' } as File, file_key: 'test' }], 
-      speakerNames: ['김대표', '이부장', '박과장'], 
+      files: [], 
+      speakerNames: [''], 
       selectedDates: [] as string[], 
-      detail: '분기별 실적 검토 회의 내용입니다. 중요한 의사결정 사항이 포함되어 있습니다.', 
-      speakerCount: 3, 
-      timestamps: ['00:45:30'] as string[], 
-      timestampRanges: [] as any[], 
-      recordType: '부분' as '전체' | '부분', 
-      recordingDate: '2024-12-01', 
-      recordingTime: '14:30', 
-      recordingUnsure: false 
-    },
-    { 
-      files: [{ file: { name: '20241202_인터뷰.wav' } as File, file_key: 'test2' }], 
-      speakerNames: ['면접관A', '면접관B', '지원자'], 
-      selectedDates: [] as string[], 
-      detail: '신입사원 채용 면접 녹음 파일입니다.', 
-      speakerCount: 3, 
-      timestamps: ['01:20:15'] as string[], 
+      detail: '', 
+      speakerCount: 1, 
+      timestamps: [] as string[], 
       timestampRanges: [] as any[], 
       recordType: '전체' as '전체' | '부분', 
-      recordingDate: '2024-12-02', 
-      recordingTime: '10:00', 
+      recordingDate: '', 
+      recordingTime: '', 
       recordingUnsure: false 
     }
   ]);
@@ -247,7 +234,7 @@ function Reception() {
       return;
     }
     
-    // 실제 API 호출
+    // 새로운 API 호출 (파일별 Request 생성)
     try {
       const requestData = {
         name: customerName,
@@ -256,19 +243,48 @@ function Reception() {
         address: customerAddress,
         draft_format: selectedFileFormat,
         final_option: selectedFinalOption,
-        speaker_count: tabs.reduce((max, tab) => Math.max(max, tab.speakerCount), 1),
-        speaker_info: tabs.flatMap(tab => tab.speakerNames.filter(name => name.trim())),
-        has_detail: tabs.some(tab => tab.detail && tab.detail.trim()),
-        detail_info: tabs.map(tab => tab.detail).filter(detail => detail?.trim()).join('\n\n'),
-        recording_date: tabs[0]?.recordingDate ? new Date(tabs[0].recordingDate).toISOString() : null,
-        recording_location: '',
         agreement: agree,
         is_temporary: false,
+        recording_location: '회의실', // 기본값
+        estimated_price: calculateTotalPrice(), // 실제 계산된 견적
+        files: tabs.map(tab => {
+          // timestampRanges에서 duration과 timestamps 계산
+          let duration = '00:00:00';
+          let timestamps = [];
+          
+          if (tab.timestampRanges && tab.timestampRanges.length > 0) {
+            // timestampRanges에서 구간들을 추출
+            const { calculateTotalDuration } = require('@/utils/timestampUtils');
+            duration = calculateTotalDuration(tab.timestampRanges);
+            
+            // 각 구간을 timestamps 배열로 변환
+            timestamps = tab.timestampRanges.map(range => 
+              `${range.startTime || '00:00:00'}-${range.endTime || '00:00:00'}`
+            );
+          }
+          
+          return {
+            recordType: tab.recordType,
+            timestamps: timestamps,
+            duration: duration,
+            speakerCount: tab.speakerCount,
+            speakerNames: tab.speakerNames.filter(name => name.trim()),
+            detail: tab.detail,
+            recordingDate: tab.recordingDate,
+            recordingTime: tab.recordingTime,
+            file_info: tab.files[0] ? {
+              file_key: tab.files[0].file_key,
+              original_name: tab.files[0].file.name,
+              file_type: tab.files[0].file.type,
+              file_size: tab.files[0].file.size,
+            } : null
+          };
+        })
       };
 
-      console.log('전송할 요청 데이터:', requestData);
+      console.log('새로운 API로 전송할 요청 데이터:', requestData);
 
-      const response = await fetch('http://localhost:8000/api/requests/', {
+      const response = await fetch('http://localhost:8000/api/requests/create_order_with_files/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestData),
@@ -278,33 +294,8 @@ function Reception() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log('요청 생성 완료:', result);
-        setRequestId(result.id);
-        
-        // 파일 정보를 백엔드에 저장
-        const allFiles = tabs.flatMap(tab => tab.files);
-        for (const fileObj of allFiles) {
-          if (fileObj.file_key && fileObj.file_key !== 'uploading') {
-            try {
-              const fileResponse = await fetch(`http://localhost:8000/api/requests/${result.id}/upload_file/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  file_name: fileObj.file.name,
-                  file_type: fileObj.file.type,
-                  file_size: fileObj.file.size,
-                  file_key: fileObj.file_key,
-                }),
-              });
-              
-              if (!fileResponse.ok) {
-                console.error('파일 정보 저장 실패:', fileObj.file.name);
-              }
-            } catch (fileError) {
-              console.error('파일 정보 저장 중 오류:', fileError);
-            }
-          }
-        }
+        console.log('주문 생성 완료:', result);
+        setRequestId(result.order_id); // Order ID를 저장
         
         setShowComplete(true);
         setFilesData(tabs.map(tab => ({
