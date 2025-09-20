@@ -101,7 +101,6 @@ function Reception() {
       ));
       
       console.log('파일 업로드 완료:', uploadedFiles);
-      alert('파일 업로드 완료!');
       
     } catch (error) {
       console.error('파일 업로드 실패:', error);
