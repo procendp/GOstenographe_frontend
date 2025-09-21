@@ -8,6 +8,7 @@ import FeaturesSection from "../components/sections/FeaturesSection";
 import ServiceSectionV2 from "../components/sections/ServiceSectionV2";
 import FAQSectionV2 from "../components/sections/FAQSectionV2";
 import ContactSectionV2 from "../components/sections/ContactSectionV2";
+import FloatingButtons from "../components/FloatingButtons";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <ContactSectionV2 />
       </main>
       <NewFooter />
+      <FloatingButtons />
     </div>
   );
 } 

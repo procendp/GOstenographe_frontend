@@ -142,7 +142,7 @@ export default function ServiceSectionV2() {
                   <Link href="/apply">
                     <button className="w-full py-3 rounded-lg bg-black text-white text-lg">서비스 신청</button>
                   </Link>
-                  <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-white">상담 문의</button>
+                  <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
                 </div>
               </div>
               {/* 우측: 프로세스/요금표 */}
