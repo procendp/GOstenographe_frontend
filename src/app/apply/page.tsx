@@ -10,6 +10,7 @@ import RequestInfoSection from '@/components/RequestInfoSection';
 import FileUploadSection from '@/components/FileUploadSection';
 import { ReceptionFormData } from '@/types/reception';
 import { uploadMultipleFiles } from '@/utils/fileUpload';
+import { getMediaDuration } from '@/utils/mediaDuration';
 
 
 function Reception() {
@@ -19,18 +20,19 @@ function Reception() {
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
   const [tabs, setTabs] = useState([
-    { 
-      files: [], 
-      speakerNames: [''], 
-      selectedDates: [] as string[], 
-      detail: '', 
-      speakerCount: 1, 
-      timestamps: [] as string[], 
-      timestampRanges: [] as any[], 
-      recordType: '전체' as '전체' | '부분', 
-      recordingDate: '', 
-      recordingTime: '', 
-      recordingUnsure: false 
+    {
+      files: [],
+      speakerNames: [''],
+      selectedDates: [] as string[],
+      detail: '',
+      speakerCount: 1,
+      timestamps: [] as string[],
+      timestampRanges: [] as any[],
+      recordType: '전체' as '전체' | '부분',
+      recordingDate: '',
+      recordingTime: '',
+      recordingUnsure: false,
+      fileDuration: '00:00:00'
     }
   ]);
   const [activeTab, setActiveTab] = useState(0);
@@ -54,7 +56,7 @@ function Reception() {
 
   const handleAddTab = () => {
     if (tabs.length >= 5) return;
-    setTabs([...tabs, { files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], timestampRanges: [], recordType: '전체', recordingDate: '', recordingTime: '', recordingUnsure: false }]);
+    setTabs([...tabs, { files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], timestampRanges: [], recordType: '전체', recordingDate: '', recordingTime: '', recordingUnsure: false, fileDuration: '00:00:00' }]);
     setActiveTab(tabs.length);
   };
 
@@ -71,16 +73,22 @@ function Reception() {
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    
+
     // 임시로 파일 정보를 상태에 저장 (업로드 시작 표시)
-    setTabs(tabs => tabs.map((tab, idx) => 
+    setTabs(tabs => tabs.map((tab, idx) =>
       idx === activeTab ? {
-        ...tab, 
+        ...tab,
         files: files.map(file => ({file, file_key: 'uploading'}))
       } : tab
     ));
-    
+
     try {
+      // 파일의 duration 추출 (첫 번째 파일만 - 오디오/비디오인 경우)
+      let fileDuration = '00:00:00';
+      if (files.length > 0) {
+        fileDuration = await getMediaDuration(files[0]);
+      }
+
       // 파일들을 S3에 업로드
       const uploadedFiles = await uploadMultipleFiles(
         files,
@@ -91,23 +99,25 @@ function Reception() {
           console.log(`파일 ${fileIndex + 1} 업로드 진행률: ${progress}%`);
         }
       );
-      
-      // 업로드 완료 후 file_key 업데이트
-      setTabs(tabs => tabs.map((tab, idx) => 
+
+      // 업로드 완료 후 file_key와 fileDuration 업데이트
+      setTabs(tabs => tabs.map((tab, idx) =>
         idx === activeTab ? {
           ...tab,
-          files: uploadedFiles.map(({file, fileKey}) => ({file, file_key: fileKey}))
+          files: uploadedFiles.map(({file, fileKey}) => ({file, file_key: fileKey})),
+          fileDuration: fileDuration
         } : tab
       ));
-      
+
       console.log('파일 업로드 완료:', uploadedFiles);
-      
+      console.log('파일 재생시간:', fileDuration);
+
     } catch (error) {
       console.error('파일 업로드 실패:', error);
       alert(`파일 업로드 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
-      
+
       // 업로드 실패 시 파일 목록에서 제거
-      setTabs(tabs => tabs.map((tab, idx) => 
+      setTabs(tabs => tabs.map((tab, idx) =>
         idx === activeTab ? {...tab, files: []} : tab
       ));
     }
@@ -292,16 +302,19 @@ function Reception() {
           // timestampRanges에서 duration과 timestamps 계산
           let duration = '00:00:00';
           let timestamps = [];
-          
-          if (tab.timestampRanges && tab.timestampRanges.length > 0) {
-            // timestampRanges에서 구간들을 추출
+
+          if (tab.recordType === '부분' && tab.timestampRanges && tab.timestampRanges.length > 0) {
+            // 부분 녹취: timestampRanges에서 구간들을 추출
             const { calculateTotalDuration } = require('@/utils/timestampUtils');
             duration = calculateTotalDuration(tab.timestampRanges);
-            
+
             // 각 구간을 timestamps 배열로 변환
-            timestamps = tab.timestampRanges.map(range => 
+            timestamps = tab.timestampRanges.map(range =>
               `${range.startTime || '00:00:00'}-${range.endTime || '00:00:00'}`
             );
+          } else if (tab.recordType === '전체') {
+            // 전체 녹음: 파일에서 추출한 duration 사용
+            duration = tab.fileDuration || '00:00:00';
           }
           
           return {
