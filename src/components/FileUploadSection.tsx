@@ -67,7 +67,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                   const status = uploadStatus[fileName] || 'idle';
                   return (
                     <span key={index} className="flex items-center gap-2 text-sm">
-                      {fileName}
+                      <span className="font-bold">{fileName}</span>
                       {status === 'uploading' && <FaSpinner className="animate-spin text-blue-400" title="업로드 중" />}
                       {status === 'success' && <FaCheckCircle className="text-green-500" title="업로드 완료" />}
                       {status === 'error' && <FaExclamationCircle className="text-red-500" title="업로드 실패" />}
