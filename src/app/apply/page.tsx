@@ -200,8 +200,50 @@ function Reception() {
     </>
   );
 
+  // 전화번호 자동 포맷팅 함수
+  const formatPhoneNumber = (value: string) => {
+    // 숫자만 추출
+    const numbers = value.replace(/[^\d]/g, '');
+
+    // 숫자가 없으면 빈 문자열
+    if (!numbers) return '';
+
+    // 길이에 따라 포맷팅
+    if (numbers.length <= 3) {
+      return numbers;
+    } else if (numbers.length <= 7) {
+      return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    } else if (numbers.length <= 11) {
+      return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7)}`;
+    } else {
+      // 11자리 초과: 3-4-나머지
+      return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7)}`;
+    }
+  };
+
+  // 전화번호 입력 핸들러
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    // 숫자와 하이픈만 허용하는지 체크
+    const hasInvalidChars = /[^0-9-]/.test(value);
+
+    if (hasInvalidChars) {
+      setPhoneError('숫자만 입력해주세요');
+    } else {
+      setPhoneError('');
+    }
+
+    // 포맷팅된 전화번호 저장
+    const formatted = formatPhoneNumber(value);
+    setCustomerPhone(formatted);
+  };
+
   // 폼 유효성 검사
-  const validatePhone = (phone: string) => /^[0-9]{10,11}$/.test(phone);
+  const validatePhone = (phone: string) => {
+    const numbers = phone.replace(/[^\d]/g, '');
+    return numbers.length >= 10 && numbers.length <= 11;
+  };
   const validateEmail = (email: string) => email.includes('@') && email.includes('.') && email.indexOf('@') < email.lastIndexOf('.') && email.length > 5;
   const validateAddress = (address: string) => /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]{5,}$/.test(address.trim());
 
@@ -1249,7 +1291,19 @@ function Reception() {
               <div className="form-block w-form">
                 <div className="c-apply-form vertical" style={{gap: '0.25rem'}}>
                   <input className="c-text-input-field w-input" maxLength={256} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
-                  <input className="c-text-input-field w-input" maxLength={256} name="customer-phone" placeholder="연락처 (000-0000-0000)" type="text" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} required />
+                  <input
+                    className={`c-text-input-field w-input ${phoneError ? 'border-red-500 border-2' : ''}`}
+                    maxLength={256}
+                    name="customer-phone"
+                    placeholder="연락처 (000-0000-0000)"
+                    type="text"
+                    value={customerPhone}
+                    onChange={handlePhoneChange}
+                    required
+                  />
+                  {phoneError && (
+                    <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+                  )}
                   <input className="c-text-input-field w-input" maxLength={256} name="customer-email" placeholder="이메일 (example@email.com)" type="email" value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} required />
                   <input className="c-text-input-field w-input" maxLength={256} name="customer-address" placeholder="주소 (최종본 수령지)" type="text" value={customerAddress} onChange={(e) => setCustomerAddress(e.target.value)} required />
                 </div>
