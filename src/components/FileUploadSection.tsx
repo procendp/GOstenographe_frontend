@@ -15,6 +15,32 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
+
+    // 허용된 확장자 목록 (페이지 안내와 동일)
+    const ALLOWED_EXTENSIONS = [
+      // 음성 파일
+      'mp3', 'wav', 'm4a', 'cda', 'mod', 'ogg', 'wma', 'flac', 'asf',
+      // 영상 파일
+      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv',
+      // 문서 파일 (추가 허용)
+      'txt', 'hwp', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx',
+      // 압축 파일 (주석 처리 - 압축 파일 업로드 불가)
+      // 'zip'
+    ];
+
+    // 파일 형식 검증
+    const invalidFiles = files.filter(file => {
+      const ext = file.name.split('.').pop()?.toLowerCase();
+      return !ext || !ALLOWED_EXTENSIONS.includes(ext);
+    });
+
+    if (invalidFiles.length > 0) {
+      alert(`허용되지 않는 파일 형식입니다:\n${invalidFiles.map(f => f.name).join('\n')}\n\n허용 형식:\n- 음성: ${ALLOWED_EXTENSIONS.slice(0, 9).join(', ')}\n- 영상: ${ALLOWED_EXTENSIONS.slice(9, 19).join(', ')}`);
+      e.target.value = '';
+      return;
+    }
+
+    // 파일 크기 검증
     const MAX_SIZE = 3 * 1024 * 1024 * 1024; // 3GB
     const oversizedFiles = files.filter(file => file.size > MAX_SIZE);
     if (oversizedFiles.length > 0) {
@@ -22,6 +48,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
       e.target.value = '';
       return;
     }
+
     const fileObjs = files.map(file => ({ file, file_key: '' }));
     setFormData({ ...formData, files: fileObjs });
     if (onFileSelect) {
@@ -38,12 +65,35 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
     e.preventDefault();
     e.stopPropagation();
     const files = Array.from(e.dataTransfer.files);
+
+    // 허용된 확장자 목록
+    const ALLOWED_EXTENSIONS = [
+      'mp3', 'wav', 'm4a', 'cda', 'mod', 'ogg', 'wma', 'flac', 'asf',
+      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv',
+      'txt', 'hwp', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx'
+      // 압축 파일 (주석 처리 - 압축 파일 업로드 불가)
+      // 'zip'
+    ];
+
+    // 파일 형식 검증
+    const invalidFiles = files.filter(file => {
+      const ext = file.name.split('.').pop()?.toLowerCase();
+      return !ext || !ALLOWED_EXTENSIONS.includes(ext);
+    });
+
+    if (invalidFiles.length > 0) {
+      alert(`허용되지 않는 파일 형식입니다:\n${invalidFiles.map(f => f.name).join('\n')}\n\n허용 형식:\n- 음성: ${ALLOWED_EXTENSIONS.slice(0, 9).join(', ')}\n- 영상: ${ALLOWED_EXTENSIONS.slice(9, 19).join(', ')}`);
+      return;
+    }
+
+    // 파일 크기 검증
     const MAX_SIZE = 3 * 1024 * 1024 * 1024; // 3GB
     const oversizedFiles = files.filter(file => file.size > MAX_SIZE);
     if (oversizedFiles.length > 0) {
       alert(`다음 파일의 크기가 3GB를 초과합니다:\n${oversizedFiles.map(f => f.name).join('\n')}`);
       return;
     }
+
     const fileObjs = files.map(file => ({ file, file_key: '' }));
     setFormData({ ...formData, files: fileObjs });
   };
@@ -66,7 +116,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                   const fileName = f.file?.name || f.name || '';
                   const status = uploadStatus[fileName] || 'idle';
                   return (
-                    <span key={index} className="flex items-center gap-2 text-base">
+                    <span key={index} className="flex items-center justify-center gap-2 text-base">
                       <span className="font-bold">{fileName}</span>
                       {status === 'uploading' && <FaSpinner className="animate-spin text-blue-400" title="업로드 중" />}
                       {status === 'success' && <FaCheckCircle className="text-green-500" title="업로드 완료" />}
@@ -82,7 +132,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           <div className="text-sm text-gray-400 space-y-1">
             <div>• 파일 형식: txt, hwp, doc, docx, pdf, ppt, pptx, xls, xlsx</div>
             <div>• 용량: mp3, mp4, asf, m4v, mov, wmv, avi, wav</div>
-            <div>• 압축: zip, mp3, asf, m4v, mov, wmv, avi, wav</div>
+            {/* <div>• 압축: zip, mp3, asf, m4v, mov, wmv, avi, wav</div> */}
           </div>
           <div className="text-xs text-red-500 mt-1">※ 파일당 최대 3GB까지 업로드 가능합니다.</div>
         </div>
@@ -91,7 +141,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           ref={fileInputRef}
           onChange={handleFileSelect}
           className="hidden"
-          accept=".txt,.hwp,.doc,.docx,.pdf,.ppt,.pptx,.xls,.xlsx,.mp3,.mp4,.asf,.m4v,.mov,.wmv,.avi,.wav,.zip"
+          accept=".mp3,.wav,.m4a,.cda,.mod,.ogg,.wma,.flac,.asf,.avi,.mp4,.wmv,.m2v,.mpeg,.dpg,.mts,.webm,.divx,.amv,.txt,.hwp,.doc,.docx,.pdf,.ppt,.pptx,.xls,.xlsx"
           multiple
         />
       </div>

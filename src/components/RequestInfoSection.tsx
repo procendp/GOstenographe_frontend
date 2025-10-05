@@ -12,7 +12,7 @@ interface RequestInfoSectionProps {
 
 export default function RequestInfoSection({ formData, setFormData, onNext, onBack }: RequestInfoSectionProps) {
   const [totalDuration, setTotalDuration] = useState('00:00:00');
-  const MAX_TIMESTAMP_RANGES = 3; // Configurable maximum
+  const MAX_TIMESTAMP_RANGES = 10; // Configurable maximum
 
   // Initialize timestamp ranges if not present
   useEffect(() => {
@@ -134,7 +134,31 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
           <div className="w-tab-content" style={{ marginTop: '0.5rem', paddingBottom: '0.5rem' }}>
             <div data-w-tab="부분 녹취" className="w-tab-pane w--tab-active">
               <div className="c-timestamp-block" style={{ marginBottom: '0' }}>
-                <h2 className="c-file-block-heading h5" style={{ textAlign: 'left', marginBottom: '0.75rem' }}>부분 녹취 구간 입력</h2>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '0.75rem' }}>
+                  <h2 className="c-file-block-heading h5" style={{ textAlign: 'left', margin: '0' }}>부분 녹취 구간 입력</h2>
+                  {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (
+                    <button
+                      type="button"
+                      onClick={handleTimestampRangeAdd}
+                      style={{
+                        background: 'none',
+                        border: '1.5px solid #3b82f6',
+                        borderRadius: '4px',
+                        padding: '4px 10px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        fontSize: '13px',
+                        color: '#3b82f6',
+                        fontWeight: '500'
+                      }}
+                    >
+                      <span style={{ fontSize: '14px', fontWeight: 'bold' }}>+</span>
+                      <span>추가</span>
+                    </button>
+                  )}
+                </div>
                 <div className="w-layout-vflex timestampt-input-wrapper" style={{ alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0' }}>
                   {(formData.timestampRanges || []).map((range, index) => (
                     <TimestampInput
@@ -145,64 +169,6 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                       canDelete={(formData.timestampRanges?.length || 0) > 1}
                     />
                   ))}
-                  
-                  {/* Add button */}
-                  {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (
-                    <div className="w-layout-hflex c-timestamp-wrapper">
-                      <button
-                        type="button"
-                        onClick={handleTimestampRangeAdd}
-                        className="w-layout-hflex timestamp-h-flex"
-                        style={{
-                          width: '100%',
-                          background: 'none',
-                          border: 'none',
-                          cursor: 'pointer',
-                          padding: '0'
-                        }}
-                      >
-                        <div className="c-time-add-btn-grid" style={{
-                          border: '1.5px dashed #3b82f6',
-                          borderRadius: '5px',
-                          gridTemplateColumns: '1fr 1fr 1fr 1fr',
-                          gridColumnGap: '0px',
-                          gridRowGap: '0px',
-                          placeItems: 'center stretch',
-                          width: '100%',
-                          maxWidth: '400px',
-                          padding: '2px 0',
-                          display: 'grid',
-                          cursor: 'pointer',
-                          backgroundColor: 'transparent'
-                        }}>
-                          <div className="c-button-add-text" style={{
-                            gridColumnGap: '5px',
-                            gridRowGap: '5px',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            padding: '5px',
-                            display: 'flex',
-                            color: '#3b82f6'
-                          }}>
-                            <div className="c-icon-image-wrapper">
-                              <span style={{ 
-                                fontSize: '16px', 
-                                color: '#3b82f6',
-                                minWidth: '16px',
-                                maxWidth: '80%',
-                                display: 'inline-block'
-                              }}>+</span>
-                            </div>
-                            <p className="c-input-text" style={{ 
-                              margin: 0, 
-                              color: '#3b82f6',
-                              fontSize: '14px'
-                            }}>추가</p>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

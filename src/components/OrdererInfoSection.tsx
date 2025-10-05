@@ -8,7 +8,7 @@ interface OrdererInfoSectionProps {
 }
 
 export default function OrdererInfoSection({ formData, setFormData }: OrdererInfoSectionProps) {
-  const MAX_SPEAKERS = 3;
+  const MAX_SPEAKERS = 10;
 
   // Initialize speaker names if not present
   useEffect(() => {
