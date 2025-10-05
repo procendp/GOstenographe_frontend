@@ -614,12 +614,7 @@ function Reception() {
                           }}>▼</span>
                         </summary>
                         <div className="c-accordion-content-box" style={{padding: '1.5rem'}}>
-                          <div className="w-layout-grid c-order-info-grid" style={{
-                            display: 'grid',
-                            gridTemplateColumns: '1fr 2fr',
-                            gap: '0.75rem',
-                            alignItems: 'start'
-                          }}>
+                          <div className="w-layout-grid c-order-info-grid grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 items-start">
                             <div className="c-app-info-grid-title-block">
                               <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>첨부 파일</div>
                             </div>
@@ -685,15 +680,7 @@ function Reception() {
                   <h2 className="c-app-info-heading" style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937'}}>주문자 정보</h2>
                 </div>
                 <div className="container small-container" style={{maxWidth: '1000px', margin: '0 auto'}}>
-                  <div className="w-layout-grid c-client-info-grid" style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 2fr',
-                    gap: '0.75rem',
-                    backgroundColor: 'white',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '10px',
-                    padding: '1.5rem'
-                  }}>
+                  <div className="w-layout-grid c-client-info-grid grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 bg-white border border-gray-300 rounded-lg p-6">
                     <div className="c-app-info-grid-title-block">
                       <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>성함</div>
                     </div>
@@ -997,12 +984,7 @@ function Reception() {
                             <div className="c-datetime-content" style={{
                               padding: '1.5rem'
                             }}>
-                              <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: '1fr 1fr 1fr',
-                                alignItems: 'center',
-                                gap: '1rem'
-                              }}>
+                              <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
                                 <div style={{ position: 'relative' }}>
                                   <input
                                     type="date"

@@ -753,6 +753,16 @@ section.c-checkout-section > div > div.c-checkout-right {
   font-weight: 400;
 }
 
+/* 모바일에서 탭 텍스트 표시 */
+@media (max-width: 639px) {
+  .c-tab-button-text {
+    display: none;
+  }
+  .c-tab-button-text-mobile {
+    display: block;
+  }
+}
+
 /* 파일 탭 컨테이너 */
 .file-tab-container {
   display: flex;
