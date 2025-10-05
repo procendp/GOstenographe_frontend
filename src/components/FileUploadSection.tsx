@@ -130,9 +130,9 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
             )}
           </div>
           <div className="text-sm text-gray-400 space-y-1">
-            <div>• 파일 형식: txt, hwp, doc, docx, pdf, ppt, pptx, xls, xlsx</div>
-            <div>• 용량: mp3, mp4, asf, m4v, mov, wmv, avi, wav</div>
-            {/* <div>• 압축: zip, mp3, asf, m4v, mov, wmv, avi, wav</div> */}
+            <div>• 문서: txt, hwp, doc, docx, pdf, ppt, pptx, xls, xlsx</div>
+            <div>• 음성: mp3, wav, m4a, cda, mod, ogg, wma, flac, asf</div>
+            <div>• 영상: avi, mp4, wmv, m2v, mpeg, dpg, mts, webm, divx, amv</div>
           </div>
           <div className="text-xs text-red-500 mt-1">※ 파일당 최대 3GB까지 업로드 가능합니다.</div>
         </div>
