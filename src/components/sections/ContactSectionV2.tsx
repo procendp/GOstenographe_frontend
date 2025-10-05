@@ -16,7 +16,8 @@ const contacts = [
     title: "카카오톡 상담",
     desc: "오픈채팅 '속기사무소 정'",
     contact: "채팅 상담 시작",
-    contactType: "chat"
+    contactType: "chat",
+    link: "https://open.kakao.com/o/sCaE9jih"
   },
   {
     icon: "/new_goStenographe_resource/icons/solar_phone-calling-rounded-bold.png",
@@ -70,13 +71,21 @@ export default function ContactSectionV2() {
               <div className="w-12 h-12 mb-3 flex items-center justify-center">
                 <Image src={c.icon} alt={c.title} width={48} height={48} className="object-contain" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">{c.title}</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-1 whitespace-nowrap">{c.title}</h3>
               <p className="text-gray-600 text-sm mb-2 whitespace-nowrap">{c.desc}</p>
               {c.contactType === "email" && (
                 <p className="text-base whitespace-nowrap" style={{color: blue}}>{c.contact}</p>
               )}
               {c.contactType === "chat" && (
-                <p className="text-base whitespace-nowrap" style={{color: blue}}>{c.contact}</p>
+                <a
+                  href={c.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base whitespace-nowrap hover:underline"
+                  style={{color: blue}}
+                >
+                  {c.contact}
+                </a>
               )}
               {c.contactType === "phone" && (
                 <p className="text-black text-base whitespace-nowrap">{c.contact}</p>
