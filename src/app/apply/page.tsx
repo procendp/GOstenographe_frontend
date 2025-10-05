@@ -234,19 +234,49 @@ function Reception() {
   // 전화번호 입력 핸들러
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    const formatted = formatPhoneNumber(value);
+    setCustomerPhone(formatted);
 
-    // 숫자와 하이픈만 허용하는지 체크
-    const hasInvalidChars = /[^0-9-]/.test(value);
+    // 숫자 추출
+    const numbers = formatted.replace(/[^\d]/g, '');
 
-    if (hasInvalidChars) {
-      setPhoneError('숫자만 입력해주세요');
+    // 실시간 검증
+    if (numbers.length > 0 && numbers.length < 10) {
+      setPhoneError('전화번호는 10~11자리여야 합니다');
+    } else if (numbers.length > 11) {
+      setPhoneError('전화번호는 최대 11자리입니다');
     } else {
       setPhoneError('');
     }
+  };
 
-    // 포맷팅된 전화번호 저장
-    const formatted = formatPhoneNumber(value);
-    setCustomerPhone(formatted);
+  // 이메일 입력 핸들러
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setCustomerEmail(value);
+
+    // 입력 중이 아닐 때만 검증 (blur 상태)
+    if (value.length > 0 && e.type === 'blur') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        setEmailError('올바른 이메일 형식이 아닙니다');
+      } else {
+        setEmailError('');
+      }
+    }
+  };
+
+  // 이메일 blur 핸들러
+  const handleEmailBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length > 0) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        setEmailError('올바른 이메일 형식이 아닙니다');
+      } else {
+        setEmailError('');
+      }
+    }
   };
 
   // 폼 유효성 검사
@@ -254,18 +284,54 @@ function Reception() {
     const numbers = phone.replace(/[^\d]/g, '');
     return numbers.length >= 10 && numbers.length <= 11;
   };
-  const validateEmail = (email: string) => email.includes('@') && email.includes('.') && email.indexOf('@') < email.lastIndexOf('.') && email.length > 5;
-  const validateAddress = (address: string) => /^[A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]{5,}$/.test(address.trim());
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const validateAddress = (address: string) => address.trim().length > 0;
 
   const isFormValid = () => {
+    // 주문자 정보 검증 (필수)
+    const nameValid = customerName.trim() !== '';
     const phoneValid = validatePhone(customerPhone);
     const emailValid = validateEmail(customerEmail);
     const addressValid = validateAddress(customerAddress);
-    const nameValid = customerName.trim() !== '';
+
+    // 약관 동의 검증 (필수)
     const agreeValid = agree;
-    const fileValid = tabs.every(tab => tab.files && tab.files.length > 0);
-    
-    return fileValid && nameValid && phoneValid && emailValid && addressValid && agreeValid;
+
+    // 모든 탭에 대해 필수 필드 검증
+    const tabsValid = tabs.every(tab => {
+      // 1. 파일 업로드 (필수)
+      const fileValid = tab.files && tab.files.length > 0 && tab.files.every(f => f.file_key && f.file_key !== 'uploading');
+
+      // 2. 녹취 종류 (필수) - recordType은 항상 '전체' 또는 '부분' 중 하나
+      const recordTypeValid = tab.recordType === '전체' || tab.recordType === '부분';
+
+      // 3. 부분 녹취인 경우 timestamp 유효성 검증
+      let timestampValid = true;
+      if (tab.recordType === '부분') {
+        timestampValid = tab.timestampRanges &&
+                        tab.timestampRanges.length > 0 &&
+                        tab.timestampRanges.every((range: any) => range.isValid !== false);
+      }
+
+      // 4. 화자 정보 (필수) - 최소 1명 이상의 화자명 필요
+      const speakerValid = tab.speakerNames &&
+                          tab.speakerNames.length > 0 &&
+                          tab.speakerNames.some((name: string) => name.trim() !== '');
+
+      return fileValid && recordTypeValid && timestampValid && speakerValid;
+    });
+
+    // 열람 파일 형식 (필수) - 기본값이 있으므로 항상 true
+    const fileFormatValid = selectedFileFormat !== '';
+
+    // 최종본 옵션 (필수) - 기본값이 있으므로 항상 true
+    const finalOptionValid = selectedFinalOption !== '';
+
+    return nameValid && phoneValid && emailValid && addressValid &&
+           agreeValid && tabsValid && fileFormatValid && finalOptionValid;
   };
 
   // 제출 처리
@@ -1303,22 +1369,41 @@ function Reception() {
               </div>
               <div className="form-block w-form">
                 <div className="c-apply-form vertical" style={{gap: '0.25rem'}}>
-                  <input className="c-text-input-field w-input" maxLength={256} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
-                  <input
-                    className={`c-text-input-field w-input ${phoneError ? 'border-red-500 border-2' : ''}`}
-                    maxLength={256}
-                    name="customer-phone"
-                    placeholder="연락처 (000-0000-0000)"
-                    type="text"
-                    value={customerPhone}
-                    onChange={handlePhoneChange}
-                    required
-                  />
-                  {phoneError && (
-                    <p className="text-red-500 text-sm mt-1">{phoneError}</p>
-                  )}
-                  <input className="c-text-input-field w-input" maxLength={256} name="customer-email" placeholder="이메일 (example@email.com)" type="email" value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} required />
-                  <input className="c-text-input-field w-input" maxLength={256} name="customer-address" placeholder="주소 (최종본 수령지)" type="text" value={customerAddress} onChange={(e) => setCustomerAddress(e.target.value)} required />
+                  <input className="c-text-input-field w-input" maxLength={100} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
+                  <div style={{width: '100%'}}>
+                    <input
+                      className={`c-text-input-field w-input ${phoneError ? 'border-red-500 border-2' : ''}`}
+                      maxLength={100}
+                      name="customer-phone"
+                      placeholder="연락처 (000-0000-0000)"
+                      type="text"
+                      value={customerPhone}
+                      onChange={handlePhoneChange}
+                      required
+                      style={{width: '100%'}}
+                    />
+                    {phoneError && (
+                      <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+                    )}
+                  </div>
+                  <div style={{width: '100%'}}>
+                    <input
+                      className={`c-text-input-field w-input ${emailError ? 'border-red-500 border-2' : ''}`}
+                      maxLength={100}
+                      name="customer-email"
+                      placeholder="이메일 (example@email.com)"
+                      type="email"
+                      value={customerEmail}
+                      onChange={(e) => setCustomerEmail(e.target.value)}
+                      onBlur={handleEmailBlur}
+                      required
+                      style={{width: '100%'}}
+                    />
+                    {emailError && (
+                      <p className="text-red-500 text-sm mt-1">{emailError}</p>
+                    )}
+                  </div>
+                  <input className="c-text-input-field w-input" maxLength={100} name="customer-address" placeholder="주소 (최종본 수령지)" type="text" value={customerAddress} onChange={(e) => setCustomerAddress(e.target.value)} required />
                 </div>
               </div>
             </div>
@@ -1362,7 +1447,7 @@ function Reception() {
                 <h6 className="c-checkout-agreement-text">주문 내용, 서비스 이용약관 및 개인정보처리방침을 확인 했으며, 정보 제공에 동의합니다.</h6>
               </label>
             </div>
-            <button onClick={handleSubmit} className="c-button-checkout w-button" disabled={!agree} style={{opacity: agree ? 1 : 0.5, cursor: agree ? 'pointer' : 'not-allowed'}}>접수 완료하기</button>
+            <button onClick={handleSubmit} className="c-button-checkout w-button" disabled={!isFormValid()} style={{opacity: isFormValid() ? 1 : 0.5, cursor: isFormValid() ? 'pointer' : 'not-allowed'}}>접수 완료하기</button>
           </div>
         </div>
       </section>
