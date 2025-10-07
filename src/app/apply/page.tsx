@@ -129,8 +129,12 @@ function Reception() {
 
   // 스텝 인디케이터
   const Stepper = ({ step }: { step: number }) => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const lineWidth = isMobile ? '100px' : '350px';
+    const gridGap = isMobile ? '4rem' : '7rem';
+
     return (
-      <div className="c-steps-grid max-w-[800px] mx-auto relative" style={{ gap: '4rem' }}>
+      <div className="c-steps-grid max-w-[800px] mx-auto relative" style={{ gap: gridGap }}>
         <div className="c-steps-item">
           <div className={`c-steps-dot ${step >= 1 ? 'current' : ''} ${step >= 2 ? 'completed' : ''}`}>
             <div className={`c-steps-dot-inner ${step >= 1 ? 'current' : ''} ${step >= 2 ? 'completed' : ''}`}></div>
@@ -138,14 +142,14 @@ function Reception() {
           <h3 className={`c-step-title ${step >= 2 ? 'completed' : ''}`}>신청서 작성</h3>
           <p className={`c-steps-sub-title ${step >= 2 ? 'completed' : ''}`}>파일과 정보를<br/>입력해 주세요.</p>
         </div>
-        
-        {/* 점선을 절대 위치로 두 원 사이 중앙에 배치 */}
-        <div className="c-steps-line" style={{ width: '320px' }}>
-          <div 
+
+        {/* 점선을 절대 위치로 두 원 사이 중앙에 배치 - 반응형 */}
+        <div className="c-steps-line" style={{ width: lineWidth }}>
+          <div
             className={`c-steps-line-dot ${step >= 2 ? 'ongoing' : ''}`}
           ></div>
         </div>
-        
+
         <div className="c-steps-item">
           <div className={`c-steps-dot ${step >= 2 ? 'current' : 'inactive'}`}>
             <div className={`c-steps-dot-inner ${step >= 2 ? 'current' : 'inactive'}`}></div>
@@ -525,7 +529,7 @@ function Reception() {
 
           {/* 진행 단계 */}
           <div className="c-step-component">
-            <div className="c-steps-grid max-w-[800px] mx-auto relative" style={{ gap: '4rem' }}>
+            <div className="c-steps-grid max-w-[800px] mx-auto relative gap-16 md:gap-28">
               <div className="c-steps-item">
                 <div className="c-steps-dot">
                   <div className="c-steps-dot-inner"></div>
@@ -533,11 +537,11 @@ function Reception() {
                 <h3 className="c-step-title" style={{color: '#6b7280'}}>신청서 작성</h3>
                 <p className="c-steps-sub-title" style={{color: '#6b7280'}}>파일과 정보를<br/>입력해 주세요.</p>
               </div>
-              
-              <div className="c-steps-line" style={{ width: '320px' }}>
+
+              <div className="c-steps-line">
                 <div className="c-steps-line-dot"></div>
               </div>
-              
+
               <div className="c-steps-item">
                 <div className="c-steps-dot current">
                   <div className="c-steps-dot-inner current"></div>

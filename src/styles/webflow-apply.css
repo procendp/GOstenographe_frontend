@@ -479,8 +479,15 @@
   width: 100%;
   max-width: 800px; /* 웹플로우보다 넓게 */
   display: grid;
-  gap: 7rem; /* 단계 간 간격 더 증가: 6rem에서 7rem으로 */
+  gap: 4rem !important; /* 모바일: 작은 간격 */
   position: relative; /* 점선의 절대 위치 기준점 */
+}
+
+/* 데스크톱에서 간격 증가 */
+@media (min-width: 769px) {
+  .c-steps-grid {
+    gap: 7rem !important;
+  }
 }
 
 .c-steps-item {
@@ -558,11 +565,18 @@
   top: 15px; /* 원의 중앙보다 더 위로 올려서 우상향 효과 */
   left: 50%;
   transform: translateX(-50%);
-  width: 350px; /* 두 원 사이의 거리에 맞춤: 300px에서 350px로 더 증가 */
+  width: 100px !important; /* 모바일: 4rem gap에 맞춤 */
   height: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* 데스크톱에서 점선 길이 증가 */
+@media (min-width: 769px) {
+  .c-steps-line {
+    width: 350px !important; /* 7rem gap에 맞춤 */
+  }
 }
 
 /* 진행 단계 점선 - 우선순위 높임 */

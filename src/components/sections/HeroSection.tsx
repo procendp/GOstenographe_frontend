@@ -19,16 +19,14 @@ export default function HeroSection() {
   const mouseFollowRef = useMouseFollowAnimation<HTMLDivElement>(0.05, "power3.out");
 
   return (
-    <section 
-      id="Hero" 
-      className="td-section-hero"
+    <section
+      id="Hero"
+      className="td-section-hero pt-[100px] md:pt-[140px] pb-5"
       style={{
         backgroundColor: '#1c58af', // 4000포트와 동일한 파란색 배경
         backgroundImage: "url('/new_goStenographe_resource/backgrounds/bg-b-vl.png')",
         backgroundPosition: '0 0',
         backgroundRepeat: 'repeat',
-        paddingTop: '140px', // 텍스트 위치 더 아래로 이동
-        paddingBottom: '20px', // 파란 배경 영역 대폭 축소
         color: '#ecf0ef',
         flexDirection: 'column',
         alignItems: 'center',
@@ -36,8 +34,7 @@ export default function HeroSection() {
         display: 'flex',
         minHeight: 'auto', // 고정 높이 제거
         position: 'relative',
-        margin: '0',
-        padding: '140px 0 20px 0'
+        margin: '0'
       }}
     >
       <div className="td-hero-container">
@@ -57,9 +54,9 @@ export default function HeroSection() {
         >
           {/* 애니메이션되는 첫 번째 타이틀 */}
           <div className="min-h-[58px] mb-2 relative overflow-hidden">
-            <h1 
+            <h1
               ref={webflowTextRef}
-              className="td-hero-title" 
+              className="td-hero-title"
               style={{ color: 'var(--td-beige)', position: 'relative' }}
             >
             </h1>
@@ -74,9 +71,10 @@ export default function HeroSection() {
           </h1>
         </div>
         
-        {/* 히어로 이미지 - 우측 하단 완전 고정 */}
-        <div 
-          style={{ 
+        {/* 히어로 이미지 - 우측 하단 고정 (모바일에서는 숨김) */}
+        <div
+          className="hidden md:block"
+          style={{
             position: 'absolute',
             right: '0',
             bottom: '-20px', // padding-bottom 값만큼 아래로 이동
@@ -85,13 +83,14 @@ export default function HeroSection() {
             padding: '0'
           }}
         >
-          <Image 
-            src="/new_goStenographe_resource/images/HeroImage2.png" 
-            alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스" 
-            width={1400} 
+          <Image
+            src="/new_goStenographe_resource/images/HeroImage2.png"
+            alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
+            width={1400}
             height={1050}
-            priority 
+            priority
             className="td-hero-image"
+            sizes="(max-width: 768px) 0vw, (max-width: 1200px) 50vw, 40vw"
             style={{
               transform: 'scale(0.99)',
               transformOrigin: 'bottom right',

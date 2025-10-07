@@ -10,6 +10,11 @@ export const metadata: Metadata = {
     template: '%s | GO스테노그래프'
   },
   description: '24시간 이내 완성되는 전문 속기 서비스. 국가공인 1급 속기사가 직접 검수하는 정확하고 신속한 녹취록 제작 서비스를 제공합니다.',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
   keywords: ['속기', '속기사', '녹취록', '회의록', '음성변환', '텍스트변환', '국가공인', '1급속기사', 'GO스테노그래프'],
   authors: [{ name: 'GO스테노그래프' }],
   creator: 'GO스테노그래프',
