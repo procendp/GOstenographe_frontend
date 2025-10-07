@@ -1399,7 +1399,7 @@ function Reception() {
       </section>
       
       {/* 견적 섹션과 겹치지 않도록 하단 여백 추가 */}
-      <div className="pb-32"></div>
+      <div className="pb-48"></div>
       
       {/* 예상 견적란 - 웹플로우와 동일한 구조 */}
       <section className="c-checkout-section">

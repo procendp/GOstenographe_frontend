@@ -419,7 +419,7 @@
 
 .c-apply-container {
   width: 100%;
-  max-width: 1200px; /* 웹플로우보다 넓게 */
+  max-width: 1400px; /* 입력란을 더 넓게 */
   margin: 0 auto;
 }
 
