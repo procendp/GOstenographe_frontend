@@ -129,7 +129,19 @@ function Reception() {
 
   // 스텝 인디케이터
   const Stepper = ({ step }: { step: number }) => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const [isMobile, setIsMobile] = useState(false);
+    
+    useEffect(() => {
+      const checkIsMobile = () => {
+        setIsMobile(window.innerWidth <= 768);
+      };
+      
+      checkIsMobile();
+      window.addEventListener('resize', checkIsMobile);
+      
+      return () => window.removeEventListener('resize', checkIsMobile);
+    }, []);
+    
     const lineWidth = isMobile ? '100px' : '350px';
     const gridGap = isMobile ? '4rem' : '7rem';
 
