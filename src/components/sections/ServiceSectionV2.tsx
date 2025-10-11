@@ -459,11 +459,8 @@ export default function ServiceSectionV2() {
                         </table>
                       </div>
 
-                      {/* 서비스 신청/상담 문의 버튼 - 테이블 아래로 이동 */}
+                      {/* 상담 문의 버튼 - 테이블 아래로 이동 */}
                       <div className="flex flex-col gap-2 mt-4">
-                        <Link href="/apply">
-                          <button className="w-full py-3 rounded-lg bg-black text-white text-lg">서비스 신청</button>
-                        </Link>
                         <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
                           <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
                         </a>
