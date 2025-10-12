@@ -373,7 +373,7 @@ function Reception() {
         files: tabs.map(tab => {
           // timestampRanges에서 duration과 timestamps 계산
           let duration = '00:00:00';
-          let timestamps = [];
+          let timestamps: string[] = [];
 
           if (tab.recordType === '부분' && tab.timestampRanges && tab.timestampRanges.length > 0) {
             // 부분 녹취: timestampRanges에서 구간들을 추출
