@@ -1,5 +1,8 @@
 // 파일 업로드 관련 유틸리티 함수들
 
+// API 기본 URL
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+
 export interface UploadResult {
   success: boolean;
   fileKey?: string;
@@ -25,7 +28,7 @@ export async function uploadFileToS3(
 ): Promise<UploadResult> {
   try {
     // 1단계: Presigned URL 요청
-    const presignedResponse = await fetch('http://localhost:8000/api/s3/presigned-url/', {
+    const presignedResponse = await fetch(`${API_URL}/api/s3/presigned-url/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +93,7 @@ export async function saveFileInfo(
   fileKey: string
 ): Promise<boolean> {
   try {
-    const response = await fetch(`http://localhost:8000/api/requests/${requestId}/upload_file/`, {
+    const response = await fetch(`${API_URL}/api/requests/${requestId}/upload_file/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

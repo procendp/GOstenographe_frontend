@@ -12,6 +12,8 @@ import { ReceptionFormData } from '@/types/reception';
 import { uploadMultipleFiles } from '@/utils/fileUpload';
 import { getMediaDuration } from '@/utils/mediaDuration';
 
+// API 기본 URL
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
 function Reception() {
   // 기본 상태들
@@ -408,7 +410,7 @@ function Reception() {
 
       console.log('새로운 API로 전송할 요청 데이터:', requestData);
 
-      const response = await fetch('http://localhost:8000/api/requests/create_order_with_files/', {
+      const response = await fetch(`${API_URL}/api/requests/create_order_with_files/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestData),
