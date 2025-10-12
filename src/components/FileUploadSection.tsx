@@ -16,16 +16,12 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
-    // 허용된 확장자 목록 (페이지 안내와 동일)
+    // 허용된 확장자 목록 (영상/음성 파일만)
     const ALLOWED_EXTENSIONS = [
       // 음성 파일
       'mp3', 'wav', 'm4a', 'cda', 'mod', 'ogg', 'wma', 'flac', 'asf',
       // 영상 파일
-      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv',
-      // 문서 파일 (추가 허용)
-      'txt', 'hwp', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx',
-      // 압축 파일 (주석 처리 - 압축 파일 업로드 불가)
-      // 'zip'
+      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv'
     ];
 
     // 파일 형식 검증
@@ -35,7 +31,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
     });
 
     if (invalidFiles.length > 0) {
-      alert(`허용되지 않는 파일 형식입니다:\n${invalidFiles.map(f => f.name).join('\n')}\n\n허용 형식:\n- 음성: ${ALLOWED_EXTENSIONS.slice(0, 9).join(', ')}\n- 영상: ${ALLOWED_EXTENSIONS.slice(9, 19).join(', ')}`);
+      alert(`❌ 영상/음성 파일만 업로드 가능합니다.\n\n허용되지 않는 파일:\n${invalidFiles.map(f => f.name).join('\n')}\n\n✅ 허용 형식:\n- 음성: mp3, wav, m4a, cda, mod, ogg, wma, flac, asf\n- 영상: avi, mp4, wmv, m2v, mpeg, dpg, mts, webm, divx, amv`);
       e.target.value = '';
       return;
     }
@@ -66,13 +62,10 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
     e.stopPropagation();
     const files = Array.from(e.dataTransfer.files);
 
-    // 허용된 확장자 목록
+    // 허용된 확장자 목록 (영상/음성 파일만)
     const ALLOWED_EXTENSIONS = [
       'mp3', 'wav', 'm4a', 'cda', 'mod', 'ogg', 'wma', 'flac', 'asf',
-      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv',
-      'txt', 'hwp', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx'
-      // 압축 파일 (주석 처리 - 압축 파일 업로드 불가)
-      // 'zip'
+      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv'
     ];
 
     // 파일 형식 검증
@@ -82,7 +75,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
     });
 
     if (invalidFiles.length > 0) {
-      alert(`허용되지 않는 파일 형식입니다:\n${invalidFiles.map(f => f.name).join('\n')}\n\n허용 형식:\n- 음성: ${ALLOWED_EXTENSIONS.slice(0, 9).join(', ')}\n- 영상: ${ALLOWED_EXTENSIONS.slice(9, 19).join(', ')}`);
+      alert(`❌ 영상/음성 파일만 업로드 가능합니다.\n\n허용되지 않는 파일:\n${invalidFiles.map(f => f.name).join('\n')}\n\n✅ 허용 형식:\n- 음성: mp3, wav, m4a, cda, mod, ogg, wma, flac, asf\n- 영상: avi, mp4, wmv, m2v, mpeg, dpg, mts, webm, divx, amv`);
       return;
     }
 
@@ -130,18 +123,17 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
             )}
           </div>
           <div className="text-sm text-gray-400 space-y-1">
-            <div>• 문서: txt, hwp, doc, docx, pdf, ppt, pptx, xls, xlsx</div>
             <div>• 음성: mp3, wav, m4a, cda, mod, ogg, wma, flac, asf</div>
             <div>• 영상: avi, mp4, wmv, m2v, mpeg, dpg, mts, webm, divx, amv</div>
           </div>
-          <div className="text-xs text-red-500 mt-1">※ 파일당 최대 3GB까지 업로드 가능합니다.</div>
+          <div className="text-xs text-red-500 mt-1">※ 영상/음성 파일만 업로드 가능합니다. (파일당 최대 3GB)</div>
         </div>
         <input
           type="file"
           ref={fileInputRef}
           onChange={handleFileSelect}
           className="hidden"
-          accept=".mp3,.wav,.m4a,.cda,.mod,.ogg,.wma,.flac,.asf,.avi,.mp4,.wmv,.m2v,.mpeg,.dpg,.mts,.webm,.divx,.amv,.txt,.hwp,.doc,.docx,.pdf,.ppt,.pptx,.xls,.xlsx"
+          accept=".mp3,.wav,.m4a,.cda,.mod,.ogg,.wma,.flac,.asf,.avi,.mp4,.wmv,.m2v,.mpeg,.dpg,.mts,.webm,.divx,.amv"
           multiple
         />
       </div>
