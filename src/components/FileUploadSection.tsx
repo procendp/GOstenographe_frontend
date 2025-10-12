@@ -13,75 +13,47 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    
-    if (files.length === 0) return;
-    
-    const file = files[0]; // 1개만 선택 가능
 
-    // 허용된 확장자 목록 (영상/음성 파일만)
+    // 허용된 확장자 목록 (페이지 안내와 동일)
     const ALLOWED_EXTENSIONS = [
       // 음성 파일
       'mp3', 'wav', 'm4a', 'cda', 'mod', 'ogg', 'wma', 'flac', 'asf',
       // 영상 파일
-      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv'
+      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv',
+      // 문서 파일 (추가 허용)
+      'txt', 'hwp', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx',
+      // 압축 파일 (주석 처리 - 압축 파일 업로드 불가)
+      // 'zip'
     ];
 
     // 파일 형식 검증
-    const ext = file.name.split('.').pop()?.toLowerCase();
-    if (!ext || !ALLOWED_EXTENSIONS.includes(ext)) {
-      alert(`❌ 영상/음성 파일만 업로드 가능합니다.\n\n선택한 파일: ${file.name}\n\n✅ 허용 형식:\n- 음성: mp3, wav, m4a, cda, mod, ogg, wma, flac, asf\n- 영상: avi, mp4, wmv, m2v, mpeg, dpg, mts, webm, divx, amv`);
+    const invalidFiles = files.filter(file => {
+      const ext = file.name.split('.').pop()?.toLowerCase();
+      return !ext || !ALLOWED_EXTENSIONS.includes(ext);
+    });
+
+    if (invalidFiles.length > 0) {
+      alert(`허용되지 않는 파일 형식입니다:\n${invalidFiles.map(f => f.name).join('\n')}\n\n허용 형식:\n- 음성: ${ALLOWED_EXTENSIONS.slice(0, 9).join(', ')}\n- 영상: ${ALLOWED_EXTENSIONS.slice(9, 19).join(', ')}`);
       e.target.value = '';
       return;
     }
 
     // 파일 크기 검증
     const MAX_SIZE = 3 * 1024 * 1024 * 1024; // 3GB
-    if (file.size > MAX_SIZE) {
-      alert(`파일의 크기가 3GB를 초과합니다:\n${file.name}`);
+    const oversizedFiles = files.filter(file => file.size > MAX_SIZE);
+    if (oversizedFiles.length > 0) {
+      alert(`다음 파일의 크기가 3GB를 초과합니다:\n${oversizedFiles.map(f => f.name).join('\n')}`);
       e.target.value = '';
       return;
     }
 
-    // 기존에 업로드된 파일이 있는지 확인
-    const existingFile = formData.files[0];
-    if (existingFile && existingFile.file_key && existingFile.file_key !== 'uploading') {
-      const confirmReplace = window.confirm(
-        `기존에 업로드한 파일이 삭제됩니다.\n다시 업로드하시겠습니까?\n\n기존 파일: ${existingFile.file?.name || existingFile.name || '알 수 없음'}\n새 파일: ${file.name}`
-      );
-      
-      if (!confirmReplace) {
-        e.target.value = '';
-        return;
-      }
-      
-      // 기존 S3 파일 삭제
-      try {
-        const response = await fetch('http://localhost:8000/api/s3/delete/', {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ file_key: existingFile.file_key })
-        });
-        
-        if (response.ok) {
-          console.log('[FILE_REPLACE] 기존 파일 삭제 성공:', existingFile.file_key);
-        } else {
-          console.error('[FILE_REPLACE] 기존 파일 삭제 실패:', existingFile.file_key);
-        }
-      } catch (error) {
-        console.error('[FILE_REPLACE] 파일 삭제 오류:', error);
-      }
-    }
-
-    const fileObj = { file, file_key: '' };
-    setFormData({ ...formData, files: [fileObj] });
+    const fileObjs = files.map(file => ({ file, file_key: '' }));
+    setFormData({ ...formData, files: fileObjs });
     if (onFileSelect) {
       onFileSelect(e);
     }
-    
-    // 같은 파일을 다시 선택할 수 있도록 input value 초기화
-    e.target.value = '';
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -89,66 +61,41 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
     e.stopPropagation();
   };
 
-  const handleDrop = async (e: React.DragEvent) => {
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     const files = Array.from(e.dataTransfer.files);
-    
-    if (files.length === 0) return;
-    
-    const file = files[0]; // 1개만 선택 가능
 
-    // 허용된 확장자 목록 (영상/음성 파일만)
+    // 허용된 확장자 목록
     const ALLOWED_EXTENSIONS = [
       'mp3', 'wav', 'm4a', 'cda', 'mod', 'ogg', 'wma', 'flac', 'asf',
-      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv'
+      'avi', 'mp4', 'wmv', 'm2v', 'mpeg', 'dpg', 'mts', 'webm', 'divx', 'amv',
+      'txt', 'hwp', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx'
+      // 압축 파일 (주석 처리 - 압축 파일 업로드 불가)
+      // 'zip'
     ];
 
     // 파일 형식 검증
-    const ext = file.name.split('.').pop()?.toLowerCase();
-    if (!ext || !ALLOWED_EXTENSIONS.includes(ext)) {
-      alert(`❌ 영상/음성 파일만 업로드 가능합니다.\n\n선택한 파일: ${file.name}\n\n✅ 허용 형식:\n- 음성: mp3, wav, m4a, cda, mod, ogg, wma, flac, asf\n- 영상: avi, mp4, wmv, m2v, mpeg, dpg, mts, webm, divx, amv`);
+    const invalidFiles = files.filter(file => {
+      const ext = file.name.split('.').pop()?.toLowerCase();
+      return !ext || !ALLOWED_EXTENSIONS.includes(ext);
+    });
+
+    if (invalidFiles.length > 0) {
+      alert(`허용되지 않는 파일 형식입니다:\n${invalidFiles.map(f => f.name).join('\n')}\n\n허용 형식:\n- 음성: ${ALLOWED_EXTENSIONS.slice(0, 9).join(', ')}\n- 영상: ${ALLOWED_EXTENSIONS.slice(9, 19).join(', ')}`);
       return;
     }
 
     // 파일 크기 검증
     const MAX_SIZE = 3 * 1024 * 1024 * 1024; // 3GB
-    if (file.size > MAX_SIZE) {
-      alert(`파일의 크기가 3GB를 초과합니다:\n${file.name}`);
+    const oversizedFiles = files.filter(file => file.size > MAX_SIZE);
+    if (oversizedFiles.length > 0) {
+      alert(`다음 파일의 크기가 3GB를 초과합니다:\n${oversizedFiles.map(f => f.name).join('\n')}`);
       return;
     }
 
-    // 기존에 업로드된 파일이 있는지 확인
-    const existingFile = formData.files[0];
-    if (existingFile && existingFile.file_key && existingFile.file_key !== 'uploading') {
-      const confirmReplace = window.confirm(
-        `기존에 업로드한 파일이 삭제됩니다.\n다시 업로드하시겠습니까?\n\n기존 파일: ${existingFile.file?.name || existingFile.name || '알 수 없음'}\n새 파일: ${file.name}`
-      );
-      
-      if (!confirmReplace) {
-        return;
-      }
-      
-      // 기존 S3 파일 삭제
-      try {
-        const response = await fetch('http://localhost:8000/api/s3/delete/', {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ file_key: existingFile.file_key })
-        });
-        
-        if (response.ok) {
-          console.log('[FILE_REPLACE] 기존 파일 삭제 성공:', existingFile.file_key);
-        } else {
-          console.error('[FILE_REPLACE] 기존 파일 삭제 실패:', existingFile.file_key);
-        }
-      } catch (error) {
-        console.error('[FILE_REPLACE] 파일 삭제 오류:', error);
-      }
-    }
-
-    const fileObj = { file, file_key: '' };
-    setFormData({ ...formData, files: [fileObj] });
+    const fileObjs = files.map(file => ({ file, file_key: '' }));
+    setFormData({ ...formData, files: fileObjs });
   };
 
   return (
@@ -183,17 +130,19 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
             )}
           </div>
           <div className="text-sm text-gray-400 space-y-1">
+            <div>• 문서: txt, hwp, doc, docx, pdf, ppt, pptx, xls, xlsx</div>
             <div>• 음성: mp3, wav, m4a, cda, mod, ogg, wma, flac, asf</div>
             <div>• 영상: avi, mp4, wmv, m2v, mpeg, dpg, mts, webm, divx, amv</div>
           </div>
-          <div className="text-xs text-red-500 mt-1">※ 영상/음성 파일만 업로드 가능합니다. (파일당 최대 3GB)</div>
+          <div className="text-xs text-red-500 mt-1">※ 파일당 최대 3GB까지 업로드 가능합니다.</div>
         </div>
         <input
           type="file"
           ref={fileInputRef}
           onChange={handleFileSelect}
           className="hidden"
-          accept=".mp3,.wav,.m4a,.cda,.mod,.ogg,.wma,.flac,.asf,.avi,.mp4,.wmv,.m2v,.mpeg,.dpg,.mts,.webm,.divx,.amv"
+          accept=".mp3,.wav,.m4a,.cda,.mod,.ogg,.wma,.flac,.asf,.avi,.mp4,.wmv,.m2v,.mpeg,.dpg,.mts,.webm,.divx,.amv,.txt,.hwp,.doc,.docx,.pdf,.ppt,.pptx,.xls,.xlsx"
+          multiple
         />
       </div>
       <div className="flex justify-between">
