@@ -23,7 +23,7 @@ function Reception() {
   const [customerAddress, setCustomerAddress] = useState('');
   const [tabs, setTabs] = useState([
     {
-      files: [],
+      files: [] as Array<{file: File, file_key: string}>,
       speakerNames: [''],
       selectedDates: [] as string[],
       detail: '',
