@@ -1,13 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "framework": "nextjs",
-  "env": {
-    "NEXT_PUBLIC_BACKEND_URL": {
-      "description": "백엔드 API URL",
-      "value": "https://your-backend-url.onrender.com"
-    }
-  }
+  "outputDirectory": "out",
+  "framework": "nextjs"
 }
 
