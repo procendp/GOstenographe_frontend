@@ -48,10 +48,79 @@ function Reception() {
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
 
+  // beforeunload 이벤트 - 뒤로가기/새로고침/브라우저 닫기 경고
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      // 제출 완료 후에는 경고 안함
+      if (showComplete) return;
+      
+      // 업로드된 파일이 있는지 확인
+      const hasFiles = tabs.some(tab => 
+        tab.files && tab.files.length > 0 && 
+        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
+      );
+
+      if (hasFiles) {
+        e.preventDefault();
+        e.returnValue = ''; // Chrome에서는 빈 문자열 필요
+        return ''; // 일부 브라우저용
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [tabs, showComplete]);
+
   // 기본 함수들
   const handleNewRequest = () => {
     // 페이지 새로고침으로 초기 상태로 돌아가기
     window.location.reload();
+  };
+
+  // 업로드된 모든 파일 수집
+  const getAllUploadedFiles = () => {
+    const allFiles: Array<{ file_key: string; file: File }> = [];
+    tabs.forEach(tab => {
+      if (tab.files && tab.files.length > 0) {
+        tab.files.forEach(f => {
+          if (f.file_key && f.file_key !== 'uploading') {
+            allFiles.push({ file_key: f.file_key, file: f.file });
+          }
+        });
+      }
+    });
+    return allFiles;
+  };
+
+  // 페이지 이탈 시 파일 삭제
+  const handleNavigateAway = async () => {
+    const filesToDelete = getAllUploadedFiles();
+    
+    if (filesToDelete.length === 0) return;
+
+    console.log('[NAVIGATE_AWAY] 삭제할 파일:', filesToDelete.map(f => f.file_key));
+
+    // S3에서 파일 삭제
+    for (const fileData of filesToDelete) {
+      try {
+        const response = await fetch('http://localhost:8000/api/s3/delete/', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ file_key: fileData.file_key })
+        });
+        
+        if (response.ok) {
+          console.log('[NAVIGATE_AWAY] 파일 삭제 성공:', fileData.file_key);
+        } else {
+          console.error('[NAVIGATE_AWAY] 파일 삭제 실패:', fileData.file_key);
+        }
+      } catch (error) {
+        console.error('[NAVIGATE_AWAY] 파일 삭제 오류:', error);
+      }
+    }
   };
 
   const handleAddTab = () => {
@@ -61,7 +130,66 @@ function Reception() {
   };
 
   const handleRemoveTab = async (idx: number) => {
-    if (tabs.length === 1) return;
+    // 삭제할 탭 정보
+    const tabToRemove = tabs[idx];
+    const uploadedFiles = tabToRemove.files.filter(f => f.file_key && f.file_key !== 'uploading');
+    
+    // 파일이 업로드되어 있거나 내용이 입력되어 있는지 확인
+    const hasContent = uploadedFiles.length > 0 || 
+                      tabToRemove.speakerNames.some(name => name.trim() !== '') ||
+                      tabToRemove.detail.trim() !== '';
+    
+    if (hasContent) {
+      // 확인 메시지 표시
+      const message = tabs.length === 1 
+        ? `업로드된 파일과 입력한 내용이 모두 삭제됩니다.\n계속하시겠습니까?`
+        : `이 탭에 업로드된 파일이 삭제됩니다.\n계속하시겠습니까?`;
+      
+      const confirmDelete = window.confirm(message);
+      
+      if (!confirmDelete) return; // 사용자가 취소하면 삭제 중단
+      
+      // S3에서 파일 삭제
+      for (const fileData of uploadedFiles) {
+        try {
+          const response = await fetch('http://localhost:8000/api/s3/delete/', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ file_key: fileData.file_key })
+          });
+          
+          if (response.ok) {
+            console.log('[TAB_DELETE] 파일 삭제 성공:', fileData.file_key);
+          } else {
+            console.error('[TAB_DELETE] 파일 삭제 실패:', fileData.file_key);
+          }
+        } catch (error) {
+          console.error('[TAB_DELETE] 파일 삭제 오류:', error);
+        }
+      }
+    }
+    
+    // 탭이 1개만 있으면 초기화만 하고 탭은 유지
+    if (tabs.length === 1) {
+      // 탭 내용 초기화
+      setTabs([{
+        files: [],
+        speakerNames: [''],
+        selectedDates: [],
+        detail: '',
+        speakerCount: 1,
+        timestamps: [],
+        timestampRanges: [],
+        recordType: '전체',
+        recordingDate: '',
+        recordingTime: '',
+        recordingUnsure: false,
+        fileDuration: '00:00:00'
+      }]);
+      return;
+    }
+    
+    // 탭이 여러 개면 탭 제거
     const newTabs = tabs.filter((_, i) => i !== idx);
     setTabs(newTabs);
     if (activeTab === idx) {
@@ -73,30 +201,32 @@ function Reception() {
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
+    
+    if (files.length === 0) return;
+    
+    const file = files[0]; // 각 탭당 1개 파일만
 
     // 임시로 파일 정보를 상태에 저장 (업로드 시작 표시)
     setTabs(tabs => tabs.map((tab, idx) =>
       idx === activeTab ? {
         ...tab,
-        files: files.map(file => ({file, file_key: 'uploading'}))
+        files: [{file, file_key: 'uploading'}]
       } : tab
     ));
 
     try {
-      // 파일의 duration 추출 (첫 번째 파일만 - 오디오/비디오인 경우)
+      // 파일의 duration 추출 (오디오/비디오인 경우)
       let fileDuration = '00:00:00';
-      if (files.length > 0) {
-        fileDuration = await getMediaDuration(files[0]);
-      }
+      fileDuration = await getMediaDuration(file);
 
-      // 파일들을 S3에 업로드
+      // 파일을 S3에 업로드
       const uploadedFiles = await uploadMultipleFiles(
-        files,
+        [file], // 1개 파일만 배열로 전달
         customerName,
         customerEmail,
         (fileIndex, progress) => {
           // TODO: 업로드 진행상황 UI 업데이트
-          console.log(`파일 ${fileIndex + 1} 업로드 진행률: ${progress}%`);
+          console.log(`파일 업로드 진행률: ${progress}%`);
         }
       );
 
@@ -109,7 +239,7 @@ function Reception() {
         } : tab
       ));
 
-      console.log('파일 업로드 완료:', uploadedFiles);
+      console.log('파일 업로드 완료:', uploadedFiles[0]);
       console.log('파일 재생시간:', fileDuration);
 
     } catch (error) {
@@ -213,16 +343,14 @@ function Reception() {
         </button>
       )}
       
-      {tabs.length > 1 && (
-        <div className="ml-4 flex items-center">
-          <button
-            className="c-delete-button"
-            onClick={() => handleRemoveTab(activeTab)}
-          >
-            삭제
-          </button>
-        </div>
-      )}
+      <div className="ml-4 flex items-center">
+        <button
+          className="c-delete-button"
+          onClick={() => handleRemoveTab(activeTab)}
+        >
+          삭제
+        </button>
+      </div>
     </>
   );
 
@@ -548,7 +676,11 @@ function Reception() {
       backgroundPosition: '0 0',
       backgroundSize: 'auto'
     }}>
-      <ApplyGNB />
+      <ApplyGNB 
+        uploadedFiles={getAllUploadedFiles()}
+        onNavigateAway={handleNavigateAway}
+        showComplete={showComplete}
+      />
       <div className="pt-20"></div>
       <section className="c-apply-section">
         <div className="c-apply-container">
@@ -786,7 +918,11 @@ function Reception() {
       backgroundPosition: '0 0',
       backgroundSize: 'auto'
     }}>
-      <ApplyGNB />
+      <ApplyGNB 
+        uploadedFiles={getAllUploadedFiles()}
+        onNavigateAway={handleNavigateAway}
+        showComplete={showComplete}
+      />
       <div className="pt-20"></div> {/* GNB 높이만큼 상단 여백 추가 */}
       <section className="c-apply-section">
         <div className="c-apply-container">
