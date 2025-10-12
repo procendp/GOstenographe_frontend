@@ -26,4 +26,4 @@ export default function Home() {
       <FloatingButtons />
     </div>
   );
-} 
+} // Trigger Vercel deployment - Mon Oct 13 02:34:35 KST 2025
