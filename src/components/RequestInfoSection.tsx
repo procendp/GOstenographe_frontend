@@ -8,10 +8,12 @@ interface RequestInfoSectionProps {
   setFormData: (data: ReceptionFormData) => void;
   onNext?: () => void;
   onBack?: () => void;
+  fileDuration?: string; // 파일 총 길이
 }
 
-export default function RequestInfoSection({ formData, setFormData, onNext, onBack }: RequestInfoSectionProps) {
+export default function RequestInfoSection({ formData, setFormData, onNext, onBack, fileDuration }: RequestInfoSectionProps) {
   const [totalDuration, setTotalDuration] = useState('00:00:00');
+  const [durationExceeded, setDurationExceeded] = useState(false);
   const MAX_TIMESTAMP_RANGES = 10; // Configurable maximum
 
   // Initialize timestamp ranges if not present
@@ -32,8 +34,29 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
     if (formData.timestampRanges) {
       const duration = calculateTotalDuration(formData.timestampRanges);
       setTotalDuration(duration);
+      
+      // 부분 녹취 시 각 구간의 시작/종료 시간이 파일 총 길이를 초과하는지 검증
+      if (formData.recordType === '부분' && fileDuration && fileDuration !== '00:00:00') {
+        const { timeToSeconds } = require('@/utils/timestampUtils');
+        const fileSeconds = timeToSeconds(fileDuration);
+        
+        // 각 타임스탬프 구간이 파일 길이 범위 내에 있는지 확인
+        const hasExceeded = formData.timestampRanges.some(range => {
+          if (!range.startTime || !range.endTime) return false;
+          
+          const startSeconds = timeToSeconds(range.startTime);
+          const endSeconds = timeToSeconds(range.endTime);
+          
+          // 시작 시간 또는 종료 시간이 파일 길이를 초과하는지 확인
+          return startSeconds > fileSeconds || endSeconds > fileSeconds;
+        });
+        
+        setDurationExceeded(hasExceeded);
+      } else {
+        setDurationExceeded(false);
+      }
     }
-  }, [formData.timestampRanges]);
+  }, [formData.timestampRanges, formData.recordType, fileDuration]);
 
   const handleSpeakerCountChange = (count: number) => {
     const newCount = Math.min(5, Math.max(1, count));
@@ -159,6 +182,31 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                     </button>
                   )}
                 </div>
+                
+                {/* 파일 총 길이 초과 경고 */}
+                {durationExceeded && fileDuration && (
+                  <div style={{
+                    padding: '12px',
+                    marginBottom: '12px',
+                    backgroundColor: '#fef2f2',
+                    border: '1px solid #fca5a5',
+                    borderRadius: '8px'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '16px' }}>⚠️</span>
+                      <div style={{ fontSize: '13px', color: '#dc2626', lineHeight: '1.5' }}>
+                        <strong>입력한 구간이 영상 길이를 벗어났습니다.</strong>
+                        <div style={{ marginTop: '4px' }}>
+                          • 파일 총 길이: {fileDuration}
+                        </div>
+                        <div style={{ fontSize: '12px', marginTop: '4px', color: '#991b1b' }}>
+                          구간의 시작/종료 시간은 파일 총 길이 범위 내에 있어야 합니다.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
                 <div className="w-layout-vflex timestampt-input-wrapper" style={{ alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0' }}>
                   {(formData.timestampRanges || []).map((range, index) => (
                     <TimestampInput

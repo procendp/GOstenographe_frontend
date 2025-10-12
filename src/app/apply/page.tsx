@@ -330,6 +330,26 @@ function Reception() {
         timestampValid = tab.timestampRanges &&
                         tab.timestampRanges.length > 0 &&
                         tab.timestampRanges.every((range: any) => range.isValid !== false);
+        
+        // 각 타임스탬프 구간이 파일 총 길이 범위를 벗어나는지 검증
+        if (timestampValid && tab.fileDuration && tab.fileDuration !== '00:00:00') {
+          const { timeToSeconds } = require('@/utils/timestampUtils');
+          const fileSeconds = timeToSeconds(tab.fileDuration);
+          
+          // 각 구간의 시작/종료 시간이 파일 길이를 초과하는지 확인
+          const hasExceeded = tab.timestampRanges.some((range: any) => {
+            if (!range.startTime || !range.endTime) return false;
+            
+            const startSeconds = timeToSeconds(range.startTime);
+            const endSeconds = timeToSeconds(range.endTime);
+            
+            return startSeconds > fileSeconds || endSeconds > fileSeconds;
+          });
+          
+          if (hasExceeded) {
+            timestampValid = false; // 구간이 파일 길이를 벗어나면 제출 불가
+          }
+        }
       }
 
       // 4. 화자 정보 (필수) - 최소 1명 이상의 화자명 필요
@@ -873,6 +893,26 @@ function Reception() {
                           onFileSelect={handleFileSelect}
                         />
                       </div>
+                      
+                      {/* 파일 정보 표시 */}
+                      {tab.files && tab.files.length > 0 && tab.files[0].file_key && tab.files[0].file_key !== 'uploading' && (
+                        <div style={{
+                          marginTop: '1rem',
+                          padding: '1rem',
+                          backgroundColor: '#f0f9ff',
+                          border: '1px solid #bfdbfe',
+                          borderRadius: '8px'
+                        }}>
+                          <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#1e40af', marginBottom: '0.5rem' }}>
+                            📁 업로드된 파일 정보
+                          </h3>
+                          <div style={{ fontSize: '13px', color: '#374151', lineHeight: '1.6' }}>
+                            <div>• 파일명: {tab.files[0].file.name}</div>
+                            <div>• 용량: {(tab.files[0].file.size / (1024 * 1024)).toFixed(2)} MB</div>
+                            <div>• 총 길이: {tab.fileDuration || '00:00:00'}</div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     
                     <div className="c-file-block" style={{
@@ -903,7 +943,14 @@ function Reception() {
                           <h2 className="c-file-block-heading light">속기 구간 길이</h2>
                           <h2 className="c-file-block-heading highlight">
                             {(() => {
-                              // Calculate total duration from timestampRanges if available
+                              // 전체 녹취: 파일 총 길이 표시
+                              if (tab.recordType === '전체') {
+                                const duration = tab.fileDuration || '00:00:00';
+                                const [hours, minutes, seconds] = duration.split(':');
+                                return `${hours}시간 ${minutes}분 ${seconds}초`;
+                              }
+                              
+                              // 부분 녹취: timestampRanges에서 계산
                               if (tab.timestampRanges && tab.timestampRanges.length > 0) {
                                 const { calculateTotalDuration } = require('@/utils/timestampUtils');
                                 const totalDuration = calculateTotalDuration(tab.timestampRanges);
@@ -923,6 +970,7 @@ function Reception() {
                           newTabs[index] = { ...tab, ...data };
                           setTabs(newTabs);
                         }}
+                        fileDuration={tab.fileDuration}
                       />
                     </div>
                     
