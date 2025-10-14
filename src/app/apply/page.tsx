@@ -648,7 +648,7 @@ function Reception() {
 
             <div className="w-layout-vflex c-app-info-block">
               {/* 예상 견적 */}
-              <div style={{
+              <div className="mobile-hide-quotation" style={{
                 backgroundColor: '#1c58af',
                 borderRadius: '20px',
                 padding: '2rem 2rem',
