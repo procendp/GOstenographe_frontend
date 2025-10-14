@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://gostenographe.com/sitemap.xml 
+Sitemap: https://sokgijung.com/sitemap.xml 

@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import OrdererInfoSection from '@/components/OrdererInfoSection';
 import RequestInfoSection from '@/components/RequestInfoSection';
 import FileUploadSection from '@/components/FileUploadSection';
+import RecordingLocationSection from '@/components/RecordingLocationSection';
 import { ReceptionFormData } from '@/types/reception';
 import { uploadMultipleFiles } from '@/utils/fileUpload';
 import { getMediaDuration } from '@/utils/mediaDuration';
@@ -31,6 +32,7 @@ function Reception() {
       timestamps: [] as string[],
       timestampRanges: [] as any[],
       recordType: '전체' as '전체' | '부분',
+      recordingLocation: '통화' as '통화' | '현장',
       recordingDate: '',
       recordingTime: '',
       recordingUnsure: false,
@@ -58,7 +60,7 @@ function Reception() {
 
   const handleAddTab = () => {
     if (tabs.length >= 5) return;
-    setTabs([...tabs, { files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], timestampRanges: [], recordType: '전체', recordingDate: '', recordingTime: '', recordingUnsure: false, fileDuration: '00:00:00' }]);
+    setTabs([...tabs, { files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], timestampRanges: [], recordType: '전체', recordingLocation: '통화', recordingDate: '', recordingTime: '', recordingUnsure: false, fileDuration: '00:00:00' }]);
     setActiveTab(tabs.length);
   };
 
@@ -368,7 +370,7 @@ function Reception() {
         final_option: selectedFinalOption,
         agreement: agree,
         is_temporary: false,
-        recording_location: '회의실', // 기본값
+        recording_location: tabs[0]?.recordingLocation === '현장' ? '현장' : '통화',
         estimated_price: calculateTotalPrice(), // 실제 계산된 견적
         files: tabs.map(tab => {
           // timestampRanges에서 duration과 timestamps 계산
@@ -455,24 +457,80 @@ function Reception() {
   };
 
   // 동적 견적 계산 함수들
-  const calculateTotalDuration = () => {
-    const totalMinutes = tabs.reduce((sum, tab) => {
-      if (tab.timestamps.length > 0) {
-        const lastTimestamp = tab.timestamps[tab.timestamps.length - 1];
-        if (lastTimestamp && typeof lastTimestamp === 'string') {
-          const [hours, minutes, seconds] = lastTimestamp.split(':').map(Number);
-          return sum + (hours * 60) + minutes + (seconds / 60);
-        }
-      }
-      return sum + 60; // 기본값 60분
-    }, 0);
-    return Math.round(totalMinutes);
+  
+  // 요금표 (분량별, 녹취 위치별)
+  const PRICE_TABLE = {
+    '통화': [
+      { maxMinutes: 3, price: 30000 },
+      { maxMinutes: 5, price: 40000 },
+      { maxMinutes: 10, price: 70000 },
+      { maxMinutes: 20, price: 100000 },
+      { maxMinutes: 30, price: 120000 },
+      { maxMinutes: 40, price: 140000 },
+      { maxMinutes: 50, price: 160000 },
+      { maxMinutes: 60, price: 180000 },
+      { maxMinutes: Infinity, price: 180000 } // 60분 초과 시 60분 요금 적용
+    ],
+    '현장': [
+      { maxMinutes: 3, price: 50000 },
+      { maxMinutes: 5, price: 60000 },
+      { maxMinutes: 10, price: 90000 },
+      { maxMinutes: 20, price: 120000 },
+      { maxMinutes: 30, price: 140000 },
+      { maxMinutes: 40, price: 160000 },
+      { maxMinutes: 50, price: 180000 },
+      { maxMinutes: 60, price: 200000 },
+      { maxMinutes: Infinity, price: 200000 } // 60분 초과 시 60분 요금 적용
+    ]
   };
 
-  const calculateTranscriptionPrice = () => {
-    const totalMinutes = calculateTotalDuration();
-    // 기본 가격: 1분당 1,500원
-    return totalMinutes * 1500;
+  // 시간(HH:MM:SS)을 분으로 변환
+  const timeToMinutes = (timeString: string): number => {
+    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+    return (hours * 60) + minutes + (seconds / 60);
+  };
+
+  // 각 탭의 속기 구간 길이를 분으로 계산
+  const getTabDurationInMinutes = (tab: any): number => {
+    if (tab.recordType === '전체') {
+      // 전체 녹취: 파일 총 길이 사용
+      return timeToMinutes(tab.fileDuration || '00:00:00');
+    } else {
+      // 부분 녹취: timestampRanges 총합 사용
+      if (tab.timestampRanges && tab.timestampRanges.length > 0) {
+        const { calculateTotalDuration } = require('@/utils/timestampUtils');
+        const totalDuration = calculateTotalDuration(tab.timestampRanges);
+        return timeToMinutes(totalDuration);
+      }
+    }
+    return 0;
+  };
+
+  // 분량과 녹취 위치에 따른 가격 계산
+  const getPriceByDurationAndLocation = (minutes: number, location: '통화' | '현장'): number => {
+    const priceTable = PRICE_TABLE[location];
+    for (const tier of priceTable) {
+      if (minutes <= tier.maxMinutes) {
+        return tier.price;
+      }
+    }
+    return priceTable[priceTable.length - 1].price; // 기본값
+  };
+
+  // 모든 탭의 총 속기 구간 길이 계산 (분)
+  const calculateTotalDuration = (): number => {
+    return tabs.reduce((sum, tab) => {
+      return sum + getTabDurationInMinutes(tab);
+    }, 0);
+  };
+
+  // 속기록 제작비 계산 (모든 탭 합산)
+  const calculateTranscriptionPrice = (): number => {
+    return tabs.reduce((sum, tab) => {
+      const minutes = getTabDurationInMinutes(tab);
+      const price = getPriceByDurationAndLocation(minutes, tab.recordingLocation || '통화');
+      return sum + price;
+    }, 0);
   };
 
   const getSelectedOptionText = () => {
@@ -491,8 +549,8 @@ function Reception() {
     }
   };
 
-  const getSelectedOptionPrice = () => {
-    // 선택된 최종본 옵션에 따른 가격
+  // 최종본 옵션 가격
+  const getSelectedOptionPrice = (): number => {
     switch (selectedFinalOption) {
       case 'file':
         return 0;
@@ -507,8 +565,29 @@ function Reception() {
     }
   };
 
-  const calculateTotalPrice = () => {
-    return calculateTranscriptionPrice() + getSelectedOptionPrice();
+  // 총 견적 계산 (속기록 제작비 + 최종본 옵션 + 부가세 10%)
+  const calculateTotalPrice = (): number => {
+    const transcriptionPrice = calculateTranscriptionPrice();
+    const optionPrice = getSelectedOptionPrice();
+    const subtotal = transcriptionPrice + optionPrice;
+    const vat = Math.round(subtotal * 0.1); // 부가세 10%
+    return subtotal + vat;
+  };
+
+  // 부가세 계산
+  const calculateVAT = (): number => {
+    const transcriptionPrice = calculateTranscriptionPrice();
+    const optionPrice = getSelectedOptionPrice();
+    const subtotal = transcriptionPrice + optionPrice;
+    return Math.round(subtotal * 0.1);
+  };
+
+  // 총 속기 구간 길이를 "N분 N초" 형식으로 반환
+  const formatTotalDuration = (): string => {
+    const totalMinutes = calculateTotalDuration();
+    const minutes = Math.floor(totalMinutes);
+    const seconds = Math.round((totalMinutes - minutes) * 60);
+    return `${minutes}분 ${seconds}초`;
   };
 
   return showComplete ? (
@@ -863,6 +942,41 @@ function Reception() {
                           onFileSelect={handleFileSelect}
                         />
                       </div>
+                    </div>
+                    
+                    {/* 녹취 위치 섹션 */}
+                    <div className="c-file-block" style={{
+                      backgroundColor: '#f4f6f9',
+                      borderRadius: '20px',
+                      padding: '2rem'
+                    }}>
+                      <div className="w-layout-hflex c-file-block-title">
+                        <h2 className="c-file-block-heading">녹취 위치</h2>
+                        <div className="c-file-block-title-tag" style={{
+                          border: '1px solid #fee9d4',
+                          backgroundColor: '#faa654',
+                          borderRadius: '10px',
+                          padding: '2px 8px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}>
+                          <div className="c-tag-text" style={{
+                            color: 'white',
+                            fontFamily: 'Pretendard',
+                            fontSize: '14px'
+                          }}>필수</div>
+                        </div>
+                      </div>
+                      <RecordingLocationSection
+                        formData={tab as any}
+                        setFormData={(data) => {
+                          const newTabs = [...tabs];
+                          newTabs[index] = { ...tab, ...data };
+                          setTabs(newTabs);
+                        }}
+                        tabIndex={index}
+                      />
                     </div>
                     
                     <div className="c-file-block" style={{
@@ -1414,12 +1528,16 @@ function Reception() {
             <div className="div-block-11"></div>
             <div className="w-layout-vflex flex-block-11">
               <div className="w-layout-hflex c-checkout-factor">
-                <h6 className="c-checkout-f-text">- 속기록 제작 (60분)</h6>
+                <h6 className="c-checkout-f-text">- 속기록 제작 ({formatTotalDuration()})</h6>
                 <h6 className="c-checkout-f-text">{calculateTranscriptionPrice().toLocaleString()}원</h6>
               </div>
               <div className="w-layout-hflex c-checkout-factor">
                 <h6 className="c-checkout-f-text">- 최종본: {getSelectedOptionText()}</h6>
                 <h6 className="c-checkout-f-text">{getSelectedOptionPrice().toLocaleString()}원</h6>
+              </div>
+              <div className="w-layout-hflex c-checkout-factor">
+                <h6 className="c-checkout-f-text">- 부가세 (10%)</h6>
+                <h6 className="c-checkout-f-text">{calculateVAT().toLocaleString()}원</h6>
               </div>
             </div>
           </div>

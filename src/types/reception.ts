@@ -19,4 +19,5 @@ export interface ReceptionFormData {
   timestamps: string[]; // Keep for backward compatibility
   timestampRanges: TimestampRange[]; // New timestamp ranges for partial recording
   recordType: '전체' | '부분';
+  recordingLocation: '통화' | '현장'; // 녹취 위치 (통화 녹음 / 현장 녹음)
 } 

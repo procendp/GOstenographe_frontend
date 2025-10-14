@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'GO스테노그래프' }],
   creator: 'GO스테노그래프',
   publisher: 'GO스테노그래프',
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL('https://sokgijung.com'),
   alternates: {
     canonical: '/',
   },
@@ -71,7 +71,7 @@ const structuredData = {
   '@type': 'LocalBusiness',
   name: 'GO스테노그래프',
   description: '국가공인 1급 속기사가 제공하는 전문 속기 서비스',
-  url: 'http://localhost:3000',
+    url: 'https://sokgijung.com',
   telephone: '+82-10-0000-0000', // 실제 번호로 변경 필요
   address: {
     '@type': 'PostalAddress',
