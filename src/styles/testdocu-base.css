@@ -732,17 +732,31 @@
   }
 
   .td-hero-container {
-    grid-template-columns: 1fr;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
     text-align: center;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* 모바일에서 그리드 위치 지정 무시 */
+  .td-hero-container > div {
+    grid-column: unset !important;
+    grid-row: unset !important;
+    width: 100%;
+    margin-bottom: 1.5rem;
   }
 
   .td-hero-subtitle {
     font-size: var(--td-m-h4);
+    margin-bottom: 1rem;
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
+    margin-bottom: 1.5rem;
   }
   
   .td-container {
@@ -752,15 +766,40 @@
   .td-features-grid {
     grid-template-columns: 1fr;  /* 모바일에서는 1열 */
     grid-template-rows: auto;    /* 모바일에서는 자동 행 */
-    gap: var(--td-spacing-lg);
+    gap: 1.5rem; /* 모바일에서 카드 간격 조정 */
+    padding: 0 1rem;
   }
 
-  .td-section-heading {
-    font-size: var(--td-m-h2);
+  .td-feature-card {
+    padding: 2rem 1.5rem; /* 모바일에서 카드 내부 여백 증가 */
+    border-radius: 16px;
+    margin-bottom: 1rem;
+  }
+
+  .td-feature-icon {
+    margin-bottom: 1.5rem;
   }
 
   .td-feature-title {
     font-size: var(--td-m-h3);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .td-feature-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+
+  .td-section-heading {
+    font-size: var(--td-m-h2);
+    margin-bottom: 2rem;
+  }
+
+  .td-section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .td-faq-tabs-container {
@@ -770,6 +809,8 @@
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
+    overflow-x: auto; /* 모바일에서 탭 스크롤 가능 */
+    -webkit-overflow-scrolling: touch;
   }
 
   .td-faq-tab {
@@ -779,6 +820,7 @@
     flex: 1;
     font-size: 0.95rem;
     white-space: nowrap;
+    touch-action: manipulation; /* 터치 반응 개선 */
   }
 
   .td-faq-tab.first {
@@ -798,15 +840,24 @@
 
   .td-faq-question {
     padding: 20px;
+    line-height: 1.5;
   }
 
   .td-faq-question-text {
     font-size: var(--td-text-base);
+    line-height: 1.5;
   }
 
   .td-faq-answer {
     padding: 0 20px 20px;
     font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .td-faq-item {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
   }
 }
 
@@ -830,18 +881,85 @@
   .td-faq-tab {
     padding: 10px 12px;
     font-size: var(--td-text-base);
+    min-width: fit-content;
   }
 
   .td-faq-question {
     padding: 16px;
+    line-height: 1.4;
   }
 
   .td-faq-question-text {
     font-size: var(--td-text-base);
+    line-height: 1.4;
   }
 
   .td-faq-answer {
     padding: 0 16px 16px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .td-hero-container {
+    padding: 0 1rem;
+  }
+
+  .td-feature-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  /* Apply 페이지 초소형 화면 최적화 */
+  .c-apply-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  
+  .c-apply-container {
+    padding: 0 0.75rem;
+  }
+  
+  .c-apply-section input[type="text"],
+  .c-apply-section input[type="email"],
+  .c-apply-section input[type="tel"],
+  .c-apply-section textarea,
+  .c-apply-section select {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .c-apply-section button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .c-apply-section .c-file-tab-button-left,
+  .c-apply-section .c-file-tab-button-mid,
+  .c-apply-section .c-file-tab-button-right {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  /* 신청완료 페이지 초소형 화면 최적화 */
+  .c-apply-section .c-section-heading {
+    font-size: 1.5rem !important;
+  }
+  
+  .c-apply-section .c-heading-4 {
+    font-size: 1.1rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .c-apply-section [style*="backgroundColor: '#1c58af'"] h2 {
+    font-size: 1rem !important;
+  }
+  
+  .c-apply-section .accordion summary {
+    padding: 0.6rem 0.8rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .c-apply-section .accordion .accordion-content {
+    padding: 0.6rem 0.8rem !important;
     font-size: 0.85rem;
   }
 }
@@ -855,6 +973,161 @@
   background-position: 0 0;
   background-size: auto;
   min-height: 100vh;
+}
+
+/* Apply 페이지 모바일 최적화 */
+@media (max-width: 768px) {
+  .c-apply-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    min-height: auto;
+  }
+  
+  .c-apply-container {
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+  
+  .c-apply-form {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .c-apply-form.vertical {
+    gap: 0.75rem;
+  }
+  
+  /* 탭 메뉴 모바일 최적화 */
+  .c-apply-section .c-tab-container .c-tab-menu-wrapper {
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .c-apply-section .c-file-tab-button-left,
+  .c-apply-section .c-file-tab-button-mid,
+  .c-apply-section .c-file-tab-button-right {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    min-width: fit-content;
+    touch-action: manipulation;
+  }
+  
+  /* 폼 요소 모바일 최적화 */
+  .c-apply-section input[type="text"],
+  .c-apply-section input[type="email"],
+  .c-apply-section input[type="tel"],
+  .c-apply-section textarea,
+  .c-apply-section select {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    width: 100%;
+    box-sizing: border-box;
+    touch-action: manipulation;
+  }
+  
+  .c-apply-section input:focus,
+  .c-apply-section textarea:focus,
+  .c-apply-section select:focus {
+    outline: none;
+    border-color: #1c58af;
+    box-shadow: 0 0 0 3px rgba(28, 88, 175, 0.1);
+  }
+  
+  /* 버튼 모바일 최적화 */
+  .c-apply-section button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    touch-action: manipulation;
+    min-height: 44px; /* 터치 타겟 최소 크기 */
+  }
+  
+  /* 라벨과 폼 그룹 모바일 최적화 */
+  .c-apply-section label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .c-apply-section .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  /* 견적 표시 영역 모바일 최적화 */
+  .c-apply-section .quotation-display {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+  
+  /* 신청완료 페이지 모바일 최적화 */
+  .c-apply-section .c-section-heading {
+    font-size: 1.8rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .c-apply-section .c-steps-grid {
+    gap: 1rem !important;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .c-apply-section .c-steps-line {
+    display: none;
+  }
+  
+  .c-apply-section .c-steps-item {
+    margin-bottom: 1rem;
+  }
+  
+  .c-apply-section .c-heading-4 {
+    font-size: 1.3rem !important;
+    line-height: 1.4 !important;
+    padding: 0 0.5rem;
+  }
+  
+  .c-apply-section .c-finito-subtitle-pharagraph {
+    font-size: 0.9rem !important;
+    padding: 0 0.5rem;
+  }
+  
+  /* 예상 견적 박스 모바일 최적화 */
+  .c-apply-section [style*="backgroundColor: '#1c58af'"] {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    padding: 1.5rem 1rem !important;
+    width: 95% !important;
+    text-align: center;
+  }
+  
+  .c-apply-section [style*="backgroundColor: '#1c58af'"] h2 {
+    font-size: 1.2rem !important;
+  }
+  
+  /* 아코디언 모바일 최적화 */
+  .c-apply-section .accordion summary {
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+  }
+  
+  .c-apply-section .accordion .accordion-content {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  /* 신청 내역 테이블 모바일 최적화 */
+  .c-apply-section .container.small-container {
+    padding: 0 !important;
+  }
+  
+  .c-apply-section .flex-vertical {
+    gap: 0.75rem;
+  }
 }
 
 .c-apply-container {
