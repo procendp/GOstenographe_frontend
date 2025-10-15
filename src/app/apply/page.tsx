@@ -896,7 +896,7 @@ function Reception() {
                       padding: '8px 12px',
                       fontSize: '12px',
                       borderRadius: '6px',
-                      backgroundColor: '#ef4444',
+                      backgroundColor: '#f97316',
                       color: 'white',
                       border: 'none',
                       cursor: 'pointer'

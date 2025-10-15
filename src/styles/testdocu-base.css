@@ -1006,10 +1006,63 @@
     unicode-bidi: normal !important;
   }
   
-  /* 모든 텍스트 요소에 가로 정렬 강제 */
-  .c-apply-section * {
+  /* 모든 텍스트 요소에 가로 정렬 강제 - 더 강력하게 적용 */
+  .c-apply-section *,
+  .c-apply-section *::before,
+  .c-apply-section *::after {
     writing-mode: horizontal-tb !important;
     text-orientation: mixed !important;
+    direction: ltr !important;
+    unicode-bidi: normal !important;
+  }
+  
+  /* 특정 요소들에 추가 강제 적용 */
+  .c-apply-section input,
+  .c-apply-section textarea,
+  .c-apply-section button,
+  .c-apply-section label,
+  .c-apply-section span,
+  .c-apply-section div,
+  .c-apply-section p,
+  .c-apply-section h1,
+  .c-apply-section h2,
+  .c-apply-section h3,
+  .c-apply-section h4,
+  .c-apply-section h5,
+  .c-apply-section h6 {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    direction: ltr !important;
+    unicode-bidi: normal !important;
+    white-space: normal !important;
+  }
+  
+  /* 화자 정보 섹션 특별 개선 */
+  .c-apply-section .c-file-block-heading,
+  .c-apply-section .c-file-block-title,
+  .c-apply-section .c-file-block-title-tag,
+  .c-apply-section .c-file-block-title-tag .c-tag-text {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    direction: ltr !important;
+    unicode-bidi: normal !important;
+    white-space: normal !important;
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  /* 입력 필드와 라벨 개선 */
+  .c-apply-section .c-text-input-field,
+  .c-apply-section .c-text-input-field::placeholder,
+  .c-apply-section .c-file-block-heading + *,
+  .c-apply-section .c-file-block-title + * {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    direction: ltr !important;
+    unicode-bidi: normal !important;
+    white-space: normal !important;
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
   }
   
   /* 탭 메뉴 스크롤바 숨김 */
@@ -1057,10 +1110,22 @@
   .c-apply-section .c-file-tab-button-left,
   .c-apply-section .c-file-tab-button-mid,
   .c-apply-section .c-file-tab-button-right {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-    min-width: fit-content;
+    padding: 1rem 1.2rem; /* 패딩 증가 */
+    font-size: 1rem; /* 폰트 크기 증가 */
+    min-width: 80px; /* 최소 너비 설정 */
     touch-action: manipulation;
+    line-height: 1.2; /* 줄 간격 조정 */
+  }
+  
+  /* 탭 버튼 텍스트 크기 개선 */
+  .c-apply-section .c-tab-button-text {
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+  }
+  
+  .c-apply-section .c-tab-button-text-mobile {
+    font-size: 1rem !important;
+    font-weight: 500 !important;
   }
   
   /* 폼 요소 모바일 최적화 */
