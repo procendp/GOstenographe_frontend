@@ -1011,6 +1011,17 @@
     writing-mode: horizontal-tb !important;
     text-orientation: mixed !important;
   }
+  
+  /* 탭 메뉴 스크롤바 숨김 */
+  .c-tab-menu {
+    -webkit-scrollbar: none !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  .c-tab-menu::-webkit-scrollbar {
+    display: none !important;
+  }
 }
 
 /* Apply 페이지 모바일 최적화 */

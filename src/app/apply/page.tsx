@@ -858,9 +858,8 @@ function Reception() {
               <div className="c-tab-menu w-tab-menu" style={{
                 overflowX: 'auto',
                 scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                WebkitScrollbar: { display: 'none' }
-              }}>
+                msOverflowStyle: 'none'
+              } as React.CSSProperties}>
                 <div className="flex" style={{ minWidth: 'max-content' }}>
                   {tabs.map((tab, index) => (
                     <button
