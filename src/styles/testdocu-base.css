@@ -353,7 +353,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 85vh;  /* 배경 영역 더 증가 */
+  min-height: auto;  /* 고정 높이 제거하여 텍스트가 자유롭게 배치되도록 */
   position: relative;
   z-index: 10; /* GNB(z-50)보다 낮지만 콘텐츠는 보이도록 */
 }
@@ -368,7 +368,7 @@
   grid-column-gap: 1.2rem;
   grid-row-gap: 1rem;  /* 텍스트끼리 간격 축소 */
   align-items: start;  /* 상단 정렬로 변경 */
-  min-height: 60vh; /* 컨테이너 높이도 함께 증가 */
+  min-height: auto; /* 고정 높이 제거하여 텍스트가 자유롭게 배치되도록 */
   position: relative;
   z-index: 20; /* 히어로 섹션보다 높게 설정 */
 }
