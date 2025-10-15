@@ -354,6 +354,8 @@
   align-items: center;
   width: 100%;
   min-height: 85vh;  /* 배경 영역 더 증가 */
+  position: relative;
+  z-index: 10; /* GNB(z-50)보다 낮지만 콘텐츠는 보이도록 */
 }
 
 .td-hero-container {
@@ -368,6 +370,7 @@
   align-items: start;  /* 상단 정렬로 변경 */
   min-height: 60vh; /* 컨테이너 높이도 함께 증가 */
   position: relative;
+  z-index: 20; /* 히어로 섹션보다 높게 설정 */
 }
 
 .td-hero-title {
