@@ -36,7 +36,7 @@ export default function NewFooter() {
               href="/apply"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex justify-center items-center text-center bg-[#222] hover:bg-[#333] text-white px-4 py-2 rounded-lg font-semibold text-sm transition-colors duration-300 flex-shrink-0"
+              className="flex justify-center items-center text-center bg-[#222] hover:bg-[#333] text-white px-8 py-4 rounded-xl font-bold text-base transition-colors duration-300 flex-shrink-0"
             >
               서비스 신청
             </motion.a>
