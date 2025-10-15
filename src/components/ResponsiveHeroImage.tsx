@@ -21,18 +21,14 @@ export default function ResponsiveHeroImage({
 }: ResponsiveHeroImageProps) {
   return (
     <>
-      {/* 모바일용 이미지 - 우측 하단에 크게 배치 */}
-      <div className="block md:hidden" style={{ 
-        position: 'absolute',
-        bottom: '0',
-        right: '0',
-        zIndex: 1,
+      {/* 모바일용 이미지 - flexbox로 우측 하단 배치 */}
+      <div className="block md:hidden mobile-hero-image-container" style={{ 
         width: '100%',
-        height: '100%',
         display: 'flex',
-        alignItems: 'flex-end',
         justifyContent: 'flex-end',
-        pointerEvents: 'none' /* 텍스트 클릭 방해 방지 */
+        alignItems: 'flex-end',
+        marginTop: '2rem',
+        paddingRight: '1rem'
       }}>
         <Image
           src={mobileSrc || desktopSrc}
@@ -47,7 +43,6 @@ export default function ResponsiveHeroImage({
             maxWidth: '400px', /* 최대 크기 증가: 250px → 400px */
             height: 'auto',
             objectFit: 'contain',
-            transform: 'translateY(10%)', /* 우측 하단에 딱 붙이기 위한 조정 */
             ...style
           }}
         />

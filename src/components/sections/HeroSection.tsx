@@ -38,7 +38,7 @@ export default function HeroSection() {
         margin: '0'
       }}
     >
-      <div className="td-hero-container flex flex-col md:grid">
+      <div className="td-hero-container">
         {/* 자격번호 */}
         <div 
           ref={subtitleRef}
