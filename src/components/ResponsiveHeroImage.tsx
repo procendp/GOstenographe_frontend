@@ -21,29 +21,33 @@ export default function ResponsiveHeroImage({
 }: ResponsiveHeroImageProps) {
   return (
     <>
-      {/* 모바일용 이미지 - 텍스트 아래에 배치 */}
+      {/* 모바일용 이미지 - 우측 하단에 크게 배치 */}
       <div className="block md:hidden" style={{ 
-        position: 'relative', 
-        zIndex: 0, 
-        marginTop: '3rem', /* 간격 증가: 2rem → 3rem */
+        position: 'absolute',
+        bottom: '0',
+        right: '0',
+        zIndex: 1,
         width: '100%',
+        height: '100%',
         display: 'flex',
-        justifyContent: 'center',
-        order: 10 /* flexbox order로 텍스트 아래로 강제 이동 */
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        pointerEvents: 'none' /* 텍스트 클릭 방해 방지 */
       }}>
         <Image
           src={mobileSrc || desktopSrc}
           alt={alt}
-          width={250}
-          height={188}
+          width={400}
+          height={300}
           priority={priority}
           className={`${className} mobile-hero-image`}
           sizes="100vw"
           style={{
-            width: '70%', /* 크기 축소: 80% → 70% */
-            maxWidth: '250px', /* 최대 크기 축소: 300px → 250px */
+            width: '60%', /* 화면 너비의 60% */
+            maxWidth: '400px', /* 최대 크기 증가: 250px → 400px */
             height: 'auto',
             objectFit: 'contain',
+            transform: 'translateY(10%)', /* 우측 하단에 딱 붙이기 위한 조정 */
             ...style
           }}
         />

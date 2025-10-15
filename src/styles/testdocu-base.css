@@ -707,6 +707,30 @@
   }
 }
 
+/* 작은 모바일 화면 (iPhone SE 등) */
+@media (max-width: 375px) {
+  .td-hero-container {
+    padding: 1.5rem 1rem 45vh; /* 작은 화면에서는 패딩 조정 */
+  }
+  
+  .td-hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .td-hero-description {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* 중간 모바일 화면 */
+@media (min-width: 376px) and (max-width: 768px) {
+  .td-hero-container {
+    padding: 2rem 1.5rem 50vh; /* 기본 설정 */
+  }
+}
+
 @media (max-width: 768px) {
   .td-navbar-links {
     display: none;
@@ -737,11 +761,12 @@
     flex-direction: column !important;
     align-items: center !important;
     text-align: center;
-    padding: 3rem 1.5rem 2rem; /* 상단 패딩 더 증가: 2rem → 3rem */
+    padding: 2rem 1.5rem 50vh; /* 하단 패딩을 50vh로 설정하여 이미지 공간 확보 */
     max-width: 100%;
     width: 100%;
     min-height: 100vh; /* 전체 화면 높이 활용 */
     justify-content: flex-start; /* 상단부터 시작 */
+    position: relative; /* 이미지 절대 위치 기준점 */
   }
 
   /* 모바일에서 그리드 위치 지정 무시 */
@@ -749,17 +774,17 @@
     grid-column: unset !important;
     grid-row: unset !important;
     width: 100%;
-    margin-bottom: 1.5rem; /* 간격 증가: 1rem → 1.5rem */
+    margin-bottom: 1rem; /* 간격 조정: 1.5rem → 1rem */
   }
 
   .td-hero-subtitle {
     font-size: var(--td-m-h4);
-    margin-bottom: 2rem; /* 간격 더 증가: 1.5rem → 2rem */
+    margin-bottom: 1.5rem; /* 간격 조정: 2rem → 1.5rem */
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
-    margin-bottom: 2rem; /* 간격 증가: 1.5rem → 2rem */
+    margin-bottom: 1.5rem; /* 간격 조정: 2rem → 1.5rem */
     line-height: 1.4; /* 줄 간격 추가 */
   }
   

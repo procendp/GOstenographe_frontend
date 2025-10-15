@@ -73,43 +73,20 @@ export default function HeroSection() {
         </div>
         
         {/* 히어로 이미지 - 반응형 구현 */}
-        <div
-          className="hidden md:block"
+        <ResponsiveHeroImage
+          desktopSrc="/new_goStenographe_resource/images/HeroImage2.png"
+          mobileSrc="/new_goStenographe_resource/images/HeroImage2-mobile.png"
+          alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
+          priority
+          className="td-hero-image"
           style={{
-            position: 'absolute',
-            right: '0',
-            bottom: '-20px', // padding-bottom 값만큼 아래로 이동
-            zIndex: 1,
+            transform: 'scale(0.99)',
+            transformOrigin: 'bottom right',
             margin: '0',
-            padding: '0'
+            padding: '0',
+            display: 'block'
           }}
-        >
-          <ResponsiveHeroImage
-            desktopSrc="/new_goStenographe_resource/images/HeroImage2.png"
-            mobileSrc="/new_goStenographe_resource/images/HeroImage2-mobile.png"
-            alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
-            priority
-            className="td-hero-image"
-            style={{
-              transform: 'scale(0.99)',
-              transformOrigin: 'bottom right',
-              margin: '0',
-              padding: '0',
-              display: 'block'
-            }}
-          />
-        </div>
-        
-        {/* 모바일용 히어로 이미지 - 텍스트 아래에 배치 */}
-        <div className="block md:hidden w-full">
-          <ResponsiveHeroImage
-            desktopSrc="/new_goStenographe_resource/images/HeroImage2.png"
-            mobileSrc="/new_goStenographe_resource/images/HeroImage2-mobile.png"
-            alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
-            priority
-            className="td-hero-image"
-          />
-        </div>
+        />
         
         {/* 설명 텍스트 */}
         <p 
