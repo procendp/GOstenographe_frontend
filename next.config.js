@@ -24,7 +24,7 @@ const nextConfig = {
       3840  // 4K 대형
     ],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
-    formats: ['image/avif', 'image/webp', 'image/png'], // AVIF 포맷 추가
+    formats: ['image/avif', 'image/webp'], // Next.js 14.1.0에서는 avif와 webp만 지원
     minimumCacheTTL: 31536000, // 1년 캐시
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
