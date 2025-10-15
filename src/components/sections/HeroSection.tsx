@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import ResponsiveHeroImage from "../ResponsiveHeroImage";
 import { useWebflowTextAnimation, useScrollAnimation, useParallaxAnimation, useMouseFollowAnimation } from "../../hooks/useGSAPAnimations";
 
 const FADE_TEXTS = [
@@ -72,21 +71,33 @@ export default function HeroSection() {
           </h1>
         </div>
         
-        {/* 히어로 이미지 - 반응형 구현 */}
-        <ResponsiveHeroImage
-          desktopSrc="/new_goStenographe_resource/images/HeroImage2.png"
-          mobileSrc="/new_goStenographe_resource/images/HeroImage2-mobile.png"
-          alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
-          priority
-          className="td-hero-image"
+        {/* 히어로 이미지 */}
+        <div
           style={{
-            transform: 'scale(0.99)',
-            transformOrigin: 'bottom right',
+            position: 'absolute',
+            right: '0',
+            bottom: '-20px', // padding-bottom 값만큼 아래로 이동
+            zIndex: 1,
             margin: '0',
-            padding: '0',
-            display: 'block'
+            padding: '0'
           }}
-        />
+        >
+          <Image
+            src="/new_goStenographe_resource/images/HeroImage2.png"
+            alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
+            width={1400}
+            height={1050}
+            priority
+            className="td-hero-image"
+            style={{
+              transform: 'scale(0.99)',
+              transformOrigin: 'bottom right',
+              margin: '0',
+              padding: '0',
+              display: 'block'
+            }}
+          />
+        </div>
         
         {/* 설명 텍스트 */}
         <p 

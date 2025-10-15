@@ -707,56 +707,9 @@
   }
 }
 
-/* 모바일 이미지 컨테이너 스타일 */
-.mobile-hero-image-container {
-  flex: 1; /* 남은 공간을 모두 차지 */
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding-right: 1rem;
-}
 
-/* 작은 모바일 화면 (iPhone SE 등) */
-@media (max-width: 375px) {
-  .td-section-hero {
-    padding-top: 100px !important; /* GNB 높이 + 여백 */
-  }
-  
-  .td-hero-container {
-    padding: 1rem 1rem 1rem; /* 작은 화면에서는 패딩 조정 */
-  }
-  
-  .td-hero-subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-  
-  .td-hero-description {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-  
-  .mobile-hero-image-container {
-    padding-right: 0.5rem;
-  }
-}
-
-/* 중간 모바일 화면 */
-@media (min-width: 376px) and (max-width: 768px) {
-  .td-section-hero {
-    padding-top: 110px !important; /* GNB 높이 + 여백 */
-  }
-  
-  .td-hero-container {
-    padding: 2rem 1.5rem 1rem; /* 일반적인 패딩으로 복원 */
-  }
-}
 
 @media (max-width: 768px) {
-  .td-section-hero {
-    padding-top: 110px !important; /* GNB 높이 + 여백 */
-  }
-  
   .td-navbar-links {
     display: none;
   }
@@ -768,17 +721,8 @@
   .td-hero-title {
     font-size: var(--td-m-h1);
     white-space: normal;
-    line-height: 1.3; /* 줄 간격 조정 */
+    line-height: normal;
     height: auto;
-    margin-bottom: 0.5rem; /* 제목 간 간격 추가 */
-  }
-
-  /* 모바일에서 모션 텍스트 중앙 정렬 */
-  .td-hero-title span {
-    left: 50% !important;
-    transform: translateX(-50%);
-    width: 100%;
-    text-align: center;
   }
 
   .td-hero-container {
@@ -786,11 +730,9 @@
     flex-direction: column !important;
     align-items: center !important;
     text-align: center;
-    padding: 2rem 1.5rem 1rem; /* 일반적인 패딩으로 복원 */
+    padding: 0 1.5rem;
     max-width: 100%;
     width: 100%;
-    min-height: 100vh; /* 전체 화면 높이 활용 */
-    justify-content: space-between; /* 요소들 간 균등 분배 */
   }
 
   /* 모바일에서 그리드 위치 지정 무시 */
@@ -798,18 +740,22 @@
     grid-column: unset !important;
     grid-row: unset !important;
     width: 100%;
-    margin-bottom: 1rem; /* 간격 조정: 1.5rem → 1rem */
+    margin-bottom: 1.5rem;
   }
 
   .td-hero-subtitle {
     font-size: var(--td-m-h4);
-    margin-bottom: 1.5rem; /* 간격 조정: 2rem → 1.5rem */
+    margin-bottom: 1rem;
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
-    margin-bottom: 1.5rem; /* 간격 조정: 2rem → 1.5rem */
-    line-height: 1.4; /* 줄 간격 추가 */
+    margin-bottom: 1.5rem;
+  }
+
+  /* 모바일에서 히어로 이미지 숨김 */
+  .td-hero-image {
+    display: none !important;
   }
   
   .td-container {
