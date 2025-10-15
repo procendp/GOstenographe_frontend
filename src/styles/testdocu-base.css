@@ -731,8 +731,8 @@
   .td-hero-container {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
-    text-align: center;
+    align-items: flex-start !important; /* 왼쪽 정렬로 변경 */
+    text-align: left; /* 텍스트도 왼쪽 정렬 */
     padding: 0 1.5rem;
     max-width: 100%;
     width: 100%;
@@ -743,17 +743,17 @@
     grid-column: unset !important;
     grid-row: unset !important;
     width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.8rem; /* 간격 축소: 1.5rem → 0.8rem */
   }
 
   .td-hero-subtitle {
     font-size: var(--td-m-h4);
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem; /* 간격 축소: 1rem → 0.6rem */
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem; /* 간격 축소: 1.5rem → 1rem */
   }
 
   /* 모바일에서 히어로 이미지 숨김 */
