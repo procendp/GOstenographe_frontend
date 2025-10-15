@@ -22,7 +22,7 @@ export default function HeroSection() {
   return (
     <section
       id="Hero"
-      className="td-section-hero pt-[120px] md:pt-[140px] pb-5"
+      className="td-section-hero pt-[140px] md:pt-[140px] pb-5"
       style={{
         backgroundColor: '#1c58af', // 4000포트와 동일한 파란색 배경
         backgroundImage: "url('/new_goStenographe_resource/backgrounds/bg-b-vl.png')",
@@ -38,7 +38,7 @@ export default function HeroSection() {
         margin: '0'
       }}
     >
-      <div className="td-hero-container">
+      <div className="td-hero-container flex flex-col md:grid">
         {/* 자격번호 */}
         <div 
           ref={subtitleRef}

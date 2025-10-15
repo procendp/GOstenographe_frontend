@@ -737,9 +737,11 @@
     flex-direction: column !important;
     align-items: center !important;
     text-align: center;
-    padding: 2rem 1.5rem 1rem; /* 상단 패딩 증가로 GNB와 간격 확보 */
+    padding: 3rem 1.5rem 2rem; /* 상단 패딩 더 증가: 2rem → 3rem */
     max-width: 100%;
     width: 100%;
+    min-height: 100vh; /* 전체 화면 높이 활용 */
+    justify-content: flex-start; /* 상단부터 시작 */
   }
 
   /* 모바일에서 그리드 위치 지정 무시 */
@@ -747,17 +749,17 @@
     grid-column: unset !important;
     grid-row: unset !important;
     width: 100%;
-    margin-bottom: 1rem; /* 간격 조정: 1.5rem → 1rem */
+    margin-bottom: 1.5rem; /* 간격 증가: 1rem → 1.5rem */
   }
 
   .td-hero-subtitle {
     font-size: var(--td-m-h4);
-    margin-bottom: 1.5rem; /* 간격 증가: 1rem → 1.5rem */
+    margin-bottom: 2rem; /* 간격 더 증가: 1.5rem → 2rem */
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem; /* 간격 증가: 1.5rem → 2rem */
     line-height: 1.4; /* 줄 간격 추가 */
   }
   

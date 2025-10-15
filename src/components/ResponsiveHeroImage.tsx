@@ -25,22 +25,23 @@ export default function ResponsiveHeroImage({
       <div className="block md:hidden" style={{ 
         position: 'relative', 
         zIndex: 0, 
-        marginTop: '2rem',
+        marginTop: '3rem', /* 간격 증가: 2rem → 3rem */
         width: '100%',
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        order: 10 /* flexbox order로 텍스트 아래로 강제 이동 */
       }}>
         <Image
           src={mobileSrc || desktopSrc}
           alt={alt}
-          width={300}
-          height={225}
+          width={250}
+          height={188}
           priority={priority}
           className={`${className} mobile-hero-image`}
           sizes="100vw"
           style={{
-            width: '80%',
-            maxWidth: '300px',
+            width: '70%', /* 크기 축소: 80% → 70% */
+            maxWidth: '250px', /* 최대 크기 축소: 300px → 250px */
             height: 'auto',
             objectFit: 'contain',
             ...style
