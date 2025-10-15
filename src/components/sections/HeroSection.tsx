@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import ResponsiveHeroImage from "../ResponsiveHeroImage";
 import { useWebflowTextAnimation, useScrollAnimation, useParallaxAnimation, useMouseFollowAnimation } from "../../hooks/useGSAPAnimations";
 
 const FADE_TEXTS = [
@@ -71,9 +72,8 @@ export default function HeroSection() {
           </h1>
         </div>
         
-        {/* 히어로 이미지 - 우측 하단 고정 (모바일에서는 숨김) */}
+        {/* 히어로 이미지 - 반응형 구현 */}
         <div
-          className="hidden md:block"
           style={{
             position: 'absolute',
             right: '0',
@@ -83,14 +83,12 @@ export default function HeroSection() {
             padding: '0'
           }}
         >
-          <Image
-            src="/new_goStenographe_resource/images/HeroImage2.png"
+          <ResponsiveHeroImage
+            desktopSrc="/new_goStenographe_resource/images/HeroImage2.png"
+            mobileSrc="/new_goStenographe_resource/images/HeroImage2-mobile.png"
             alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
-            width={1400}
-            height={1050}
             priority
             className="td-hero-image"
-            sizes="(max-width: 768px) 0vw, (max-width: 1200px) 50vw, 40vw"
             style={{
               transform: 'scale(0.99)',
               transformOrigin: 'bottom right',
