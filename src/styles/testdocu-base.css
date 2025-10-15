@@ -978,19 +978,38 @@
     display: none !important;
   }
   
-  /* 텍스트 가로 정렬 강제 */
-  .c-apply-section .c-file-block-heading {
+  /* 텍스트 가로 정렬 강제 - 더 강력하게 적용 */
+  .c-apply-section .c-file-block-heading,
+  .c-apply-section .c-file-block-title,
+  .c-apply-section h1,
+  .c-apply-section h2,
+  .c-apply-section h3,
+  .c-apply-section h4,
+  .c-apply-section h5,
+  .c-apply-section h6 {
     writing-mode: horizontal-tb !important;
     text-orientation: mixed !important;
     white-space: normal !important;
     line-height: 1.3 !important;
     font-size: 1rem !important;
+    direction: ltr !important;
+    unicode-bidi: normal !important;
   }
   
-  .c-apply-section .c-tag-text {
+  .c-apply-section .c-tag-text,
+  .c-apply-section .c-file-block-title-tag,
+  .c-apply-section .c-file-block-title-tag .c-tag-text {
     writing-mode: horizontal-tb !important;
     text-orientation: mixed !important;
     white-space: normal !important;
+    direction: ltr !important;
+    unicode-bidi: normal !important;
+  }
+  
+  /* 모든 텍스트 요소에 가로 정렬 강제 */
+  .c-apply-section * {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
   }
 }
 

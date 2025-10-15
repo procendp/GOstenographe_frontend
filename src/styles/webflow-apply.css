@@ -359,29 +359,35 @@
   background-color: #64748b;
 }
 
-/* 반응형 견적 섹션 - 웹플로우 원본과 동일 */
+/* 반응형 견적 섹션 - 모바일에서 크기 축소 */
 @media (max-width: 768px) {
+  .c-checkout-section {
+    min-height: 80px !important; /* 기존 150px에서 80px로 축소 */
+  }
+  
   .c-checkout-container {
     grid-template-rows: auto auto;
     grid-template-columns: 1fr;
+    padding: 0 10px; /* 패딩 축소 */
   }
   
   .c-checkout-left {
-    grid-column-gap: 7px;
-    grid-row-gap: 7px;
-    padding-bottom: 1rem;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    padding: 0.5rem 1rem; /* 패딩 축소 */
   }
   
   .c-checkout-right {
     max-width: none;
+    padding: 0.5rem 1rem; /* 패딩 축소 */
   }
   
   .c-app-sum-heading {
-    font-size: 18px;
+    font-size: 14px !important; /* 기존 18px에서 14px로 축소 */
   }
   
   .c-checkout-f-text {
-    font-size: 13px;
+    font-size: 11px !important; /* 기존 13px에서 11px로 축소 */
   }
 }
 

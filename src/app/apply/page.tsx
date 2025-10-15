@@ -853,40 +853,60 @@ function Reception() {
 
           {/* 탭 컨테이너 */}
           <div className="c-tab-container w-tabs">
-            {/* 탭 헤더 - 탭 메뉴와 삭제 버튼을 감싸는 컨테이너 */}
+            {/* 탭 헤더 - 모바일에서 스크롤 가능하도록 개선 */}
             <div className="c-tab-header">
-              <div className="c-tab-menu w-tab-menu">
-                {tabs.map((tab, index) => (
-                  <button
-                    key={index}
-                    className={`c-file-tab-button-${index === 0 ? 'left' : index === tabs.length - 1 ? 'right' : 'mid'} w-inline-block w-tab-link ${activeTab === index ? 'w--current' : ''}`}
-                    onClick={() => setActiveTab(index)}
-                  >
-                    <div className="c-tab-button-text">파일 {index + 1}</div>
-                    <div className="c-tab-button-text-mobile">{index + 1}</div>
-                  </button>
-                ))}
-                
-                {tabs.length < 5 && (
-                  <button
-                    className="c-file-tab-button-right w-inline-block w-tab-link"
-                    onClick={handleAddTab}
-                  >
-                    <div className="c-tab-button-text">+</div>
-                    <div className="c-tab-button-text-mobile">+</div>
-                  </button>
-                )}
+              <div className="c-tab-menu w-tab-menu" style={{
+                overflowX: 'auto',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitScrollbar: { display: 'none' }
+              }}>
+                <div className="flex" style={{ minWidth: 'max-content' }}>
+                  {tabs.map((tab, index) => (
+                    <button
+                      key={index}
+                      className={`c-file-tab-button-${index === 0 ? 'left' : index === tabs.length - 1 ? 'right' : 'mid'} w-inline-block w-tab-link ${activeTab === index ? 'w--current' : ''}`}
+                      onClick={() => setActiveTab(index)}
+                      style={{ flexShrink: 0 }}
+                    >
+                      <div className="c-tab-button-text">파일 {index + 1}</div>
+                      <div className="c-tab-button-text-mobile">{index + 1}</div>
+                    </button>
+                  ))}
+                  
+                  {tabs.length < 5 && (
+                    <button
+                      className="c-file-tab-button-right w-inline-block w-tab-link"
+                      onClick={handleAddTab}
+                      style={{ flexShrink: 0 }}
+                    >
+                      <div className="c-tab-button-text">+</div>
+                      <div className="c-tab-button-text-mobile">+</div>
+                    </button>
+                  )}
+                </div>
               </div>
               
-              {/* 삭제 버튼 - 맨 우측에 고정 배치 */}
-              <div className="c-delete-button-container">
-                <button
-                  className="c-delete-button w-inline-block"
-                  onClick={() => handleRemoveTab(activeTab)}
-                >
-                  <div className="text-block-2">삭제</div>
-                </button>
-              </div>
+              {/* 삭제 버튼 - 모바일에서 더 작고 이쁘게 */}
+              {tabs.length > 1 && (
+                <div className="c-delete-button-container">
+                  <button
+                    className="c-delete-button w-inline-block"
+                    onClick={() => handleRemoveTab(activeTab)}
+                    style={{
+                      padding: '8px 12px',
+                      fontSize: '12px',
+                      borderRadius: '6px',
+                      backgroundColor: '#ef4444',
+                      color: 'white',
+                      border: 'none',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <div className="text-block-2">삭제</div>
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className="c-tab-content w-tab-content">
