@@ -719,8 +719,9 @@
   .td-hero-title {
     font-size: var(--td-m-h1);
     white-space: normal;
-    line-height: normal;
+    line-height: 1.3; /* 줄 간격 조정 */
     height: auto;
+    margin-bottom: 0.5rem; /* 제목 간 간격 추가 */
   }
 
   /* 모바일에서 모션 텍스트 중앙 정렬 */
@@ -736,7 +737,7 @@
     flex-direction: column !important;
     align-items: center !important;
     text-align: center;
-    padding: 0 1.5rem;
+    padding: 2rem 1.5rem 1rem; /* 상단 패딩 증가로 GNB와 간격 확보 */
     max-width: 100%;
     width: 100%;
   }
@@ -746,17 +747,18 @@
     grid-column: unset !important;
     grid-row: unset !important;
     width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem; /* 간격 조정: 1.5rem → 1rem */
   }
 
   .td-hero-subtitle {
     font-size: var(--td-m-h4);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem; /* 간격 증가: 1rem → 1.5rem */
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
     margin-bottom: 1.5rem;
+    line-height: 1.4; /* 줄 간격 추가 */
   }
   
   .td-container {

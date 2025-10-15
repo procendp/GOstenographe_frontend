@@ -22,7 +22,7 @@ export default function HeroSection() {
   return (
     <section
       id="Hero"
-      className="td-section-hero pt-[100px] md:pt-[140px] pb-5"
+      className="td-section-hero pt-[120px] md:pt-[140px] pb-5"
       style={{
         backgroundColor: '#1c58af', // 4000포트와 동일한 파란색 배경
         backgroundImage: "url('/new_goStenographe_resource/backgrounds/bg-b-vl.png')",
@@ -54,7 +54,7 @@ export default function HeroSection() {
           style={{ gridColumn: '1 / 9', gridRow: '2 / 4' }}
         >
           {/* 애니메이션되는 첫 번째 타이틀 */}
-          <div className="min-h-[58px] mb-2 relative overflow-hidden">
+          <div className="min-h-[80px] mb-2 relative overflow-hidden md:min-h-[58px]">
             <h1
               ref={webflowTextRef}
               className="td-hero-title"
@@ -74,6 +74,7 @@ export default function HeroSection() {
         
         {/* 히어로 이미지 - 반응형 구현 */}
         <div
+          className="hidden md:block"
           style={{
             position: 'absolute',
             right: '0',
@@ -96,6 +97,17 @@ export default function HeroSection() {
               padding: '0',
               display: 'block'
             }}
+          />
+        </div>
+        
+        {/* 모바일용 히어로 이미지 - 텍스트 아래에 배치 */}
+        <div className="block md:hidden w-full">
+          <ResponsiveHeroImage
+            desktopSrc="/new_goStenographe_resource/images/HeroImage2.png"
+            mobileSrc="/new_goStenographe_resource/images/HeroImage2-mobile.png"
+            alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
+            priority
+            className="td-hero-image"
           />
         </div>
         

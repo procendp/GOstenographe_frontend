@@ -21,18 +21,26 @@ export default function ResponsiveHeroImage({
 }: ResponsiveHeroImageProps) {
   return (
     <>
-      {/* 모바일용 이미지 */}
-      <div className="block md:hidden">
+      {/* 모바일용 이미지 - 텍스트 아래에 배치 */}
+      <div className="block md:hidden" style={{ 
+        position: 'relative', 
+        zIndex: 0, 
+        marginTop: '2rem',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
         <Image
           src={mobileSrc || desktopSrc}
           alt={alt}
-          width={400}
-          height={300}
+          width={300}
+          height={225}
           priority={priority}
           className={`${className} mobile-hero-image`}
           sizes="100vw"
           style={{
-            width: '100%',
+            width: '80%',
+            maxWidth: '300px',
             height: 'auto',
             objectFit: 'contain',
             ...style
