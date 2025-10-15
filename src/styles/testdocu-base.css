@@ -718,8 +718,12 @@
 
 /* 작은 모바일 화면 (iPhone SE 등) */
 @media (max-width: 375px) {
+  .td-section-hero {
+    padding-top: 100px !important; /* GNB 높이 + 여백 */
+  }
+  
   .td-hero-container {
-    padding: 1.5rem 1rem 1rem; /* 작은 화면에서는 패딩 조정 */
+    padding: 1rem 1rem 1rem; /* 작은 화면에서는 패딩 조정 */
   }
   
   .td-hero-subtitle {
@@ -739,12 +743,20 @@
 
 /* 중간 모바일 화면 */
 @media (min-width: 376px) and (max-width: 768px) {
+  .td-section-hero {
+    padding-top: 110px !important; /* GNB 높이 + 여백 */
+  }
+  
   .td-hero-container {
     padding: 2rem 1.5rem 1rem; /* 일반적인 패딩으로 복원 */
   }
 }
 
 @media (max-width: 768px) {
+  .td-section-hero {
+    padding-top: 110px !important; /* GNB 높이 + 여백 */
+  }
+  
   .td-navbar-links {
     display: none;
   }
