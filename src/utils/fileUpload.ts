@@ -24,8 +24,13 @@ export async function uploadFileToS3(
   onProgress?: (progress: number) => void
 ): Promise<UploadResult> {
   try {
+    // 디버깅: 환경변수 확인
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+    console.log('🔍 DEBUG - Backend URL:', backendUrl);
+    console.log('🔍 DEBUG - File info:', { name: file.name, size: file.size, type: file.type });
+    
     // 1단계: Presigned URL 요청
-    const presignedResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'}/api/s3/presigned-url/`, {
+    const presignedResponse = await fetch(`${backendUrl}/api/s3/presigned-url/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,6 +46,11 @@ export async function uploadFileToS3(
 
     if (!presignedResponse.ok) {
       const error = await presignedResponse.json();
+      console.error('❌ Presigned URL 요청 실패:', {
+        status: presignedResponse.status,
+        statusText: presignedResponse.statusText,
+        error: error
+      });
       throw new Error(error.error || 'Presigned URL 생성 실패');
     }
 
@@ -63,6 +73,11 @@ export async function uploadFileToS3(
     });
 
     if (!uploadResponse.ok) {
+      console.error('❌ S3 업로드 실패:', {
+        status: uploadResponse.status,
+        statusText: uploadResponse.statusText,
+        url: presignedData.presigned_post.url
+      });
       throw new Error(`S3 업로드 실패: ${uploadResponse.status}`);
     }
 
