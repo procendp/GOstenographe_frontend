@@ -95,6 +95,14 @@ export async function uploadFileToS3(
       body: formData,
     });
 
+    // S3 업로드 응답 상세 분석
+    console.log('🔍 S3 응답 분석:', {
+      status: uploadResponse.status,
+      statusText: uploadResponse.statusText,
+      headers: Object.fromEntries(uploadResponse.headers.entries()),
+      url: presignedData.presigned_post.url
+    });
+
     // S3 업로드 응답 처리 개선
     if (!uploadResponse.ok) {
       console.error('❌ S3 업로드 실패:', {
@@ -111,6 +119,16 @@ export async function uploadFileToS3(
       statusText: uploadResponse.statusText
     });
 
+    // 응답 본문 확인 (있는 경우)
+    try {
+      const responseText = await uploadResponse.text();
+      if (responseText) {
+        console.log('📄 S3 응답 본문:', responseText);
+      }
+    } catch (e) {
+      console.log('📄 S3 응답 본문 읽기 실패 (정상일 수 있음):', e);
+    }
+
     // 3단계: 성공 시 file_name 반환
     return {
       success: true,
@@ -124,13 +142,32 @@ export async function uploadFileToS3(
     const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
     
-    // "Load failed" 오류인 경우 특별 처리
+    // "Load failed" 오류인 경우 - 더 정확한 진단 필요
     if (errorMessage.includes('Load failed')) {
-      console.log('⚠️ Load failed 오류 감지 - S3 업로드는 성공했을 가능성이 높음');
+      console.log('⚠️ Load failed 오류 감지 - 정확한 원인 분석 필요');
+      console.log('🔍 가능한 원인:');
+      console.log('  1. S3 CORS 설정 문제');
+      console.log('  2. 네트워크 타임아웃');
+      console.log('  3. 브라우저 보안 정책');
+      console.log('  4. S3 버킷 정책 문제');
+      
+      // 실제로는 실패로 처리하되, 사용자에게 명확한 안내 제공
       return {
-        success: true, // 실제로는 성공으로 처리
-        fileKey: 'unknown', // 파일키는 알 수 없지만 업로드는 됨
-        warning: '파일이 업로드되었지만 응답 확인에 실패했습니다.'
+        success: false,
+        error: `네트워크 오류로 업로드 상태를 확인할 수 없습니다.
+        
+가능한 원인:
+• 네트워크 연결 문제
+• S3 서버 응답 지연
+• 브라우저 보안 정책
+
+해결 방법:
+1. 네트워크 연결 확인
+2. 페이지 새로고침 후 재시도
+3. 다른 브라우저로 시도
+4. 파일 크기 확인 (너무 큰 경우)
+
+상세 오류: ${errorMessage}`,
       };
     }
     
