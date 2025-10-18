@@ -113,18 +113,23 @@ export async function uploadFileToS3(
   } catch (error) {
     console.error('파일 업로드 오류:', error);
     
-    // Vercel 로그용 최종 에러 로깅
-    console.error('🚨 UPLOAD_FINAL_ERROR:', JSON.stringify({
-      timestamp: new Date().toISOString(),
-      error: error instanceof Error ? error.message : '알 수 없는 오류',
-      stack: error instanceof Error ? error.stack : undefined,
-      fileName: file.name,
-      fileSize: file.size
-    }));
+    // 사용자에게 보이는 상세 에러 메시지
+    const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+    
+    // 상세한 에러 정보를 사용자에게 표시
+    const detailedError = `업로드 실패 상세 정보:
+- 백엔드 URL: ${backendUrl}
+- 파일명: ${file.name}
+- 파일 크기: ${file.size} bytes
+- 오류: ${errorMessage}
+- 시간: ${new Date().toLocaleString()}`;
+    
+    console.error('🚨 UPLOAD_FINAL_ERROR:', detailedError);
     
     return {
       success: false,
-      error: error instanceof Error ? error.message : '알 수 없는 오류',
+      error: detailedError, // 사용자에게 상세 정보 표시
     };
   }
 }
