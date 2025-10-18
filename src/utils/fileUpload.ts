@@ -29,6 +29,16 @@ export async function uploadFileToS3(
     console.log('🔍 DEBUG - Backend URL:', backendUrl);
     console.log('🔍 DEBUG - File info:', { name: file.name, size: file.size, type: file.type });
     
+    // 서버 로그용 디버깅 (Vercel Functions 로그에서 확인 가능)
+    console.log('🚀 UPLOAD_ATTEMPT:', JSON.stringify({
+      timestamp: new Date().toISOString(),
+      backendUrl: backendUrl,
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type,
+      userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : 'server'
+    }));
+    
     // 1단계: Presigned URL 요청
     const presignedResponse = await fetch(`${backendUrl}/api/s3/presigned-url/`, {
       method: 'POST',
@@ -51,6 +61,16 @@ export async function uploadFileToS3(
         statusText: presignedResponse.statusText,
         error: error
       });
+      
+      // Vercel 로그용 에러 로깅
+      console.error('🚨 PRESIGNED_URL_ERROR:', JSON.stringify({
+        timestamp: new Date().toISOString(),
+        status: presignedResponse.status,
+        statusText: presignedResponse.statusText,
+        error: error,
+        backendUrl: backendUrl
+      }));
+      
       throw new Error(error.error || 'Presigned URL 생성 실패');
     }
 
@@ -89,6 +109,16 @@ export async function uploadFileToS3(
     
   } catch (error) {
     console.error('파일 업로드 오류:', error);
+    
+    // Vercel 로그용 최종 에러 로깅
+    console.error('🚨 UPLOAD_FINAL_ERROR:', JSON.stringify({
+      timestamp: new Date().toISOString(),
+      error: error instanceof Error ? error.message : '알 수 없는 오류',
+      stack: error instanceof Error ? error.stack : undefined,
+      fileName: file.name,
+      fileSize: file.size
+    }));
+    
     return {
       success: false,
       error: error instanceof Error ? error.message : '알 수 없는 오류',
