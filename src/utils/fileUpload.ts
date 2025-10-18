@@ -40,7 +40,10 @@ export async function uploadFileToS3(
     }));
     
     // 1단계: Presigned URL 요청
-    const presignedResponse = await fetch(`${backendUrl}/api/s3/presigned-url/`, {
+    const presignedUrl = `${backendUrl}/api/s3/presigned-url/`;
+    console.log('🌐 REQUEST_URL:', presignedUrl);
+    
+    const presignedResponse = await fetch(presignedUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
