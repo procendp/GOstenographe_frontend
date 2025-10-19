@@ -29,9 +29,14 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
 
   // Calculate total duration whenever timestamp ranges change
   useEffect(() => {
-    if (formData.timestampRanges) {
-      const duration = calculateTotalDuration(formData.timestampRanges);
-      setTotalDuration(duration);
+    if (formData.timestampRanges && Array.isArray(formData.timestampRanges)) {
+      try {
+        const duration = calculateTotalDuration(formData.timestampRanges);
+        setTotalDuration(duration);
+      } catch (error) {
+        console.error('[RequestInfoSection] duration 계산 오류:', error);
+        setTotalDuration('00:00:00');
+      }
     }
   }, [formData.timestampRanges]);
 

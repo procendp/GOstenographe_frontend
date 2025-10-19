@@ -61,6 +61,12 @@ export const validateTimestampRange = (range: TimestampRange): { isValid: boolea
 export const calculateTotalDuration = (ranges: TimestampRange[]): string => {
   let totalSeconds = 0;
   
+  // 안전성 검사: ranges가 null, undefined, 또는 배열이 아닌 경우
+  if (!ranges || !Array.isArray(ranges)) {
+    console.log('[calculateTotalDuration] 잘못된 ranges 입력:', ranges);
+    return '00:00:00';
+  }
+  
   console.log('[calculateTotalDuration] 입력된 ranges:', ranges);
   
   for (const range of ranges) {

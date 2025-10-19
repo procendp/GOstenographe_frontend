@@ -485,10 +485,15 @@ function Reception() {
           let duration = '00:00:00';
           let timestamps: string[] = [];
 
-          if (tab.recordType === '부분' && tab.timestampRanges && tab.timestampRanges.length > 0) {
+          if (tab.recordType === '부분' && tab.timestampRanges && Array.isArray(tab.timestampRanges) && tab.timestampRanges.length > 0) {
             // 부분 녹취: timestampRanges에서 구간들을 추출
-            const { calculateTotalDuration } = require('@/utils/timestampUtils');
-            duration = calculateTotalDuration(tab.timestampRanges);
+            try {
+              const { calculateTotalDuration } = require('@/utils/timestampUtils');
+              duration = calculateTotalDuration(tab.timestampRanges);
+            } catch (error) {
+              console.error('[handleSubmit] duration 계산 오류:', error);
+              duration = '00:00:00';
+            }
 
             // 각 구간을 timestamps 배열로 변환
             timestamps = tab.timestampRanges.map(range =>
@@ -1150,11 +1155,16 @@ function Reception() {
                               }
                               
                               // 부분 녹취: timestampRanges에서 계산
-                              if (tab.timestampRanges && tab.timestampRanges.length > 0) {
-                                const { calculateTotalDuration } = require('@/utils/timestampUtils');
-                                const totalDuration = calculateTotalDuration(tab.timestampRanges);
-                                const [hours, minutes, seconds] = totalDuration.split(':');
-                                return `${hours}시간 ${minutes}분 ${seconds}초`;
+                              if (tab.timestampRanges && Array.isArray(tab.timestampRanges) && tab.timestampRanges.length > 0) {
+                                try {
+                                  const { calculateTotalDuration } = require('@/utils/timestampUtils');
+                                  const totalDuration = calculateTotalDuration(tab.timestampRanges);
+                                  const [hours, minutes, seconds] = totalDuration.split(':');
+                                  return `${hours}시간 ${minutes}분 ${seconds}초`;
+                                } catch (error) {
+                                  console.error('[속기 구간 길이] 계산 오류:', error);
+                                  return '00시간 00분 00초';
+                                }
                               }
                               return '00시간 00분 00초';
                             })()}
