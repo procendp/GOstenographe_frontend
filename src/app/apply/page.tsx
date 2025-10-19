@@ -52,10 +52,80 @@ function Reception() {
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
 
+  // beforeunload 이벤트 - 뒤로가기/새로고침/브라우저 닫기 경고
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      // 제출 완료 후에는 경고 안함
+      if (showComplete) return;
+      
+      // 업로드된 파일이 있는지 확인
+      const hasFiles = tabs.some(tab => 
+        tab.files && tab.files.length > 0 && 
+        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
+      );
+
+      if (hasFiles) {
+        e.preventDefault();
+        e.returnValue = ''; // Chrome에서는 빈 문자열 필요
+        return ''; // 일부 브라우저용
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [tabs, showComplete]);
+
   // 기본 함수들
   const handleNewRequest = () => {
     // 페이지 새로고침으로 초기 상태로 돌아가기
     window.location.reload();
+  };
+
+  // 업로드된 모든 파일 수집
+  const getAllUploadedFiles = () => {
+    const allFiles: Array<{ file_key: string; file: File }> = [];
+    tabs.forEach(tab => {
+      if (tab.files && tab.files.length > 0) {
+        tab.files.forEach(f => {
+          if (f.file_key && f.file_key !== 'uploading') {
+            allFiles.push({ file_key: f.file_key, file: f.file });
+          }
+        });
+      }
+    });
+    return allFiles;
+  };
+
+  // 페이지 이탈 시 파일 삭제
+  const handleNavigateAway = async () => {
+    const filesToDelete = getAllUploadedFiles();
+    
+    if (filesToDelete.length === 0) return;
+
+    console.log('[NAVIGATE_AWAY] 삭제할 파일:', filesToDelete.map(f => f.file_key));
+
+    // S3에서 파일 삭제
+    for (const fileData of filesToDelete) {
+      try {
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+        const response = await fetch(`${backendUrl}/api/s3/delete/`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ file_key: fileData.file_key })
+        });
+        
+        if (response.ok) {
+          console.log('[NAVIGATE_AWAY] 파일 삭제 성공:', fileData.file_key);
+        } else {
+          console.error('[NAVIGATE_AWAY] 파일 삭제 실패:', fileData.file_key);
+        }
+      } catch (error) {
+        console.error('[NAVIGATE_AWAY] 파일 삭제 오류:', error);
+      }
+    }
   };
 
   const handleAddTab = () => {
@@ -597,7 +667,11 @@ function Reception() {
       backgroundPosition: '0 0',
       backgroundSize: 'auto'
     }}>
-      <ApplyGNB />
+      <ApplyGNB 
+        uploadedFiles={getAllUploadedFiles()}
+        onNavigateAway={handleNavigateAway}
+        showComplete={showComplete}
+      />
       <div className="pt-20"></div>
       <section className="c-apply-section">
         <div className="c-apply-container">
@@ -835,7 +909,11 @@ function Reception() {
       backgroundPosition: '0 0',
       backgroundSize: 'auto'
     }}>
-      <ApplyGNB />
+      <ApplyGNB 
+        uploadedFiles={getAllUploadedFiles()}
+        onNavigateAway={handleNavigateAway}
+        showComplete={showComplete}
+      />
       <div className="pt-20"></div> {/* GNB 높이만큼 상단 여백 추가 */}
       <section className="c-apply-section">
         <div className="c-apply-container">
