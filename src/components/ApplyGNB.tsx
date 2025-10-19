@@ -3,7 +3,13 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ApplyGNB() {
+interface ApplyGNBProps {
+  uploadedFiles?: Array<{ file_key: string; file: File }>;
+  onNavigateAway?: () => void;
+  showComplete?: boolean;
+}
+
+export default function ApplyGNB({ uploadedFiles, onNavigateAway, showComplete }: ApplyGNBProps = {}) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -31,6 +37,18 @@ export default function ApplyGNB() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  // 페이지 이탈 시 파일 정리 (props가 전달된 경우에만)
+  useEffect(() => {
+    if (onNavigateAway && uploadedFiles && uploadedFiles.length > 0) {
+      const handleBeforeUnload = () => {
+        onNavigateAway();
+      };
+      
+      window.addEventListener('beforeunload', handleBeforeUnload);
+      return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }
+  }, [onNavigateAway, uploadedFiles]);
 
   const navLinks = [
     { href: "/", text: "주요 서비스" },
