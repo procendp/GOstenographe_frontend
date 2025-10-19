@@ -52,7 +52,7 @@ function Reception() {
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
 
-  // beforeunload 이벤트 - 뒤로가기/새로고침/브라우저 닫기 경고
+  // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       // 제출 완료 후에는 경고 안함
@@ -75,6 +75,44 @@ function Reception() {
     
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [tabs, showComplete]);
+
+  // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      // 제출 완료 후에는 경고 안함
+      if (showComplete) return;
+      
+      // 업로드된 파일이 있는지 확인
+      const hasFiles = tabs.some(tab => 
+        tab.files && tab.files.length > 0 && 
+        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
+      );
+
+      if (hasFiles) {
+        const confirmLeave = window.confirm(
+          '업로드된 파일이 있습니다.\n페이지를 나가시면 파일이 삭제됩니다.\n정말 나가시겠습니까?'
+        );
+        
+        if (!confirmLeave) {
+          // 사용자가 취소한 경우, 현재 페이지로 다시 푸시
+          window.history.pushState(null, '', window.location.href);
+        } else {
+          // 사용자가 확인한 경우, 파일 삭제 후 뒤로가기
+          handleNavigateAway().then(() => {
+            window.history.back();
+          });
+        }
+      }
+    };
+
+    // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용)
+    window.history.pushState(null, '', window.location.href);
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
     };
   }, [tabs, showComplete]);
 
