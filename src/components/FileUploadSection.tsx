@@ -48,7 +48,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
     const existingFile = formData.files[0];
     if (existingFile && existingFile.file_key && existingFile.file_key !== 'uploading') {
       const confirmReplace = window.confirm(
-        `기존에 업로드한 파일이 삭제됩니다.\n다시 업로드하시겠습니까?\n\n기존 파일: ${existingFile.file?.name || existingFile.name || '알 수 없음'}\n새 파일: ${file.name}`
+        `기존에 업로드한 파일이 삭제됩니다.\n다시 업로드하시겠습니까?\n\n기존 파일: ${existingFile.file?.name || '알 수 없음'}\n새 파일: ${file.name}`
       );
       
       if (!confirmReplace) {
@@ -123,7 +123,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
     const existingFile = formData.files[0];
     if (existingFile && existingFile.file_key && existingFile.file_key !== 'uploading') {
       const confirmReplace = window.confirm(
-        `기존에 업로드한 파일이 삭제됩니다.\n다시 업로드하시겠습니까?\n\n기존 파일: ${existingFile.file?.name || existingFile.name || '알 수 없음'}\n새 파일: ${file.name}`
+        `기존에 업로드한 파일이 삭제됩니다.\n다시 업로드하시겠습니까?\n\n기존 파일: ${existingFile.file?.name || '알 수 없음'}\n새 파일: ${file.name}`
       );
       
       if (!confirmReplace) {
