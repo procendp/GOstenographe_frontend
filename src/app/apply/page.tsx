@@ -1142,7 +1142,14 @@ function Reception() {
                           <h2 className="c-file-block-heading light">속기 구간 길이</h2>
                           <h2 className="c-file-block-heading highlight">
                             {(() => {
-                              // Calculate total duration from timestampRanges if available
+                              // 전체 녹취: 파일 총 길이 표시
+                              if (tab.recordType === '전체') {
+                                const duration = tab.fileDuration || '00:00:00';
+                                const [hours, minutes, seconds] = duration.split(':');
+                                return `${hours}시간 ${minutes}분 ${seconds}초`;
+                              }
+                              
+                              // 부분 녹취: timestampRanges에서 계산
                               if (tab.timestampRanges && tab.timestampRanges.length > 0) {
                                 const { calculateTotalDuration } = require('@/utils/timestampUtils');
                                 const totalDuration = calculateTotalDuration(tab.timestampRanges);
