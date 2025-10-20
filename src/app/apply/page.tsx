@@ -639,7 +639,6 @@ function Reception() {
     }}>
       <ApplyGNB 
         uploadedFiles={getAllUploadedFiles()}
-        onNavigateAway={handleNavigateAway}
         showComplete={showComplete}
       />
       <div className="pt-20"></div>
@@ -881,7 +880,6 @@ function Reception() {
     }}>
       <ApplyGNB 
         uploadedFiles={getAllUploadedFiles()}
-        onNavigateAway={handleNavigateAway}
         showComplete={showComplete}
       />
       <div className="pt-20"></div> {/* GNB 높이만큼 상단 여백 추가 */}
