@@ -129,40 +129,67 @@ function Reception() {
   // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
+      console.log('[POPSTATE] 뒤로가기 이벤트 발생');
+      console.log('[POPSTATE] showComplete:', showComplete);
+      console.log('[POPSTATE] tabs:', tabs);
+      
       // 제출 완료 후에는 경고 안함
-      if (showComplete) return;
+      if (showComplete) {
+        console.log('[POPSTATE] 제출 완료 상태 - 경고 안함');
+        return;
+      }
       
       // 업로드된 파일이 있는지 확인
       const hasFiles = tabs.some(tab => 
         tab.files && tab.files.length > 0 && 
         tab.files.some(f => f.file_key && f.file_key !== 'uploading')
       );
+      
+      console.log('[POPSTATE] hasFiles:', hasFiles);
+      console.log('[POPSTATE] 파일 상세:', tabs.map(tab => ({
+        filesCount: tab.files?.length || 0,
+        files: tab.files?.map(f => ({ name: f.file?.name, file_key: f.file_key }))
+      })));
 
       if (hasFiles) {
+        console.log('[POPSTATE] 파일 있음 - 경고창 표시');
         const confirmLeave = window.confirm(
           '업로드된 파일이 있습니다.\n페이지를 나가시면 파일이 삭제됩니다.\n정말 나가시겠습니까?'
         );
         
+        console.log('[POPSTATE] 사용자 선택:', confirmLeave);
+        
         if (!confirmLeave) {
+          console.log('[POPSTATE] 취소 - 현재 페이지로 푸시');
           // 사용자가 취소한 경우, 현재 페이지로 다시 푸시
           window.history.pushState(null, '', window.location.href);
         } else {
+          console.log('[POPSTATE] 확인 - 파일 삭제 후 뒤로가기');
           // 사용자가 확인한 경우, 파일 삭제 후 실제 뒤로가기
           handleNavigateAway().then(() => {
+            console.log('[POPSTATE] 파일 삭제 완료 - 뒤로가기 실행');
             // 실제 뒤로가기 실행
             window.history.back();
           });
         }
+      } else {
+        console.log('[POPSTATE] 파일 없음 - 경고 안함');
       }
     };
 
+    console.log('[POPSTATE] 이벤트 리스너 등록');
+    console.log('[POPSTATE] 현재 히스토리 상태:', window.history.state);
+    
     // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용) - 한 번만 실행
     if (typeof window !== 'undefined' && !window.history.state) {
+      console.log('[POPSTATE] 히스토리 상태 추가');
       window.history.pushState(null, '', window.location.href);
     }
+    
     window.addEventListener('popstate', handlePopState);
     
     return () => {
+      console.log('[POPSTATE] 이벤트 리스너 제거');
       window.removeEventListener('popstate', handlePopState);
     };
   }, [tabs, showComplete, handleNavigateAway]);
