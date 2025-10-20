@@ -51,6 +51,7 @@ function Reception() {
   const [addressError, setAddressError] = useState('');
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
+  const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
 
   // 업로드된 모든 파일 수집
   const getAllUploadedFiles = () => {
@@ -186,6 +187,13 @@ function Reception() {
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
+    // 업로드 상태 초기화
+    const newUploadStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
+    files.forEach(file => {
+      newUploadStatus[file.name] = 'uploading';
+    });
+    setUploadStatus(newUploadStatus);
+
     // 임시로 파일 정보를 상태에 저장 (업로드 시작 표시)
     setTabs(tabs => tabs.map((tab, idx) =>
       idx === activeTab ? {
@@ -207,7 +215,6 @@ function Reception() {
         customerName,
         customerEmail,
         (fileIndex, progress) => {
-          // TODO: 업로드 진행상황 UI 업데이트
           console.log(`파일 ${fileIndex + 1} 업로드 진행률: ${progress}%`);
         }
       );
@@ -221,11 +228,26 @@ function Reception() {
         } : tab
       ));
 
+      // 업로드 성공 상태 업데이트
+      const successStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
+      files.forEach(file => {
+        successStatus[file.name] = 'success';
+      });
+      setUploadStatus(successStatus);
+
       console.log('파일 업로드 완료:', uploadedFiles);
       console.log('파일 재생시간:', fileDuration);
 
     } catch (error) {
       console.error('파일 업로드 실패:', error);
+      
+      // 업로드 실패 상태 업데이트
+      const errorStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
+      files.forEach(file => {
+        errorStatus[file.name] = 'error';
+      });
+      setUploadStatus(errorStatus);
+
       alert(`파일 업로드 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
 
       // 업로드 실패 시 파일 목록에서 제거
@@ -1080,6 +1102,7 @@ function Reception() {
                             setTabs(newTabs);
                           }}
                           onFileSelect={handleFileSelect}
+                          uploadStatus={uploadStatus}
                         />
                       </div>
                     </div>
