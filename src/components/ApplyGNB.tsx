@@ -107,8 +107,8 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
             <Image
               src="/new_goStenographe_resource/Logo/LogoNavy2.png"
               alt="속기사무소 정 로고"
-              width={180}
-              height={60}
+              width={190}
+              height={59}
               priority
               className="c-gnb-brand-image"
             />

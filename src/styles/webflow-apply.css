@@ -107,10 +107,11 @@
 .webflow-navbar-button {
   background-color: #272929; /* 웹플로우 회색 */
   color: white;
-  padding: 12px 24px; /* 웹플로우와 동일한 패딩 */
+  padding: 14px 28px; /* 메인페이지와 동일하게 수정: 12px 24px → 14px 28px */
   border-radius: 8px; /* 웹플로우와 동일한 둥근 모서리 */
   text-decoration: none;
   font-weight: 600;
+  font-size: 16px; /* 메인페이지와 동일하게 수정 */
   transition: background-color 0.3s ease;
   font-family: 'SpoqaHanSansNeo', sans-serif;
 }
@@ -1054,11 +1055,12 @@
 .fn-navbar-link-second-2 {
   font-family: 'Pretendard', sans-serif;
   color: #1a202c;
-  font-size: 1rem;
+  font-size: 17px; /* 메인페이지와 동일하게 수정: 1rem → 17px */
   font-weight: 500;
   text-decoration: none;
   transition: color 0.3s ease;
   white-space: nowrap;
+  padding: 25px 16px; /* 메인페이지와 동일하게 수정 */
 }
 
 .fn-navbar-link-second-2:hover {
@@ -1084,9 +1086,9 @@
   font-family: 'Pretendard', sans-serif;
   background-color: #272929;
   color: white;
-  font-size: 0.875rem;
+  font-size: 16px; /* 메인페이지와 동일하게 수정: 0.875rem → 16px */
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
+  padding: 14px 28px; /* 메인페이지와 동일하게 수정: 0.75rem 1.5rem → 14px 28px */
   border-radius: 8px;
   text-decoration: none;
   transition: background-color 0.3s ease;
