@@ -1,10 +1,10 @@
 'use client';
 
-import ApplyGNB from '@/components/ApplyGNB';
-import NewFooter from '@/components/NewFooter';
 import { useState, useRef, useEffect } from 'react';
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import ApplyGNB from '@/components/ApplyGNB';
+import NewFooter from '@/components/NewFooter';
 import OrdererInfoSection from '@/components/OrdererInfoSection';
 import RequestInfoSection from '@/components/RequestInfoSection';
 import FileUploadSection from '@/components/FileUploadSection';
@@ -12,6 +12,8 @@ import RecordingLocationSection from '@/components/RecordingLocationSection';
 import { ReceptionFormData } from '@/types/reception';
 import { uploadMultipleFiles } from '@/utils/fileUpload';
 import { getMediaDuration } from '@/utils/mediaDuration';
+import { useFileManagement } from '@/hooks/useFileManagement';
+import { usePageExit } from '@/hooks/usePageExit';
 
 // API 기본 URL
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
@@ -51,135 +53,18 @@ function Reception() {
   const [addressError, setAddressError] = useState('');
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
-  const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
+  
+  // 파일 관리 커스텀 훅 사용
+  const {
+    uploadStatus,
+    setUploadStatus,
+    getAllUploadedFiles,
+    hasUploadedFiles,
+    handleNavigateAway
+  } = useFileManagement(tabs, showComplete);
 
-  // 업로드된 모든 파일 수집
-  const getAllUploadedFiles = () => {
-    const allFiles: Array<{ file_key: string; file: File }> = [];
-    tabs.forEach(tab => {
-      if (tab.files && tab.files.length > 0) {
-        tab.files.forEach(f => {
-          if (f.file_key && f.file_key !== 'uploading') {
-            allFiles.push({ file_key: f.file_key, file: f.file });
-          }
-        });
-      }
-    });
-    return allFiles;
-  };
-
-  // 페이지 이탈 시 파일 삭제
-  const handleNavigateAway = async () => {
-    const filesToDelete = getAllUploadedFiles();
-    
-    if (filesToDelete.length === 0) return;
-
-    console.log('[NAVIGATE_AWAY] 삭제할 파일:', filesToDelete.map(f => f.file_key));
-
-    // S3에서 파일 삭제
-    for (const fileData of filesToDelete) {
-      try {
-        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
-        const response = await fetch(`${backendUrl}/api/s3/delete/`, {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ file_key: fileData.file_key })
-        });
-        
-        if (response.ok) {
-          console.log('[NAVIGATE_AWAY] 파일 삭제 성공:', fileData.file_key);
-        } else {
-          console.error('[NAVIGATE_AWAY] 파일 삭제 실패:', fileData.file_key);
-        }
-      } catch (error) {
-        console.error('[NAVIGATE_AWAY] 파일 삭제 오류:', error);
-      }
-    }
-  };
-
-  // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      // 제출 완료 후에는 경고 안함
-      if (showComplete) return;
-      
-      // 업로드된 파일이 있는지 확인
-      const hasFiles = tabs.some(tab => 
-        tab.files && tab.files.length > 0 && 
-        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
-      );
-
-      if (hasFiles) {
-        e.preventDefault();
-        e.returnValue = ''; // Chrome에서는 빈 문자열 필요
-        return ''; // 일부 브라우저용
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [tabs, showComplete]);
-
-  // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고
-  useEffect(() => {
-    // Next.js가 완전히 로드된 후에만 히스토리 조작
-    const initializeHistory = () => {
-      try {
-        // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용)
-        window.history.pushState(null, '', window.location.href);
-      } catch (error) {
-        console.warn('[HISTORY] 히스토리 초기화 실패:', error);
-        // 에러가 발생하면 잠시 후 다시 시도
-        setTimeout(initializeHistory, 100);
-      }
-    };
-
-    const handlePopState = (e: PopStateEvent) => {
-      // 제출 완료 후에는 경고 안함
-      if (showComplete) return;
-      
-      // 업로드된 파일이 있는지 확인
-      const filesToDelete = getAllUploadedFiles();
-      const hasFiles = filesToDelete.length > 0;
-
-      if (hasFiles) {
-        const confirmLeave = window.confirm(
-          '업로드된 파일이 있습니다.\n페이지를 나가시면 파일이 삭제됩니다.\n정말 나가시겠습니까?'
-        );
-        
-        if (!confirmLeave) {
-          // 사용자가 취소한 경우, 현재 페이지로 다시 푸시
-          try {
-            window.history.pushState(null, '', window.location.href);
-          } catch (error) {
-            console.warn('[HISTORY] pushState 실패:', error);
-          }
-        } else {
-          // 사용자가 확인한 경우, 파일 삭제 후 뒤로가기
-          handleNavigateAway().then(() => {
-            try {
-              window.history.back();
-            } catch (error) {
-              console.warn('[HISTORY] back 실패:', error);
-            }
-          });
-        }
-      }
-    };
-
-    // 컴포넌트 마운트 후 히스토리 초기화
-    const timer = setTimeout(initializeHistory, 0);
-    
-    window.addEventListener('popstate', handlePopState);
-    
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, [showComplete]);
+  // 페이지 이탈 처리 커스텀 훅 사용
+  usePageExit({ hasUploadedFiles, handleNavigateAway, showComplete });
 
   // 기본 함수들
   const handleNewRequest = () => {
