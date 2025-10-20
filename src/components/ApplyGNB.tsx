@@ -176,8 +176,6 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
         </Link>
       </div>
 
-      </div>
-
       {/* 페이지 이탈 경고 모달 */}
       {showExitModal && (
         <div style={{
