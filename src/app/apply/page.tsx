@@ -52,7 +52,7 @@ function Reception() {
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
 
-  // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고
+  // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고 및 파일 삭제
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       // 제출 완료 후에는 경고 안함
@@ -65,9 +65,12 @@ function Reception() {
       );
 
       if (hasFiles) {
+        // 파일 삭제 실행 (sendBeacon 사용)
+        handlePageExit();
+        
         e.preventDefault();
-        e.returnValue = ''; // Chrome에서는 빈 문자열 필요
-        return ''; // 일부 브라우저용
+        e.returnValue = '업로드된 파일이 있습니다. 페이지를 나가시면 파일이 삭제됩니다.';
+        return '업로드된 파일이 있습니다. 페이지를 나가시면 파일이 삭제됩니다.';
       }
     };
 
@@ -96,8 +99,8 @@ function Reception() {
         );
         
         if (!confirmLeave) {
-          // 사용자가 취소한 경우, 현재 페이지로 다시 푸시
-          window.history.pushState(null, '', window.location.href);
+          // 사용자가 취소한 경우, 히스토리 상태 복원
+          e.preventDefault();
         } else {
           // 사용자가 확인한 경우, 파일 삭제 후 뒤로가기
           handleNavigateAway().then(() => {
@@ -139,7 +142,7 @@ function Reception() {
     return allFiles;
   };
 
-  // 페이지 이탈 시 파일 삭제
+  // 페이지 이탈 시 파일 삭제 (일반적인 경우)
   const handleNavigateAway = async () => {
     const filesToDelete = getAllUploadedFiles();
     
@@ -166,6 +169,35 @@ function Reception() {
         console.error('[NAVIGATE_AWAY] 파일 삭제 오류:', error);
       }
     }
+  };
+
+  // 새로고침/브라우저 닫기 시 파일 삭제 (sendBeacon 사용)
+  const handlePageExit = () => {
+    const filesToDelete = getAllUploadedFiles();
+    
+    if (filesToDelete.length === 0) return;
+
+    console.log('[PAGE_EXIT] 삭제할 파일:', filesToDelete.map(f => f.file_key));
+
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+    
+    // sendBeacon을 사용하여 파일 삭제 요청
+    filesToDelete.forEach(fileData => {
+      try {
+        const deleteData = JSON.stringify({ file_key: fileData.file_key });
+        const blob = new Blob([deleteData], { type: 'application/json' });
+        
+        const success = navigator.sendBeacon(`${backendUrl}/api/s3/delete/`, blob);
+        
+        if (success) {
+          console.log('[PAGE_EXIT] 파일 삭제 요청 성공:', fileData.file_key);
+        } else {
+          console.error('[PAGE_EXIT] 파일 삭제 요청 실패:', fileData.file_key);
+        }
+      } catch (error) {
+        console.error('[PAGE_EXIT] 파일 삭제 오류:', error);
+      }
+    });
   };
 
   const handleAddTab = () => {
