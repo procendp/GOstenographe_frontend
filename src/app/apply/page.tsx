@@ -107,8 +107,10 @@ function Reception() {
       }
     };
 
-    // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용)
-    window.history.pushState(null, '', window.location.href);
+    // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용) - 한 번만 실행
+    if (typeof window !== 'undefined' && !window.history.state) {
+      window.history.pushState(null, '', window.location.href);
+    }
     window.addEventListener('popstate', handlePopState);
     
     return () => {

@@ -35,7 +35,23 @@ const nextConfig = {
   serverRuntimeConfig: {
     port: 3000,
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    // Hydration 문제 방지를 위한 최적화
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        ...config.optimization.splitChunks,
+        cacheGroups: {
+          ...config.optimization.splitChunks.cacheGroups,
+          // apply 페이지 관련 청크 최적화
+          default: {
+            minChunks: 1,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+        },
+      };
+    }
+    
     config.watchOptions = {
       ...config.watchOptions,
       ignored: ['**/requests/**'],
