@@ -142,10 +142,8 @@ function Reception() {
       if (showComplete) return;
       
       // 업로드된 파일이 있는지 확인
-      const hasFiles = tabs.some(tab => 
-        tab.files && tab.files.length > 0 && 
-        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
-      );
+      const filesToDelete = getAllUploadedFiles();
+      const hasFiles = filesToDelete.length > 0;
 
       if (hasFiles) {
         const confirmLeave = window.confirm(
@@ -181,7 +179,7 @@ function Reception() {
       clearTimeout(timer);
       window.removeEventListener('popstate', handlePopState);
     };
-  }, [tabs, showComplete]);
+  }, [showComplete]);
 
   // 기본 함수들
   const handleNewRequest = () => {
