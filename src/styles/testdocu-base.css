@@ -1340,6 +1340,25 @@
   .c-apply-section .flex-vertical {
     gap: 0.75rem;
   }
+  
+  /* 녹취 종류 섹션 모바일 최적화 */
+  .c-file-block-title.between {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+  
+  .c-file-block-title.between .flex-block-9,
+  .c-file-block-title.between .c-type-static-wrapper {
+    flex: none !important;
+    min-width: auto !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  .c-file-block-title.between .c-type-static-wrapper {
+    padding: 0.5rem 1rem !important;
+  }
 }
 
 /* 데스크톱 보호 - 769px 이상에서 원래 스타일 복원 */

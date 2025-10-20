@@ -1082,7 +1082,9 @@ function Reception() {
                     backgroundColor: 'white',
                     borderBottomRightRadius: '20px',
                     borderBottomLeftRadius: '20px',
-                    padding: '0 2rem 1rem'
+                    padding: '0 1rem 1rem', // 좌우 패딩을 줄여서 더 넓은 공간 확보
+                    maxWidth: '100%', // 최대 너비 제한 해제
+                    width: '100%' // 전체 너비 사용
                   }}>
                     <div className="c-file-title-block">
                       <h2 className="c-file-heading">유의사항</h2>
@@ -1177,51 +1179,66 @@ function Reception() {
                     }}>
                       <div className="w-layout-hflex c-file-block-title between" style={{ 
                         alignItems: 'center', 
-                        gap: '1.5rem',
-                        marginBottom: '1rem' // 하단 여백 추가
+                        gap: '1rem',
+                        marginBottom: '1rem',
+                        flexWrap: 'wrap', // 모바일에서 줄바꿈 허용
+                        justifyContent: 'space-between'
                       }}>
-                        <div className="w-layout-hflex flex-block-9" style={{ alignItems: 'center', gap: '0.75rem' }}>
+                        <div className="w-layout-hflex flex-block-9" style={{ 
+                          alignItems: 'center', 
+                          gap: '0.5rem',
+                          flex: '1',
+                          minWidth: '200px' // 최소 너비 보장
+                        }}>
                           <h2 className="c-file-block-heading" style={{ 
                             margin: 0,
-                            fontSize: '1.25rem', // 폰트 크기 약간 증가
-                            fontWeight: '600'
+                            fontSize: '1.1rem', // 모바일 고려하여 약간 축소
+                            fontWeight: '600',
+                            whiteSpace: 'nowrap' // 텍스트 줄바꿈 방지
                           }}>녹취 종류</h2>
                           <div className="c-file-block-title-tag" style={{
                             border: '1px solid #fee9d4',
                             backgroundColor: '#faa654',
-                            borderRadius: '12px', // 더 둥근 모서리
-                            padding: '4px 12px', // 패딩 증가
+                            borderRadius: '8px',
+                            padding: '3px 8px',
                             display: 'flex',
                             justifyContent: 'center',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            flexShrink: 0 // 태그 크기 고정
                           }}>
                             <div className="c-tag-text" style={{
                               color: 'white',
                               fontFamily: 'Pretendard',
-                              fontSize: '14px',
-                              fontWeight: '500'
+                              fontSize: '12px',
+                              fontWeight: '500',
+                              whiteSpace: 'nowrap'
                             }}>필수</div>
                           </div>
                         </div>
                         <div className="w-layout-hflex c-type-static-wrapper" style={{ 
                           alignItems: 'center', 
-                          gap: '0.75rem',
-                          backgroundColor: 'rgba(28, 88, 175, 0.1)', // 연한 파란색 배경
-                          padding: '0.5rem 1rem',
-                          borderRadius: '12px',
-                          border: '1px solid rgba(28, 88, 175, 0.2)'
+                          gap: '0.5rem',
+                          backgroundColor: 'rgba(28, 88, 175, 0.1)',
+                          padding: '0.4rem 0.8rem',
+                          borderRadius: '8px',
+                          border: '1px solid rgba(28, 88, 175, 0.2)',
+                          flex: '1',
+                          minWidth: '180px', // 최소 너비 보장
+                          justifyContent: 'center'
                         }}>
                           <h2 className="c-file-block-heading light" style={{ 
                             margin: 0, 
-                            fontSize: '1rem', 
+                            fontSize: '0.9rem', 
                             fontWeight: '500',
-                            color: '#374151'
+                            color: '#374151',
+                            whiteSpace: 'nowrap'
                           }}>속기 구간 길이</h2>
                           <h2 className="c-file-block-heading highlight" style={{ 
                             margin: 0, 
-                            fontSize: '1rem', 
+                            fontSize: '0.9rem', 
                             fontWeight: '600', 
-                            color: '#1c58af'
+                            color: '#1c58af',
+                            whiteSpace: 'nowrap'
                           }}>
                             {(() => {
                               // 전체 녹취: 파일 총 길이 표시
