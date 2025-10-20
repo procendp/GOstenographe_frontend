@@ -125,6 +125,18 @@ function Reception() {
 
   // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고
   useEffect(() => {
+    // Next.js가 완전히 로드된 후에만 히스토리 조작
+    const initializeHistory = () => {
+      try {
+        // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용)
+        window.history.pushState(null, '', window.location.href);
+      } catch (error) {
+        console.warn('[HISTORY] 히스토리 초기화 실패:', error);
+        // 에러가 발생하면 잠시 후 다시 시도
+        setTimeout(initializeHistory, 100);
+      }
+    };
+
     const handlePopState = (e: PopStateEvent) => {
       // 제출 완료 후에는 경고 안함
       if (showComplete) return;
@@ -142,21 +154,31 @@ function Reception() {
         
         if (!confirmLeave) {
           // 사용자가 취소한 경우, 현재 페이지로 다시 푸시
-          window.history.pushState(null, '', window.location.href);
+          try {
+            window.history.pushState(null, '', window.location.href);
+          } catch (error) {
+            console.warn('[HISTORY] pushState 실패:', error);
+          }
         } else {
           // 사용자가 확인한 경우, 파일 삭제 후 뒤로가기
           handleNavigateAway().then(() => {
-            window.history.back();
+            try {
+              window.history.back();
+            } catch (error) {
+              console.warn('[HISTORY] back 실패:', error);
+            }
           });
         }
       }
     };
 
-    // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용)
-    window.history.pushState(null, '', window.location.href);
+    // 컴포넌트 마운트 후 히스토리 초기화
+    const timer = setTimeout(initializeHistory, 0);
+    
     window.addEventListener('popstate', handlePopState);
     
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('popstate', handlePopState);
     };
   }, [tabs, showComplete]);
