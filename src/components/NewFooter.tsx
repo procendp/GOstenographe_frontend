@@ -51,13 +51,12 @@ export default function NewFooter() {
             </div>
           </div>
           
-          {/* 데스크톱: 기존 세로 버튼 */}
+          {/* 데스크톱: 가로 정렬 버튼 */}
           <motion.a
             href="/apply"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="hidden md:flex justify-center items-center text-center bg-[#222] hover:bg-[#333] text-white px-10 py-3 w-[220px] h-[80px] rounded-xl font-bold text-lg transition-colors duration-300 mt-6"
-            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
           >
             서비스 신청
           </motion.a>
