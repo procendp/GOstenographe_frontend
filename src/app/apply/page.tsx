@@ -12,8 +12,6 @@ import RecordingLocationSection from '@/components/RecordingLocationSection';
 import { ReceptionFormData } from '@/types/reception';
 import { uploadMultipleFiles } from '@/utils/fileUpload';
 import { getMediaDuration } from '@/utils/mediaDuration';
-import { useFileManagement } from '@/hooks/useFileManagement';
-import { usePageExit } from '@/hooks/usePageExit';
 
 // API 기본 URL
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
@@ -53,18 +51,102 @@ function Reception() {
   const [addressError, setAddressError] = useState('');
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
-  
-  // 파일 관리 커스텀 훅 사용
-  const {
-    uploadStatus,
-    setUploadStatus,
-    getAllUploadedFiles,
-    hasUploadedFiles,
-    handleNavigateAway
-  } = useFileManagement(tabs, showComplete);
+  const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
 
-  // 페이지 이탈 처리 커스텀 훅 사용
-  usePageExit({ hasUploadedFiles, handleNavigateAway, showComplete });
+  // 업로드된 모든 파일 수집
+  const getAllUploadedFiles = () => {
+    const allFiles: Array<{ file_key: string; file: File }> = [];
+    tabs.forEach(tab => {
+      if (tab.files && tab.files.length > 0) {
+        tab.files.forEach(f => {
+          if (f.file_key && f.file_key !== 'uploading') {
+            allFiles.push({ file_key: f.file_key, file: f.file });
+          }
+        });
+      }
+    });
+    return allFiles;
+  };
+
+  // 파일이 있는지 확인
+  const hasUploadedFiles = () => {
+    if (showComplete) return false;
+    return getAllUploadedFiles().length > 0;
+  };
+
+  // 페이지 이탈 시 파일 삭제
+  const handleNavigateAway = async () => {
+    const filesToDelete = getAllUploadedFiles();
+    
+    if (filesToDelete.length === 0) return;
+
+    console.log('[NAVIGATE_AWAY] 삭제할 파일:', filesToDelete.map(f => f.file_key));
+
+    // S3에서 파일 삭제
+    for (const fileData of filesToDelete) {
+      try {
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+        const response = await fetch(`${backendUrl}/api/s3/delete/`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ file_key: fileData.file_key })
+        });
+        
+        if (response.ok) {
+          console.log('[NAVIGATE_AWAY] 파일 삭제 성공:', fileData.file_key);
+        } else {
+          console.error('[NAVIGATE_AWAY] 파일 삭제 실패:', fileData.file_key);
+        }
+      } catch (error) {
+        console.error('[NAVIGATE_AWAY] 파일 삭제 오류:', error);
+      }
+    }
+  };
+
+  // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasUploadedFiles()) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [tabs, showComplete]);
+
+  // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (showComplete) return;
+      
+      if (hasUploadedFiles()) {
+        const confirmLeave = window.confirm(
+          '업로드된 파일이 있습니다.\n페이지를 나가시면 파일이 삭제됩니다.\n정말 나가시겠습니까?'
+        );
+        
+        if (!confirmLeave) {
+          window.history.pushState(null, '', window.location.href);
+        } else {
+          handleNavigateAway().then(() => {
+            window.history.back();
+          });
+        }
+      }
+    };
+
+    window.history.pushState(null, '', window.location.href);
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [tabs, showComplete]);
 
   // 기본 함수들
   const handleNewRequest = () => {
@@ -639,6 +721,7 @@ function Reception() {
     }}>
       <ApplyGNB 
         uploadedFiles={getAllUploadedFiles()}
+        onNavigateAway={handleNavigateAway}
         showComplete={showComplete}
       />
       <div className="pt-20"></div>
@@ -880,6 +963,7 @@ function Reception() {
     }}>
       <ApplyGNB 
         uploadedFiles={getAllUploadedFiles()}
+        onNavigateAway={handleNavigateAway}
         showComplete={showComplete}
       />
       <div className="pt-20"></div> {/* GNB 높이만큼 상단 여백 추가 */}
