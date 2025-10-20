@@ -52,11 +52,17 @@ function Reception() {
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
   const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
+  // tabs 최신값을 이벤트 리스너에서 안전하게 참조하기 위한 ref
+  const tabsRef = useRef(tabs);
+  useEffect(() => {
+    tabsRef.current = tabs;
+  }, [tabs]);
 
   // 업로드된 모든 파일 수집
   const getAllUploadedFiles = () => {
     const allFiles: Array<{ file_key: string; file: File }> = [];
-    tabs.forEach(tab => {
+    const currentTabs = tabsRef.current;
+    currentTabs.forEach(tab => {
       if (tab.files && tab.files.length > 0) {
         tab.files.forEach(f => {
           if (f.file_key && f.file_key !== 'uploading') {
@@ -118,7 +124,7 @@ function Reception() {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [tabs, showComplete]);
+  }, [showComplete]);
 
   // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고 (안전한 지연 초기화)
   useEffect(() => {
