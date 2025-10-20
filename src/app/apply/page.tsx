@@ -120,7 +120,7 @@ function Reception() {
     };
   }, [tabs, showComplete]);
 
-  // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고
+  // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고 (안전한 지연 초기화)
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
       if (showComplete) return;
@@ -140,13 +140,21 @@ function Reception() {
       }
     };
 
-    window.history.pushState(null, '', window.location.href);
+    // Next 내부 초기화 이후 한 번만 pushState 수행
+    const initTimer = setTimeout(() => {
+      try {
+        window.history.pushState(null, '', window.location.href);
+      } catch (err) {
+        console.warn('[HISTORY] 초기 pushState 실패:', err);
+      }
+    }, 0);
     window.addEventListener('popstate', handlePopState);
     
     return () => {
+      clearTimeout(initTimer);
       window.removeEventListener('popstate', handlePopState);
     };
-  }, [tabs, showComplete]);
+  }, [showComplete]);
 
   // 기본 함수들
   const handleNewRequest = () => {
