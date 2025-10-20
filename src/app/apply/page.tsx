@@ -2,7 +2,7 @@
 
 import ApplyGNB from '@/components/ApplyGNB';
 import NewFooter from '@/components/NewFooter';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import OrdererInfoSection from '@/components/OrdererInfoSection';
@@ -121,7 +121,7 @@ function Reception() {
     return () => {
       window.removeEventListener('popstate', handlePopState);
     };
-  }, [tabs, showComplete]);
+  }, [tabs, showComplete, handleNavigateAway]);
 
   // 기본 함수들
   const handleNewRequest = () => {
@@ -145,7 +145,7 @@ function Reception() {
   };
 
   // 페이지 이탈 시 파일 삭제 (일반적인 경우)
-  const handleNavigateAway = async () => {
+  const handleNavigateAway = useCallback(async () => {
     const filesToDelete = getAllUploadedFiles();
     
     if (filesToDelete.length === 0) return;
@@ -171,7 +171,7 @@ function Reception() {
         console.error('[NAVIGATE_AWAY] 파일 삭제 오류:', error);
       }
     }
-  };
+  }, [tabs]);
 
   // 새로고침/브라우저 닫기 시 파일 삭제 (sendBeacon 사용)
   const handlePageExit = () => {
