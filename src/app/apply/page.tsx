@@ -80,32 +80,29 @@ function Reception() {
     return getAllUploadedFiles().length > 0;
   };
 
-  // 페이지 이탈 시 파일 삭제
+  // 페이지 이탈 시 파일 삭제 (S3 + Supabase 동시 삭제)
   const handleNavigateAway = async () => {
     const filesToDelete = getAllUploadedFiles();
     
     if (filesToDelete.length === 0) return;
 
-    console.log('[NAVIGATE_AWAY] 삭제할 파일:', filesToDelete.map(f => f.file_key));
+    const fileKeys = filesToDelete.map(f => f.file_key);
+    console.log('[NAVIGATE_AWAY] 삭제할 파일 keys:', fileKeys);
 
-    // S3에서 파일 삭제
-    for (const fileData of filesToDelete) {
-      try {
-        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
-        const response = await fetch(`${backendUrl}/api/s3/delete/`, {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ file_key: fileData.file_key })
-        });
-        
-        if (response.ok) {
-          console.log('[NAVIGATE_AWAY] 파일 삭제 성공:', fileData.file_key);
-        } else {
-          console.error('[NAVIGATE_AWAY] 파일 삭제 실패:', fileData.file_key);
-        }
-      } catch (error) {
-        console.error('[NAVIGATE_AWAY] 파일 삭제 오류:', error);
+    try {
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+      const response = await fetch(`${backendUrl}/api/database/public-delete-uploaded-files/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file_keys: fileKeys })
+      });
+      if (!response.ok) {
+        console.error('[NAVIGATE_AWAY] 일괄 삭제 실패', await response.text());
+      } else {
+        console.log('[NAVIGATE_AWAY] 일괄 삭제 성공');
       }
+    } catch (error) {
+      console.error('[NAVIGATE_AWAY] 일괄 삭제 요청 오류:', error);
     }
   };
 
@@ -176,6 +173,31 @@ function Reception() {
 
   const handleRemoveTab = async (idx: number) => {
     if (tabs.length === 1) return;
+
+    // 삭제 대상 탭의 업로드 파일을 S3 + Supabase에서 먼저 삭제
+    const targetTab = tabs[idx];
+    if (targetTab && Array.isArray(targetTab.files) && targetTab.files.length > 0) {
+      const fileKeys = targetTab.files
+        .map((f: any) => f?.file_key)
+        .filter((k: string) => k && k !== 'uploading');
+
+      try {
+        const response = await fetch(`${API_URL}/api/database/public-delete-uploaded-files/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ file_keys: fileKeys })
+        });
+        if (!response.ok) {
+          console.warn('[TAB_REMOVE] 일괄 삭제 실패', await response.text());
+        } else {
+          console.log('[TAB_REMOVE] 일괄 삭제 성공');
+        }
+      } catch (e) {
+        console.error('[TAB_REMOVE] 파일 삭제 중 오류:', e);
+      }
+    }
+
+    // 탭 제거 및 활성 탭 보정
     const newTabs = tabs.filter((_, i) => i !== idx);
     setTabs(newTabs);
     if (activeTab === idx) {
