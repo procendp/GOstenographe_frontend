@@ -136,27 +136,49 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
         </div>
         
         {formData.recordType === '부분' && (
-          <div className="w-tab-content" style={{ marginTop: '0.5rem', paddingBottom: '0.5rem' }}>
+          <div className="w-tab-content" style={{ marginTop: '1rem', paddingBottom: '0.5rem' }}>
             <div data-w-tab="부분 녹취" className="w-tab-pane w--tab-active">
               <div className="c-timestamp-block" style={{ marginBottom: '0' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '0.75rem' }}>
-                  <h2 className="c-file-block-heading h5" style={{ textAlign: 'left', margin: '0' }}>부분 녹취 구간 입력</h2>
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'space-between',
+                  marginBottom: '1rem',
+                  padding: '0.75rem 1rem',
+                  backgroundColor: '#f8f9fa',
+                  borderRadius: '8px',
+                  border: '1px solid #e5e7eb'
+                }}>
+                  <h2 className="c-file-block-heading h5" style={{ 
+                    textAlign: 'left', 
+                    margin: '0',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    color: '#374151'
+                  }}>부분 녹취 구간 입력</h2>
                   {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (
                     <button
                       type="button"
                       onClick={handleTimestampRangeAdd}
                       style={{
-                        background: 'none',
-                        border: '1.5px solid #3b82f6',
-                        borderRadius: '4px',
-                        padding: '4px 10px',
+                        background: '#1c58af',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '6px 12px',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '4px',
                         fontSize: '13px',
-                        color: '#3b82f6',
-                        fontWeight: '500'
+                        color: 'white',
+                        fontWeight: '500',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = '#164a94';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = '#1c58af';
                       }}
                     >
                       <span style={{ fontSize: '14px', fontWeight: 'bold' }}>+</span>
@@ -164,7 +186,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                     </button>
                   )}
                 </div>
-                <div className="w-layout-vflex timestampt-input-wrapper" style={{ alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0' }}>
+                <div className="w-layout-vflex timestampt-input-wrapper" style={{ alignItems: 'flex-start', gap: '0.75rem', marginBottom: '0' }}>
                   {(formData.timestampRanges || []).map((range, index) => (
                     <TimestampInput
                       key={`${range.id}-${index}`}
