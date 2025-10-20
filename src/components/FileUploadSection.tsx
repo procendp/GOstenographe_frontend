@@ -7,11 +7,15 @@ interface FileUploadSectionProps {
   setFormData: (data: ReceptionFormData) => void;
   onBack?: () => void;
   onFileSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  uploadStatus?: Record<string, 'idle' | 'uploading' | 'success' | 'error'>;
 }
 
-export default function FileUploadSection({ formData, setFormData, onBack, onFileSelect }: FileUploadSectionProps) {
+export default function FileUploadSection({ formData, setFormData, onBack, onFileSelect, uploadStatus: externalUploadStatus }: FileUploadSectionProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
+  const [internalUploadStatus, setInternalUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
+  
+  // 외부에서 전달받은 업로드 상태를 우선 사용
+  const uploadStatus = externalUploadStatus || internalUploadStatus;
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);

@@ -51,6 +51,7 @@ function Reception() {
   const [addressError, setAddressError] = useState('');
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
+  const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
 
   // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고 및 파일 삭제
   useEffect(() => {
@@ -254,6 +255,13 @@ function Reception() {
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
+    // 업로드 상태 초기화
+    const newUploadStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
+    files.forEach(file => {
+      newUploadStatus[file.name] = 'uploading';
+    });
+    setUploadStatus(newUploadStatus);
+
     // 임시로 파일 정보를 상태에 저장 (업로드 시작 표시)
     setTabs(tabs => tabs.map((tab, idx) =>
       idx === activeTab ? {
@@ -275,7 +283,6 @@ function Reception() {
         customerName,
         customerEmail,
         (fileIndex, progress) => {
-          // TODO: 업로드 진행상황 UI 업데이트
           console.log(`파일 ${fileIndex + 1} 업로드 진행률: ${progress}%`);
         }
       );
@@ -289,11 +296,26 @@ function Reception() {
         } : tab
       ));
 
+      // 업로드 성공 상태 업데이트
+      const successStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
+      files.forEach(file => {
+        successStatus[file.name] = 'success';
+      });
+      setUploadStatus(successStatus);
+
       console.log('파일 업로드 완료:', uploadedFiles);
       console.log('파일 재생시간:', fileDuration);
 
     } catch (error) {
       console.error('파일 업로드 실패:', error);
+      
+      // 업로드 실패 상태 업데이트
+      const errorStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
+      files.forEach(file => {
+        errorStatus[file.name] = 'error';
+      });
+      setUploadStatus(errorStatus);
+
       alert(`파일 업로드 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
 
       // 업로드 실패 시 파일 목록에서 제거
@@ -1139,6 +1161,64 @@ function Reception() {
                         </div>
                       </div>
                       <p className="c-paragraph-caution">* 첨부 가능한 파일 형식<br/>- 영상 : mp3, wav, m4a, cda, mod, ogg, wma, flac, asf<br/>- 음성 : avi, mp4, asf, wmv, m2v, mpeg, dpg, mts, webm, divx, amv</p>
+                      
+                      {/* 업로드 상태 표시 */}
+                      {tab.files && tab.files.length > 0 && (
+                        <div style={{
+                          marginBottom: '16px',
+                          padding: '12px',
+                          backgroundColor: '#f8f9fa',
+                          borderRadius: '8px',
+                          border: '1px solid #e9ecef'
+                        }}>
+                          <div style={{
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: '#495057',
+                            marginBottom: '8px'
+                          }}>
+                            📁 업로드된 파일
+                          </div>
+                          {tab.files.map((file: any, fileIndex: number) => {
+                            const fileName = file.file?.name || '알 수 없음';
+                            const status = uploadStatus[fileName] || 'idle';
+                            const isUploaded = file.file_key && file.file_key !== 'uploading';
+                            
+                            return (
+                              <div key={fileIndex} style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '8px 12px',
+                                backgroundColor: isUploaded ? '#d4edda' : '#fff3cd',
+                                borderRadius: '6px',
+                                marginBottom: '4px',
+                                border: `1px solid ${isUploaded ? '#c3e6cb' : '#ffeaa7'}`
+                              }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                  <span style={{ fontSize: '12px', fontWeight: '500' }}>📄</span>
+                                  <span style={{ fontSize: '13px', color: '#495057' }}>{fileName}</span>
+                                  {status === 'uploading' && <span style={{ fontSize: '12px', color: '#007bff' }}>⏳ 업로드 중...</span>}
+                                  {status === 'success' && <span style={{ fontSize: '12px', color: '#28a745' }}>✅ 업로드 완료</span>}
+                                  {status === 'error' && <span style={{ fontSize: '12px', color: '#dc3545' }}>❌ 업로드 실패</span>}
+                                </div>
+                                {isUploaded && (
+                                  <div style={{
+                                    fontSize: '11px',
+                                    color: '#6c757d',
+                                    backgroundColor: '#e9ecef',
+                                    padding: '2px 6px',
+                                    borderRadius: '4px'
+                                  }}>
+                                    완료
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                      
                       <div className="link-block w-inline-block">
                         <FileUploadSection
                           formData={tab as any}
@@ -1148,6 +1228,7 @@ function Reception() {
                             setTabs(newTabs);
                           }}
                           onFileSelect={handleFileSelect}
+                          uploadStatus={uploadStatus}
                         />
                       </div>
                     </div>
