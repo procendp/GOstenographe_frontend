@@ -1120,13 +1120,13 @@
   /* Apply 페이지 배경 이미지 모바일 최적화 */
   .c-apply-section {
     background-image: none !important; /* 모바일에서 배경 이미지 제거 */
-    background-color: #f8f9fa !important; /* 대신 단색 배경 사용 */
+    background-color: #f0f4ff !important; /* 더 진한 파란색 배경으로 변경 (#f8f9fa → #f0f4ff) */
   }
   
   /* Apply 페이지 전체 배경도 모바일에서 단순화 */
   .apply-page-background {
     background-image: none !important;
-    background-color: #f8f9fa !important;
+    background-color: #f0f4ff !important; /* 더 진한 파란색 배경으로 변경 (#f8f9fa → #f0f4ff) */
   }
   
   .c-apply-section {
@@ -1654,6 +1654,11 @@
   background: transparent;
   padding: 0;
   margin-bottom: 0.75rem;
+}
+
+/* 유의사항 섹션 위쪽 여백 증가 */
+.c-file-title-block:first-child {
+  margin-top: 2rem; /* 유의사항 섹션 위쪽 여백 증가 */
 }
 
 .c-file-heading {

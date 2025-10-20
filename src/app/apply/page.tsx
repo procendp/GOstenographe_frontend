@@ -750,7 +750,7 @@ function Reception() {
 
   return showComplete ? (
     <div className="flex flex-col min-h-screen" style={{
-      backgroundColor: '#cad5e5',
+      backgroundColor: '#e8f0fe', // 더 진한 파란색 배경으로 변경 (#cad5e5 → #e8f0fe)
       backgroundImage: 'url(/new_goStenographe_resource/backgrounds/Background-Blue20-s.png)',
       backgroundPosition: '0 0',
       backgroundSize: 'auto'
@@ -992,7 +992,7 @@ function Reception() {
     </div>
   ) : (
     <div className="flex flex-col min-h-screen apply-page-background" style={{
-      backgroundColor: '#cad5e5',
+      backgroundColor: '#e8f0fe', // 더 진한 파란색 배경으로 변경 (#cad5e5 → #e8f0fe)
       backgroundImage: 'url(/new_goStenographe_resource/backgrounds/Background-Blue20-s.png)',
       backgroundPosition: '0 0',
       backgroundSize: 'cover', // auto → cover로 변경하여 반응형으로 만듦
