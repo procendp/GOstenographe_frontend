@@ -1169,16 +1169,28 @@ function Reception() {
                     <div className="c-file-block" style={{
                       backgroundColor: '#f4f6f9',
                       borderRadius: '20px',
-                      padding: tab.recordType === '부분' ? '2rem 2rem 0.125rem 2rem' : '2rem'
+                      padding: tab.recordType === '부분' ? '2.5rem 2.5rem 0.5rem 2.5rem' : '2.5rem 2.5rem',
+                      minHeight: '120px', // 최소 높이 설정으로 공간 확보
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between'
                     }}>
-                      <div className="w-layout-hflex c-file-block-title between" style={{ alignItems: 'center', gap: '1rem' }}>
-                        <div className="w-layout-hflex flex-block-9" style={{ alignItems: 'center', gap: '0.5rem' }}>
-                          <h2 className="c-file-block-heading" style={{ margin: 0 }}>녹취 종류</h2>
+                      <div className="w-layout-hflex c-file-block-title between" style={{ 
+                        alignItems: 'center', 
+                        gap: '1.5rem',
+                        marginBottom: '1rem' // 하단 여백 추가
+                      }}>
+                        <div className="w-layout-hflex flex-block-9" style={{ alignItems: 'center', gap: '0.75rem' }}>
+                          <h2 className="c-file-block-heading" style={{ 
+                            margin: 0,
+                            fontSize: '1.25rem', // 폰트 크기 약간 증가
+                            fontWeight: '600'
+                          }}>녹취 종류</h2>
                           <div className="c-file-block-title-tag" style={{
                             border: '1px solid #fee9d4',
                             backgroundColor: '#faa654',
-                            borderRadius: '10px',
-                            padding: '2px 8px',
+                            borderRadius: '12px', // 더 둥근 모서리
+                            padding: '4px 12px', // 패딩 증가
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -1186,13 +1198,31 @@ function Reception() {
                             <div className="c-tag-text" style={{
                               color: 'white',
                               fontFamily: 'Pretendard',
-                              fontSize: '14px'
+                              fontSize: '14px',
+                              fontWeight: '500'
                             }}>필수</div>
                           </div>
                         </div>
-                        <div className="w-layout-hflex c-type-static-wrapper" style={{ alignItems: 'center', gap: '0.5rem' }}>
-                          <h2 className="c-file-block-heading light" style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>속기 구간 길이</h2>
-                          <h2 className="c-file-block-heading highlight" style={{ margin: 0, fontSize: '1rem', fontWeight: '600', color: '#1c58af' }}>
+                        <div className="w-layout-hflex c-type-static-wrapper" style={{ 
+                          alignItems: 'center', 
+                          gap: '0.75rem',
+                          backgroundColor: 'rgba(28, 88, 175, 0.1)', // 연한 파란색 배경
+                          padding: '0.5rem 1rem',
+                          borderRadius: '12px',
+                          border: '1px solid rgba(28, 88, 175, 0.2)'
+                        }}>
+                          <h2 className="c-file-block-heading light" style={{ 
+                            margin: 0, 
+                            fontSize: '1rem', 
+                            fontWeight: '500',
+                            color: '#374151'
+                          }}>속기 구간 길이</h2>
+                          <h2 className="c-file-block-heading highlight" style={{ 
+                            margin: 0, 
+                            fontSize: '1rem', 
+                            fontWeight: '600', 
+                            color: '#1c58af'
+                          }}>
                             {(() => {
                               // 전체 녹취: 파일 총 길이 표시
                               if (tab.recordType === '전체') {
