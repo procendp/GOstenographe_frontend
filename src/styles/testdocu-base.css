@@ -1115,8 +1115,20 @@
   }
 }
 
-/* Apply 페이지 모바일 최적화 - iPhone X 중심 */
+/* Apply 페이지 배경 이미지 모바일 최적화 */
 @media (max-width: 768px) {
+  /* Apply 페이지 배경 이미지 모바일 최적화 */
+  .c-apply-section {
+    background-image: none !important; /* 모바일에서 배경 이미지 제거 */
+    background-color: #f8f9fa !important; /* 대신 단색 배경 사용 */
+  }
+  
+  /* Apply 페이지 전체 배경도 모바일에서 단순화 */
+  .apply-page-background {
+    background-image: none !important;
+    background-color: #f8f9fa !important;
+  }
+}
   .c-apply-section {
     padding-top: 60px; /* iPhone X 노치 고려 */
     padding-bottom: 60px;

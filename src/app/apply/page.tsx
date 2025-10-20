@@ -991,11 +991,12 @@ function Reception() {
       <NewFooter />
     </div>
   ) : (
-    <div className="flex flex-col min-h-screen" style={{
+    <div className="flex flex-col min-h-screen apply-page-background" style={{
       backgroundColor: '#cad5e5',
       backgroundImage: 'url(/new_goStenographe_resource/backgrounds/Background-Blue20-s.png)',
       backgroundPosition: '0 0',
-      backgroundSize: 'auto'
+      backgroundSize: 'cover', // auto → cover로 변경하여 반응형으로 만듦
+      backgroundRepeat: 'no-repeat' // 반복 방지
     }}>
       <ApplyGNB 
         uploadedFiles={getAllUploadedFiles()}
