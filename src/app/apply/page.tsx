@@ -99,11 +99,12 @@ function Reception() {
         );
         
         if (!confirmLeave) {
-          // 사용자가 취소한 경우, 히스토리 상태 복원
-          e.preventDefault();
+          // 사용자가 취소한 경우, 현재 페이지로 다시 푸시
+          window.history.pushState(null, '', window.location.href);
         } else {
-          // 사용자가 확인한 경우, 파일 삭제 후 뒤로가기
+          // 사용자가 확인한 경우, 파일 삭제 후 실제 뒤로가기
           handleNavigateAway().then(() => {
+            // 실제 뒤로가기 실행
             window.history.back();
           });
         }
@@ -208,8 +209,41 @@ function Reception() {
 
   const handleRemoveTab = async (idx: number) => {
     if (tabs.length === 1) return;
+    
+    // 삭제할 탭의 파일들 수집
+    const tabToRemove = tabs[idx];
+    const filesToDelete = tabToRemove.files.filter(f => f.file_key && f.file_key !== 'uploading');
+    
+    // S3에서 파일 삭제
+    if (filesToDelete.length > 0) {
+      console.log('[REMOVE_TAB] 삭제할 파일:', filesToDelete.map(f => f.file_key));
+      
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+      
+      for (const fileData of filesToDelete) {
+        try {
+          const response = await fetch(`${backendUrl}/api/s3/delete/`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ file_key: fileData.file_key })
+          });
+          
+          if (response.ok) {
+            console.log('[REMOVE_TAB] 파일 삭제 성공:', fileData.file_key);
+          } else {
+            console.error('[REMOVE_TAB] 파일 삭제 실패:', fileData.file_key);
+          }
+        } catch (error) {
+          console.error('[REMOVE_TAB] 파일 삭제 오류:', error);
+        }
+      }
+    }
+    
+    // 탭 제거
     const newTabs = tabs.filter((_, i) => i !== idx);
     setTabs(newTabs);
+    
+    // 활성 탭 조정
     if (activeTab === idx) {
       setActiveTab(Math.max(0, idx - 1));
     } else if (activeTab > idx) {
