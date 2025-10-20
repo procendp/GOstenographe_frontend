@@ -1161,64 +1161,6 @@ function Reception() {
                         </div>
                       </div>
                       <p className="c-paragraph-caution">* 첨부 가능한 파일 형식<br/>- 영상 : mp3, wav, m4a, cda, mod, ogg, wma, flac, asf<br/>- 음성 : avi, mp4, asf, wmv, m2v, mpeg, dpg, mts, webm, divx, amv</p>
-                      
-                      {/* 업로드 상태 표시 */}
-                      {tab.files && tab.files.length > 0 && (
-                        <div style={{
-                          marginBottom: '16px',
-                          padding: '12px',
-                          backgroundColor: '#f8f9fa',
-                          borderRadius: '8px',
-                          border: '1px solid #e9ecef'
-                        }}>
-                          <div style={{
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            color: '#495057',
-                            marginBottom: '8px'
-                          }}>
-                            📁 업로드된 파일
-                          </div>
-                          {tab.files.map((file: any, fileIndex: number) => {
-                            const fileName = file.file?.name || '알 수 없음';
-                            const status = uploadStatus[fileName] || 'idle';
-                            const isUploaded = file.file_key && file.file_key !== 'uploading';
-                            
-                            return (
-                              <div key={fileIndex} style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                padding: '8px 12px',
-                                backgroundColor: isUploaded ? '#d4edda' : '#fff3cd',
-                                borderRadius: '6px',
-                                marginBottom: '4px',
-                                border: `1px solid ${isUploaded ? '#c3e6cb' : '#ffeaa7'}`
-                              }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                  <span style={{ fontSize: '12px', fontWeight: '500' }}>📄</span>
-                                  <span style={{ fontSize: '13px', color: '#495057' }}>{fileName}</span>
-                                  {status === 'uploading' && <span style={{ fontSize: '12px', color: '#007bff' }}>⏳ 업로드 중...</span>}
-                                  {status === 'success' && <span style={{ fontSize: '12px', color: '#28a745' }}>✅ 업로드 완료</span>}
-                                  {status === 'error' && <span style={{ fontSize: '12px', color: '#dc3545' }}>❌ 업로드 실패</span>}
-                                </div>
-                                {isUploaded && (
-                                  <div style={{
-                                    fontSize: '11px',
-                                    color: '#6c757d',
-                                    backgroundColor: '#e9ecef',
-                                    padding: '2px 6px',
-                                    borderRadius: '4px'
-                                  }}>
-                                    완료
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                      
                       <div className="link-block w-inline-block">
                         <FileUploadSection
                           formData={tab as any}
