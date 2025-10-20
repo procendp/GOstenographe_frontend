@@ -51,7 +51,76 @@ function Reception() {
   const [addressError, setAddressError] = useState('');
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
-  const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
+
+  // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      // 제출 완료 후에는 경고 안함
+      if (showComplete) return;
+      
+      // 업로드된 파일이 있는지 확인
+      const hasFiles = tabs.some(tab => 
+        tab.files && tab.files.length > 0 && 
+        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
+      );
+
+      if (hasFiles) {
+        e.preventDefault();
+        e.returnValue = ''; // Chrome에서는 빈 문자열 필요
+        return ''; // 일부 브라우저용
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [tabs, showComplete]);
+
+  // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      // 제출 완료 후에는 경고 안함
+      if (showComplete) return;
+      
+      // 업로드된 파일이 있는지 확인
+      const hasFiles = tabs.some(tab => 
+        tab.files && tab.files.length > 0 && 
+        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
+      );
+
+      if (hasFiles) {
+        const confirmLeave = window.confirm(
+          '업로드된 파일이 있습니다.\n페이지를 나가시면 파일이 삭제됩니다.\n정말 나가시겠습니까?'
+        );
+        
+        if (!confirmLeave) {
+          // 사용자가 취소한 경우, 현재 페이지로 다시 푸시
+          window.history.pushState(null, '', window.location.href);
+        } else {
+          // 사용자가 확인한 경우, 파일 삭제 후 뒤로가기
+          handleNavigateAway().then(() => {
+            window.history.back();
+          });
+        }
+      }
+    };
+
+    // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용)
+    window.history.pushState(null, '', window.location.href);
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [tabs, showComplete, handleNavigateAway]);
+
+  // 기본 함수들
+  const handleNewRequest = () => {
+    // 페이지 새로고침으로 초기 상태로 돌아가기
+    window.location.reload();
+  };
 
   // 업로드된 모든 파일 수집
   const getAllUploadedFiles = () => {
@@ -68,7 +137,7 @@ function Reception() {
     return allFiles;
   };
 
-  // 페이지 이탈 시 파일 삭제 (일반적인 경우)
+  // 페이지 이탈 시 파일 삭제
   const handleNavigateAway = useCallback(async () => {
     const filesToDelete = getAllUploadedFiles();
     
@@ -97,138 +166,6 @@ function Reception() {
     }
   }, [tabs]);
 
-  // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고 및 파일 삭제
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      // 제출 완료 후에는 경고 안함
-      if (showComplete) return;
-      
-      // 업로드된 파일이 있는지 확인
-      const hasFiles = tabs.some(tab => 
-        tab.files && tab.files.length > 0 && 
-        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
-      );
-
-      if (hasFiles) {
-        // 파일 삭제 실행 (sendBeacon 사용)
-        handlePageExit();
-        
-        e.preventDefault();
-        e.returnValue = '업로드된 파일이 있습니다. 페이지를 나가시면 파일이 삭제됩니다.';
-        return '업로드된 파일이 있습니다. 페이지를 나가시면 파일이 삭제됩니다.';
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [tabs, showComplete]);
-
-  // popstate 이벤트 - 브라우저 뒤로가기 버튼 경고
-  useEffect(() => {
-    const handlePopState = (e: PopStateEvent) => {
-      console.log('[POPSTATE] 뒤로가기 이벤트 발생');
-      console.log('[POPSTATE] showComplete:', showComplete);
-      console.log('[POPSTATE] tabs:', tabs);
-      
-      // 제출 완료 후에는 경고 안함
-      if (showComplete) {
-        console.log('[POPSTATE] 제출 완료 상태 - 경고 안함');
-        return;
-      }
-      
-      // 업로드된 파일이 있는지 확인
-      const hasFiles = tabs.some(tab => 
-        tab.files && tab.files.length > 0 && 
-        tab.files.some(f => f.file_key && f.file_key !== 'uploading')
-      );
-      
-      console.log('[POPSTATE] hasFiles:', hasFiles);
-      console.log('[POPSTATE] 파일 상세:', tabs.map(tab => ({
-        filesCount: tab.files?.length || 0,
-        files: tab.files?.map(f => ({ name: f.file?.name, file_key: f.file_key }))
-      })));
-
-      if (hasFiles) {
-        console.log('[POPSTATE] 파일 있음 - 경고창 표시');
-        const confirmLeave = window.confirm(
-          '업로드된 파일이 있습니다.\n페이지를 나가시면 파일이 삭제됩니다.\n정말 나가시겠습니까?'
-        );
-        
-        console.log('[POPSTATE] 사용자 선택:', confirmLeave);
-        
-        if (!confirmLeave) {
-          console.log('[POPSTATE] 취소 - 현재 페이지로 푸시');
-          // 사용자가 취소한 경우, 현재 페이지로 다시 푸시
-          window.history.pushState(null, '', window.location.href);
-        } else {
-          console.log('[POPSTATE] 확인 - 파일 삭제 후 뒤로가기');
-          // 사용자가 확인한 경우, 파일 삭제 후 실제 뒤로가기
-          handleNavigateAway().then(() => {
-            console.log('[POPSTATE] 파일 삭제 완료 - 뒤로가기 실행');
-            // 실제 뒤로가기 실행
-            window.history.back();
-          });
-        }
-      } else {
-        console.log('[POPSTATE] 파일 없음 - 경고 안함');
-      }
-    };
-
-    console.log('[POPSTATE] 이벤트 리스너 등록');
-    console.log('[POPSTATE] 현재 히스토리 상태:', window.history.state);
-    
-    // 현재 페이지를 히스토리에 추가 (뒤로가기 감지용) - 한 번만 실행
-    if (typeof window !== 'undefined' && !window.history.state) {
-      console.log('[POPSTATE] 히스토리 상태 추가');
-      window.history.pushState(null, '', window.location.href);
-    }
-    
-    window.addEventListener('popstate', handlePopState);
-    
-    return () => {
-      console.log('[POPSTATE] 이벤트 리스너 제거');
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, [tabs, showComplete, handleNavigateAway]);
-
-  // 기본 함수들
-  const handleNewRequest = () => {
-    // 페이지 새로고침으로 초기 상태로 돌아가기
-    window.location.reload();
-  };
-
-  // 새로고침/브라우저 닫기 시 파일 삭제 (sendBeacon 사용)
-  const handlePageExit = () => {
-    const filesToDelete = getAllUploadedFiles();
-    
-    if (filesToDelete.length === 0) return;
-
-    console.log('[PAGE_EXIT] 삭제할 파일:', filesToDelete.map(f => f.file_key));
-
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
-    
-    // sendBeacon을 사용하여 파일 삭제 요청
-    filesToDelete.forEach(fileData => {
-      try {
-        const deleteData = JSON.stringify({ file_key: fileData.file_key });
-        const blob = new Blob([deleteData], { type: 'application/json' });
-        
-        const success = navigator.sendBeacon(`${backendUrl}/api/s3/delete/`, blob);
-        
-        if (success) {
-          console.log('[PAGE_EXIT] 파일 삭제 요청 성공:', fileData.file_key);
-        } else {
-          console.error('[PAGE_EXIT] 파일 삭제 요청 실패:', fileData.file_key);
-        }
-      } catch (error) {
-        console.error('[PAGE_EXIT] 파일 삭제 오류:', error);
-      }
-    });
-  };
-
   const handleAddTab = () => {
     if (tabs.length >= 5) return;
     setTabs([...tabs, { files: [], speakerNames: [''], selectedDates: [], detail: '', speakerCount: 1, timestamps: [], timestampRanges: [], recordType: '전체', recordingLocation: '통화', recordingDate: '', recordingTime: '', recordingUnsure: false, fileDuration: '00:00:00' }]);
@@ -237,41 +174,8 @@ function Reception() {
 
   const handleRemoveTab = async (idx: number) => {
     if (tabs.length === 1) return;
-    
-    // 삭제할 탭의 파일들 수집
-    const tabToRemove = tabs[idx];
-    const filesToDelete = tabToRemove.files.filter(f => f.file_key && f.file_key !== 'uploading');
-    
-    // S3에서 파일 삭제
-    if (filesToDelete.length > 0) {
-      console.log('[REMOVE_TAB] 삭제할 파일:', filesToDelete.map(f => f.file_key));
-      
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
-      
-      for (const fileData of filesToDelete) {
-        try {
-          const response = await fetch(`${backendUrl}/api/s3/delete/`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ file_key: fileData.file_key })
-          });
-          
-          if (response.ok) {
-            console.log('[REMOVE_TAB] 파일 삭제 성공:', fileData.file_key);
-          } else {
-            console.error('[REMOVE_TAB] 파일 삭제 실패:', fileData.file_key);
-          }
-        } catch (error) {
-          console.error('[REMOVE_TAB] 파일 삭제 오류:', error);
-        }
-      }
-    }
-    
-    // 탭 제거
     const newTabs = tabs.filter((_, i) => i !== idx);
     setTabs(newTabs);
-    
-    // 활성 탭 조정
     if (activeTab === idx) {
       setActiveTab(Math.max(0, idx - 1));
     } else if (activeTab > idx) {
@@ -281,13 +185,6 @@ function Reception() {
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-
-    // 업로드 상태 초기화
-    const newUploadStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
-    files.forEach(file => {
-      newUploadStatus[file.name] = 'uploading';
-    });
-    setUploadStatus(newUploadStatus);
 
     // 임시로 파일 정보를 상태에 저장 (업로드 시작 표시)
     setTabs(tabs => tabs.map((tab, idx) =>
@@ -310,6 +207,7 @@ function Reception() {
         customerName,
         customerEmail,
         (fileIndex, progress) => {
+          // TODO: 업로드 진행상황 UI 업데이트
           console.log(`파일 ${fileIndex + 1} 업로드 진행률: ${progress}%`);
         }
       );
@@ -323,26 +221,11 @@ function Reception() {
         } : tab
       ));
 
-      // 업로드 성공 상태 업데이트
-      const successStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
-      files.forEach(file => {
-        successStatus[file.name] = 'success';
-      });
-      setUploadStatus(successStatus);
-
       console.log('파일 업로드 완료:', uploadedFiles);
       console.log('파일 재생시간:', fileDuration);
 
     } catch (error) {
       console.error('파일 업로드 실패:', error);
-      
-      // 업로드 실패 상태 업데이트
-      const errorStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
-      files.forEach(file => {
-        errorStatus[file.name] = 'error';
-      });
-      setUploadStatus(errorStatus);
-
       alert(`파일 업로드 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
 
       // 업로드 실패 시 파일 목록에서 제거
@@ -1197,7 +1080,6 @@ function Reception() {
                             setTabs(newTabs);
                           }}
                           onFileSelect={handleFileSelect}
-                          uploadStatus={uploadStatus}
                         />
                       </div>
                     </div>
