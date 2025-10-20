@@ -147,14 +147,18 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                   padding: '0.75rem 1rem',
                   backgroundColor: '#f8f9fa',
                   borderRadius: '8px',
-                  border: '1px solid #e5e7eb'
+                  border: '1px solid #e5e7eb',
+                  flexWrap: 'wrap', // 모바일에서 줄바꿈 허용
+                  gap: '0.5rem'
                 }}>
                   <h2 className="c-file-block-heading h5" style={{ 
                     textAlign: 'left', 
                     margin: '0',
-                    fontSize: '1rem',
+                    fontSize: '0.9rem', // 폰트 크기 줄임
                     fontWeight: '600',
-                    color: '#374151'
+                    color: '#374151',
+                    flex: '1',
+                    minWidth: '150px'
                   }}>부분 녹취 구간 입력</h2>
                   {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (
                     <button
@@ -164,15 +168,16 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                         background: '#1c58af',
                         border: 'none',
                         borderRadius: '6px',
-                        padding: '6px 12px',
+                        padding: '4px 8px', // 패딩 줄임
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '4px',
-                        fontSize: '13px',
+                        gap: '3px',
+                        fontSize: '11px', // 폰트 크기 줄임
                         color: 'white',
                         fontWeight: '500',
-                        transition: 'background-color 0.2s'
+                        transition: 'background-color 0.2s',
+                        flexShrink: 0 // 버튼 크기 고정
                       }}
                       onMouseOver={(e) => {
                         e.currentTarget.style.backgroundColor = '#164a94';
@@ -181,7 +186,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                         e.currentTarget.style.backgroundColor = '#1c58af';
                       }}
                     >
-                      <span style={{ fontSize: '14px', fontWeight: 'bold' }}>+</span>
+                      <span style={{ fontSize: '12px', fontWeight: 'bold' }}>+</span>
                       <span>추가</span>
                     </button>
                   )}

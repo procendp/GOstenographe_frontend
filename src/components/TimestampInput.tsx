@@ -59,10 +59,30 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
   };
 
   return (
-    <div className="w-layout-hflex c-timestamp-wrapper" style={{ justifyContent: 'flex-start' }}>
-      <div className="w-layout-hflex timestamp-h-flex" style={{ justifyContent: 'flex-start' }}>
-        <div className="c-time-input-grid">
-          <div className="div-block-10">
+    <div className="w-layout-hflex c-timestamp-wrapper" style={{ 
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: '1rem',
+      padding: '0.75rem',
+      backgroundColor: 'white',
+      borderRadius: '8px',
+      border: '1px solid #e5e7eb',
+      marginBottom: '0.5rem'
+    }}>
+      <div className="w-layout-hflex timestamp-h-flex" style={{ 
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '0.5rem',
+        flex: '1'
+      }}>
+        <div className="c-time-input-grid" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          width: '100%',
+          justifyContent: 'center'
+        }}>
+          <div className="div-block-10" style={{ flex: '1', maxWidth: '80px' }}>
             <input
               type="text"
               value={startTime || ''}
@@ -78,13 +98,15 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
               className="c-input-text"
               style={{
                 background: 'transparent',
-                border: 'none',
+                border: '1px solid #d1d5db',
+                borderRadius: '4px',
                 outline: 'none',
                 width: '100%',
                 textAlign: 'center',
-                fontFamily: 'var(--_concept-1---font-normal)',
-                color: range.error ? '#dc2626' : ((!startTime || startTime === '00:00:00') ? 'var(--_concept-1---color-set-2--light-grey)' : 'var(--_concept-1---color-set-2--grey)'),
-                fontSize: 'var(--_concept-1---font-size--pc_p-button)'
+                fontFamily: 'Pretendard',
+                color: range.error ? '#dc2626' : ((!startTime || startTime === '00:00:00') ? '#9ca3af' : '#374151'),
+                fontSize: '14px',
+                padding: '6px 8px'
               }}
             />
           </div>
@@ -94,11 +116,12 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
             justifyContent: 'center',
             fontSize: '16px',
             color: '#6b7280',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            flexShrink: 0
           }}>
             ~
           </div>
-          <div className="div-block-10">
+          <div className="div-block-10" style={{ flex: '1', maxWidth: '80px' }}>
             <input
               type="text"
               value={endTime || ''}
@@ -114,46 +137,57 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
               className="c-input-text"
               style={{
                 background: 'transparent',
-                border: 'none',
+                border: '1px solid #d1d5db',
+                borderRadius: '4px',
                 outline: 'none',
                 width: '100%',
                 textAlign: 'center',
-                fontFamily: 'var(--_concept-1---font-normal)',
-                color: range.error ? '#dc2626' : ((!endTime || endTime === '00:00:00') ? 'var(--_concept-1---color-set-2--light-grey)' : 'var(--_concept-1---color-set-2--grey)'),
-                fontSize: 'var(--_concept-1---font-size--pc_p-button)'
+                fontFamily: 'Pretendard',
+                color: range.error ? '#dc2626' : ((!endTime || endTime === '00:00:00') ? '#9ca3af' : '#374151'),
+                fontSize: '14px',
+                padding: '6px 8px'
               }}
             />
           </div>
-          <div className="c-apply-icon-image-wrapper">
-            <img loading="lazy" src="images/Input-Affix.png" alt="" className="image-4" />
-          </div>
         </div>
-        {canDelete && (
-          <button
-            type="button"
-            onClick={onDelete}
-            className="c-timestamp-delete"
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '0',
-              fontFamily: 'var(--_concept-1---font-normal)',
-              color: 'var(--_concept-1---color-set-2--blue80)',
-              fontSize: 'var(--_concept-1---font-size--pc_p-button)'
-            }}
-          >
-            삭제
-          </button>
-        )}
       </div>
+      {canDelete && (
+        <button
+          type="button"
+          onClick={onDelete}
+          className="c-timestamp-delete"
+          style={{
+            background: '#ef4444',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            padding: '6px 12px',
+            fontFamily: 'Pretendard',
+            color: 'white',
+            fontSize: '12px',
+            fontWeight: '500',
+            flexShrink: 0,
+            transition: 'background-color 0.2s'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = '#dc2626';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = '#ef4444';
+          }}
+        >
+          삭제
+        </button>
+      )}
       {showWarning && range.error && (
         <p className="c-timestamp-warning" style={{
-          fontFamily: 'var(--_concept-1---font-normal)',
-          color: 'var(--_concept-1---color-set-2--orange)',
-          fontSize: 'var(--_concept-1---font-size--pc_p-button)',
+          fontFamily: 'Pretendard',
+          color: '#f59e0b',
+          fontSize: '12px',
           margin: '0',
-          marginTop: '4px'
+          marginTop: '4px',
+          width: '100%',
+          textAlign: 'center'
         }}>
           {range.error}
         </p>
