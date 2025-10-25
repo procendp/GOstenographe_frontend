@@ -1800,11 +1800,19 @@ function Reception() {
             <div style={{
               fontSize: '0.875rem',
               color: '#4a5568',
-              lineHeight: '1.4'
+              lineHeight: '1.6',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.25rem'
             }}>
-              <div>- 속기록 제작 ({formatTotalDuration()})</div>
-              <div>- 최종본: {getSelectedOptionText()}</div>
-              <div>- 부가세 (10%)</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>- 속기록 제작 ({formatTotalDuration()})</span>
+                <span>{calculateTranscriptionPrice().toLocaleString()}원</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>- 최종본: {getSelectedOptionText()}</span>
+                <span>{getSelectedOptionPrice().toLocaleString()}원</span>
+              </div>
             </div>
           </div>
           
