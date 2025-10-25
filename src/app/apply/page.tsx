@@ -1773,7 +1773,7 @@ function Reception() {
             <div className="div-block-11"></div>
             <div className="w-layout-vflex flex-block-11">
               <div className="w-layout-hflex c-checkout-factor">
-                <h6 className="c-checkout-f-text">- 속기록 제작 ({formatTotalDuration()})</h6>
+                <h6 className="c-checkout-f-text">- 속기록 제작<br/>({formatTotalDuration()})</h6>
                 <h6 className="c-checkout-f-text">{calculateTranscriptionPrice().toLocaleString()}원</h6>
               </div>
               <div className="w-layout-hflex c-checkout-factor">
