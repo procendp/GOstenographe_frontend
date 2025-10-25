@@ -1187,8 +1187,8 @@ function Reception() {
                           <div className="c-file-block-title-tag" style={{
                             border: '1px solid #fee9d4',
                             backgroundColor: '#faa654',
-                            borderRadius: '8px',
-                            padding: '3px 8px',
+                            borderRadius: '10px',
+                            padding: '2px 8px',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -1197,8 +1197,7 @@ function Reception() {
                             <div className="c-tag-text" style={{
                               color: 'white',
                               fontFamily: 'Pretendard',
-                              fontSize: '12px',
-                              fontWeight: '500',
+                              fontSize: '14px',
                               whiteSpace: 'nowrap'
                             }}>필수</div>
                           </div>
@@ -1312,6 +1311,21 @@ function Reception() {
                     }}>
                       <div className="w-layout-hflex c-file-block-title">
                         <h2 className="c-file-block-heading">녹음 일시</h2>
+                        <div className="c-file-block-title-tag" style={{
+                          border: '1px solid #fee9d4',
+                          backgroundColor: '#faa654',
+                          borderRadius: '10px',
+                          padding: '2px 8px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}>
+                          <div className="c-tag-text" style={{
+                            color: 'white',
+                            fontFamily: 'Pretendard',
+                            fontSize: '14px'
+                          }}>필수</div>
+                        </div>
                       </div>
                       
                       <div className="c-datetime-container" style={{
@@ -1489,6 +1503,21 @@ function Reception() {
                     }}>
                       <div className="w-layout-hflex c-file-block-title">
                         <h2 className="c-file-block-heading">상세 정보</h2>
+                        <div className="c-file-block-title-tag" style={{
+                          border: '1px solid #d1d5db',
+                          backgroundColor: '#e5e7eb',
+                          borderRadius: '10px',
+                          padding: '2px 8px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}>
+                          <div className="c-tag-text" style={{
+                            color: '#374151',
+                            fontFamily: 'Pretendard',
+                            fontSize: '14px'
+                          }}>선택</div>
+                        </div>
                       </div>
                       
                       <div className="c-detail-container" style={{
