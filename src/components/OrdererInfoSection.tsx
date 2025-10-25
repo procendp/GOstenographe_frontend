@@ -2,14 +2,14 @@ import { useEffect, useCallback } from 'react';
 
 import { ReceptionFormData } from '@/types/reception';
 
+const MAX_SPEAKERS = 5;
+
 interface OrdererInfoSectionProps {
   formData: ReceptionFormData;
   setFormData: (data: ReceptionFormData) => void;
 }
 
 export default function OrdererInfoSection({ formData, setFormData }: OrdererInfoSectionProps) {
-  const MAX_SPEAKERS = 10;
-
   // Initialize speaker names if not present
   useEffect(() => {
     if (!formData.speakerNames || formData.speakerNames.length === 0) {
@@ -17,7 +17,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
       setFormData({
         ...formData,
         speakerNames: defaultNames,
-        speakerCount: 1
+        speakerCount: defaultNames.length
       });
     }
   }, [formData, setFormData]);
@@ -28,7 +28,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
     setFormData({ 
       ...formData, 
       speakerNames: newSpeakerNames,
-      speakerCount: newSpeakerNames.filter(name => name.trim() !== '').length || 1
+      speakerCount: newSpeakerNames.length
     });
   }, [formData, setFormData]);
 
@@ -38,7 +38,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
     setFormData({ 
       ...formData, 
       speakerNames: newSpeakerNames,
-      speakerCount: newSpeakerNames.filter(name => name.trim() !== '').length || 1
+      speakerCount: newSpeakerNames.length
     });
   }, [formData, setFormData]);
 
@@ -48,7 +48,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
       setFormData({ 
         ...formData, 
         speakerNames: newSpeakerNames,
-        speakerCount: newSpeakerNames.filter(name => name.trim() !== '').length || 1
+        speakerCount: newSpeakerNames.length
       });
     }
   }, [formData, setFormData, MAX_SPEAKERS]);
