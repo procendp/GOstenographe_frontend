@@ -91,52 +91,8 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
   return (
     <div className="w-layout-hflex c-type-wrapper">
       <div data-current="부분 녹취" data-easing="ease" data-duration-in="300" data-duration-out="100" className="tabs-993 w-tabs">
-        <div className="tabs-menu w-tab-menu" style={{ display: 'flex', gap: '0', justifyContent: 'center' }}>
-          <button
-            data-w-tab="전체 녹취"
-            className={`c-button-type left w-inline-block w-tab-link ${formData.recordType === '전체' ? 'w--current' : ''}`}
-            onClick={() => setFormData({ ...formData, recordType: '전체' })}
-            style={{
-              backgroundColor: formData.recordType === '전체' ? '#374151' : 'white',
-              color: formData.recordType === '전체' ? 'white' : '#374151',
-              border: formData.recordType === '전체' ? '1.5px solid #374151' : '1px solid #374151',
-              borderRadius: '0',
-              padding: '15px 30px',
-              fontSize: '14px',
-              fontWeight: formData.recordType === '전체' ? '700' : '500',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            }}
-          >
-            <div>전체 녹취</div>
-          </button>
-          <button
-            data-w-tab="부분 녹취"
-            className={`c-button-type right w-inline-block w-tab-link ${formData.recordType === '부분' ? 'w--current' : ''}`}
-            onClick={() => setFormData({ ...formData, recordType: '부분' })}
-            style={{
-              backgroundColor: formData.recordType === '부분' ? '#374151' : 'white',
-              color: formData.recordType === '부분' ? 'white' : '#374151',
-              border: formData.recordType === '부분' ? '1.5px solid #374151' : '1px solid #374151',
-              borderLeft: formData.recordType === '부분' ? '1.5px solid #374151' : 'none',
-              borderRadius: '0',
-              padding: '15px 30px',
-              fontSize: '14px',
-              fontWeight: formData.recordType === '부분' ? '700' : '500',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            }}
-          >
-            <div>부분 녹취</div>
-          </button>
-        </div>
-        
         {formData.recordType === '부분' && (
-          <div className="w-tab-content" style={{ marginTop: '0.5rem', paddingBottom: '0' }}>
+          <div className="w-tab-content" style={{ marginTop: '0', paddingBottom: '0' }}>
             <div data-w-tab="부분 녹취" className="w-tab-pane w--tab-active">
               <div className="c-timestamp-block" style={{ marginBottom: '0' }}>
                 <div style={{ 
