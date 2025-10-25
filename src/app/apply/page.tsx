@@ -950,7 +950,6 @@ function Reception() {
                 </div>
               </div>
             </div>
-          </div>
           
           {/* 새 신청하기 버튼 */}
           <div style={{textAlign: 'center', marginTop: '3rem'}}>
