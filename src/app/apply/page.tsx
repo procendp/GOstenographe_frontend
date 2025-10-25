@@ -808,7 +808,7 @@ function Reception() {
               </p>
             </div>
 
-            <div className="w-layout-vflex c-app-info-block" style={{backgroundColor: 'transparent'}}>
+            <div className="w-layout-vflex">
               {/* 예상 견적 */}
               <div className="mobile-hide-quotation" style={{
                 backgroundColor: '#1c58af',
