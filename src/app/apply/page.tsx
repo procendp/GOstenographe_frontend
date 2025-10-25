@@ -1829,7 +1829,7 @@ function Reception() {
               alignItems: 'center',
               gap: '8px',
               cursor: 'pointer',
-              fontSize: '0.75rem',
+              fontSize: '0.875rem',
               color: 'white',
               marginBottom: '0.5rem'
             }}>
