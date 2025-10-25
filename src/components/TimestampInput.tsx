@@ -59,10 +59,8 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
   };
 
   return (
-    <div className="w-layout-hflex c-timestamp-wrapper" style={{ 
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      gap: '1rem',
+    <div className="w-layout-vflex c-timestamp-wrapper" style={{ 
+      gap: '0.75rem',
       padding: '0.75rem',
       backgroundColor: 'white',
       borderRadius: '8px',
@@ -70,19 +68,25 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
       marginBottom: '0.5rem'
     }}>
       <div className="w-layout-hflex timestamp-h-flex" style={{ 
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        gap: '0.5rem',
+        gap: '1rem',
         flex: '1'
       }}>
         <div className="c-time-input-grid" style={{
           display: 'flex',
-          alignItems: 'center',
+          flexDirection: 'column',
           gap: '0.5rem',
-          width: '100%',
-          justifyContent: 'center'
+          flex: '1'
         }}>
-          <div className="div-block-10" style={{ flex: '1', maxWidth: '80px' }}>
+          <div className="div-block-10" style={{ width: '100%' }}>
+            <label style={{
+              display: 'block',
+              fontSize: '12px',
+              color: '#6b7280',
+              marginBottom: '4px',
+              fontWeight: '500'
+            }}>시작 시간</label>
             <input
               type="text"
               value={startTime || ''}
@@ -94,7 +98,7 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
                 }
               }}
               onBlur={(e) => handleTimeBlur(e.target.value, 'start')}
-              placeholder="시작"
+              placeholder="00:00:00"
               className="c-input-text"
               style={{
                 background: 'transparent',
@@ -106,22 +110,18 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
                 fontFamily: 'Pretendard',
                 color: range.error ? '#dc2626' : ((!startTime || startTime === '00:00:00') ? '#9ca3af' : '#374151'),
                 fontSize: '14px',
-                padding: '6px 8px'
+                padding: '8px 12px'
               }}
             />
           </div>
-          <div className="c-icon-image-wrapper" style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '16px',
-            color: '#6b7280',
-            fontWeight: 'bold',
-            flexShrink: 0
-          }}>
-            ~
-          </div>
-          <div className="div-block-10" style={{ flex: '1', maxWidth: '80px' }}>
+          <div className="div-block-10" style={{ width: '100%' }}>
+            <label style={{
+              display: 'block',
+              fontSize: '12px',
+              color: '#6b7280',
+              marginBottom: '4px',
+              fontWeight: '500'
+            }}>종료 시간</label>
             <input
               type="text"
               value={endTime || ''}
@@ -133,7 +133,7 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
                 }
               }}
               onBlur={(e) => handleTimeBlur(e.target.value, 'end')}
-              placeholder="종료"
+              placeholder="00:00:00"
               className="c-input-text"
               style={{
                 background: 'transparent',
@@ -145,18 +145,17 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
                 fontFamily: 'Pretendard',
                 color: range.error ? '#dc2626' : ((!endTime || endTime === '00:00:00') ? '#9ca3af' : '#374151'),
                 fontSize: '14px',
-                padding: '6px 8px'
+                padding: '8px 12px'
               }}
             />
           </div>
         </div>
-      </div>
-      {canDelete && (
-        <button
-          type="button"
-          onClick={onDelete}
-          className="c-timestamp-delete"
-          style={{
+        {canDelete && (
+          <button
+            type="button"
+            onClick={onDelete}
+            className="c-timestamp-delete"
+            style={{
             background: '#ef4444',
             border: 'none',
             borderRadius: '4px',
@@ -182,12 +181,15 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
       {showWarning && range.error && (
         <p className="c-timestamp-warning" style={{
           fontFamily: 'Pretendard',
-          color: '#f59e0b',
+          color: '#dc2626',
           fontSize: '12px',
           margin: '0',
-          marginTop: '4px',
-          width: '100%',
-          textAlign: 'center'
+          textAlign: 'center',
+          fontWeight: '500',
+          padding: '4px 8px',
+          backgroundColor: '#fef2f2',
+          borderRadius: '4px',
+          border: '1px solid #fecaca'
         }}>
           {range.error}
         </p>

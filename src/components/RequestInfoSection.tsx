@@ -142,7 +142,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                 <div style={{ 
                   display: 'flex', 
                   alignItems: 'center', 
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
                   marginBottom: '1rem',
                   padding: '0.75rem 1rem',
                   backgroundColor: '#f8f9fa',
@@ -152,7 +152,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                   gap: '0.5rem'
                 }}>
                   <h2 className="c-file-block-heading h5" style={{ 
-                    textAlign: 'left', 
+                    textAlign: 'center', 
                     margin: '0',
                     fontSize: '0.9rem', // 폰트 크기 줄임
                     fontWeight: '600',
@@ -168,12 +168,12 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                         background: '#1c58af',
                         border: 'none',
                         borderRadius: '6px',
-                        padding: '4px 8px', // 패딩 줄임
+                        padding: '8px 16px', // 패딩 늘림
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '3px',
-                        fontSize: '11px', // 폰트 크기 줄임
+                        gap: '4px',
+                        fontSize: '14px', // 폰트 크기 늘림
                         color: 'white',
                         fontWeight: '500',
                         transition: 'background-color 0.2s',
@@ -186,7 +186,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                         e.currentTarget.style.backgroundColor = '#1c58af';
                       }}
                     >
-                      <span style={{ fontSize: '12px', fontWeight: 'bold' }}>+</span>
+                      <span style={{ fontSize: '16px', fontWeight: 'bold' }}>+</span>
                       <span>추가</span>
                     </button>
                   )}
