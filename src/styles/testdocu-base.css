@@ -1129,7 +1129,7 @@
   /* Apply 페이지 전체 배경도 모바일에서 단순화 */
   .apply-page-background {
     background-image: none !important;
-    background-color: #f0f4ff !important; /* 더 진한 파란색 배경으로 변경 (#f8f9fa → #f0f4ff) */
+    background-color: #cad5e5 !important; /* 진한 청회색 배경 */
   }
   
   .c-apply-section {

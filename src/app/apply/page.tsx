@@ -750,10 +750,7 @@ function Reception() {
 
   return showComplete ? (
     <div className="flex flex-col min-h-screen" style={{
-      backgroundColor: '#cad5e5', // 진한 청회색 배경
-      backgroundImage: 'url(/new_goStenographe_resource/backgrounds/Background-Blue20-s.png)',
-      backgroundPosition: '0 0',
-      backgroundSize: 'auto'
+      backgroundColor: '#cad5e5' // 진한 청회색 배경
     }}>
       <ApplyGNB 
         uploadedFiles={getAllUploadedFiles()}
@@ -982,11 +979,7 @@ function Reception() {
     </div>
   ) : (
     <div className="flex flex-col min-h-screen apply-page-background" style={{
-      backgroundColor: '#cad5e5', // 진한 청회색 배경
-      backgroundImage: 'url(/new_goStenographe_resource/backgrounds/Background-Blue20-s.png)',
-      backgroundPosition: '0 0',
-      backgroundSize: 'cover', // auto → cover로 변경하여 반응형으로 만듦
-      backgroundRepeat: 'no-repeat' // 반복 방지
+      backgroundColor: '#cad5e5' // 진한 청회색 배경
     }}>
       <ApplyGNB 
         uploadedFiles={getAllUploadedFiles()}
