@@ -929,15 +929,6 @@
   display: flex;
 }
 
-/* 데스크탑에서 섹션 너비 축소 (좌우 여백 생성) */
-@media (min-width: 769px) {
-  .c-apply-section .c-file-block {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
 /* 모바일에서 패딩 줄여서 콘텐츠 영역 확장 */
 @media (max-width: 768px) {
   .c-file-block {
