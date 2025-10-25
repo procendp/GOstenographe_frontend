@@ -16,7 +16,7 @@ export default function RecordingLocationSection({ formData, setFormData, tabInd
   const radioName = `recordingLocation_${tabIndex}`;
 
   return (
-    <div className="w-layout-hflex c-type-container" style={{ gap: '2rem', justifyContent: 'flex-start' }}>
+    <div className="w-layout-hflex c-type-container" style={{ gap: '0.5rem', justifyContent: 'flex-start' }}>
       <label 
         className="radio-button-field w-radio"
         style={{
