@@ -1010,11 +1010,12 @@
   padding-bottom: 140px;
 }
 
-/* 모바일에서 예상 견적란 숨김 */
-@media (max-width: 768px) {
+/* 모바일에서 예상 견적란 숨김 - 주석 처리하여 모바일에서도 보이게 함 */
+/* @media (max-width: 768px) {
   .mobile-hide-quotation {
     display: none !important;
   }
+} */
   
   /* 텍스트 가로 정렬 강제 - 더 강력하게 적용 */
   .c-apply-section .c-file-block-heading,
