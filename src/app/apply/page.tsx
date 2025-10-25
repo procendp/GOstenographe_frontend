@@ -1782,7 +1782,9 @@ function Reception() {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'baseline',
-              marginBottom: '0.5rem'
+              paddingBottom: '0.5rem',
+              marginBottom: '0.5rem',
+              borderBottom: '1px solid #e5e7eb'
             }}>
               <h2 style={{
                 fontSize: '1.125rem',
