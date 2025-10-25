@@ -213,7 +213,7 @@
 }
 
 .c-checkout-container-new {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -1406,6 +1406,15 @@
   position: relative;
   background-color: transparent; /* 배경 투명 */
   padding: 0; /* 상하 패딩 제거 */
+}
+
+/* 데스크톱에서 주문 정보 섹션 너비 축소 */
+@media (min-width: 769px) {
+  .c-apply-section .personal-info-container {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* .personal-info-container::before 제거 - 상단 구분선 제거 */
