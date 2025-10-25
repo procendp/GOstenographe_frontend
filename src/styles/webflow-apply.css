@@ -704,6 +704,21 @@
   flex: 0 0 auto;
 }
 
+/* 데스크톱에서 탭 버튼 패딩 축소 (좌우 25-27% 감소) */
+@media (min-width: 769px) {
+  .c-file-tab-button-left,
+  .c-file-tab-button-mid,
+  .c-file-tab-button-right {
+    padding: 12px 15px !important;
+  }
+  
+  .c-file-tab-button-left.w--current,
+  .c-file-tab-button-mid.w--current,
+  .c-file-tab-button-right.w--current {
+    padding: 15px 22px !important;
+  }
+}
+
 /* 웹플로우 탭 버튼 스타일 */
 .c-file-tab-button-left {
   border: 1px solid #a4bcdf;
