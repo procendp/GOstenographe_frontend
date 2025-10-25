@@ -1159,71 +1159,106 @@ function Reception() {
                       flexDirection: 'column',
                       justifyContent: 'space-between'
                     }}>
-                      <div className="w-layout-hflex c-file-block-title between" style={{ 
-                        alignItems: 'center', 
+                      {/* 녹취 종류 제목 */}
+                      <div className="w-layout-hflex c-file-block-title" style={{ 
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        marginBottom: '1rem'
+                      }}>
+                        <h2 className="c-file-block-heading record-type-heading">녹취 종류</h2>
+                        <div className="c-file-block-title-tag" style={{
+                          border: '1px solid #fee9d4',
+                          backgroundColor: '#faa654',
+                          borderRadius: '10px',
+                          padding: '2px 8px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}>
+                          <div className="c-tag-text" style={{
+                            color: 'white',
+                            fontFamily: 'Pretendard',
+                            fontSize: '14px'
+                          }}>필수</div>
+                        </div>
+                      </div>
+                      
+                      {/* 버튼 + 속기 구간 길이 */}
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
                         gap: '1rem',
                         marginBottom: '1rem',
-                        flexWrap: 'wrap', // 모바일에서 줄바꿈 허용
-                        justifyContent: 'flex-start' // space-between에서 flex-start로 변경
+                        flexWrap: 'wrap'
                       }}>
-                        <div className="w-layout-hflex flex-block-9" style={{ 
-                          alignItems: 'center', 
-                          gap: '0.5rem',
-                          minWidth: '200px' // 최소 너비 보장
-                        }}>
-                          <h2 className="c-file-block-heading record-type-heading">녹취 종류</h2>
-                          <div className="c-file-block-title-tag" style={{
-                            border: '1px solid #fee9d4',
-                            backgroundColor: '#faa654',
-                            borderRadius: '10px',
-                            padding: '2px 8px',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            flexShrink: 0 // 태그 크기 고정
-                          }}>
-                            <div className="c-tag-text" style={{
-                              color: 'white',
-                              fontFamily: 'Pretendard',
+                        {/* 전체/부분 녹취 버튼 */}
+                        <div style={{ display: 'flex', gap: '0' }}>
+                          <button
+                            onClick={() => {
+                              const newTabs = [...tabs];
+                              newTabs[index] = { ...tab, recordType: '전체' };
+                              setTabs(newTabs);
+                            }}
+                            style={{
+                              backgroundColor: tab.recordType === '전체' ? '#374151' : 'white',
+                              color: tab.recordType === '전체' ? 'white' : '#374151',
+                              border: '1px solid #374151',
+                              borderRight: 'none',
+                              padding: '12px 24px',
                               fontSize: '14px',
-                              whiteSpace: 'nowrap'
-                            }}>필수</div>
-                          </div>
+                              fontWeight: tab.recordType === '전체' ? '600' : '500',
+                              cursor: 'pointer',
+                              transition: 'all 0.2s'
+                            }}
+                          >
+                            전체 녹취
+                          </button>
+                          <button
+                            onClick={() => {
+                              const newTabs = [...tabs];
+                              newTabs[index] = { ...tab, recordType: '부분' };
+                              setTabs(newTabs);
+                            }}
+                            style={{
+                              backgroundColor: tab.recordType === '부분' ? '#374151' : 'white',
+                              color: tab.recordType === '부분' ? 'white' : '#374151',
+                              border: '1px solid #374151',
+                              padding: '12px 24px',
+                              fontSize: '14px',
+                              fontWeight: tab.recordType === '부분' ? '600' : '500',
+                              cursor: 'pointer',
+                              transition: 'all 0.2s'
+                            }}
+                          >
+                            부분 녹취
+                          </button>
                         </div>
-                        <div className="w-layout-hflex c-type-static-wrapper" style={{ 
+                        
+                        {/* 속기 구간 길이 */}
+                        <div style={{ 
+                          display: 'flex',
                           alignItems: 'center', 
                           gap: '0.5rem',
-                          backgroundColor: 'rgba(28, 88, 175, 0.1)',
-                          padding: '0.4rem 0.8rem',
-                          borderRadius: '8px',
-                          border: '1px solid rgba(28, 88, 175, 0.2)',
                           flex: '1',
-                          minWidth: '280px', // 180px에서 280px로 확장하여 텍스트 줄바꿈 방지
-                          justifyContent: 'center'
+                          minWidth: '200px'
                         }}>
-                          <h2 className="c-file-block-heading light" style={{ 
-                            margin: 0, 
+                          <span style={{ 
                             fontSize: '0.9rem', 
                             fontWeight: '500',
-                            color: '#374151',
-                            whiteSpace: 'nowrap'
-                          }}>속기 구간 길이</h2>
-                          <h2 className="c-file-block-heading highlight" style={{ 
-                            margin: 0, 
-                            fontSize: '0.9rem', 
-                            fontWeight: '600', 
-                            color: '#1c58af',
-                            whiteSpace: 'nowrap'
+                            color: '#374151'
+                          }}>속기 구간 길이</span>
+                          <span style={{ 
+                            fontSize: '1rem', 
+                            fontWeight: '700', 
+                            color: '#1c58af'
                           }}>
                             {(() => {
-                              // 전체 녹취: 파일 총 길이 표시
                               if (tab.recordType === '전체') {
                                 const duration = tab.fileDuration || '00:00:00';
                                 const [hours, minutes, seconds] = duration.split(':');
                                 return `${hours}시간 ${minutes}분 ${seconds}초`;
                               }
                               
-                              // 부분 녹취: timestampRanges에서 계산
                               if (tab.timestampRanges && Array.isArray(tab.timestampRanges) && tab.timestampRanges.length > 0) {
                                 try {
                                   const { calculateTotalDuration } = require('@/utils/timestampUtils');
@@ -1237,18 +1272,21 @@ function Reception() {
                               }
                               return '00시간 00분 00초';
                             })()}
-                          </h2>
+                          </span>
                         </div>
                       </div>
                       
-                      <RequestInfoSection
-                        formData={tab as any}
-                        setFormData={(data) => {
-                          const newTabs = [...tabs];
-                          newTabs[index] = { ...tab, ...data };
-                          setTabs(newTabs);
-                        }}
-                      />
+                      {/* 부분 녹취 입력 영역 */}
+                      {tab.recordType === '부분' && (
+                        <RequestInfoSection
+                          formData={tab as any}
+                          setFormData={(data) => {
+                            const newTabs = [...tabs];
+                            newTabs[index] = { ...tab, ...data };
+                            setTabs(newTabs);
+                          }}
+                        />
+                      )}
                     </div>
                     
                     <div className="c-file-block" style={{
