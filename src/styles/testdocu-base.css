@@ -1356,7 +1356,7 @@
     flex: none !important;
     min-width: auto !important;
     width: 100% !important;
-    justify-content: center !important;
+    justify-content: flex-start !important; /* center에서 flex-start로 변경 */
   }
   
   .c-file-block-title.between .c-type-static-wrapper {
