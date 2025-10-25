@@ -91,7 +91,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
   return (
     <div className="w-layout-hflex c-type-wrapper">
       <div data-current="부분 녹취" data-easing="ease" data-duration-in="300" data-duration-out="100" className="tabs-993 w-tabs">
-        <div className="tabs-menu w-tab-menu" style={{ display: 'flex', gap: '0' }}>
+        <div className="tabs-menu w-tab-menu" style={{ display: 'flex', gap: '0', justifyContent: 'center' }}>
           <button
             data-w-tab="전체 녹취"
             className={`c-button-type left w-inline-block w-tab-link ${formData.recordType === '전체' ? 'w--current' : ''}`}
@@ -136,7 +136,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
         </div>
         
         {formData.recordType === '부분' && (
-          <div className="w-tab-content" style={{ marginTop: '1rem', paddingBottom: '0.5rem' }}>
+          <div className="w-tab-content" style={{ marginTop: '0.5rem', paddingBottom: '0' }}>
             <div data-w-tab="부분 녹취" className="w-tab-pane w--tab-active">
               <div className="c-timestamp-block" style={{ marginBottom: '0' }}>
                 <div style={{ 

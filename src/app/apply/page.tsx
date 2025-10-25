@@ -1181,7 +1181,7 @@ function Reception() {
                         gap: '1rem',
                         marginBottom: '1rem',
                         flexWrap: 'wrap', // 모바일에서 줄바꿈 허용
-                        justifyContent: 'space-between'
+                        justifyContent: 'flex-start' // space-between에서 flex-start로 변경
                       }}>
                         <div className="w-layout-hflex flex-block-9" style={{ 
                           alignItems: 'center', 
@@ -1222,7 +1222,7 @@ function Reception() {
                           borderRadius: '8px',
                           border: '1px solid rgba(28, 88, 175, 0.2)',
                           flex: '1',
-                          minWidth: '180px', // 최소 너비 보장
+                          minWidth: '280px', // 180px에서 280px로 확장하여 텍스트 줄바꿈 방지
                           justifyContent: 'center'
                         }}>
                           <h2 className="c-file-block-heading light" style={{ 
