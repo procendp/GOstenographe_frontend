@@ -215,15 +215,19 @@
 .c-checkout-container-new {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0 2rem;
   display: flex;
   gap: 2rem;
-  align-items: center;
+  align-items: stretch;
 }
 
 .c-checkout-left-new {
   flex: 1;
   min-width: 0;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .c-checkout-right-new {
@@ -232,7 +236,6 @@
   background-color: #1c58af;
   padding: 0 1.5rem;
   border-radius: 0;
-  min-height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -247,18 +250,19 @@
   .c-checkout-container-new {
     gap: 0.75rem;
     padding: 0 0.75rem;
+    align-items: stretch;
   }
   
   .c-checkout-left-new {
     flex: 1;
     min-width: 0;
+    padding: 0.75rem 0;
   }
   
   .c-checkout-right-new {
     flex: 1;
     width: auto;
     padding: 0 1rem;
-    min-height: 120px;
   }
   
   /* 모바일 텍스트 크기 조정 */
