@@ -1,27 +1,11 @@
-/* 탭 버튼 패딩 최종 오버라이드 - 모든 CSS보다 나중에 로드 */
+/* 파란 섹션 크기 확장 - 초록색 섹션 절반 이상으로 */
 @media screen and (max-width: 767px) {
-  .c-file-tab-button-left,
-  .c-file-tab-button-mid,
-  .c-file-tab-button-right {
-    padding: 6px 8px !important;
-  }
-  
-  .c-file-tab-button-left.w--current,
-  .c-file-tab-button-mid.w--current,
-  .c-file-tab-button-right.w--current {
-    padding: 6px 8px !important;
+  .c-file-tab-pane {
+    padding: 20px 10px !important; /* 40px → 20px 10px로 줄임 */
   }
 }
 
-/* 데스크톱에서도 작게 만들기 */
-.c-file-tab-button-left,
-.c-file-tab-button-mid,
-.c-file-tab-button-right {
-  padding: 6px 8px !important;
-}
-
-.c-file-tab-button-left.w--current,
-.c-file-tab-button-mid.w--current,
-.c-file-tab-button-right.w--current {
-  padding: 6px 8px !important;
+/* 데스크톱에서도 패딩 줄이기 */
+.c-file-tab-pane {
+  padding: 20px 10px !important;
 }
