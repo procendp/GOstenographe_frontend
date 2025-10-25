@@ -144,7 +144,11 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
           </nav>
 
           {/* 모바일 메뉴 버튼 */}
-          <div className="fn-menu-button-second w-nav-button">
+          <div 
+            className="fn-menu-button-second w-nav-button"
+            onClick={toggleMobileMenu}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="nav-menu-button-wrap">
               <div className="fn-nav-line-1 green-line"></div>
               <div className="fn-nav-line-2 green-line"></div>
