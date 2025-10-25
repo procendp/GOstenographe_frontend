@@ -1186,7 +1186,8 @@ function Reception() {
                       {/* 버튼 + 속기 구간 길이 */}
                       <div style={{
                         display: 'flex',
-                        alignItems: 'center',
+                        alignItems: 'flex-start',
+                        justifyContent: 'space-between',
                         gap: '1rem',
                         marginBottom: '1rem',
                         flexWrap: 'wrap'
@@ -1239,18 +1240,17 @@ function Reception() {
                           display: 'flex',
                           alignItems: 'center', 
                           gap: '0.5rem',
-                          flex: '1',
-                          minWidth: '200px'
+                          textAlign: 'right'
                         }}>
                           <span style={{ 
                             fontSize: '0.9rem', 
                             fontWeight: '500',
-                            color: '#374151'
+                            color: '#6b7280'
                           }}>속기 구간 길이</span>
                           <span style={{ 
-                            fontSize: '1rem', 
+                            fontSize: '1.1rem', 
                             fontWeight: '700', 
-                            color: '#1c58af'
+                            color: '#374151'
                           }}>
                             {(() => {
                               if (tab.recordType === '전체') {
