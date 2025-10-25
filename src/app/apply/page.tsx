@@ -1171,7 +1171,6 @@ function Reception() {
                     <div className="c-file-block" style={{
                       backgroundColor: '#f4f6f9',
                       borderRadius: '20px',
-                      padding: tab.recordType === '부분' ? '2.5rem 2.5rem 0.5rem 2.5rem' : '2.5rem 2.5rem',
                       minHeight: '120px', // 최소 높이 설정으로 공간 확보
                       display: 'flex',
                       flexDirection: 'column',
