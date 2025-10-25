@@ -1171,12 +1171,7 @@ function Reception() {
                           gap: '0.5rem',
                           minWidth: '200px' // 최소 너비 보장
                         }}>
-                          <h2 className="c-file-block-heading" style={{ 
-                            margin: 0,
-                            fontSize: '1.1rem', // 모바일 고려하여 약간 축소
-                            fontWeight: '600',
-                            whiteSpace: 'nowrap' // 텍스트 줄바꿈 방지
-                          }}>녹취 종류</h2>
+                          <h2 className="c-file-block-heading record-type-heading">녹취 종류</h2>
                           <div className="c-file-block-title-tag" style={{
                             border: '1px solid #fee9d4',
                             backgroundColor: '#faa654',
