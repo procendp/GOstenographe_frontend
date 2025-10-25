@@ -854,6 +854,19 @@
   display: flex;
 }
 
+/* 모바일에서 패딩 줄여서 콘텐츠 영역 확장 */
+@media (max-width: 768px) {
+  .c-file-block {
+    padding: 0.75rem 0.75rem; /* 좌우 패딩을 1.25rem에서 0.75rem으로 줄임 */
+  }
+}
+
+@media (max-width: 480px) {
+  .c-file-block {
+    padding: 0.75rem 0.5rem; /* 더 작은 모바일에서는 0.5rem으로 더 줄임 */
+  }
+}
+
 /* 웹플로우 원본 c-file-block-heading 스타일 */
 .c-file-block-heading {
   font-family: var(--_concept-1---font-accent);
