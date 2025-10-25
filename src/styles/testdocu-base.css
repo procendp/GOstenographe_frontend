@@ -1584,13 +1584,13 @@
   border: 1px solid #b3c3d8;
   font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
   color: #666;
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-align: center;
   letter-spacing: -0.01em;
   background-color: #fff;
-  padding: 12px 20px;
+  padding: 8px 12px;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -1624,12 +1624,19 @@
   border-color: #1c58af;
   background-color: #1c58af;
   color: white;
-  padding: 12px 20px;
+  padding: 8px 12px;
   font-weight: 500;
   box-shadow: 0 0 20px -10px rgba(0,0,0,0.38);
   position: relative;
   z-index: 10;
   border-bottom: none;
+}
+
+/* 삭제 버튼 크기 키우기 */
+.c-apply-section .c-delete-button {
+  padding: 10px 16px !important;
+  font-size: 0.9rem !important;
+  min-height: 36px !important;
 }
 
 /* 탭 콘텐츠 스타일 */
