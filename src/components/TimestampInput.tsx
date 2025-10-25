@@ -156,28 +156,29 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
             onClick={onDelete}
             className="c-timestamp-delete"
             style={{
-            background: '#ef4444',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            padding: '6px 12px',
-            fontFamily: 'Pretendard',
-            color: 'white',
-            fontSize: '12px',
-            fontWeight: '500',
-            flexShrink: 0,
-            transition: 'background-color 0.2s'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = '#dc2626';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = '#ef4444';
-          }}
-        >
-          삭제
-        </button>
-      )}
+              background: '#ef4444',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              padding: '6px 12px',
+              fontFamily: 'Pretendard',
+              color: 'white',
+              fontSize: '12px',
+              fontWeight: '500',
+              flexShrink: 0,
+              transition: 'background-color 0.2s'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = '#dc2626';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = '#ef4444';
+            }}
+          >
+            삭제
+          </button>
+        )}
+      </div>
       {showWarning && range.error && (
         <p className="c-timestamp-warning" style={{
           fontFamily: 'Pretendard',
