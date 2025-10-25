@@ -1771,45 +1771,86 @@ function Reception() {
       </section>
       
       {/* 견적 섹션과 겹치지 않도록 하단 여백 추가 */}
-      <div className="pb-48"></div>
+      <div className="pb-32"></div>
       
-      {/* 예상 견적란 - 웹플로우와 동일한 구조 */}
-      <section className="c-checkout-section">
-        <div className="w-layout-hflex c-checkout-container">
-          <div className="w-layout-vflex c-checkout-left">
-            <div className="w-layout-hflex c-sum-block-title between">
-              <h2 className="c-app-sum-heading">예상 견적</h2>
-              <h2 className="c-app-sum-heading">{calculateTotalPrice().toLocaleString()}원</h2>
+      {/* 예상 견적란 - 재설계된 구조 */}
+      <section className="c-checkout-section-new">
+        <div className="c-checkout-container-new">
+          {/* 왼쪽: 견적 정보 */}
+          <div className="c-checkout-left-new">
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'baseline',
+              marginBottom: '0.5rem'
+            }}>
+              <h2 style={{
+                fontSize: '1.125rem',
+                fontWeight: '600',
+                color: '#1a202c',
+                margin: 0
+              }}>예상 견적</h2>
+              <h2 style={{
+                fontSize: '1.125rem',
+                fontWeight: '700',
+                color: '#1a202c',
+                margin: 0
+              }}>{calculateTotalPrice().toLocaleString()}원</h2>
             </div>
-            <div className="div-block-11"></div>
-            <div className="w-layout-vflex flex-block-11">
-              <div className="w-layout-hflex c-checkout-factor">
-                <h6 className="c-checkout-f-text">- 속기록 제작<br/>({formatTotalDuration()})</h6>
-                <h6 className="c-checkout-f-text">{calculateTranscriptionPrice().toLocaleString()}원</h6>
-              </div>
-              <div className="w-layout-hflex c-checkout-factor">
-                <h6 className="c-checkout-f-text">- 최종본: {getSelectedOptionText()}</h6>
-                <h6 className="c-checkout-f-text">{getSelectedOptionPrice().toLocaleString()}원</h6>
-              </div>
-              <div className="w-layout-hflex c-checkout-factor">
-                <h6 className="c-checkout-f-text">- 부가세 (10%)</h6>
-                <h6 className="c-checkout-f-text">{calculateVAT().toLocaleString()}원</h6>
-              </div>
+            <div style={{
+              fontSize: '0.875rem',
+              color: '#4a5568',
+              lineHeight: '1.4'
+            }}>
+              <div>- 속기록 제작 ({formatTotalDuration()})</div>
+              <div>- 최종본: {getSelectedOptionText()}</div>
+              <div>- 부가세 (10%)</div>
             </div>
           </div>
-          <div className="w-layout-vflex c-checkout-right">
-            <div className="w-layout-hflex flex-block-12">
-              <label style={{display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer'}}>
-                <input 
-                  type="checkbox" 
-                  checked={agree} 
-                  onChange={(e) => setAgree(e.target.checked)}
-                  style={{width: '16px', height: '16px', accentColor: '#3b82f6'}}
-                />
-                <h6 className="c-checkout-agreement-text">주문 내용, 서비스 이용약관 및 개인정보처리방침을 확인 했으며, 정보 제공에 동의합니다.</h6>
-              </label>
-            </div>
-            <button onClick={handleSubmit} className="c-button-checkout w-button" disabled={!isFormValid()} style={{opacity: isFormValid() ? 1 : 0.5, cursor: isFormValid() ? 'pointer' : 'not-allowed'}}>접수 완료하기</button>
+          
+          {/* 오른쪽: 파란색 박스 */}
+          <div className="c-checkout-right-new">
+            <label style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer',
+              fontSize: '0.75rem',
+              color: 'white',
+              marginBottom: '0.75rem'
+            }}>
+              <input 
+                type="checkbox" 
+                checked={agree} 
+                onChange={(e) => setAgree(e.target.checked)}
+                style={{
+                  width: '14px',
+                  height: '14px',
+                  accentColor: 'white',
+                  cursor: 'pointer'
+                }}
+              />
+              <span>주문 내용, 서비스 이용약관 및 개인정보처리방침을 확인 했으며, 정보 제공에 동의합니다.</span>
+            </label>
+            <button 
+              onClick={handleSubmit} 
+              disabled={!isFormValid()} 
+              style={{
+                width: '100%',
+                padding: '0.75rem 1.5rem',
+                backgroundColor: 'white',
+                color: '#1c58af',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '1rem',
+                fontWeight: '600',
+                cursor: isFormValid() ? 'pointer' : 'not-allowed',
+                opacity: isFormValid() ? 1 : 0.5,
+                transition: 'all 0.2s'
+              }}
+            >
+              접수 완료하기
+            </button>
           </div>
         </div>
       </section>
