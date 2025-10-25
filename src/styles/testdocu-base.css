@@ -1657,14 +1657,25 @@
   gap: 0.75rem;
 }
 
-/* 모바일에서 패딩 줄여서 콘텐츠 영역 확장 */
+/* 화자 정보 컨테이너 모바일 최적화 */
 @media (max-width: 768px) {
+  .c-speaker-container {
+    width: 100% !important; /* 모바일에서 전체 너비로 제한 */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 1rem !important; /* 패딩도 줄임 */
+  }
+  
   .c-file-block {
     padding: 1rem 0.25rem 0.75rem !important; /* 좌우 패딩을 0.25rem으로 극단적으로 줄임 */
   }
 }
 
 @media (max-width: 480px) {
+  .c-speaker-container {
+    padding: 0.75rem !important; /* 더 작은 모바일에서는 패딩 더 줄임 */
+  }
+  
   .c-file-block {
     padding: 1rem 0.125rem 0.75rem !important; /* 더 작은 모바일에서는 0.125rem으로 더 줄임 */
   }
