@@ -1186,7 +1186,6 @@ function Reception() {
                         <div className="w-layout-hflex flex-block-9" style={{ 
                           alignItems: 'center', 
                           gap: '0.5rem',
-                          flex: '1',
                           minWidth: '200px' // 최소 너비 보장
                         }}>
                           <h2 className="c-file-block-heading" style={{ 
