@@ -60,12 +60,12 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
 
   return (
     <div className="w-layout-vflex c-timestamp-wrapper" style={{ 
-      gap: '0.75rem',
-      padding: '0.75rem',
+      gap: '0.5rem',
+      padding: '0.5rem',
       backgroundColor: 'white',
       borderRadius: '8px',
       border: '1px solid #e5e7eb',
-      marginBottom: '0.5rem'
+      marginBottom: '0.25rem'
     }}>
       <div className="w-layout-hflex timestamp-h-flex" style={{ 
         justifyContent: 'space-between',
