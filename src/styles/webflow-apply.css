@@ -695,6 +695,15 @@
   margin-bottom: 0;
 }
 
+/* 데스크톱에서 탭 헤더 너비 축소 (좌우 여백 생성) */
+@media (min-width: 769px) {
+  .c-apply-section .c-tab-header {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* 탭 메뉴 */
 .c-tab-menu {
   justify-content: flex-start;
