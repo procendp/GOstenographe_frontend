@@ -1813,6 +1813,10 @@ function Reception() {
                 <span>- 최종본: {getSelectedOptionText()}</span>
                 <span>{getSelectedOptionPrice().toLocaleString()}원</span>
               </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>- 부가세 (10%)</span>
+                <span>{calculateVAT().toLocaleString()}원</span>
+              </div>
             </div>
           </div>
           
@@ -1825,7 +1829,7 @@ function Reception() {
               cursor: 'pointer',
               fontSize: '0.75rem',
               color: 'white',
-              marginBottom: '0.75rem'
+              marginBottom: '0.5rem'
             }}>
               <input 
                 type="checkbox" 
