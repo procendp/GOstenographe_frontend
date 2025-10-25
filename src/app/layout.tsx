@@ -4,6 +4,7 @@ import '../styles/webflow-apply.css'
 import '../styles/webflow-gnb.css'
 import './globals.css'
 import '../styles/tab-override.css'
+import '../styles/quotation-isolated.css'
 
 export const metadata: Metadata = {
   title: {

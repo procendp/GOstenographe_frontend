@@ -9,7 +9,7 @@ import OrdererInfoSection from '@/components/OrdererInfoSection';
 import RequestInfoSection from '@/components/RequestInfoSection';
 import FileUploadSection from '@/components/FileUploadSection';
 import RecordingLocationSection from '@/components/RecordingLocationSection';
-import { ReceptionFormData } from '@/types/reception';
+import QuotationSection from '@/components/QuotationSection';
 import { uploadMultipleFiles } from '@/utils/fileUpload';
 import { getMediaDuration } from '@/utils/mediaDuration';
 
@@ -808,21 +808,12 @@ function Reception() {
               </p>
             </div>
 
-            <div className="w-layout-vflex">
-              {/* 예상 견적 */}
-              <div className="mobile-hide-quotation" style={{
-                backgroundColor: '#1c58af',
-                borderRadius: '20px',
-                padding: '2rem 2rem',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                width: '90%',
-                margin: '0 auto 2rem auto'
-              }}>
-                <h2 style={{color: 'white', fontSize: '1.5rem', fontWeight: 'bold', margin: '0'}}>예상 견적</h2>
-                <h2 style={{color: 'white', fontSize: '1.5rem', fontWeight: 'bold', margin: '0'}}>{calculateTotalPrice().toLocaleString()}원</h2>
-              </div>
+            {/* 예상 견적 섹션 - 완전히 독립적인 컴포넌트 */}
+            <QuotationSection 
+              tabs={tabs}
+              selectedFileFormat={selectedFileFormat}
+              selectedFinalOption={selectedFinalOption}
+            />
 
               {/* 서비스 신청 내역 */}
               <div className="w-layout-vflex application-info-container" style={{marginBottom: '2rem', width: '90%', margin: '0 auto 2rem auto'}}>

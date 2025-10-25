@@ -1,0 +1,84 @@
+/* 예상 견적 섹션 전용 CSS - 다른 섹션과 완전히 독립적 */
+
+.quotation-section-isolated {
+  /* 다른 섹션과의 간섭을 방지하기 위한 격리 */
+  isolation: isolate;
+  contain: layout style;
+}
+
+.quotation-main-box {
+  /* 메인 견적 박스 - 완전히 독립적인 스타일 */
+  background-color: #1c58af !important;
+  border-radius: 20px !important;
+  padding: 2rem 2rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 90% !important;
+  margin: 0 auto 2rem auto !important;
+  box-sizing: border-box !important;
+}
+
+.quotation-details-box {
+  /* 세부 견적 내역 박스 - 완전히 독립적인 스타일 */
+  margin-bottom: 2rem !important;
+  width: 90% !important;
+  margin: 0 auto 2rem auto !important;
+  box-sizing: border-box !important;
+}
+
+/* 모바일 환경에서도 독립적으로 작동 */
+@media (max-width: 768px) {
+  .quotation-section-isolated {
+    /* 모바일에서도 다른 섹션과 간섭 없음 */
+    isolation: isolate;
+    contain: layout style;
+  }
+  
+  .quotation-main-box {
+    /* 모바일에서도 동일한 스타일 유지 */
+    background-color: #1c58af !important;
+    border-radius: 20px !important;
+    padding: 2rem 2rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 90% !important;
+    margin: 0 auto 2rem auto !important;
+  }
+  
+  .quotation-details-box {
+    /* 모바일에서도 동일한 스타일 유지 */
+    margin-bottom: 2rem !important;
+    width: 90% !important;
+    margin: 0 auto 2rem auto !important;
+  }
+}
+
+/* 데스크톱 환경에서도 독립적으로 작동 */
+@media (min-width: 769px) {
+  .quotation-section-isolated {
+    /* 데스크톱에서도 다른 섹션과 간섭 없음 */
+    isolation: isolate;
+    contain: layout style;
+  }
+  
+  .quotation-main-box {
+    /* 데스크톱에서도 동일한 스타일 유지 */
+    background-color: #1c58af !important;
+    border-radius: 20px !important;
+    padding: 2rem 2rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 90% !important;
+    margin: 0 auto 2rem auto !important;
+  }
+  
+  .quotation-details-box {
+    /* 데스크톱에서도 동일한 스타일 유지 */
+    margin-bottom: 2rem !important;
+    width: 90% !important;
+    margin: 0 auto 2rem auto !important;
+  }
+}
