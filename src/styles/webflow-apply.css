@@ -202,7 +202,7 @@
 /* 예상 견적란 - 웹플로우와 동일한 사이즈와 간격 */
 
 .c-checkout-section {
-  background-color: #ffffff;
+  background-color: #cad5e5;
   flex-flow: column;
   justify-content: space-between;
   align-items: center;
@@ -1382,7 +1382,7 @@
 
 /* 웹플로우 원본 체크아웃 섹션 - 완전히 분리된 하단 고정 섹션 */
 .c-checkout-section {
-  background-color: var(--_concept-1---color-set-2--white);
+  background-color: #cad5e5;
   flex-flow: column;
   justify-content: space-between;
   align-items: center;

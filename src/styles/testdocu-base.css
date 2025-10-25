@@ -1008,7 +1008,7 @@
 .c-apply-section {
   padding-top: 120px;
   padding-bottom: 140px;
-  background-color: #f0f4ff !important; /* webflow-apply.css의 배경색 덮어쓰기 */
+  background-color: #cad5e5 !important; /* 진한 청회색 배경 */
 }
 
 /* 모바일에서 예상 견적란 숨김 - 주석 처리하여 모바일에서도 보이게 함 */
@@ -1123,7 +1123,7 @@
   /* Apply 페이지 배경 이미지 모바일 최적화 */
   .c-apply-section {
     background-image: none !important; /* 모바일에서 배경 이미지 제거 */
-    background-color: #f0f4ff !important; /* 더 진한 파란색 배경으로 변경 (#f8f9fa → #f0f4ff) */
+    background-color: #cad5e5 !important; /* 진한 청회색 배경 */
   }
   
   /* Apply 페이지 전체 배경도 모바일에서 단순화 */
@@ -1469,7 +1469,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: white;
+  background: #cad5e5;
   box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
   z-index: 100;
   padding: 20px 0;
