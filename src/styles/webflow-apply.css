@@ -814,6 +814,15 @@
   overflow: visible;
 }
 
+/* 데스크톱에서 탭 콘텐츠 영역 너비 축소 (배경과 콘텐츠 모두 줄어듦) */
+@media (min-width: 769px) {
+  .c-apply-section .c-tab-content {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* 탭 콘텐츠 내부 정렬 - 웹플로우 원본과 동일 */
 .c-file-tab-pane {
   box-sizing: border-box;
@@ -936,15 +945,6 @@
   margin-bottom: 0.5rem;
   padding: 0.75rem 1.25rem; /* 패딩 축소 */
   display: flex;
-}
-
-/* 데스크톱에서 콘텐츠 블록 너비 축소 (탭과 동일하게) */
-@media (min-width: 769px) {
-  .c-apply-section .c-file-block {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 /* 모바일에서 패딩 줄여서 콘텐츠 영역 확장 */
