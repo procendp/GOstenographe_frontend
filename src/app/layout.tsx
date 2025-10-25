@@ -3,6 +3,7 @@ import '../styles/testdocu-base.css'
 import '../styles/webflow-apply.css'
 import '../styles/webflow-gnb.css'
 import './globals.css'
+import '../styles/tab-override.css'
 
 export const metadata: Metadata = {
   title: {

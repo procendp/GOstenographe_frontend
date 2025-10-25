@@ -1,0 +1,27 @@
+/* 탭 버튼 패딩 최종 오버라이드 - 모든 CSS보다 나중에 로드 */
+@media screen and (max-width: 767px) {
+  .c-file-tab-button-left,
+  .c-file-tab-button-mid,
+  .c-file-tab-button-right {
+    padding: 6px 8px !important;
+  }
+  
+  .c-file-tab-button-left.w--current,
+  .c-file-tab-button-mid.w--current,
+  .c-file-tab-button-right.w--current {
+    padding: 6px 8px !important;
+  }
+}
+
+/* 데스크톱에서도 작게 만들기 */
+.c-file-tab-button-left,
+.c-file-tab-button-mid,
+.c-file-tab-button-right {
+  padding: 6px 8px !important;
+}
+
+.c-file-tab-button-left.w--current,
+.c-file-tab-button-mid.w--current,
+.c-file-tab-button-right.w--current {
+  padding: 6px 8px !important;
+}

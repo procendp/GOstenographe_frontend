@@ -1578,23 +1578,19 @@
   display: none;
 }
 
-/* Apply 페이지 탭 버튼 스타일 - 구체적인 선택자로 우선순위 확보 */
-.c-apply-section .c-file-tab-button-left,
-.c-apply-section .c-file-tab-button-mid,
-.c-apply-section .c-file-tab-button-right {
-  border: 1px solid #b3c3d8;
-  font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
-  color: #666;
-  font-size: 0.9rem;
-  text-align: center;
-  letter-spacing: -0.01em;
-  background-color: #fff;
-  padding: 8px 12px !important;
-  font-weight: 400;
-  line-height: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
+/* 탭 버튼 패딩 강제 오버라이드 - Webflow CSS보다 더 구체적으로 */
+@media screen and (max-width: 767px) {
+  .c-apply-section .c-file-tab-button-left,
+  .c-apply-section .c-file-tab-button-mid,
+  .c-apply-section .c-file-tab-button-right {
+    padding: 6px 8px !important;
+  }
+  
+  .c-apply-section .c-file-tab-button-left.w--current,
+  .c-apply-section .c-file-tab-button-mid.w--current,
+  .c-apply-section .c-file-tab-button-right.w--current {
+    padding: 6px 8px !important;
+  }
 }
 
 .c-apply-section .c-file-tab-button-left {
