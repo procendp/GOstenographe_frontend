@@ -1016,7 +1016,8 @@
     display: none !important;
   }
 } */
-  
+
+@media (max-width: 768px) {
   /* 텍스트 가로 정렬 강제 - 더 강력하게 적용 */
   .c-apply-section .c-file-block-heading,
   .c-apply-section .c-file-block-title,
