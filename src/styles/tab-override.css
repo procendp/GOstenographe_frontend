@@ -1,11 +1,11 @@
-/* 파란 섹션 크기 확장 - 초록색 섹션 절반 이상으로 */
+/* 파란 섹션이 초록 섹션을 모두 채우도록 패딩 완전 제거 */
 @media screen and (max-width: 767px) {
   .c-file-tab-pane {
-    padding: 20px 10px !important; /* 40px → 20px 10px로 줄임 */
+    padding: 0 !important; /* 패딩 완전 제거 */
   }
 }
 
-/* 데스크톱에서도 패딩 줄이기 */
+/* 데스크톱에서도 패딩 제거 */
 .c-file-tab-pane {
-  padding: 20px 10px !important;
+  padding: 0 !important;
 }
