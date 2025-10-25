@@ -1033,7 +1033,7 @@ function Reception() {
                       key={index}
                       className={`c-file-tab-button-${index === 0 ? 'left' : index === tabs.length - 1 ? 'right' : 'mid'} w-inline-block w-tab-link ${activeTab === index ? 'w--current' : ''}`}
                       onClick={() => setActiveTab(index)}
-                      style={{ flexShrink: 0 }}
+                      style={{ flexShrink: 0, padding: '6px 8px' }}
                     >
                       <div className="c-tab-button-text">파일 {index + 1}</div>
                       <div className="c-tab-button-text-mobile">{index + 1}</div>
@@ -1044,7 +1044,7 @@ function Reception() {
                     <button
                       className="c-file-tab-button-right w-inline-block w-tab-link"
                       onClick={handleAddTab}
-                      style={{ flexShrink: 0 }}
+                      style={{ flexShrink: 0, padding: '6px 8px' }}
                     >
                       <div className="c-tab-button-text">+</div>
                       <div className="c-tab-button-text-mobile">+</div>
