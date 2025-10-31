@@ -666,6 +666,11 @@ function Reception() {
 
   // 분량과 녹취 위치에 따른 가격 계산
   const getPriceByDurationAndLocation = (minutes: number, location: '통화' | '현장'): number => {
+    // 0분일 때는 0원 반환 (파일 없음 또는 구간 미입력)
+    if (minutes === 0) {
+      return 0;
+    }
+
     const priceTable = PRICE_TABLE[location];
     for (const tier of priceTable) {
       if (minutes <= tier.maxMinutes) {
@@ -806,10 +811,13 @@ function Reception() {
             </div>
 
             {/* 예상 견적 섹션 - 완전히 독립적인 컴포넌트 */}
-            <QuotationSection 
-              tabs={tabs}
-              selectedFileFormat={selectedFileFormat}
-              selectedFinalOption={selectedFinalOption}
+            <QuotationSection
+              totalPrice={calculateTotalPrice()}
+              transcriptionPrice={calculateTranscriptionPrice()}
+              optionPrice={getSelectedOptionPrice()}
+              vatAmount={calculateVAT()}
+              totalDuration={formatTotalDuration()}
+              finalOptionText={getSelectedOptionText()}
             />
 
               {/* 서비스 신청 내역 */}
