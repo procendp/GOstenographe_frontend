@@ -99,10 +99,10 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
       >
         <div className="fn-navbar-container-second">
           {/* 로고 */}
-          <a 
-            href="/" 
+          <div
             className="c-gnb-brand w-nav-brand"
             onClick={(e) => handleNavigation(e, '/')}
+            style={{ cursor: 'pointer' }}
           >
             <Image
               src="/new_goStenographe_resource/Logo/LogoNavy2.png"
@@ -112,21 +112,21 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
               priority
               className="c-gnb-brand-image"
             />
-          </a>
+          </div>
 
           {/* 데스크톱 메뉴 */}
           <nav role="navigation" className="fn-navbar-menu-box-second w-nav-menu">
             <div className="fn-navbar-menu-wrapper-second">
               <div className="fn-navbar-links-wrapper">
                 {navLinks.map((link, index) => (
-                  <a 
+                  <div
                     key={index}
-                    href={link.href}
                     onClick={(e) => handleNavigation(e, link.href)}
                     className={`fn-navbar-link-second-2 _5 w-nav-link ${index === navLinks.length - 1 ? 'last-link-on-mobile' : ''}`}
+                    style={{ cursor: 'pointer' }}
                   >
                     {link.text}
-                  </a>
+                  </div>
                 ))}
               </div>
               
@@ -162,17 +162,21 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
       <div className={`webflow-mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
         <div className="webflow-mobile-menu-links">
           {navLinks.map((link, index) => (
-            <a
+            <div
               key={index}
-              href={link.href}
+              onClick={(e) => {
+                setIsMobileMenuOpen(false);
+                handleNavigation(e, link.href);
+              }}
               className="webflow-mobile-menu-link"
+              style={{ cursor: 'pointer' }}
             >
               {link.text}
-            </a>
+            </div>
           ))}
         </div>
-        <Link 
-          href="/apply" 
+        <Link
+          href="/apply"
           className="webflow-navbar-button"
           onClick={() => setIsMobileMenuOpen(false)}
         >

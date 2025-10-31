@@ -52,6 +52,8 @@ function Reception() {
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
   const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [tabToDelete, setTabToDelete] = useState<number | null>(null);
   // tabs 최신값을 이벤트 리스너에서 안전하게 참조하기 위한 ref
   const tabsRef = useRef(tabs);
   useEffect(() => {
@@ -106,10 +108,31 @@ function Reception() {
     }
   };
 
-  // beforeunload 이벤트 - 새로고침/브라우저 닫기 경고
+  // beforeunload 이벤트 - 새로고침/브라우저 닫기 시 파일 삭제
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (hasUploadedFiles()) {
+        // 파일 삭제 요청 (sendBeacon 사용 - 브라우저 닫혀도 전송 보장)
+        const filesToDelete = getAllUploadedFiles();
+        const fileKeys = filesToDelete.map(f => f.file_key);
+
+        if (fileKeys.length > 0) {
+          const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+          const blob = new Blob(
+            [JSON.stringify({ file_keys: fileKeys })],
+            { type: 'application/json' }
+          );
+
+          // sendBeacon: 브라우저가 닫혀도 백그라운드에서 요청 전송
+          navigator.sendBeacon(
+            `${backendUrl}/api/database/public-delete-uploaded-files/`,
+            blob
+          );
+
+          console.log('[BEFOREUNLOAD] 파일 삭제 요청 전송:', fileKeys);
+        }
+
+        // 브라우저 경고 표시
         e.preventDefault();
         e.returnValue = '';
         return '';
@@ -117,7 +140,7 @@ function Reception() {
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-    
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
@@ -171,7 +194,27 @@ function Reception() {
     setActiveTab(tabs.length);
   };
 
-  const handleRemoveTab = async (idx: number) => {
+  // 삭제 버튼 클릭 시 모달 표시
+  const handleRemoveTabClick = (idx: number) => {
+    if (tabs.length === 1) return;
+
+    const targetTab = tabs[idx];
+    // 파일이 업로드된 경우에만 확인 모달 표시
+    if (targetTab && Array.isArray(targetTab.files) && targetTab.files.length > 0) {
+      const hasUploadedFile = targetTab.files.some(f => f.file_key && f.file_key !== 'uploading');
+      if (hasUploadedFile) {
+        setTabToDelete(idx);
+        setShowDeleteModal(true);
+        return;
+      }
+    }
+
+    // 파일이 없으면 바로 삭제
+    confirmRemoveTab(idx);
+  };
+
+  // 실제 탭 삭제 처리
+  const confirmRemoveTab = async (idx: number) => {
     if (tabs.length === 1) return;
 
     // 삭제 대상 탭의 업로드 파일을 S3 + Supabase에서 먼저 삭제
@@ -181,19 +224,21 @@ function Reception() {
         .map((f: any) => f?.file_key)
         .filter((k: string) => k && k !== 'uploading');
 
-      try {
-        const response = await fetch(`${API_URL}/api/database/public-delete-uploaded-files/`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ file_keys: fileKeys })
-        });
-        if (!response.ok) {
-          console.warn('[TAB_REMOVE] 일괄 삭제 실패', await response.text());
-        } else {
-          console.log('[TAB_REMOVE] 일괄 삭제 성공');
+      if (fileKeys.length > 0) {
+        try {
+          const response = await fetch(`${API_URL}/api/database/public-delete-uploaded-files/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ file_keys: fileKeys })
+          });
+          if (!response.ok) {
+            console.warn('[TAB_REMOVE] 일괄 삭제 실패', await response.text());
+          } else {
+            console.log('[TAB_REMOVE] 일괄 삭제 성공');
+          }
+        } catch (e) {
+          console.error('[TAB_REMOVE] 파일 삭제 중 오류:', e);
         }
-      } catch (e) {
-        console.error('[TAB_REMOVE] 파일 삭제 중 오류:', e);
       }
     }
 
@@ -205,6 +250,21 @@ function Reception() {
     } else if (activeTab > idx) {
       setActiveTab(activeTab - 1);
     }
+  };
+
+  // 삭제 확인 모달 - 확인 버튼
+  const handleConfirmDelete = async () => {
+    if (tabToDelete !== null) {
+      await confirmRemoveTab(tabToDelete);
+    }
+    setShowDeleteModal(false);
+    setTabToDelete(null);
+  };
+
+  // 삭제 확인 모달 - 취소 버튼
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+    setTabToDelete(null);
   };
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -362,7 +422,7 @@ function Reception() {
         <div className="ml-4 flex items-center">
           <button
             className="c-delete-button"
-            onClick={() => handleRemoveTab(activeTab)}
+            onClick={() => handleRemoveTabClick(activeTab)}
           >
             삭제
           </button>
@@ -1049,7 +1109,7 @@ function Reception() {
                 <div className="c-delete-button-container">
                   <button
                     className="c-delete-button w-inline-block"
-                    onClick={() => handleRemoveTab(activeTab)}
+                    onClick={() => handleRemoveTabClick(activeTab)}
                     style={{
                       padding: '8px 12px',
                       fontSize: '12px',
@@ -1909,6 +1969,94 @@ function Reception() {
           </div>
         </div>
       </section>
+
+      {/* 탭 삭제 확인 모달 */}
+      {showDeleteModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            padding: '32px',
+            maxWidth: '500px',
+            width: '90%',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+          }}>
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🗑️</div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '600',
+                color: '#dc2626',
+                marginBottom: '12px'
+              }}>
+                파일 {tabToDelete !== null ? tabToDelete + 1 : ''}을(를) 삭제하시겠습니까?
+              </h3>
+              <p style={{
+                fontSize: '14px',
+                color: '#374151',
+                lineHeight: '1.6'
+              }}>
+                이 탭에 업로드된 <strong>파일과 작성된 모든 정보가 삭제</strong>됩니다.<br/>
+                이 작업은 되돌릴 수 없습니다.
+              </p>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              gap: '12px',
+              justifyContent: 'center'
+            }}>
+              <button
+                onClick={handleCancelDelete}
+                style={{
+                  padding: '12px 24px',
+                  backgroundColor: '#e5e7eb',
+                  color: '#374151',
+                  borderRadius: '8px',
+                  border: 'none',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d1d5db'}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#e5e7eb'}
+              >
+                취소
+              </button>
+              <button
+                onClick={handleConfirmDelete}
+                style={{
+                  padding: '12px 24px',
+                  backgroundColor: '#dc2626',
+                  color: 'white',
+                  borderRadius: '8px',
+                  border: 'none',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#b91c1c'}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
+              >
+                삭제하기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
