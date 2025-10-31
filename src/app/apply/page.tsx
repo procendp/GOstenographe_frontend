@@ -1704,7 +1704,7 @@ function Reception() {
                                 <textarea
                                   value={tab.detail || ''}
                                   onChange={(e) => {
-                                    if (e.target.value.length <= 100) {
+                                    if (e.target.value.length <= 2000) {
                                       const newTabs = [...tabs];
                                       newTabs[index] = { ...tab, detail: e.target.value };
                                       setTabs(newTabs);
@@ -1736,7 +1736,7 @@ function Reception() {
                                   padding: '2px 4px',
                                   borderRadius: '3px'
                                 }}>
-                                  {(tab.detail || '').length}/100
+                                  {(tab.detail || '').length}/2000
                                 </div>
                               </div>
                             </div>
