@@ -54,6 +54,7 @@ function Reception() {
   const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [tabToDelete, setTabToDelete] = useState<number | null>(null);
+  const [isDeletingTab, setIsDeletingTab] = useState(false);
   // tabs 최신값을 이벤트 리스너에서 안전하게 참조하기 위한 ref
   const tabsRef = useRef(tabs);
   useEffect(() => {
@@ -108,9 +109,25 @@ function Reception() {
     }
   };
 
+  // 삭제 중일 때 페이지 이탈 방지
+  useEffect(() => {
+    if (isDeletingTab) {
+      const blockExit = (e: BeforeUnloadEvent) => {
+        e.preventDefault();
+        e.returnValue = '';
+      };
+
+      window.addEventListener('beforeunload', blockExit);
+      return () => window.removeEventListener('beforeunload', blockExit);
+    }
+  }, [isDeletingTab]);
+
   // beforeunload 이벤트 - 새로고침/브라우저 닫기 시 파일 삭제
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      // 삭제 중일 때는 별도로 처리됨
+      if (isDeletingTab) return;
+
       if (hasUploadedFiles()) {
         // 파일 삭제 요청 (sendBeacon 사용 - 브라우저 닫혀도 전송 보장)
         const filesToDelete = getAllUploadedFiles();
@@ -254,11 +271,23 @@ function Reception() {
 
   // 삭제 확인 모달 - 확인 버튼
   const handleConfirmDelete = async () => {
-    if (tabToDelete !== null) {
-      await confirmRemoveTab(tabToDelete);
+    setIsDeletingTab(true);
+
+    try {
+      if (tabToDelete !== null) {
+        await confirmRemoveTab(tabToDelete);
+      }
+
+      // 네트워크 전송 완료 보장을 위한 짧은 대기
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      setShowDeleteModal(false);
+      setTabToDelete(null);
+    } catch (error) {
+      console.error('[TAB_DELETE] 탭 삭제 중 오류:', error);
+    } finally {
+      setIsDeletingTab(false);
     }
-    setShowDeleteModal(false);
-    setTabToDelete(null);
   };
 
   // 삭제 확인 모달 - 취소 버튼
@@ -1049,6 +1078,13 @@ function Reception() {
     <div className="flex flex-col min-h-screen apply-page-background" style={{
       backgroundColor: '#cad5e5' // 진한 청회색 배경
     }}>
+      <style jsx>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+
       <ApplyGNB 
         uploadedFiles={getAllUploadedFiles()}
         onNavigateAway={handleNavigateAway}
@@ -2012,48 +2048,77 @@ function Reception() {
               </p>
             </div>
 
-            <div style={{
-              display: 'flex',
-              gap: '12px',
-              justifyContent: 'center'
-            }}>
-              <button
-                onClick={handleCancelDelete}
-                style={{
-                  padding: '12px 24px',
-                  backgroundColor: '#e5e7eb',
-                  color: '#374151',
-                  borderRadius: '8px',
-                  border: 'none',
+            {isDeletingTab ? (
+              <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                <div style={{
+                  display: 'inline-block',
+                  width: '40px',
+                  height: '40px',
+                  border: '4px solid #e5e7eb',
+                  borderTop: '4px solid #dc2626',
+                  borderRadius: '50%',
+                  animation: 'spin 1s linear infinite',
+                  marginBottom: '16px'
+                }} />
+                <p style={{
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: '#374151'
+                }}>
+                  파일 삭제 중...
+                </p>
+                <p style={{
                   fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.2s'
-                }}
-                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d1d5db'}
-                onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#e5e7eb'}
-              >
-                취소
-              </button>
-              <button
-                onClick={handleConfirmDelete}
-                style={{
-                  padding: '12px 24px',
-                  backgroundColor: '#dc2626',
-                  color: 'white',
-                  borderRadius: '8px',
-                  border: 'none',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.2s'
-                }}
-                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#b91c1c'}
-                onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
-              >
-                삭제하기
-              </button>
-            </div>
+                  color: '#6b7280',
+                  marginTop: '8px'
+                }}>
+                  잠시만 기다려주세요
+                </p>
+              </div>
+            ) : (
+              <div style={{
+                display: 'flex',
+                gap: '12px',
+                justifyContent: 'center'
+              }}>
+                <button
+                  onClick={handleCancelDelete}
+                  style={{
+                    padding: '12px 24px',
+                    backgroundColor: '#e5e7eb',
+                    color: '#374151',
+                    borderRadius: '8px',
+                    border: 'none',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#d1d5db'}
+                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#e5e7eb'}
+                >
+                  취소
+                </button>
+                <button
+                  onClick={handleConfirmDelete}
+                  style={{
+                    padding: '12px 24px',
+                    backgroundColor: '#dc2626',
+                    color: 'white',
+                    borderRadius: '8px',
+                    border: 'none',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#b91c1c'}
+                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
+                >
+                  삭제하기
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
