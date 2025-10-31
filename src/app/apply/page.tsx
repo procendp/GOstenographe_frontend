@@ -705,7 +705,7 @@ function Reception() {
 
   // 동적 견적 계산 함수들
   
-  // 요금표 (분량별, 녹취 위치별)
+  // 요금표 (분량별, 녹음 종류별)
   const PRICE_TABLE = {
     '통화': [
       { maxMinutes: 3, price: 30000 },
@@ -753,7 +753,7 @@ function Reception() {
     return 0;
   };
 
-  // 분량과 녹취 위치에 따른 가격 계산
+  // 분량과 녹음 종류에 따른 가격 계산
   const getPriceByDurationAndLocation = (minutes: number, location: '통화' | '현장'): number => {
     // 0분일 때는 0원 반환 (파일 없음 또는 구간 미입력)
     if (minutes === 0) {
@@ -1220,14 +1220,14 @@ function Reception() {
                       </div>
                     </div>
                     
-                    {/* 녹취 위치 섹션 */}
+                    {/* 녹음 종류 섹션 */}
                     <div className="c-file-block" style={{
                       backgroundColor: '#f4f6f9',
                       borderRadius: '20px',
                       padding: '2rem'
                     }}>
                       <div className="w-layout-hflex c-file-block-title">
-                        <h2 className="c-file-block-heading">녹취 위치</h2>
+                        <h2 className="c-file-block-heading">녹음 종류</h2>
                         <div className="c-file-block-title-tag" style={{
                           border: '1px solid #fee9d4',
                           backgroundColor: '#faa654',
