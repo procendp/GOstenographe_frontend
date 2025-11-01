@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 
 import { ReceptionFormData } from '@/types/reception';
 
-const MAX_SPEAKERS = 5;
+const MAX_SPEAKERS = 10;
 
 interface OrdererInfoSectionProps {
   formData: ReceptionFormData;
