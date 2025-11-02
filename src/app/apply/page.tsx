@@ -61,7 +61,7 @@ function Reception() {
     tabsRef.current = tabs;
   }, [tabs]);
 
-  // 업로드된 모든 파일 수집 (tabs 변경 시 자동 재계산)
+  // ApplyGNB용: tabs 변경 시 자동 재계산되는 uploadedFiles
   const uploadedFiles = useMemo(() => {
     const allFiles: Array<{ file_key: string; file: File }> = [];
 
@@ -92,12 +92,25 @@ function Reception() {
     return allFiles;
   }, [tabs]);
 
-  // 호환성을 위한 함수 (기존 코드에서 사용하는 곳이 있을 수 있음)
+  // 이벤트 핸들러용: 항상 최신 tabs 값을 참조 (tabsRef 사용)
   const getAllUploadedFiles = () => {
-    return uploadedFiles;
+    const allFiles: Array<{ file_key: string; file: File }> = [];
+    const currentTabs = tabsRef.current;
+
+    currentTabs.forEach(tab => {
+      if (tab.files && tab.files.length > 0) {
+        tab.files.forEach(f => {
+          if (f.file_key && f.file_key !== 'uploading') {
+            allFiles.push({ file_key: f.file_key, file: f.file });
+          }
+        });
+      }
+    });
+
+    return allFiles;
   };
 
-  // 파일이 있는지 확인
+  // 파일이 있는지 확인 (이벤트 핸들러용)
   const hasUploadedFiles = () => {
     if (showComplete) return false;
     return getAllUploadedFiles().length > 0;
