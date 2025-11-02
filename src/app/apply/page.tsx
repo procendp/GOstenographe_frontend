@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import ApplyGNB from '@/components/ApplyGNB';
@@ -61,15 +61,14 @@ function Reception() {
     tabsRef.current = tabs;
   }, [tabs]);
 
-  // 업로드된 모든 파일 수집
-  const getAllUploadedFiles = () => {
+  // 업로드된 모든 파일 수집 (tabs 변경 시 자동 재계산)
+  const uploadedFiles = useMemo(() => {
     const allFiles: Array<{ file_key: string; file: File }> = [];
-    const currentTabs = tabsRef.current;
 
-    console.log('[apply/page] getAllUploadedFiles 호출');
-    console.log('  - tabs 개수:', currentTabs.length);
+    console.log('[apply/page] useMemo - 파일 수집 재계산');
+    console.log('  - tabs 개수:', tabs.length);
 
-    currentTabs.forEach((tab, idx) => {
+    tabs.forEach((tab, idx) => {
       console.log(`  - Tab ${idx}:`, {
         filesCount: tab.files?.length || 0,
         files: tab.files
@@ -91,6 +90,11 @@ function Reception() {
 
     console.log('  → 최종 수집된 파일:', allFiles.length);
     return allFiles;
+  }, [tabs]);
+
+  // 호환성을 위한 함수 (기존 코드에서 사용하는 곳이 있을 수 있음)
+  const getAllUploadedFiles = () => {
+    return uploadedFiles;
   };
 
   // 파일이 있는지 확인
@@ -871,8 +875,8 @@ function Reception() {
     <div className="flex flex-col min-h-screen" style={{
       backgroundColor: '#cad5e5' // 진한 청회색 배경
     }}>
-      <ApplyGNB 
-        uploadedFiles={getAllUploadedFiles()}
+      <ApplyGNB
+        uploadedFiles={uploadedFiles}
         onNavigateAway={handleNavigateAway}
         showComplete={showComplete}
       />
@@ -1110,8 +1114,8 @@ function Reception() {
         }
       `}</style>
 
-      <ApplyGNB 
-        uploadedFiles={getAllUploadedFiles()}
+      <ApplyGNB
+        uploadedFiles={uploadedFiles}
         onNavigateAway={handleNavigateAway}
         showComplete={showComplete}
       />
