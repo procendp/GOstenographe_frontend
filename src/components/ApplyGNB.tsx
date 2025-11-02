@@ -71,10 +71,15 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
 
   // 네비게이션 클릭 핸들러
   const handleNavigation = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+
     if (hasUploadedFiles()) {
-      e.preventDefault();
+      // 파일 업로드됨 → 경고 모달 표시
       setPendingNavigation(href);
       setShowExitModal(true);
+    } else {
+      // 파일 없음 → 바로 이동
+      router.push(href);
     }
   };
 
