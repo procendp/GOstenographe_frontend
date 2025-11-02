@@ -348,6 +348,13 @@ function Reception() {
       );
 
       // 업로드 완료 후 file_key와 fileDuration 업데이트
+      console.log('[apply/page] setTabs 실행 전');
+      console.log('  - uploadedFiles:', uploadedFiles);
+      console.log('  - uploadedFiles 상세:', uploadedFiles.map(uf => ({
+        fileName: uf.file.name,
+        fileKey: uf.fileKey
+      })));
+
       setTabs(tabs => tabs.map((tab, idx) =>
         idx === activeTab ? {
           ...tab,
@@ -355,6 +362,8 @@ function Reception() {
           fileDuration: fileDuration
         } : tab
       ));
+
+      console.log('[apply/page] setTabs 실행 후');
 
       // 업로드 성공 상태 업데이트
       const successStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
