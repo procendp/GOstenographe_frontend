@@ -157,7 +157,7 @@ function Reception() {
     }
   }, [isDeletingTab]);
 
-  // beforeunload 이벤트 - 새로고침/브라우저 닫기 시 파일 삭제
+  // beforeunload 이벤트 - 새로고침/브라우저 닫기 시 경고만 표시
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       // 삭제 중일 때는 별도로 처리됨
@@ -170,27 +170,10 @@ function Reception() {
       }
 
       if (hasUploadedFiles()) {
-        // 파일 삭제 요청 (sendBeacon 사용 - 브라우저 닫혀도 전송 보장)
-        const filesToDelete = getAllUploadedFiles();
-        const fileKeys = filesToDelete.map(f => f.file_key);
-
-        if (fileKeys.length > 0) {
-          const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
-          const blob = new Blob(
-            [JSON.stringify({ file_keys: fileKeys })],
-            { type: 'application/json' }
-          );
-
-          // sendBeacon: 브라우저가 닫혀도 백그라운드에서 요청 전송
-          navigator.sendBeacon(
-            `${backendUrl}/api/database/public-delete-uploaded-files/`,
-            blob
-          );
-
-          console.log('[BEFOREUNLOAD] 파일 삭제 요청 전송:', fileKeys);
-        }
-
-        // 브라우저 경고 표시
+        // 경고만 표시 (파일 삭제 안 함)
+        // 취소 → 페이지 유지, 파일 유지, 계속 작성 가능
+        // 확인 → 페이지 이탈, 파일 유지 (서버에서 6시간 후 자동 삭제)
+        console.log('[BEFOREUNLOAD] 경고 표시 (파일 유지, 서버에서 6시간 후 자동 정리)');
         e.preventDefault();
         e.returnValue = '';
         return '';
