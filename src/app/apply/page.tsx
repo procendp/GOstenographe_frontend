@@ -65,15 +65,31 @@ function Reception() {
   const getAllUploadedFiles = () => {
     const allFiles: Array<{ file_key: string; file: File }> = [];
     const currentTabs = tabsRef.current;
-    currentTabs.forEach(tab => {
+
+    console.log('[apply/page] getAllUploadedFiles 호출');
+    console.log('  - tabs 개수:', currentTabs.length);
+
+    currentTabs.forEach((tab, idx) => {
+      console.log(`  - Tab ${idx}:`, {
+        filesCount: tab.files?.length || 0,
+        files: tab.files
+      });
+
       if (tab.files && tab.files.length > 0) {
         tab.files.forEach(f => {
+          console.log(`    - 파일:`, {
+            file_key: f.file_key,
+            fileName: f.file?.name
+          });
+
           if (f.file_key && f.file_key !== 'uploading') {
             allFiles.push({ file_key: f.file_key, file: f.file });
           }
         });
       }
     });
+
+    console.log('  → 최종 수집된 파일:', allFiles.length);
     return allFiles;
   };
 
