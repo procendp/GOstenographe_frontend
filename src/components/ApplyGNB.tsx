@@ -64,20 +64,39 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
 
   // 파일이 업로드된 상태인지 확인
   const hasUploadedFiles = () => {
-    if (showComplete) return false; // 제출 완료 후에는 경고 안함
-    return uploadedFiles && uploadedFiles.length > 0 && 
+    console.log('[ApplyGNB] hasUploadedFiles 체크');
+    console.log('  - showComplete:', showComplete);
+    console.log('  - uploadedFiles:', uploadedFiles);
+    console.log('  - uploadedFiles.length:', uploadedFiles?.length);
+
+    if (showComplete) {
+      console.log('  → showComplete=true, 경고 안함');
+      return false; // 제출 완료 후에는 경고 안함
+    }
+
+    const result = uploadedFiles && uploadedFiles.length > 0 &&
            uploadedFiles.some(f => f.file_key && f.file_key !== 'uploading');
+
+    console.log('  → 최종 결과:', result);
+    return result;
   };
 
   // 네비게이션 클릭 핸들러
   const handleNavigation = (e: React.MouseEvent, href: string) => {
+    console.log('[ApplyGNB] handleNavigation 호출');
+    console.log('  - href:', href);
     e.preventDefault();
 
-    if (hasUploadedFiles()) {
+    const hasFiles = hasUploadedFiles();
+    console.log('  - hasFiles:', hasFiles);
+
+    if (hasFiles) {
+      console.log('  → 경고 모달 표시');
       // 파일 업로드됨 → 경고 모달 표시
       setPendingNavigation(href);
       setShowExitModal(true);
     } else {
+      console.log('  → 바로 이동:', href);
       // 파일 없음 → 바로 이동
       router.push(href);
     }
