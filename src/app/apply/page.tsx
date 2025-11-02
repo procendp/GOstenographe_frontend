@@ -57,6 +57,8 @@ function Reception() {
   const [isDeletingTab, setIsDeletingTab] = useState(false);
   // tabs 최신값을 이벤트 리스너에서 안전하게 참조하기 위한 ref
   const tabsRef = useRef(tabs);
+  // 파일 삭제 완료 플래그 (popstate → beforeunload 중복 방지)
+  const filesDeletedRef = useRef(false);
   useEffect(() => {
     tabsRef.current = tabs;
   }, [tabs]);
@@ -161,6 +163,12 @@ function Reception() {
       // 삭제 중일 때는 별도로 처리됨
       if (isDeletingTab) return;
 
+      // popstate에서 이미 삭제했으면 스킵 (뒤로가기 중복 방지)
+      if (filesDeletedRef.current) {
+        console.log('[BEFOREUNLOAD] 이미 삭제됨, 스킵');
+        return;
+      }
+
       if (hasUploadedFiles()) {
         // 파일 삭제 요청 (sendBeacon 사용 - 브라우저 닫혀도 전송 보장)
         const filesToDelete = getAllUploadedFiles();
@@ -200,16 +208,19 @@ function Reception() {
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
       if (showComplete) return;
-      
+
       if (hasUploadedFiles()) {
         const confirmLeave = window.confirm(
           '업로드된 파일이 있습니다.\n페이지를 나가시면 파일이 삭제됩니다.\n정말 나가시겠습니까?'
         );
-        
+
         if (!confirmLeave) {
           window.history.pushState(null, '', window.location.href);
         } else {
+          // 파일 삭제 후 플래그 설정 (beforeunload 스킵용)
           handleNavigateAway().then(() => {
+            filesDeletedRef.current = true;
+            console.log('[POPSTATE] 파일 삭제 완료, beforeunload 스킵 플래그 설정');
             window.history.back();
           });
         }
