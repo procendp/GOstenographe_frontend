@@ -1910,38 +1910,42 @@ function Reception() {
                       <p className="text-red-500 text-sm mt-1">{emailError}</p>
                     )}
                   </div>
-                  <div style={{width: '100%'}}>
-                    <input
-                      className="c-text-input-field w-input"
-                      maxLength={200}
-                      name="customer-address"
-                      placeholder="주소 (최종본 수령지)"
-                      type="text"
-                      value={customerAddress}
-                      onChange={(e) => setCustomerAddress(e.target.value)}
-                      required
-                      style={{width: '100%'}}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setIsAddressModalOpen(true)}
-                      style={{
-                        marginTop: '0.5rem',
-                        padding: '8px 16px',
-                        backgroundColor: '#1c58af',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                        fontWeight: '500',
-                        transition: 'opacity 0.3s ease'
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-                      onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                    >
-                      주소 찾기
-                    </button>
+                  <div className="address-input-wrapper" style={{width: '100%'}}>
+                    <div style={{display: 'flex', gap: '0.5rem', width: '100%'}}>
+                      <input
+                        className="c-text-input-field w-input"
+                        maxLength={200}
+                        name="customer-address"
+                        placeholder="주소 (최종본 수령지)"
+                        type="text"
+                        value={customerAddress}
+                        onChange={(e) => setCustomerAddress(e.target.value)}
+                        required
+                        style={{flex: 1, minWidth: '0'}}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setIsAddressModalOpen(true)}
+                        className="address-search-btn"
+                        style={{
+                          padding: '12px 24px',
+                          backgroundColor: '#1c58af',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          whiteSpace: 'nowrap',
+                          transition: 'opacity 0.3s ease',
+                          flexShrink: 0
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+                        onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                      >
+                        주소 찾기
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

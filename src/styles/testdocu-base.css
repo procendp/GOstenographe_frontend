@@ -1832,7 +1832,26 @@
 /* 주문자 정보 입력란 데스크톱 너비 확장 */
 @media (min-width: 769px) {
   .c-apply-section .c-apply-form.vertical {
-    max-width: 900px; /* 데스크톱에서 입력란 너비 확장 */
+    max-width: 1800px; /* 데스크톱에서 입력란 너비 확장 */
+  }
+}
+
+/* 주소 입력란 모바일 대응 */
+@media (max-width: 768px) {
+  .address-input-wrapper > div {
+    flex-direction: column !important;
+  }
+
+  .address-input-wrapper input {
+    width: 100% !important;
+  }
+
+  .address-search-btn {
+    width: auto !important;
+    align-self: flex-start !important;
+    margin-top: 0.5rem !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
   }
 }
 
