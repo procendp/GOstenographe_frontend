@@ -76,8 +76,8 @@ export default function NewFooter() {
             <div>
               <div className="mb-2 text-right md:text-left" style={{fontSize: '0.83rem', fontWeight: 'normal', color: 'rgba(29, 31, 30, 0.6)'}}>약관</div>
               <div className="flex flex-col gap-1 items-end md:items-start">
-                <Link href="/terms" className="hover:underline text-right md:text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>서비스 이용약관</Link>
-                <Link href="/policy" className="hover:underline text-right md:text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>개인정보처리방침</Link>
+                <a href="https://collie-retrospective.notion.site/2854b63e1e7a809590fcf1e47548ece7?pvs=74" target="_blank" rel="noopener noreferrer" className="hover:underline text-right md:text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>서비스 이용약관</a>
+                <a href="https://collie-retrospective.notion.site/2854b63e1e7a80fa937deb4a4020a5cb?pvs=74" target="_blank" rel="noopener noreferrer" className="hover:underline text-right md:text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>개인정보처리방침</a>
               </div>
             </div>
             {/* 회사 정보 */}

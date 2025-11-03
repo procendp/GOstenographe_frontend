@@ -44,8 +44,8 @@ const Footer = () => {
           <motion.div variants={fadeInUp} className="lg:col-span-1">
             <h3 className="text-lg font-bold mb-4">약관</h3>
             <div className="space-y-2 text-sm text-gray-300">
-              <Link href="/terms" className="block hover:text-white transition-colors">서비스 이용약관</Link>
-              <Link href="/policy" className="block hover:text-white transition-colors">개인정보처리방침</Link>
+              <a href="https://collie-retrospective.notion.site/2854b63e1e7a809590fcf1e47548ece7?pvs=74" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition-colors">서비스 이용약관</a>
+              <a href="https://collie-retrospective.notion.site/2854b63e1e7a80fa937deb4a4020a5cb?pvs=74" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition-colors">개인정보처리방침</a>
             </div>
           </motion.div>
 
