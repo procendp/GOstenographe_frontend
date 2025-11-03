@@ -1832,7 +1832,7 @@
 /* 주문자 정보 입력란 데스크톱 너비 확장 */
 @media (min-width: 769px) {
   .c-apply-section .c-apply-form.vertical {
-    max-width: 600px; /* 데스크톱에서 입력란 너비 확장 */
+    max-width: 900px; /* 데스크톱에서 입력란 너비 확장 */
   }
 }
 

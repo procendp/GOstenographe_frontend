@@ -1910,7 +1910,7 @@ function Reception() {
                       <p className="text-red-500 text-sm mt-1">{emailError}</p>
                     )}
                   </div>
-                  <div style={{display: 'flex', gap: '0.5rem', width: '100%'}}>
+                  <div style={{width: '100%'}}>
                     <input
                       className="c-text-input-field w-input"
                       maxLength={200}
@@ -1920,21 +1920,21 @@ function Reception() {
                       value={customerAddress}
                       onChange={(e) => setCustomerAddress(e.target.value)}
                       required
-                      style={{flex: 1, minWidth: '0'}}
+                      style={{width: '100%'}}
                     />
                     <button
                       type="button"
                       onClick={() => setIsAddressModalOpen(true)}
                       style={{
-                        padding: '12px 20px',
+                        marginTop: '0.5rem',
+                        padding: '8px 16px',
                         backgroundColor: '#1c58af',
                         color: 'white',
                         border: 'none',
-                        borderRadius: '8px',
+                        borderRadius: '6px',
                         cursor: 'pointer',
-                        fontSize: '14px',
-                        fontWeight: '600',
-                        whiteSpace: 'nowrap',
+                        fontSize: '13px',
+                        fontWeight: '500',
                         transition: 'opacity 0.3s ease'
                       }}
                       onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
