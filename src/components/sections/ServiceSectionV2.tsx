@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { AnimatePresence } from "framer-motion";
 
 export default function ServiceSectionV2() {
   const [tab, setTab] = useState<'녹취록' | '회의록'>('녹취록');
@@ -254,7 +253,13 @@ export default function ServiceSectionV2() {
                       {/* 서비스 신청/상담 문의 버튼 - 테이블 아래로 이동 */}
                       <div className="flex flex-col gap-2 mt-4">
                         <Link href="/apply">
-                          <button className="w-full py-3 rounded-lg bg-black text-white text-lg hover:opacity-90 transition-opacity duration-300">서비스 신청</button>
+                          <motion.button
+                            whileHover={{ scale: 1.02, opacity: 0.9 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full py-3 rounded-lg bg-black text-white text-lg transition-all duration-300"
+                          >
+                            서비스 신청
+                          </motion.button>
                         </Link>
                         <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
                           <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
