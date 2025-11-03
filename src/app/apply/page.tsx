@@ -1080,32 +1080,6 @@ function Reception() {
                 </div>
               </div>
             </div>
-          
-          {/* 새 신청하기 버튼 */}
-          <div style={{textAlign: 'center', marginTop: '3rem'}}>
-            <button 
-              onClick={handleNewRequest}
-              style={{
-                backgroundColor: '#1c58af',
-                color: 'white',
-                padding: '1rem 2rem',
-                borderRadius: '10px',
-                border: 'none',
-                fontSize: '1.1rem',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = '#164a94';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = '#1c58af';
-              }}
-            >
-              새 신청하기
-            </button>
-          </div>
         </div>
       </section>
       <NewFooter />

@@ -45,7 +45,7 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4">약관</h3>
             <div className="space-y-2 text-sm text-gray-300">
               <Link href="/terms" className="block hover:text-white transition-colors">서비스 이용약관</Link>
-              <Link href="/privacy" className="block hover:text-white transition-colors">개인정보처리방침</Link>
+              <Link href="/policy" className="block hover:text-white transition-colors">개인정보처리방침</Link>
             </div>
           </motion.div>
 

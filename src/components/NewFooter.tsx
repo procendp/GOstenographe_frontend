@@ -77,7 +77,7 @@ export default function NewFooter() {
               <div className="mb-2 text-right md:text-left" style={{fontSize: '0.83rem', fontWeight: 'normal', color: 'rgba(29, 31, 30, 0.6)'}}>약관</div>
               <div className="flex flex-col gap-1 items-end md:items-start">
                 <Link href="/terms" className="hover:underline text-right md:text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>서비스 이용약관</Link>
-                <Link href="/privacy" className="hover:underline text-right md:text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>개인정보처리방침</Link>
+                <Link href="/policy" className="hover:underline text-right md:text-left whitespace-nowrap" style={{fontSize: '1rem', color: '#1d1f1e', paddingTop: '0.25em', paddingBottom: '0.25em'}}>개인정보처리방침</Link>
               </div>
             </div>
             {/* 회사 정보 */}
