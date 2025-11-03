@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useWebflowTextAnimation, useScrollAnimation, useParallaxAnimation, useMouseFollowAnimation } from "../../hooks/useGSAPAnimations";
 
 const FADE_TEXTS = [
@@ -116,15 +117,16 @@ export default function HeroSection() {
         <div
           style={{ gridColumn: '1 / 5', gridRow: '5' }}
         >
-          <a
+          <motion.a
             ref={buttonRef}
             href="/apply"
-            className="td-button-primary hover:opacity-90"
-            style={{ transition: 'opacity 0.3s ease' }}
+            whileHover={{ scale: 1.02, opacity: 0.9 }}
+            whileTap={{ scale: 0.98 }}
+            className="td-button-primary"
             title="속기 서비스 신청하기"
           >
             서비스 신청
-          </a>
+          </motion.a>
         </div>
       </div>
     </section>
