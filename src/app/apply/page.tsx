@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import DaumPostcode from 'react-daum-postcode';
 import ApplyGNB from '@/components/ApplyGNB';
 import NewFooter from '@/components/NewFooter';
 import OrdererInfoSection from '@/components/OrdererInfoSection';
@@ -49,6 +50,7 @@ function Reception() {
   const [phoneError, setPhoneError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [addressError, setAddressError] = useState('');
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
   const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
@@ -1908,10 +1910,116 @@ function Reception() {
                       <p className="text-red-500 text-sm mt-1">{emailError}</p>
                     )}
                   </div>
-                  <input className="c-text-input-field w-input" maxLength={100} name="customer-address" placeholder="주소 (최종본 수령지)" type="text" value={customerAddress} onChange={(e) => setCustomerAddress(e.target.value)} required />
+                  <div style={{display: 'flex', gap: '0.5rem', width: '100%'}}>
+                    <input
+                      className="c-text-input-field w-input"
+                      maxLength={200}
+                      name="customer-address"
+                      placeholder="주소 (최종본 수령지)"
+                      type="text"
+                      value={customerAddress}
+                      onChange={(e) => setCustomerAddress(e.target.value)}
+                      required
+                      style={{flex: 1, minWidth: '0'}}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setIsAddressModalOpen(true)}
+                      style={{
+                        padding: '12px 20px',
+                        backgroundColor: '#1c58af',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        whiteSpace: 'nowrap',
+                        transition: 'opacity 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+                      onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                    >
+                      주소 찾기
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* 주소 검색 모달 */}
+            {isAddressModalOpen && (
+              <div
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  zIndex: 10000
+                }}
+                onClick={() => setIsAddressModalOpen(false)}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'white',
+                    borderRadius: '12px',
+                    padding: '20px',
+                    maxWidth: '500px',
+                    width: '90%',
+                    maxHeight: '80vh',
+                    overflow: 'auto',
+                    position: 'relative'
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '15px'
+                  }}>
+                    <h3 style={{margin: 0, fontSize: '1.25rem', fontWeight: 'bold'}}>주소 검색</h3>
+                    <button
+                      onClick={() => setIsAddressModalOpen(false)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        fontSize: '1.5rem',
+                        cursor: 'pointer',
+                        color: '#666'
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <DaumPostcode
+                    onComplete={(data: any) => {
+                      let fullAddress = data.address;
+                      let extraAddress = '';
+
+                      if (data.addressType === 'R') {
+                        if (data.bname !== '') {
+                          extraAddress += data.bname;
+                        }
+                        if (data.buildingName !== '') {
+                          extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+                        }
+                        fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+                      }
+
+                      setCustomerAddress(fullAddress);
+                      setIsAddressModalOpen(false);
+                    }}
+                    style={{ width: '100%', height: '400px' }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
         </div>
