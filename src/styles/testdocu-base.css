@@ -674,14 +674,8 @@
   font-weight: 600;
   text-decoration: none;
   display: inline-block;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease;
   box-shadow: var(--td-shadow-md);
-}
-
-.td-button-primary:hover {
-  background-color: #333;
-  transform: translateY(-2px);
-  box-shadow: var(--td-shadow-lg);
 }
 
 /* 컨테이너 */

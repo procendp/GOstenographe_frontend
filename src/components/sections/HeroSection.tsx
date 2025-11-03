@@ -113,13 +113,14 @@ export default function HeroSection() {
         </p>
         
         {/* CTA 버튼 */}
-        <div 
+        <div
           style={{ gridColumn: '1 / 5', gridRow: '5' }}
         >
-          <a 
+          <a
             ref={buttonRef}
-            href="/apply" 
-            className="td-button-primary"
+            href="/apply"
+            className="td-button-primary hover:opacity-90"
+            style={{ transition: 'opacity 0.3s ease' }}
             title="속기 서비스 신청하기"
           >
             서비스 신청

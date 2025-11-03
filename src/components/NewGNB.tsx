@@ -61,10 +61,10 @@ export default function NewGNB() {
           </ul>
           <motion.a
             href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02, opacity: 0.9 }}
+            whileTap={{ scale: 0.98 }}
             onClick={e => handleMenuClick(e, "#contact")}
-            className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold text-base transition-colors duration-300 shadow-lg"
+            className="ml-4 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-base transition-all duration-300 shadow-lg"
           >
             서비스 신청
           </motion.a>
@@ -90,7 +90,7 @@ export default function NewGNB() {
             <a
               href="#contact"
               onClick={e => handleMenuClick(e, "#contact")}
-              className="block w-full text-center py-3 mt-2 bg-blue-600 text-white rounded-lg font-semibold"
+              className="block w-full text-center py-3 mt-2 bg-blue-600 text-white rounded-lg font-semibold active:opacity-90"
             >
               서비스 신청
             </a>
