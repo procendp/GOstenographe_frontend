@@ -1876,17 +1876,17 @@
 
 /* 주문자 정보 입력 필드 너비 확장 (데스크톱) */
 @media (min-width: 769px) {
-  .personal-info-container {
+  .c-personal-info-block {
     max-width: 1800px;
     margin: 0 auto;
   }
 
-  .personal-info-container .c-apply-form.vertical {
+  .c-personal-info-block .c-apply-form.vertical {
     max-width: 1800px;
     margin: 0 auto;
   }
 
-  .personal-info-container .c-text-input-field {
+  .c-personal-info-block .c-text-input-field {
     max-width: 1800px;
   }
 } 
