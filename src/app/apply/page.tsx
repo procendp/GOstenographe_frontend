@@ -1928,13 +1928,13 @@ function Reception() {
                         onClick={() => setIsAddressModalOpen(true)}
                         className="address-search-btn"
                         style={{
-                          padding: '12px 24px',
-                          backgroundColor: '#1c58af',
+                          padding: '10px 20px',
+                          backgroundColor: '#3d5a80',
                           color: 'white',
                           border: 'none',
                           borderRadius: '8px',
                           cursor: 'pointer',
-                          fontSize: '14px',
+                          fontSize: '13px',
                           fontWeight: '600',
                           whiteSpace: 'nowrap',
                           transition: 'opacity 0.3s ease',
