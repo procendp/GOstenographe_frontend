@@ -1647,7 +1647,7 @@
 
 /* 섹션 블록 스타일 - webflow와 동일 */
 .c-file-block {
-  background-color: #f8f6f3;
+  background-color: #f4f6f9;
   color: #333;
   border-radius: 20px;
   padding: 1rem 1.5rem 0.75rem;
@@ -1872,4 +1872,12 @@
 .c-apply-form.vertical {
   flex-direction: column;
   gap: 12px;
+}
+
+/* 주문자 정보 입력 필드 너비 확장 (데스크톱) */
+@media (min-width: 769px) {
+  .personal-info-container .c-apply-form.vertical {
+    max-width: 1800px;
+    margin: 0 auto;
+  }
 } 
