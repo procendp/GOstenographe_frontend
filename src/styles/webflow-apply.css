@@ -241,6 +241,17 @@
   justify-content: center;
 }
 
+/* 짧은 화면(노트북 등)에서 고정 해제 - 데스크톱/태블릿만 적용 */
+@media (min-width: 769px) and (max-height: 800px) {
+  .c-checkout-section-new {
+    position: relative; /* 고정 해제 */
+  }
+
+  .c-apply-section {
+    padding-bottom: 10rem; /* 일반 여백으로 복귀 */
+  }
+}
+
 /* 모바일 반응형 */
 @media (max-width: 768px) {
   .c-checkout-section-new {
@@ -497,6 +508,13 @@
   background-color: var(--_concept-1---color-set-1--background);
   padding: 10rem 5%;
   display: flex;
+}
+
+/* 데스크톱/태블릿: 하단 고정 견적란을 위한 여유 공간 확보 */
+@media (min-width: 769px) {
+  .c-apply-section {
+    padding-bottom: 12rem; /* 견적란 높이(150px) + 여유 공간(70px) */
+  }
 }
 
 .c-apply-container {
