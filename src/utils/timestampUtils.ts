@@ -60,37 +60,26 @@ export const validateTimestampRange = (range: TimestampRange): { isValid: boolea
  */
 export const calculateTotalDuration = (ranges: TimestampRange[]): string => {
   let totalSeconds = 0;
-  
-  // 안전성 검사: ranges가 null, undefined, 또는 배열이 아닌 경우
+
   if (!ranges || !Array.isArray(ranges)) {
-    console.log('[calculateTotalDuration] 잘못된 ranges 입력:', ranges);
     return '00:00:00';
   }
-  
-  console.log('[calculateTotalDuration] 입력된 ranges:', ranges);
-  
+
   for (const range of ranges) {
-    // Only calculate for ranges with both times filled
-    if (range.startTime && range.endTime && 
+    if (range.startTime && range.endTime &&
         range.startTime !== '' && range.endTime !== '' &&
         isValidTimeFormat(range.startTime) && isValidTimeFormat(range.endTime)) {
-      
+
       const startSeconds = timeToSeconds(range.startTime);
       const endSeconds = timeToSeconds(range.endTime);
-      
-      console.log(`[calculateTotalDuration] 구간: ${range.startTime} - ${range.endTime}, 초: ${startSeconds} - ${endSeconds}`);
-      
-      // Only add if start < end
+
       if (startSeconds < endSeconds) {
         totalSeconds += (endSeconds - startSeconds);
-        console.log(`[calculateTotalDuration] 추가된 시간: ${endSeconds - startSeconds}초, 총합: ${totalSeconds}초`);
       }
     }
   }
 
-  const result = secondsToTime(totalSeconds);
-  console.log('[calculateTotalDuration] 최종 결과:', result);
-  return result;
+  return secondsToTime(totalSeconds);
 };
 
 /**

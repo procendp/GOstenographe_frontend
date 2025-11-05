@@ -69,22 +69,9 @@ function Reception() {
   const uploadedFiles = useMemo(() => {
     const allFiles: Array<{ file_key: string; file: File }> = [];
 
-    console.log('[apply/page] useMemo - 파일 수집 재계산');
-    console.log('  - tabs 개수:', tabs.length);
-
-    tabs.forEach((tab, idx) => {
-      console.log(`  - Tab ${idx}:`, {
-        filesCount: tab.files?.length || 0,
-        files: tab.files
-      });
-
+    tabs.forEach((tab) => {
       if (tab.files && tab.files.length > 0) {
         tab.files.forEach(f => {
-          console.log(`    - 파일:`, {
-            file_key: f.file_key,
-            fileName: f.file?.name
-          });
-
           if (f.file_key && f.file_key !== 'uploading') {
             allFiles.push({ file_key: f.file_key, file: f.file });
           }
@@ -92,7 +79,6 @@ function Reception() {
       }
     });
 
-    console.log('  → 최종 수집된 파일:', allFiles.length);
     return allFiles;
   }, [tabs]);
 
