@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Z_INDEX } from "@/constants/zIndex";
 
 interface ApplyGNBProps {
   uploadedFiles?: Array<{ file_key: string; file: File }>;
@@ -253,7 +254,7 @@ export default function ApplyGNB({ uploadedFiles = [], onNavigateAway, showCompl
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 9999
+          zIndex: Z_INDEX.MODAL_OVERLAY
         }}>
           <div style={{
             backgroundColor: 'white',

@@ -13,6 +13,8 @@ import RecordingLocationSection from '@/components/RecordingLocationSection';
 import QuotationSection from '@/components/QuotationSection';
 import { uploadMultipleFiles } from '@/utils/fileUpload';
 import { getMediaDuration } from '@/utils/mediaDuration';
+import { Z_INDEX } from '@/constants/zIndex';
+import { PRICE_TABLE, FINAL_OPTION_PRICES, FINAL_OPTION_LABELS } from '@/config/pricing';
 
 // API 기본 URL
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
@@ -681,19 +683,14 @@ function Reception() {
         })
       };
 
-      console.log('새로운 API로 전송할 요청 데이터:', requestData);
-
       const response = await fetch(`${API_URL}/api/requests/create_order_with_files/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestData),
       });
-      
-      console.log('응답 상태:', response.status);
 
       if (response.ok) {
         const result = await response.json();
-        console.log('주문 생성 완료:', result);
         setRequestId(result.order_id); // Order ID를 저장
         
         setShowComplete(true);
@@ -714,46 +711,14 @@ function Reception() {
         } catch (e) {
           errorData = { error: '응답 파싱 실패' };
         }
-        console.error('API 오류:', {
-          status: response.status,
-          statusText: response.statusText,
-          data: errorData
-        });
         alert(`신청 실패 (${response.status}): ${JSON.stringify(errorData)}`);
       }
     } catch (error) {
-      console.error('신청 처리 중 오류:', error);
       alert('신청 처리 중 오류가 발생했습니다.');
     }
   };
 
   // 동적 견적 계산 함수들
-  
-  // 요금표 (분량별, 녹음 종류별)
-  const PRICE_TABLE = {
-    '통화': [
-      { maxMinutes: 3, price: 30000 },
-      { maxMinutes: 5, price: 40000 },
-      { maxMinutes: 10, price: 70000 },
-      { maxMinutes: 20, price: 100000 },
-      { maxMinutes: 30, price: 120000 },
-      { maxMinutes: 40, price: 140000 },
-      { maxMinutes: 50, price: 160000 },
-      { maxMinutes: 60, price: 180000 },
-      { maxMinutes: Infinity, price: 180000 } // 60분 초과 시 60분 요금 적용
-    ],
-    '현장': [
-      { maxMinutes: 3, price: 50000 },
-      { maxMinutes: 5, price: 60000 },
-      { maxMinutes: 10, price: 90000 },
-      { maxMinutes: 20, price: 120000 },
-      { maxMinutes: 30, price: 140000 },
-      { maxMinutes: 40, price: 160000 },
-      { maxMinutes: 50, price: 180000 },
-      { maxMinutes: 60, price: 200000 },
-      { maxMinutes: Infinity, price: 200000 } // 60분 초과 시 60분 요금 적용
-    ]
-  };
 
   // 시간(HH:MM:SS)을 분으로 변환
   const timeToMinutes = (timeString: string): number => {
@@ -810,35 +775,12 @@ function Reception() {
   };
 
   const getSelectedOptionText = () => {
-    // 선택된 최종본 옵션에 따른 텍스트
-    switch (selectedFinalOption) {
-      case 'file':
-        return '파일';
-      case 'file_usb':
-        return '파일+등기우편';
-      case 'file_usb_cd':
-        return '파일+등기우편+CD';
-      case 'file_usb_post':
-        return '파일+등기우편+USB';
-      default:
-        return '파일';
-    }
+    return FINAL_OPTION_LABELS[selectedFinalOption as keyof typeof FINAL_OPTION_LABELS] || FINAL_OPTION_LABELS.file;
   };
 
   // 최종본 옵션 가격
   const getSelectedOptionPrice = (): number => {
-    switch (selectedFinalOption) {
-      case 'file':
-        return 0;
-      case 'file_usb':
-        return 5000;
-      case 'file_usb_cd':
-        return 6000;
-      case 'file_usb_post':
-        return 10000;
-      default:
-        return 0;
-    }
+    return FINAL_OPTION_PRICES[selectedFinalOption as keyof typeof FINAL_OPTION_PRICES] || 0;
   };
 
   // 총 견적 계산 (속기록 제작비 + 최종본 옵션 + 부가세 10%)
@@ -1504,7 +1446,7 @@ function Reception() {
                                       position: 'absolute',
                                       top: 0,
                                       left: 0,
-                                      zIndex: 1
+                                      zIndex: Z_INDEX.INPUT_OVERLAY
                                     }}
                                     onFocus={(e) => {
                                       if (!tab.recordingUnsure) {
@@ -1553,7 +1495,7 @@ function Reception() {
                                       position: 'absolute',
                                       top: 0,
                                       left: 0,
-                                      zIndex: 1
+                                      zIndex: Z_INDEX.INPUT_OVERLAY
                                     }}
                                     onFocus={(e) => {
                                       if (!tab.recordingUnsure) {
@@ -1950,7 +1892,7 @@ function Reception() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  zIndex: 10000
+                  zIndex: Z_INDEX.MODAL_OVERLAY
                 }}
                 onClick={() => setIsAddressModalOpen(false)}
               >
@@ -2126,7 +2068,7 @@ function Reception() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 9999
+          zIndex: Z_INDEX.MODAL_OVERLAY
         }}>
           <div style={{
             backgroundColor: 'white',
