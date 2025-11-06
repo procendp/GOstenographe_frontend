@@ -702,14 +702,14 @@
   margin-bottom: 0;
 }
 
-/* 데스크톱에서 탭 헤더 너비 축소 (좌우 여백 생성) */
+/* 데스크톱에서 탭 헤더 너비 축소 (다른 섹션과 좌측 정렬 통일) */
 @media (min-width: 769px) {
   .c-apply-section .c-tab-header {
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 }
 
@@ -751,7 +751,7 @@
   background-color: #1c58af;
   color: #ffffff;
   font-weight: 500;
-  padding: 15px 30px;
+  padding: 12px 20px;
 }
 
 .c-file-tab-button-mid {
@@ -782,7 +782,7 @@
   background-color: #1c58af;
   color: #ffffff;
   font-weight: 500;
-  padding: 15px 30px;
+  padding: 12px 20px;
 }
 
 .c-file-tab-button-right {
@@ -813,7 +813,7 @@
   background-color: #1c58af;
   color: #ffffff;
   font-weight: 500;
-  padding: 15px 30px;
+  padding: 12px 20px;
 }
 
 /* 탭 콘텐츠 */
