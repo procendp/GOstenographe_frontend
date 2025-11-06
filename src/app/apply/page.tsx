@@ -1802,8 +1802,8 @@ function Reception() {
                   }}>필수</div>
                 </div>
               </div>
-              <div className="form-block w-form">
-                <div className="c-apply-form vertical" style={{gap: '0.25rem'}}>
+              <div className="form-block w-form" style={{width: '100%'}}>
+                <div className="c-apply-form vertical" style={{gap: '0.25rem', width: '100%'}}>
                   <input className="c-text-input-field w-input" maxLength={100} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
                   <div style={{width: '100%'}}>
                     <input
