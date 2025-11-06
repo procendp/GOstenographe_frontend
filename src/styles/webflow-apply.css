@@ -1448,11 +1448,11 @@
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* 데스크톱에서 개인정보 블록 좌우 패딩 확장 (입력 필드 더 길게) */
+/* 데스크톱에서 개인정보 블록 좌우 패딩 - 최종본 옵션과 동일하게 */
 @media (min-width: 769px) {
   .c-personal-info-block {
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 }
 

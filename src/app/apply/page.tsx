@@ -1803,8 +1803,8 @@ function Reception() {
                 </div>
               </div>
               <div className="form-block w-form" style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}}>
-                <div className="c-apply-form vertical" style={{gap: '0.25rem', width: '100%', maxWidth: '800px'}}>
-                  <input className="c-text-input-field w-input" maxLength={100} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
+                <div className="c-apply-form vertical" style={{gap: '0.5rem', width: '100%', maxWidth: '800px'}}>
+                  <input className="c-text-input-field w-input" maxLength={100} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required style={{marginBottom: '0'}} />
                   <div style={{width: '100%'}}>
                     <input
                       className={`c-text-input-field w-input ${phoneError ? 'border-red-500 border-2' : ''}`}
@@ -1815,7 +1815,7 @@ function Reception() {
                       value={customerPhone}
                       onChange={handlePhoneChange}
                       required
-                      style={{width: '100%'}}
+                      style={{width: '100%', marginBottom: '0'}}
                     />
                     {phoneError && (
                       <p className="text-red-500 text-sm mt-1">{phoneError}</p>
@@ -1832,7 +1832,7 @@ function Reception() {
                       onChange={(e) => setCustomerEmail(e.target.value)}
                       onBlur={handleEmailBlur}
                       required
-                      style={{width: '100%'}}
+                      style={{width: '100%', marginBottom: '0'}}
                     />
                     {emailError && (
                       <p className="text-red-500 text-sm mt-1">{emailError}</p>
@@ -1849,25 +1849,29 @@ function Reception() {
                         value={customerAddress}
                         onChange={(e) => setCustomerAddress(e.target.value)}
                         required
-                        style={{flex: 1, minWidth: '0'}}
+                        style={{flex: 1, minWidth: '0', marginBottom: '0'}}
                       />
                       <button
                         type="button"
                         onClick={() => setIsAddressModalOpen(true)}
                         className="address-search-btn"
                         style={{
-                          padding: '10px 14px',
+                          padding: '12px 16px',
                           backgroundColor: '#3d5a80',
                           color: 'white',
-                          border: 'none',
+                          border: '1px solid #3d5a80',
                           borderRadius: '8px',
                           cursor: 'pointer',
-                          fontSize: '0.8rem',
+                          fontSize: '0.875rem',
                           fontWeight: '600',
                           whiteSpace: 'nowrap',
                           transition: 'opacity 0.3s ease',
                           flexShrink: 0,
-                          height: 'auto'
+                          height: '48px',
+                          lineHeight: '1',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
                         onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
