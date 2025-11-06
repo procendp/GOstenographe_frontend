@@ -926,7 +926,7 @@
 .c-file-heading {
   font-family: 'Pretendard', sans-serif;
   color: #272929; /* 웹플로우 원본 색상 */
-  font-size: 1.5rem; /* 웹플로우 원본 크기 */
+  font-size: 1.75rem; /* 2단계 증가 */
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 600;

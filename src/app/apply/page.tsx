@@ -1802,8 +1802,8 @@ function Reception() {
                   }}>필수</div>
                 </div>
               </div>
-              <div className="form-block w-form" style={{width: '100%'}}>
-                <div className="c-apply-form vertical" style={{gap: '0.25rem', width: '100%', maxWidth: '600px'}}>
+              <div className="form-block w-form" style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}}>
+                <div className="c-apply-form vertical" style={{gap: '0.25rem', width: '100%', maxWidth: '800px'}}>
                   <input className="c-text-input-field w-input" maxLength={100} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
                   <div style={{width: '100%'}}>
                     <input
@@ -1856,13 +1856,13 @@ function Reception() {
                         onClick={() => setIsAddressModalOpen(true)}
                         className="address-search-btn"
                         style={{
-                          padding: '12px 16px',
+                          padding: '10px 14px',
                           backgroundColor: '#3d5a80',
                           color: 'white',
                           border: 'none',
                           borderRadius: '8px',
                           cursor: 'pointer',
-                          fontSize: '0.875rem',
+                          fontSize: '0.8rem',
                           fontWeight: '600',
                           whiteSpace: 'nowrap',
                           transition: 'opacity 0.3s ease',
