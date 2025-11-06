@@ -1803,7 +1803,7 @@ function Reception() {
                 </div>
               </div>
               <div className="form-block w-form" style={{width: '100%'}}>
-                <div className="c-apply-form vertical" style={{gap: '0.25rem', width: '100%'}}>
+                <div className="c-apply-form vertical" style={{gap: '0.25rem', width: '100%', maxWidth: '600px'}}>
                   <input className="c-text-input-field w-input" maxLength={100} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
                   <div style={{width: '100%'}}>
                     <input
@@ -1856,17 +1856,18 @@ function Reception() {
                         onClick={() => setIsAddressModalOpen(true)}
                         className="address-search-btn"
                         style={{
-                          padding: '10px 20px',
+                          padding: '12px 16px',
                           backgroundColor: '#3d5a80',
                           color: 'white',
                           border: 'none',
                           borderRadius: '8px',
                           cursor: 'pointer',
-                          fontSize: '13px',
+                          fontSize: '0.875rem',
                           fontWeight: '600',
                           whiteSpace: 'nowrap',
                           transition: 'opacity 0.3s ease',
-                          flexShrink: 0
+                          flexShrink: 0,
+                          height: 'auto'
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
                         onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
