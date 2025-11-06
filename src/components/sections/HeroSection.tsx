@@ -72,7 +72,7 @@ export default function HeroSection() {
               lineHeight: '1.2' // 줄 간격 조정
             }}
           >
-            신뢰할 수 있는<br className="md:hidden" />전문 속기 서비스
+            신뢰할 수 있는 <br className="md:hidden" />전문 속기 서비스
           </h1>
         </div>
         
