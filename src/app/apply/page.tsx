@@ -1698,7 +1698,7 @@ function Reception() {
             backgroundSize: 'auto',
             borderRadius: '20px',
             padding: '2rem 2rem 1rem',
-            marginTop: '0.25rem'
+            marginTop: '-1rem'
           }}>
             <div className="c-file-title-block">
               <h2 className="c-file-heading">주문 정보</h2>
