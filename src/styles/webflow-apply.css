@@ -816,6 +816,16 @@
   padding: 12px 20px;
 }
 
+/* 탭 버튼 간격 */
+.c-file-tab-button-left,
+.c-file-tab-button-mid {
+  margin-right: 2px;
+}
+
+.c-file-tab-button-right {
+  margin-right: 0;
+}
+
 /* 탭 콘텐츠 */
 .c-tab-content {
   width: 100%;

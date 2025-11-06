@@ -1594,27 +1594,7 @@
   }
 }
 
-.c-apply-section .c-file-tab-button-left {
-  border-radius: 0.5rem 0.5rem 0 0;
-  margin-right: 2px;
-}
-
-.c-apply-section .c-file-tab-button-mid {
-  border-radius: 0.5rem 0.5rem 0 0;
-  margin-right: 2px;
-}
-
-.c-apply-section .c-file-tab-button-right {
-  border-radius: 0.5rem 0.5rem 0 0;
-  margin-right: 0;
-}
-
-.c-apply-section .c-file-tab-button-left:hover,
-.c-apply-section .c-file-tab-button-mid:hover,
-.c-apply-section .c-file-tab-button-right:hover {
-  background-color: #f5f7f9;
-  font-weight: 500;
-}
+/* 탭 버튼 border-radius, margin-right, hover 스타일은 webflow-apply.css에서 관리 (중복 제거) */
 
 /* 삭제 버튼 크기 키우기 */
 .c-apply-section .c-delete-button {
