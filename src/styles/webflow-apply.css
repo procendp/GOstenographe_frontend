@@ -702,13 +702,13 @@
   margin-bottom: 0;
 }
 
-/* 데스크톱에서 탭 헤더 너비 축소 (다른 섹션과 좌측 정렬 통일) */
+/* 데스크톱에서 탭 헤더 너비 축소 */
 @media (min-width: 769px) {
   .c-apply-section .c-tab-header {
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.25rem;
+    padding-left: 0;
     padding-right: 1.25rem;
   }
 }
@@ -858,22 +858,22 @@
   display: block;
 }
 
-/* 삭제 버튼 */
+/* 삭제 버튼 - 탭과 동일한 크기 */
 .c-delete-button {
   border: 1px solid #f97316;
   background-color: #f97316;
   color: #ffffff;
   text-align: center;
-  letter-spacing: -0.02em;
-  border-radius: 0.5rem;
+  letter-spacing: -0.01em;
+  border-radius: 0.5rem 0.5rem 0 0;
   justify-content: center;
   align-items: center;
-  min-height: 40px;
   padding: 12px 20px;
   font-size: 14px;
   font-weight: 500;
+  line-height: 24px;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
   display: inline-flex;
   cursor: pointer;
 }
