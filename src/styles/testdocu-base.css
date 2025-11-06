@@ -1375,10 +1375,17 @@
   .c-file-tab-button-left,
   .c-file-tab-button-mid,
   .c-file-tab-button-right {
-    padding: 1rem 1.2rem !important; /* 데스크톱 패딩 복원 */
+    padding: 12px 20px !important; /* 데스크톱 패딩 통일 */
     font-size: 1rem !important; /* 데스크톱 폰트 크기 복원 */
     min-width: 80px !important; /* 데스크톱 최소 너비 복원 */
     max-width: none !important; /* 최대 너비 제한 해제 */
+  }
+
+  /* 활성 탭 크기도 동일하게 통일 */
+  .c-apply-section .c-file-tab-button-left.w--current,
+  .c-apply-section .c-file-tab-button-mid.w--current,
+  .c-apply-section .c-file-tab-button-right.w--current {
+    padding: 12px 20px !important; /* 활성 탭도 동일한 패딩 */
   }
   
   /* 텍스트 크기 복원 */
@@ -1607,20 +1614,6 @@
 .c-apply-section .c-file-tab-button-right:hover {
   background-color: #f5f7f9;
   font-weight: 500;
-}
-
-.c-apply-section .c-file-tab-button-left.w--current,
-.c-apply-section .c-file-tab-button-mid.w--current,
-.c-apply-section .c-file-tab-button-right.w--current {
-  border-color: #1c58af;
-  background-color: #1c58af;
-  color: white;
-  padding: 8px 12px !important;
-  font-weight: 500;
-  box-shadow: 0 0 20px -10px rgba(0,0,0,0.38);
-  position: relative;
-  z-index: 10;
-  border-bottom: none;
 }
 
 /* 삭제 버튼 크기 키우기 */
