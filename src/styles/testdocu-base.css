@@ -1597,12 +1597,7 @@
 
 /* 탭 버튼 border-radius, margin-right, hover 스타일은 webflow-apply.css에서 관리 (중복 제거) */
 
-/* 삭제 버튼 크기 키우기 */
-.c-apply-section .c-delete-button {
-  padding: 10px 16px !important;
-  font-size: 0.9rem !important;
-  min-height: 36px !important;
-}
+/* 삭제 버튼 스타일은 미디어 쿼리별로 관리 (1218라인: 모바일, 1435라인: 데스크톱) */
 
 /* 탭 콘텐츠 스타일 */
 .c-file-tab-pane {
