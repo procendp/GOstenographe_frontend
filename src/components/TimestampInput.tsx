@@ -71,7 +71,7 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
           display: 'flex',
           alignItems: 'center',
           gap: '0.75rem',
-          padding: '0.75rem 1.5rem',
+          padding: '0.56rem 1.5rem',
           backgroundColor: '#f9fafb',
           borderRadius: '8px',
           border: '1px solid #e5e7eb',
