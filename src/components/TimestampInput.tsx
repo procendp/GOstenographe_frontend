@@ -59,138 +59,106 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
   };
 
   return (
-    <div className="w-layout-vflex c-timestamp-wrapper" style={{ 
-      gap: '0.5rem',
-      padding: '0.5rem',
-      backgroundColor: 'white',
-      borderRadius: '8px',
-      border: '1px solid #e5e7eb',
-      marginBottom: '0.25rem'
+    <div style={{
+      marginBottom: '1rem'
     }}>
-      <div className="w-layout-hflex timestamp-h-flex" style={{ 
-        justifyContent: 'space-between',
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 80px',
         alignItems: 'center',
-        gap: '1rem',
-        flex: '1'
+        gap: '1rem'
       }}>
-        <div className="c-time-input-grid" style={{
+        <div style={{
           display: 'flex',
-          flexDirection: 'column',
-          gap: '0.5rem',
-          flex: '1'
+          alignItems: 'center',
+          gap: '0.5rem'
         }}>
-          <div className="div-block-10" style={{ width: '100%' }}>
-            <label style={{
-              display: 'block',
-              fontSize: '12px',
-              color: '#6b7280',
-              marginBottom: '4px',
-              fontWeight: '500'
-            }}>시작 시간</label>
-            <input
-              type="text"
-              value={startTime || ''}
-              onChange={(e) => handleTimeChange(e.target.value, 'start')}
-              onFocus={(e) => {
-                if (!startTime || startTime === '00:00:00') {
-                  setStartTime('00:00:00');
-                  setTimeout(() => e.target.select(), 0);
-                }
-              }}
-              onBlur={(e) => handleTimeBlur(e.target.value, 'start')}
-              placeholder="00:00:00"
-              className="c-input-text"
-              style={{
-                background: 'transparent',
-                border: '1px solid #d1d5db',
-                borderRadius: '4px',
-                outline: 'none',
-                width: '100%',
-                textAlign: 'center',
-                fontFamily: 'Pretendard',
-                color: range.error ? '#dc2626' : ((!startTime || startTime === '00:00:00') ? '#9ca3af' : '#374151'),
-                fontSize: '14px',
-                padding: '8px 12px'
-              }}
-            />
-          </div>
-          <div className="div-block-10" style={{ width: '100%' }}>
-            <label style={{
-              display: 'block',
-              fontSize: '12px',
-              color: '#6b7280',
-              marginBottom: '4px',
-              fontWeight: '500'
-            }}>종료 시간</label>
-            <input
-              type="text"
-              value={endTime || ''}
-              onChange={(e) => handleTimeChange(e.target.value, 'end')}
-              onFocus={(e) => {
-                if (!endTime || endTime === '00:00:00') {
-                  setEndTime('00:00:00');
-                  setTimeout(() => e.target.select(), 0);
-                }
-              }}
-              onBlur={(e) => handleTimeBlur(e.target.value, 'end')}
-              placeholder="00:00:00"
-              className="c-input-text"
-              style={{
-                background: 'transparent',
-                border: '1px solid #d1d5db',
-                borderRadius: '4px',
-                outline: 'none',
-                width: '100%',
-                textAlign: 'center',
-                fontFamily: 'Pretendard',
-                color: range.error ? '#dc2626' : ((!endTime || endTime === '00:00:00') ? '#9ca3af' : '#374151'),
-                fontSize: '14px',
-                padding: '8px 12px'
-              }}
-            />
-          </div>
-        </div>
-        {canDelete && (
-          <button
-            type="button"
-            onClick={onDelete}
-            className="c-timestamp-delete"
+          <input
+            type="text"
+            value={startTime || ''}
+            onChange={(e) => handleTimeChange(e.target.value, 'start')}
+            onFocus={(e) => {
+              if (!startTime || startTime === '00:00:00') {
+                setStartTime('00:00:00');
+                setTimeout(() => e.target.select(), 0);
+              }
+            }}
+            onBlur={(e) => handleTimeBlur(e.target.value, 'start')}
+            placeholder="00:00:00"
+            className="c-input-text"
             style={{
-              background: '#ef4444',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              padding: '6px 12px',
+              flex: '1',
+              padding: '12px 16px',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              backgroundColor: 'white',
+              outline: 'none',
+              textAlign: 'center',
               fontFamily: 'Pretendard',
-              color: 'white',
-              fontSize: '12px',
-              fontWeight: '500',
-              flexShrink: 0,
-              transition: 'background-color 0.2s'
+              color: range.error ? '#dc2626' : ((!startTime || startTime === '00:00:00') ? '#9ca3af' : '#374151')
             }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = '#dc2626';
+          />
+          <span style={{
+            fontSize: '14px',
+            color: '#6b7280',
+            fontFamily: 'Pretendard'
+          }}>-</span>
+          <input
+            type="text"
+            value={endTime || ''}
+            onChange={(e) => handleTimeChange(e.target.value, 'end')}
+            onFocus={(e) => {
+              if (!endTime || endTime === '00:00:00') {
+                setEndTime('00:00:00');
+                setTimeout(() => e.target.select(), 0);
+              }
             }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = '#ef4444';
+            onBlur={(e) => handleTimeBlur(e.target.value, 'end')}
+            placeholder="00:00:00"
+            className="c-input-text"
+            style={{
+              flex: '1',
+              padding: '12px 16px',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              backgroundColor: 'white',
+              outline: 'none',
+              textAlign: 'center',
+              fontFamily: 'Pretendard',
+              color: range.error ? '#dc2626' : ((!endTime || endTime === '00:00:00') ? '#9ca3af' : '#374151')
             }}
-          >
-            삭제
-          </button>
-        )}
+          />
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          {canDelete && (
+            <button
+              type="button"
+              onClick={onDelete}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#3b82f6',
+                fontSize: '14px',
+                textDecoration: 'underline',
+                fontFamily: 'Pretendard'
+              }}
+            >
+              삭제
+            </button>
+          )}
+        </div>
       </div>
       {showWarning && range.error && (
         <p className="c-timestamp-warning" style={{
           fontFamily: 'Pretendard',
           color: '#dc2626',
           fontSize: '12px',
-          margin: '0',
-          textAlign: 'center',
-          fontWeight: '500',
-          padding: '4px 8px',
-          backgroundColor: '#fef2f2',
-          borderRadius: '4px',
-          border: '1px solid #fecaca'
+          margin: '8px 0 0 0',
+          textAlign: 'left',
+          fontWeight: '500'
         }}>
           {range.error}
         </p>
