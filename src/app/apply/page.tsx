@@ -1201,7 +1201,8 @@ function Reception() {
                       minHeight: '120px', // 최소 높이 설정으로 공간 확보
                       display: 'flex',
                       flexDirection: 'column',
-                      justifyContent: 'space-between'
+                      justifyContent: 'space-between',
+                      padding: '2rem'
                     }}>
                       {/* 제목과 속기 구간 길이를 한 줄로 배치 */}
                       <div style={{
