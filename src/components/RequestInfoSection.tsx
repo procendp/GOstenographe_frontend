@@ -95,51 +95,13 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
           <div className="w-tab-content" style={{ marginTop: '0', paddingBottom: '0' }}>
             <div data-w-tab="부분 녹취" className="w-tab-pane w--tab-active">
               <div className="c-timestamp-block" style={{ marginBottom: '0' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: '1.5rem',
-                  padding: '1rem 1.25rem',
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '12px',
-                  border: '1px solid #e5e7eb'
-                }}>
+                <div style={{ marginBottom: '1rem' }}>
                   <h2 className="c-file-block-heading h5" style={{
-                    margin: '0',
+                    margin: '0 0 1rem 0',
                     fontSize: '1.1rem',
                     fontWeight: '600',
                     color: '#374151'
                   }}>부분 녹취 구간 입력</h2>
-                  {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (
-                    <button
-                      type="button"
-                      onClick={handleTimestampRangeAdd}
-                      style={{
-                        background: '#1c58af',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '10px 20px',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        fontSize: '15px',
-                        color: 'white',
-                        fontWeight: '600',
-                        transition: 'background-color 0.2s'
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = '#164a94';
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = '#1c58af';
-                      }}
-                    >
-                      <span style={{ fontSize: '18px', fontWeight: 'bold' }}>+</span>
-                      <span>추가</span>
-                    </button>
-                  )}
                 </div>
                 <div className="w-layout-vflex timestampt-input-wrapper" style={{ alignItems: 'flex-start', gap: '0.75rem', marginBottom: '0' }}>
                   {(formData.timestampRanges || []).map((range, index) => (
@@ -151,6 +113,40 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                       canDelete={(formData.timestampRanges?.length || 0) > 1}
                     />
                   ))}
+                  {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (
+                    <button
+                      type="button"
+                      onClick={handleTimestampRangeAdd}
+                      style={{
+                        width: '100%',
+                        padding: '1rem',
+                        border: '2px dashed #d1d5db',
+                        borderRadius: '8px',
+                        backgroundColor: 'transparent',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        fontSize: '14px',
+                        color: '#6b7280',
+                        fontFamily: 'Pretendard',
+                        fontWeight: '500',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.borderColor = '#9ca3af';
+                        e.currentTarget.style.color = '#374151';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.borderColor = '#d1d5db';
+                        e.currentTarget.style.color = '#6b7280';
+                      }}
+                    >
+                      <span style={{ fontSize: '18px', fontWeight: 'normal' }}>+</span>
+                      <span>추가</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

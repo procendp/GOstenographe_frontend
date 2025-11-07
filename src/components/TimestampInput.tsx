@@ -60,18 +60,22 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
 
   return (
     <div style={{
-      marginBottom: '1rem'
+      marginBottom: '0.75rem'
     }}>
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 80px',
+        display: 'flex',
         alignItems: 'center',
-        gap: '1rem'
+        gap: '0.75rem',
+        padding: '1rem',
+        backgroundColor: '#f9fafb',
+        borderRadius: '8px',
+        border: '1px solid #e5e7eb'
       }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0.5rem'
+          gap: '0.5rem',
+          flex: '1'
         }}>
           <input
             type="text"
@@ -84,26 +88,26 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
               }
             }}
             onBlur={(e) => handleTimeBlur(e.target.value, 'start')}
-            placeholder="00:00:00"
+            placeholder="시작"
             className="c-input-text"
             style={{
               flex: '1',
-              padding: '12px 16px',
-              border: '1px solid #d1d5db',
-              borderRadius: '8px',
+              padding: '10px 14px',
+              border: 'none',
+              borderRadius: '6px',
               fontSize: '14px',
-              backgroundColor: 'white',
+              backgroundColor: 'transparent',
               outline: 'none',
-              textAlign: 'center',
+              textAlign: 'left',
               fontFamily: 'Pretendard',
               color: range.error ? '#dc2626' : ((!startTime || startTime === '00:00:00') ? '#9ca3af' : '#374151')
             }}
           />
           <span style={{
-            fontSize: '14px',
-            color: '#6b7280',
-            fontFamily: 'Pretendard'
-          }}>-</span>
+            fontSize: '16px',
+            color: '#d1d5db',
+            fontWeight: '300'
+          }}>→</span>
           <input
             type="text"
             value={endTime || ''}
@@ -115,23 +119,39 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
               }
             }}
             onBlur={(e) => handleTimeBlur(e.target.value, 'end')}
-            placeholder="00:00:00"
+            placeholder="종료"
             className="c-input-text"
             style={{
               flex: '1',
-              padding: '12px 16px',
-              border: '1px solid #d1d5db',
-              borderRadius: '8px',
+              padding: '10px 14px',
+              border: 'none',
+              borderRadius: '6px',
               fontSize: '14px',
-              backgroundColor: 'white',
+              backgroundColor: 'transparent',
               outline: 'none',
-              textAlign: 'center',
+              textAlign: 'left',
               fontFamily: 'Pretendard',
               color: range.error ? '#dc2626' : ((!endTime || endTime === '00:00:00') ? '#9ca3af' : '#374151')
             }}
           />
         </div>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem'
+        }}>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#9ca3af"
+            strokeWidth="2"
+            style={{ flexShrink: 0 }}
+          >
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
           {canDelete && (
             <button
               type="button"
@@ -140,28 +160,53 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                color: '#3b82f6',
-                fontSize: '14px',
-                textDecoration: 'underline',
-                fontFamily: 'Pretendard'
+                padding: '0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
+              title="삭제"
             >
-              삭제
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#9ca3af"
+                strokeWidth="2"
+                style={{ flexShrink: 0 }}
+              >
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
             </button>
           )}
         </div>
       </div>
       {showWarning && range.error && (
-        <p className="c-timestamp-warning" style={{
-          fontFamily: 'Pretendard',
-          color: '#dc2626',
-          fontSize: '12px',
-          margin: '8px 0 0 0',
-          textAlign: 'left',
-          fontWeight: '500'
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          marginTop: '0.5rem',
+          paddingLeft: '1rem'
         }}>
-          {range.error}
-        </p>
+          <span style={{
+            color: '#3b82f6',
+            fontFamily: 'Pretendard',
+            fontSize: '14px',
+            fontWeight: '500'
+          }}>삭제</span>
+          <p style={{
+            fontFamily: 'Pretendard',
+            color: '#dc2626',
+            fontSize: '14px',
+            margin: '0'
+          }}>
+            {range.error}
+          </p>
+        </div>
       )}
     </div>
   );
