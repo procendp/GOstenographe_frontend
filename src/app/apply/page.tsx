@@ -474,7 +474,7 @@ function Reception() {
       )}
       
       {tabs.length > 1 && (
-        <div className="ml-4 flex items-center">
+        <div className="ml-auto flex items-center">
           <button
             className="c-delete-button"
             onClick={() => handleRemoveTabClick(activeTab)}

@@ -1431,12 +1431,13 @@
     min-height: 44px !important; /* 데스크톱 최소 높이 복원 */
   }
   
-  /* 삭제 버튼 크기 - 탭 버튼과 동일하게 */
+  /* 삭제 버튼 크기 - 탭 버튼보다 살짝 크게 */
   .c-delete-button {
-    padding: 12px 20px !important; /* 탭 버튼과 동일한 패딩 */
+    padding: 12px 24px !important; /* 탭보다 좌우 패딩 증가 */
     font-size: 14px !important; /* 탭 버튼과 동일한 폰트 크기 */
     line-height: 24px !important; /* 탭 버튼과 동일한 line-height */
-    min-height: 40px !important; /* 최소 높이 유지 */
+    min-height: 48px !important; /* 최소 높이 증가 */
+    min-width: 70px !important; /* 최소 너비 설정 */
   }
   
   /* 컨테이너 패딩 복원 */
