@@ -120,7 +120,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                       style={{
                         width: '100%',
                         padding: '1rem',
-                        border: '2px dashed #d1d5db',
+                        border: '2px dashed #93c5fd',
                         borderRadius: '8px',
                         backgroundColor: 'transparent',
                         cursor: 'pointer',
@@ -135,11 +135,11 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                         transition: 'all 0.2s'
                       }}
                       onMouseOver={(e) => {
-                        e.currentTarget.style.borderColor = '#9ca3af';
+                        e.currentTarget.style.borderColor = '#60a5fa';
                         e.currentTarget.style.color = '#374151';
                       }}
                       onMouseOut={(e) => {
-                        e.currentTarget.style.borderColor = '#d1d5db';
+                        e.currentTarget.style.borderColor = '#93c5fd';
                         e.currentTarget.style.color = '#6b7280';
                       }}
                     >

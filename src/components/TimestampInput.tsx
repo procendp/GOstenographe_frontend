@@ -65,17 +65,17 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '0.75rem',
-        padding: '1rem',
-        backgroundColor: '#f9fafb',
-        borderRadius: '8px',
-        border: '1px solid #e5e7eb'
+        gap: '0.75rem'
       }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
-          flex: '1'
+          padding: '0.5rem 1rem',
+          backgroundColor: '#f9fafb',
+          borderRadius: '8px',
+          border: '1px solid #e5e7eb',
+          maxWidth: '66.67%'
         }}>
           <input
             type="text"
@@ -91,8 +91,8 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
             placeholder="시작"
             className="c-input-text"
             style={{
-              flex: '1',
-              padding: '10px 14px',
+              width: '120px',
+              padding: '6px 10px',
               border: 'none',
               borderRadius: '6px',
               fontSize: '14px',
@@ -122,8 +122,8 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
             placeholder="종료"
             className="c-input-text"
             style={{
-              flex: '1',
-              padding: '10px 14px',
+              width: '120px',
+              padding: '6px 10px',
               border: 'none',
               borderRadius: '6px',
               fontSize: '14px',
@@ -134,12 +134,6 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
               color: range.error ? '#dc2626' : ((!endTime || endTime === '00:00:00') ? '#9ca3af' : '#374151')
             }}
           />
-        </div>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem'
-        }}>
           <svg
             width="20"
             height="20"
@@ -147,66 +141,41 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
             fill="none"
             stroke="#9ca3af"
             strokeWidth="2"
-            style={{ flexShrink: 0 }}
+            style={{ flexShrink: 0, marginLeft: '0.5rem' }}
           >
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
           </svg>
-          {canDelete && (
-            <button
-              type="button"
-              onClick={onDelete}
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-              title="삭제"
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#9ca3af"
-                strokeWidth="2"
-                style={{ flexShrink: 0 }}
-              >
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="15" y1="9" x2="9" y2="15"/>
-                <line x1="9" y1="9" x2="15" y2="15"/>
-              </svg>
-            </button>
-          )}
         </div>
+        {canDelete && (
+          <button
+            type="button"
+            onClick={onDelete}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '0',
+              color: '#3b82f6',
+              fontFamily: 'Pretendard',
+              fontSize: '14px',
+              textDecoration: 'underline'
+            }}
+          >
+            삭제
+          </button>
+        )}
       </div>
       {showWarning && range.error && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          marginTop: '0.5rem',
-          paddingLeft: '1rem'
+        <p style={{
+          fontFamily: 'Pretendard',
+          color: '#dc2626',
+          fontSize: '14px',
+          margin: '0.5rem 0 0 0',
+          paddingLeft: '0'
         }}>
-          <span style={{
-            color: '#3b82f6',
-            fontFamily: 'Pretendard',
-            fontSize: '14px',
-            fontWeight: '500'
-          }}>삭제</span>
-          <p style={{
-            fontFamily: 'Pretendard',
-            color: '#dc2626',
-            fontSize: '14px',
-            margin: '0'
-          }}>
-            {range.error}
-          </p>
-        </div>
+          {range.error}
+        </p>
       )}
     </div>
   );
