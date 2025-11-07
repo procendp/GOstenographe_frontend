@@ -95,26 +95,21 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
           <div className="w-tab-content" style={{ marginTop: '0', paddingBottom: '0' }}>
             <div data-w-tab="부분 녹취" className="w-tab-pane w--tab-active">
               <div className="c-timestamp-block" style={{ marginBottom: '0' }}>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center',
-                  marginBottom: '1rem',
-                  padding: '0.75rem 1rem',
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: '1.5rem',
+                  padding: '1rem 1.25rem',
                   backgroundColor: '#f8f9fa',
-                  borderRadius: '8px',
-                  border: '1px solid #e5e7eb',
-                  flexWrap: 'wrap', // 모바일에서 줄바꿈 허용
-                  gap: '0.5rem'
+                  borderRadius: '12px',
+                  border: '1px solid #e5e7eb'
                 }}>
-                  <h2 className="c-file-block-heading h5" style={{ 
-                    textAlign: 'center', 
+                  <h2 className="c-file-block-heading h5" style={{
                     margin: '0',
-                    fontSize: '0.9rem', // 폰트 크기 줄임
+                    fontSize: '1.1rem',
                     fontWeight: '600',
-                    color: '#374151',
-                    flex: '1',
-                    minWidth: '150px'
+                    color: '#374151'
                   }}>부분 녹취 구간 입력</h2>
                   {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (
                     <button
@@ -123,17 +118,16 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                       style={{
                         background: '#1c58af',
                         border: 'none',
-                        borderRadius: '6px',
-                        padding: '8px 16px', // 패딩 늘림
+                        borderRadius: '8px',
+                        padding: '10px 20px',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '4px',
-                        fontSize: '14px', // 폰트 크기 늘림
+                        gap: '6px',
+                        fontSize: '15px',
                         color: 'white',
-                        fontWeight: '500',
-                        transition: 'background-color 0.2s',
-                        flexShrink: 0 // 버튼 크기 고정
+                        fontWeight: '600',
+                        transition: 'background-color 0.2s'
                       }}
                       onMouseOver={(e) => {
                         e.currentTarget.style.backgroundColor = '#164a94';
@@ -142,7 +136,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                         e.currentTarget.style.backgroundColor = '#1c58af';
                       }}
                     >
-                      <span style={{ fontSize: '16px', fontWeight: 'bold' }}>+</span>
+                      <span style={{ fontSize: '18px', fontWeight: 'bold' }}>+</span>
                       <span>추가</span>
                     </button>
                   )}
