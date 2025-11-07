@@ -1204,24 +1204,11 @@ function Reception() {
                       justifyContent: 'space-between',
                       padding: '2rem'
                     }}>
-                      {/* 제목과 속기 구간 길이를 한 줄로 배치 */}
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        marginBottom: '1.5rem',
-                        paddingTop: '0.5rem'
-                      }}>
-                        {/* 녹취 종류 제목 */}
-                        <div className="w-layout-hflex c-file-block-title" style={{
-                          alignItems: 'center',
-                          gap: '0.5rem'
-                        }}>
-                          <h2 className="record-type-heading" style={{
-                            fontSize: '1.25rem',
-                            fontWeight: '600',
-                            margin: 0
-                          }}>녹취 종류</h2>
+                      {/* 화자 정보 구조와 동일하게 적용 */}
+                      <div className="w-layout-hflex c-file-block-title between">
+                        {/* 왼쪽: 녹취 종류 + 필수 태그 */}
+                        <div className="w-layout-hflex flex-block-9">
+                          <h2 className="c-file-block-heading">녹취 종류</h2>
                           <div className="c-file-block-title-tag" style={{
                             border: '1px solid #fee9d4',
                             backgroundColor: '#faa654',
@@ -1239,23 +1226,10 @@ function Reception() {
                           </div>
                         </div>
 
-                        {/* 속기 구간 길이 - 우측 상단 */}
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          textAlign: 'right'
-                        }}>
-                          <span style={{
-                            fontSize: '0.9rem',
-                            fontWeight: '500',
-                            color: '#6b7280'
-                          }}>속기 구간 길이</span>
-                          <span style={{
-                            fontSize: '1.1rem',
-                            fontWeight: '700',
-                            color: '#374151'
-                          }}>
+                        {/* 오른쪽: 속기 구간 길이 */}
+                        <div className="w-layout-hflex c-type-static-wrapper">
+                          <h2 className="c-file-block-heading light">속기 구간 길이</h2>
+                          <h2 className="c-file-block-heading highlight">
                             {(() => {
                               if (tab.recordType === '전체') {
                                 const duration = tab.fileDuration || '00:00:00';
@@ -1276,7 +1250,7 @@ function Reception() {
                               }
                               return '00시간 00분 00초';
                             })()}
-                          </span>
+                          </h2>
                         </div>
                       </div>
 
