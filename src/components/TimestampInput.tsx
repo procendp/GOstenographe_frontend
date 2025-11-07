@@ -65,17 +65,17 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '0.75rem'
+        gap: '1rem'
       }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.5rem 1rem',
+          gap: '0.75rem',
+          padding: '0.75rem 1.5rem',
           backgroundColor: '#f9fafb',
           borderRadius: '8px',
           border: '1px solid #e5e7eb',
-          maxWidth: '66.67%'
+          flex: '1'
         }}>
           <input
             type="text"
@@ -91,22 +91,23 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
             placeholder="시작"
             className="c-input-text"
             style={{
-              width: '120px',
-              padding: '6px 10px',
+              flex: '1',
+              padding: '8px 12px',
               border: 'none',
               borderRadius: '6px',
-              fontSize: '14px',
+              fontSize: '16px',
               backgroundColor: 'transparent',
               outline: 'none',
-              textAlign: 'left',
+              textAlign: 'center',
               fontFamily: 'Pretendard',
               color: range.error ? '#dc2626' : ((!startTime || startTime === '00:00:00') ? '#9ca3af' : '#374151')
             }}
           />
           <span style={{
-            fontSize: '16px',
+            fontSize: '18px',
             color: '#d1d5db',
-            fontWeight: '300'
+            fontWeight: '300',
+            flexShrink: 0
           }}>→</span>
           <input
             type="text"
@@ -122,30 +123,18 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
             placeholder="종료"
             className="c-input-text"
             style={{
-              width: '120px',
-              padding: '6px 10px',
+              flex: '1',
+              padding: '8px 12px',
               border: 'none',
               borderRadius: '6px',
-              fontSize: '14px',
+              fontSize: '16px',
               backgroundColor: 'transparent',
               outline: 'none',
-              textAlign: 'left',
+              textAlign: 'center',
               fontFamily: 'Pretendard',
               color: range.error ? '#dc2626' : ((!endTime || endTime === '00:00:00') ? '#9ca3af' : '#374151')
             }}
           />
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#9ca3af"
-            strokeWidth="2"
-            style={{ flexShrink: 0, marginLeft: '0.5rem' }}
-          >
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
         </div>
         {canDelete && (
           <button
@@ -159,7 +148,9 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
               color: '#3b82f6',
               fontFamily: 'Pretendard',
               fontSize: '14px',
-              textDecoration: 'underline'
+              textDecoration: 'underline',
+              whiteSpace: 'nowrap',
+              flexShrink: 0
             }}
           >
             삭제
