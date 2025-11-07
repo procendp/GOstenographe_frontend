@@ -992,15 +992,17 @@
 }
 
 /* 녹취 종류 헤딩 - 데스크탑과 모바일 분리 */
+/* 녹취 종류 제목 스타일 - testdocu-base.css의 !important 회피 */
 .record-type-heading {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  line-height: 1.4 !important;
 }
 
 @media (max-width: 768px) {
   .record-type-heading {
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
   }
 }
 

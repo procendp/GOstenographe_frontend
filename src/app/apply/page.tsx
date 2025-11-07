@@ -1216,7 +1216,7 @@ function Reception() {
                           alignItems: 'center',
                           gap: '0.5rem'
                         }}>
-                          <h2 className="c-file-block-heading record-type-heading" style={{
+                          <h2 className="record-type-heading" style={{
                             fontSize: '1.25rem',
                             fontWeight: '600',
                             margin: 0
