@@ -103,7 +103,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
               <p className="c-paragraph-speaker-info" style={{
                 margin: '0',
                 fontSize: '14px',
-                color: '#60a5fa',
+                color: '#3b82f6',
                 textAlign: 'left',
                 fontFamily: 'Pretendard, sans-serif',
                 lineHeight: '1.6'
