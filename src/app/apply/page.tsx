@@ -1756,15 +1756,15 @@ function Reception() {
                   </label>
                   <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
                     <input type="radio" name="final-option" value="file_usb" checked={selectedFinalOption === 'file_usb'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
-                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 (+5,000원)</span>
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편<br/>(+5,000원)</span>
                   </label>
                   <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
                     <input type="radio" name="final-option" value="file_usb_cd" checked={selectedFinalOption === 'file_usb_cd'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
-                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +CD (+6,000원)</span>
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +CD<br/>(+6,000원)</span>
                   </label>
                   <label className="radio-button-field w-radio" style={{fontSize: '1rem'}}>
                     <input type="radio" name="final-option" value="file_usb_post" checked={selectedFinalOption === 'file_usb_post'} onChange={(e) => setSelectedFinalOption(e.target.value)} className="w-form-formradioinput w-radio-input" />
-                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +USB (+10,000원)</span>
+                    <span className="w-form-label" style={{fontSize: '1rem'}}>파일 +등기 우편 +USB<br/>(+10,000원)</span>
                   </label>
                 </div>
               </div>

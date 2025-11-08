@@ -1472,10 +1472,10 @@
     padding-right: 1.25rem;
   }
 
-  /* 모바일에서 타이틀과 콘텐츠 정렬 - 열람 파일 형식, 최종본 옵션 섹션 */
-  .c-apply-section .c-paragraph-caution,
-  .c-apply-section .c-apply-form,
-  .c-apply-section .w-form {
+  /* 모바일에서 타이틀과 콘텐츠 정렬 - 열람 파일 형식, 최종본 옵션 섹션만 */
+  .c-apply-section .order-info-section .c-file-block .c-paragraph-caution,
+  .c-apply-section .order-info-section .c-file-block .c-apply-form,
+  .c-apply-section .order-info-section .c-file-block .w-form {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
