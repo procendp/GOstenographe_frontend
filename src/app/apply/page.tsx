@@ -1254,7 +1254,7 @@ function Reception() {
                       </div>
 
                       {/* 전체/부분 녹취 버튼 */}
-                      <div style={{ display: 'flex', gap: '0', marginBottom: '1.5rem' }}>
+                      <div className="record-type-buttons" style={{ display: 'flex', gap: '0', marginBottom: '1.5rem' }}>
                         <button
                           onClick={() => {
                             const newTabs = [...tabs];

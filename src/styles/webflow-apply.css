@@ -1467,10 +1467,8 @@
     padding-right: 0.65rem;
   }
 
-  /* 모바일에서 타이틀과 콘텐츠 정렬 - 녹취 종류 섹션 버튼 */
-  .c-file-block > div[style*="display: flex"][style*="gap: 0"] {
-    padding-left: 0.65rem;
-    padding-right: 0.65rem;
+  /* 모바일에서 녹취 종류 섹션 버튼 가운데 정렬 */
+  .record-type-buttons {
     justify-content: center !important;
   }
 
