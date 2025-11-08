@@ -1282,16 +1282,21 @@
   
   .c-apply-section .c-steps-grid {
     gap: 1rem !important;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
   }
-  
+
   .c-apply-section .c-steps-line {
-    display: none;
+    display: flex;
+    position: static;
+    transform: none;
+    width: 60px !important;
+    margin: 0 0.5rem;
   }
-  
+
   .c-apply-section .c-steps-item {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
   
   .c-apply-section .c-heading-4 {
