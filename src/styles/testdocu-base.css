@@ -1281,7 +1281,7 @@
   }
   
   .c-apply-section .c-steps-grid {
-    gap: 1rem !important;
+    gap: 0.5rem !important;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -1291,12 +1291,14 @@
     display: flex;
     position: static;
     transform: none;
-    width: 30px !important;
-    margin: 0 0.25rem;
+    width: 15px !important;
+    margin: 0 0.15rem;
+    flex-shrink: 0;
   }
 
   .c-apply-section .c-steps-item {
     margin-bottom: 0;
+    flex-shrink: 0;
   }
   
   .c-apply-section .c-heading-4 {
