@@ -246,30 +246,31 @@
   .c-checkout-section-new {
     padding: 0;
   }
-  
+
   .c-checkout-container-new {
-    gap: 0.75rem;
+    flex-direction: column;
+    gap: 0;
     padding: 0 0.75rem;
     align-items: stretch;
   }
-  
+
   .c-checkout-left-new {
-    flex: 1;
+    width: 100%;
     min-width: 0;
-    padding: 0.75rem 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e5e7eb;
   }
-  
+
   .c-checkout-right-new {
-    flex: 1;
-    width: auto;
-    padding: 0 1rem;
+    width: 100%;
+    padding: 1rem;
   }
-  
+
   /* 모바일 텍스트 크기 조정 */
   .c-checkout-left-new h2 {
     font-size: 0.875rem !important;
   }
-  
+
   .c-checkout-left-new > div:last-child {
     font-size: 0.75rem !important;
   }
