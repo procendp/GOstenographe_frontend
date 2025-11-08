@@ -1145,7 +1145,6 @@ function Reception() {
                           }}>필수</div>
                         </div>
                       </div>
-                      <p className="c-paragraph-caution">* 첨부 가능한 파일 형식<br/>- 영상 : mp3, wav, m4a, cda, mod, ogg, wma, flac, asf<br/>- 음성 : avi, mp4, asf, wmv, m2v, mpeg, dpg, mts, webm, divx, amv</p>
                       <div className="link-block w-inline-block">
                         <FileUploadSection
                           formData={tab as any}
