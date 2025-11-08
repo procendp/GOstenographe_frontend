@@ -1447,6 +1447,14 @@
   }
 }
 
+/* 모바일에서 주문 정보 섹션 패딩 조정 - 파일 정보와 동일하게 */
+@media (max-width: 768px) {
+  .c-apply-section .order-info-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
 /* .personal-info-container::before 제거 - 상단 구분선 제거 */
 
 /* 웹플로우 원본 개인정보 블록 */
