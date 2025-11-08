@@ -1648,8 +1648,13 @@
     padding: 1rem 0.25rem 0.75rem !important; /* 파일 정보 섹션만 좌우 패딩을 0.25rem으로 줄임 */
   }
 
-  /* 주문자 정보 섹션 이메일 placeholder 한 줄로 표시 */
+  /* 주문자 정보 섹션 이메일 입력 필드 */
   .c-personal-info-block input[type="email"] {
+    font-size: 13px !important;
+  }
+
+  /* 이메일 placeholder만 폰트 크기 축소 */
+  .c-personal-info-block input[type="email"]::placeholder {
     font-size: 11px !important;
   }
 
