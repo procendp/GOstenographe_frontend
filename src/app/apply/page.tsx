@@ -1668,14 +1668,19 @@ function Reception() {
           </div>
 
           {/* 주문 정보 섹션 - 탭 컨테이너와 분리 */}
-          <div className="personal-info-container w-layout-vflex" style={{
+          <div className="order-info-section w-layout-vflex" style={{
             backgroundColor: '#ece8d7',
             backgroundImage: 'url(/new_goStenographe_resource/backgrounds/Background-Beige.png)',
             backgroundPosition: '0 0',
             backgroundSize: 'auto',
             borderRadius: '20px',
             padding: '2rem 2rem 1rem',
-            marginTop: '-5rem'
+            marginTop: '-5rem',
+            width: '100%',
+            position: 'relative',
+            maxWidth: window.innerWidth >= 769 ? '900px' : '100%',
+            marginLeft: 'auto',
+            marginRight: 'auto'
           }}>
             <div className="c-file-title-block">
               <h2 className="c-order-info-heading" style={{
