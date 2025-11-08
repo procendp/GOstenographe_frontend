@@ -1650,12 +1650,12 @@
 
   /* 주문자 정보 섹션 이메일 placeholder 한 줄로 표시 */
   .c-personal-info-block input[type="email"] {
-    font-size: 13px !important;
+    font-size: 11px !important;
   }
 
   /* 하단 여백 증가하여 주소 찾기 버튼이 예상 견적란에 가려지지 않도록 */
   .pb-32 {
-    padding-bottom: 10rem !important;
+    padding-bottom: 12rem !important;
   }
   
   .c-speaker-container {
