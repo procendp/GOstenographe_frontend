@@ -592,10 +592,10 @@ function Reception() {
                         tab.timestampRanges.every((range: any) => range.isValid !== false);
       }
 
-      // 4. 화자 정보 (필수) - 최소 1명 이상의 화자명 필요
+      // 4. 화자 정보 (필수) - 모든 화자명 입력 필요
       const speakerValid = tab.speakerNames &&
                           tab.speakerNames.length > 0 &&
-                          tab.speakerNames.some((name: string) => name.trim() !== '');
+                          tab.speakerNames.every((name: string) => name.trim() !== '');
 
       return fileValid && recordTypeValid && timestampValid && speakerValid;
     });
