@@ -1281,19 +1281,29 @@
   }
   
   .c-apply-section .c-steps-grid {
-    gap: 0.5rem !important;
+    gap: 3rem !important;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 
   .c-apply-section .c-steps-line {
-    display: none;
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 15px;
+    transform: translateX(-50%);
+    width: 40px !important;
+    margin: 0;
+    z-index: 0;
   }
 
   .c-apply-section .c-steps-item {
     margin-bottom: 0;
     flex-shrink: 0;
+    position: relative;
+    z-index: 1;
   }
   
   .c-apply-section .c-heading-4 {
