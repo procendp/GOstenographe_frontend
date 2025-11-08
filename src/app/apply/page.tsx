@@ -1678,7 +1678,7 @@ function Reception() {
             marginTop: '-3rem'
           }}>
             <div className="c-file-title-block">
-              <h2 className="c-file-heading">주문 정보</h2>
+              <h2 className="c-file-heading" style={{ fontSize: '22px' }}>주문 정보</h2>
             </div>
             
             <div className="c-file-block">
