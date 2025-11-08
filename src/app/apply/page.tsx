@@ -1675,7 +1675,7 @@ function Reception() {
             backgroundSize: 'auto',
             borderRadius: '20px',
             padding: '2rem 2rem 1rem',
-            marginTop: '-3rem'
+            marginTop: '-5rem'
           }}>
             <div className="c-file-title-block">
               <h2 className="c-order-info-heading" style={{
@@ -1683,7 +1683,8 @@ function Reception() {
                 color: '#333',
                 fontSize: '22px',
                 fontWeight: '700',
-                marginBottom: '0.5rem'
+                marginBottom: '0.25rem',
+                marginTop: '0'
               }}>주문 정보</h2>
             </div>
             
