@@ -1479,6 +1479,11 @@
     padding-left: 0.65rem;
     padding-right: 0.65rem;
   }
+
+  /* 모바일에서 최종본 옵션 가격 부분 줄바꿈 */
+  .final-option-label .price-break {
+    display: block;
+  }
 }
 
 /* .personal-info-container::before 제거 - 상단 구분선 제거 */
