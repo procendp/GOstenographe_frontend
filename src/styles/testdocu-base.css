@@ -1366,7 +1366,7 @@
   }
   
   .c-file-block-title.between .c-type-static-wrapper {
-    padding: 0.5rem 1rem !important;
+    padding: 0.5rem 0.5rem !important;
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 0.25rem !important;
