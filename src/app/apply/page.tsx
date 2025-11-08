@@ -1678,7 +1678,6 @@ function Reception() {
             marginTop: '-5rem',
             width: '100%',
             position: 'relative',
-            maxWidth: window.innerWidth >= 769 ? '900px' : '100%',
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
