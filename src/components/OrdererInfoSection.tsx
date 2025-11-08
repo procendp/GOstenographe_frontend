@@ -103,7 +103,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
               <p className="c-paragraph-caution" style={{
                 margin: '0',
                 fontSize: '14px',
-                color: '#3b82f6',
+                color: '#60a5fa',
                 textAlign: 'left'
               }}>
                 • 알 수 없는 경우 <strong>남자 1</strong>, <strong>여자 1</strong>의 형태로 작성해 주세요.
