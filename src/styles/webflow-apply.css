@@ -1453,6 +1453,7 @@
   .c-apply-section .order-info-section {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
+    padding-top: 1rem !important;
   }
 
   /* 모바일에서 파일/주문 정보 섹션 타이틀에 좌우 패딩 추가 */
