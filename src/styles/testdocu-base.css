@@ -1288,12 +1288,7 @@
   }
 
   .c-apply-section .c-steps-line {
-    display: flex;
-    position: static;
-    transform: none;
-    width: 15px !important;
-    margin: 0 0.15rem;
-    flex-shrink: 0;
+    display: none;
   }
 
   .c-apply-section .c-steps-item {
