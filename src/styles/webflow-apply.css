@@ -1459,6 +1459,26 @@
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
+
+  /* 모바일에서 타이틀과 콘텐츠 정렬 - 녹음 종류 섹션 */
+  .c-type-container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* 모바일에서 타이틀과 콘텐츠 정렬 - 녹취 종류 섹션 버튼 */
+  .c-file-block > div[style*="display: flex"][style*="gap: 0"] {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* 모바일에서 타이틀과 콘텐츠 정렬 - 열람 파일 형식, 최종본 옵션 섹션 */
+  .c-apply-section .c-paragraph-caution,
+  .c-apply-section .c-apply-form,
+  .c-apply-section .w-form {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }
 
 /* .personal-info-container::before 제거 - 상단 구분선 제거 */
