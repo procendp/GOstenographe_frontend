@@ -1654,6 +1654,41 @@
     margin-right: 0 !important;
     padding: 1rem !important; /* 패딩도 줄임 */
   }
+
+  /* 화자 정보 섹션 헤더 패딩 축소 */
+  .c-spk-header {
+    padding: 0.75rem 1rem !important;
+    grid-template-columns: 40px 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  /* 화자 정보 섹션 콘텐츠 패딩 축소 */
+  .c-spk-content {
+    padding: 1rem !important;
+  }
+
+  /* 화자 정보 행 그리드 조정 */
+  .c-spk-content > div[style*="grid-template-columns"] {
+    grid-template-columns: 40px 1fr 60px !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* No. 번호 폰트 크기 축소 */
+  .c-spk-content > div > div:first-child {
+    font-size: 16px !important;
+  }
+
+  /* 입력 필드 패딩 축소 */
+  .c-spk-content input[type="text"] {
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+  }
+
+  /* 삭제 버튼 스타일 조정 */
+  .c-spk-content button[type="button"]:not([style*="dashed"]) {
+    font-size: 13px !important;
+  }
   
   .c-datetime-container {
     width: 100% !important; /* 모바일에서 전체 너비로 제한 */
