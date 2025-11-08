@@ -1102,7 +1102,7 @@ function Reception() {
               )}
             </div>
 
-            <div className="c-tab-content w-tab-content">
+            <div className="c-tab-content w-tab-content" style={{ marginBottom: '5rem' }}>
               {tabs.map((tab, index) => (
                 <div key={index} className={`c-file-tab-pane w-tab-pane ${index === activeTab ? 'w--tab-active' : ''}`}>
                   <div className="w-layout-vflex file-tab-container" style={{
