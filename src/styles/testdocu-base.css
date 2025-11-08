@@ -1647,6 +1647,16 @@
   .c-apply-section .c-file-block:first-child {
     padding: 1rem 0.25rem 0.75rem !important; /* 파일 정보 섹션만 좌우 패딩을 0.25rem으로 줄임 */
   }
+
+  /* 주문자 정보 섹션 이메일 placeholder 한 줄로 표시 */
+  .c-personal-info-block input[type="email"] {
+    font-size: 13px !important;
+  }
+
+  /* 하단 여백 증가하여 주소 찾기 버튼이 예상 견적란에 가려지지 않도록 */
+  .pb-32 {
+    padding-bottom: 10rem !important;
+  }
   
   .c-speaker-container {
     width: 100% !important; /* 모바일에서 전체 너비로 제한 */
