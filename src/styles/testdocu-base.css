@@ -1188,11 +1188,11 @@
   .c-file-tab-button-right {
     padding: 0.6rem 0.8rem !important; /* 패딩 축소 */
     font-size: 0.85rem !important; /* 폰트 크기 축소 */
-    min-width: 60px !important; /* 최소 너비 축소 */
-    max-width: 80px !important; /* 최대 너비 제한 */
+    min-width: 45px !important; /* 최소 너비 축소 */
+    max-width: none !important; /* 최대 너비 제한 제거 */
+    flex: 1 1 auto !important; /* 동적 크기 조정 */
     touch-action: manipulation;
     line-height: 1.2;
-    flex-shrink: 0;
     white-space: nowrap;
   }
   
