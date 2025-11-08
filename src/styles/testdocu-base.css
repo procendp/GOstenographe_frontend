@@ -1694,13 +1694,15 @@
     width: 100% !important; /* 모바일에서 전체 너비로 제한 */
     margin-left: 0 !important;
     margin-right: 0 !important;
+    margin-top: 0.25rem !important; /* 타이틀과의 간격 축소 */
     padding: 1rem !important; /* 패딩도 줄임 */
   }
-  
+
   .c-detail-container {
     width: 100% !important; /* 모바일에서 전체 너비로 제한 */
     margin-left: 0 !important;
     margin-right: 0 !important;
+    margin-top: 0.25rem !important; /* 타이틀과의 간격 축소 */
     padding: 1rem !important; /* 패딩도 줄임 */
   }
 }
