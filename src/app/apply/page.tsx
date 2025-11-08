@@ -1675,7 +1675,7 @@ function Reception() {
             backgroundSize: 'auto',
             borderRadius: '20px',
             padding: '1.5rem 2rem 1rem',
-            marginTop: '-7rem',
+            marginTop: '-5rem',
             width: '100%',
             position: 'relative',
             marginLeft: 'auto',
