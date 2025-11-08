@@ -100,11 +100,13 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
               }}>
                 화자 이름
               </h3>
-              <p className="c-paragraph-caution" style={{
+              <p className="c-paragraph-speaker-info" style={{
                 margin: '0',
                 fontSize: '14px',
                 color: '#60a5fa',
-                textAlign: 'left'
+                textAlign: 'left',
+                fontFamily: 'Pretendard, sans-serif',
+                lineHeight: '1.6'
               }}>
                 • 알 수 없는 경우 <strong>남자 1</strong>, <strong>여자 1</strong>의 형태로 작성해 주세요.
               </p>
