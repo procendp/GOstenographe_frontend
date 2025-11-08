@@ -1669,8 +1669,8 @@
 
   /* 화자 정보 행 그리드 조정 */
   .c-spk-content > div[style*="grid-template-columns"] {
-    grid-template-columns: 40px 1fr 60px !important;
-    gap: 0.75rem !important;
+    grid-template-columns: 30px 1fr auto !important;
+    gap: 0.5rem !important;
     margin-bottom: 0.75rem !important;
   }
 
