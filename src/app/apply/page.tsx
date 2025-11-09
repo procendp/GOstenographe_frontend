@@ -315,6 +315,60 @@ function Reception() {
     setTabToDelete(null);
   };
 
+  // 개별 파일 삭제 핸들러
+  const handleDeleteFile = async (tabIndex: number) => {
+    const targetTab = tabs[tabIndex];
+    if (!targetTab || !targetTab.files || targetTab.files.length === 0) return;
+
+    const file = targetTab.files[0];
+    const fileName = file.file?.name || '파일';
+
+    const confirmDelete = window.confirm(
+      `"${fileName}"을(를) 삭제하시겠습니까?\n\n파일 ${tabIndex + 1}의 업로드된 파일이 삭제됩니다.`
+    );
+
+    if (!confirmDelete) return;
+
+    // S3에서 파일 삭제
+    if (file.file_key && file.file_key !== 'uploading') {
+      try {
+        const response = await fetch(`${API_URL}/api/database/public-delete-uploaded-files/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ file_keys: [file.file_key] })
+        });
+
+        if (!response.ok) {
+          console.warn('[FILE_DELETE] 파일 삭제 실패', await response.text());
+          alert('파일 삭제에 실패했습니다.');
+          return;
+        }
+
+        console.log('[FILE_DELETE] 파일 삭제 성공:', file.file_key);
+      } catch (e) {
+        console.error('[FILE_DELETE] 파일 삭제 중 오류:', e);
+        alert('파일 삭제 중 오류가 발생했습니다.');
+        return;
+      }
+    }
+
+    // tabs 상태 업데이트 - 파일만 삭제, 탭은 유지
+    const newTabs = [...tabs];
+    newTabs[tabIndex] = {
+      ...newTabs[tabIndex],
+      files: [],
+      fileDuration: '00:00:00'
+    };
+    setTabs(newTabs);
+
+    // uploadStatus에서도 제거
+    const newUploadStatus = { ...uploadStatus };
+    if (file.file?.name) {
+      delete newUploadStatus[file.file.name];
+      setUploadStatus(newUploadStatus);
+    }
+  };
+
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
@@ -1234,6 +1288,8 @@ function Reception() {
                           }}
                           onFileSelect={handleFileSelect}
                           uploadStatus={uploadStatus}
+                          allTabs={tabs}
+                          onDeleteFile={handleDeleteFile}
                         />
                       </div>
                     </div>

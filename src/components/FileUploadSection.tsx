@@ -8,9 +8,11 @@ interface FileUploadSectionProps {
   onBack?: () => void;
   onFileSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   uploadStatus?: Record<string, 'idle' | 'uploading' | 'success' | 'error'>;
+  allTabs?: any[];
+  onDeleteFile?: (tabIndex: number) => void;
 }
 
-export default function FileUploadSection({ formData, setFormData, onBack, onFileSelect, uploadStatus: externalUploadStatus }: FileUploadSectionProps) {
+export default function FileUploadSection({ formData, setFormData, onBack, onFileSelect, uploadStatus: externalUploadStatus, allTabs = [], onDeleteFile }: FileUploadSectionProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [internalUploadStatus, setInternalUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
   
@@ -164,7 +166,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           onClick={() => fileInputRef.current?.click()}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
-          className="border-4 border-dashed border-gray-400 rounded-lg p-12 text-center cursor-pointer hover:border-blue-500 transition-colors bg-white min-h-[200px] flex flex-col justify-center"
+          className="border-4 border-dashed border-gray-400 rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 transition-colors bg-white min-h-[140px] flex flex-col justify-center"
         >
           <FaCloudUploadAlt className="mx-auto text-4xl text-gray-400 mb-4" />
           <div className="text-gray-500 mb-4">
@@ -190,6 +192,139 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           </div>
           <div className="text-xs text-red-500 mt-1">※ 영상/음성 파일만 업로드 가능합니다. (파일당 최대 3GB)</div>
         </div>
+
+        {/* 전체 업로드된 파일 리스트 */}
+        {allTabs.length > 0 && allTabs.some(tab => tab.files && tab.files.length > 0) && (
+          <div style={{
+            marginTop: '24px',
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            border: '1px solid #e5e7eb',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              padding: '12px 16px',
+              backgroundColor: '#f9fafb',
+              borderBottom: '1px solid #e5e7eb',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <span style={{ fontSize: '16px' }}>📎</span>
+              <span style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#374151'
+              }}>
+                업로드된 파일 ({allTabs.filter(tab => tab.files && tab.files.length > 0).length}/{allTabs.length})
+              </span>
+            </div>
+
+            <div style={{ padding: '8px' }}>
+              {allTabs.map((tab, tabIndex) => {
+                if (!tab.files || tab.files.length === 0) return null;
+
+                const file = tab.files[0];
+                const fileName = file.file?.name || file.name || '';
+                const fileSize = file.file?.size || 0;
+                const fileSizeMB = (fileSize / (1024 * 1024)).toFixed(1);
+                const duration = tab.fileDuration || '00:00:00';
+                const status = uploadStatus[fileName] || 'idle';
+
+                return (
+                  <div
+                    key={tabIndex}
+                    style={{
+                      padding: '12px',
+                      marginBottom: '8px',
+                      backgroundColor: '#f9fafb',
+                      borderRadius: '8px',
+                      border: '1px solid #e5e7eb'
+                    }}
+                  >
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '12px'
+                    }}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          marginBottom: '4px'
+                        }}>
+                          <span style={{
+                            fontSize: '12px',
+                            fontWeight: '600',
+                            color: '#6b7280',
+                            backgroundColor: '#e5e7eb',
+                            padding: '2px 6px',
+                            borderRadius: '4px',
+                            flexShrink: 0
+                          }}>
+                            파일 {tabIndex + 1}
+                          </span>
+                          <span style={{
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            color: '#111827',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          }}>
+                            {fileName}
+                          </span>
+                          {status === 'uploading' && <FaSpinner className="animate-spin text-blue-400" style={{ flexShrink: 0 }} />}
+                          {status === 'success' && <FaCheckCircle className="text-green-500" style={{ flexShrink: 0 }} />}
+                          {status === 'error' && <FaExclamationCircle className="text-red-500" style={{ flexShrink: 0 }} />}
+                        </div>
+                        <div style={{
+                          fontSize: '12px',
+                          color: '#6b7280',
+                          display: 'flex',
+                          gap: '8px'
+                        }}>
+                          <span>{duration}</span>
+                          <span>•</span>
+                          <span>{fileSizeMB} MB</span>
+                        </div>
+                      </div>
+                      {onDeleteFile && (
+                        <button
+                          onClick={() => onDeleteFile(tabIndex)}
+                          style={{
+                            padding: '6px 12px',
+                            fontSize: '12px',
+                            fontWeight: '500',
+                            color: '#dc2626',
+                            backgroundColor: 'white',
+                            border: '1px solid #dc2626',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            flexShrink: 0
+                          }}
+                          onMouseOver={(e) => {
+                            e.currentTarget.style.backgroundColor = '#dc2626';
+                            e.currentTarget.style.color = 'white';
+                          }}
+                          onMouseOut={(e) => {
+                            e.currentTarget.style.backgroundColor = 'white';
+                            e.currentTarget.style.color = '#dc2626';
+                          }}
+                        >
+                          삭제
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <input
           type="file"
