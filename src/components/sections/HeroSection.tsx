@@ -54,7 +54,7 @@ export default function HeroSection() {
           style={{ gridColumn: '1 / 9', gridRow: '2 / 4' }}
         >
           {/* 애니메이션되는 첫 번째 타이틀 */}
-          <div className="min-h-[80px] mb-2 relative overflow-hidden md:min-h-[58px]">
+          <div className="min-h-[120px] mb-2 relative overflow-hidden md:min-h-[80px] lg:min-h-[58px]">
             <h1
               ref={webflowTextRef}
               className="td-hero-title"
@@ -108,17 +108,17 @@ export default function HeroSection() {
         </div>
         
         {/* 설명 텍스트 */}
-        <p 
+        <p
           ref={descriptionRef}
           className="td-hero-description"
-          style={{ gridColumn: '1 / 9', gridRow: '4' }}
+          style={{ gridColumn: '1 / 9', gridRow: '5' }}
         >
           24시간 이내 완성되는 전문 속기 서비스를 간편하게 이용하세요.
         </p>
-        
+
         {/* CTA 버튼 */}
         <div
-          style={{ gridColumn: '1 / 5', gridRow: '5' }}
+          style={{ gridColumn: '1 / 5', gridRow: '6' }}
         >
           <motion.a
             ref={buttonRef}

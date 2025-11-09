@@ -722,12 +722,24 @@
   .td-hero-image-wrapper {
     max-width: 52% !important;
   }
+
+  .td-hero-title {
+    white-space: normal !important;
+    height: auto !important;
+    max-width: 650px;
+  }
 }
 
 /* 769px ~ 1023px (태블릿 가로) */
 @media (min-width: 769px) and (max-width: 1023px) {
   .td-hero-image-wrapper {
     max-width: 50% !important;
+  }
+
+  .td-hero-title {
+    white-space: normal !important;
+    height: auto !important;
+    max-width: 600px;
   }
 }
 
