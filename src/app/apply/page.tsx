@@ -59,6 +59,8 @@ function Reception() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [tabToDelete, setTabToDelete] = useState<number | null>(null);
   const [isDeletingTab, setIsDeletingTab] = useState(false);
+  const [showValidationModal, setShowValidationModal] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   // tabs 최신값을 이벤트 리스너에서 안전하게 참조하기 위한 ref
   const tabsRef = useRef(tabs);
   // 파일 삭제 완료 플래그 (popstate → beforeunload 중복 방지)
@@ -567,6 +569,65 @@ function Reception() {
   };
   const validateAddress = (address: string) => address.trim().length > 0;
 
+  // 검증 에러 수집 함수
+  const collectValidationErrors = () => {
+    const errors: string[] = [];
+
+    // 주문자 정보 검증
+    if (customerName.trim() === '') {
+      errors.push('주문자 성함을 입력해주세요.');
+    }
+    if (!validatePhone(customerPhone)) {
+      errors.push('주문자 전화번호를 올바르게 입력해주세요. (10~11자리)');
+    }
+    if (!validateEmail(customerEmail)) {
+      errors.push('주문자 이메일을 올바른 형식으로 입력해주세요.');
+    }
+    if (!validateAddress(customerAddress)) {
+      errors.push('주문자 주소를 입력해주세요.');
+    }
+
+    // 약관 동의 검증
+    if (!agree) {
+      errors.push('개인정보 수집 및 이용에 동의해주세요.');
+    }
+
+    // 각 파일별 검증
+    tabs.forEach((tab, index) => {
+      const fileNumber = index + 1;
+
+      // 파일 업로드 검증
+      if (!tab.files || tab.files.length === 0) {
+        errors.push(`파일 ${fileNumber}: 파일을 업로드해주세요.`);
+      } else if (tab.files.some(f => !f.file_key || f.file_key === 'uploading')) {
+        errors.push(`파일 ${fileNumber}: 파일 업로드가 완료될 때까지 기다려주세요.`);
+      }
+
+      // 녹취 종류 검증 (기본값이 있으므로 항상 통과)
+      if (tab.recordType !== '전체' && tab.recordType !== '부분') {
+        errors.push(`파일 ${fileNumber}: 녹취 종류를 선택해주세요.`);
+      }
+
+      // 부분 녹취 시 타임스탬프 검증
+      if (tab.recordType === '부분') {
+        if (!tab.timestampRanges || tab.timestampRanges.length === 0) {
+          errors.push(`파일 ${fileNumber}: 녹취 구간을 입력해주세요.`);
+        } else if (tab.timestampRanges.some((range: any) => range.isValid === false)) {
+          errors.push(`파일 ${fileNumber}: 녹취 구간의 시작 시간이 종료 시간보다 늦습니다.`);
+        }
+      }
+
+      // 화자 정보 검증
+      if (!tab.speakerNames || tab.speakerNames.length === 0) {
+        errors.push(`파일 ${fileNumber}: 화자 정보를 입력해주세요.`);
+      } else if (tab.speakerNames.some((name: string) => name.trim() === '')) {
+        errors.push(`파일 ${fileNumber}: 모든 화자의 이름을 입력해주세요.`);
+      }
+    });
+
+    return errors;
+  };
+
   const isFormValid = () => {
     // 주문자 정보 검증 (필수)
     const nameValid = customerName.trim() !== '';
@@ -613,18 +674,12 @@ function Reception() {
 
   // 제출 처리
   const handleSubmit = async () => {
-    if (!agree) {
-      alert('약관에 동의해주세요.');
-      return;
-    }
+    // 검증 에러 수집
+    const errors = collectValidationErrors();
 
-    // 파일이 업로드되지 않은 탭이 있는지 확인
-    const hasUnuploadedFiles = tabs.some(tab => 
-      tab.files.some(f => !f.file_key || f.file_key === 'uploading')
-    );
-    
-    if (hasUnuploadedFiles) {
-      alert('모든 파일이 업로드될 때까지 기다려주세요.');
+    if (errors.length > 0) {
+      setValidationErrors(errors);
+      setShowValidationModal(true);
       return;
     }
     
@@ -2044,9 +2099,8 @@ function Reception() {
               />
               <span>주문 내용, 서비스 이용약관 및 개인정보처리방침을 확인 했으며, 정보 제공에 동의합니다.</span>
             </label>
-            <button 
-              onClick={handleSubmit} 
-              disabled={!isFormValid()} 
+            <button
+              onClick={handleSubmit}
               style={{
                 width: '100%',
                 padding: '0.75rem 1.5rem',
@@ -2056,8 +2110,7 @@ function Reception() {
                 borderRadius: '8px',
                 fontSize: '1rem',
                 fontWeight: '600',
-                cursor: isFormValid() ? 'pointer' : 'not-allowed',
-                opacity: isFormValid() ? 1 : 0.5,
+                cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
             >
@@ -2180,6 +2233,99 @@ function Reception() {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* 검증 에러 모달 */}
+      {showValidationModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: Z_INDEX.MODAL_OVERLAY
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            padding: '32px',
+            maxWidth: '500px',
+            width: '90%',
+            maxHeight: '80vh',
+            overflow: 'auto',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+          }}>
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>⚠️</div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '600',
+                color: '#dc2626',
+                marginBottom: '12px'
+              }}>
+                입력 정보를 확인해주세요
+              </h3>
+              <p style={{
+                fontSize: '14px',
+                color: '#6b7280',
+                lineHeight: '1.6'
+              }}>
+                아래 항목을 확인하고 다시 시도해주세요.
+              </p>
+            </div>
+
+            <div style={{
+              backgroundColor: '#fee2e2',
+              borderLeft: '4px solid #dc2626',
+              borderRadius: '8px',
+              padding: '16px',
+              marginBottom: '24px'
+            }}>
+              {validationErrors.map((error, index) => (
+                <div key={index} style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  marginBottom: index < validationErrors.length - 1 ? '12px' : '0',
+                  fontSize: '14px',
+                  color: '#374151',
+                  lineHeight: '1.6'
+                }}>
+                  <span style={{
+                    color: '#dc2626',
+                    fontWeight: '600',
+                    marginRight: '8px',
+                    flexShrink: 0
+                  }}>•</span>
+                  <span>{error}</span>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setShowValidationModal(false)}
+              style={{
+                width: '100%',
+                padding: '12px 24px',
+                backgroundColor: '#dc2626',
+                color: 'white',
+                borderRadius: '8px',
+                border: 'none',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#b91c1c'}
+              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
+            >
+              확인
+            </button>
           </div>
         </div>
       )}
