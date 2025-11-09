@@ -64,12 +64,13 @@ export default function HeroSection() {
           </div>
           
           {/* 고정된 두 번째 타이틀 */}
-          <h1 
+          <h1
             ref={titleRef}
             className="td-hero-title"
-            style={{ 
+            style={{
               whiteSpace: 'normal', // 모바일에서 자연스러운 줄바꿈 허용
-              lineHeight: '1.2' // 줄 간격 조정
+              lineHeight: '1.2', // 줄 간격 조정
+              marginTop: '1rem' // 위쪽 여백 추가하여 아래로 내림
             }}
           >
             신뢰할 수 있는 <br className="md:hidden" />전문 속기 서비스
