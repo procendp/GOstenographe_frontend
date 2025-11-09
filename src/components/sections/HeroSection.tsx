@@ -78,11 +78,14 @@ export default function HeroSection() {
         
         {/* 히어로 이미지 */}
         <div
+          className="td-hero-image-wrapper"
           style={{
             position: 'absolute',
             right: '0',
             bottom: '-20px', // padding-bottom 값만큼 아래로 이동
             zIndex: 1,
+            maxWidth: '55%', // 반응형: 화면의 55% 비율 유지
+            width: '100%',
             margin: '0',
             padding: '0'
           }}
@@ -90,8 +93,8 @@ export default function HeroSection() {
           <Image
             src="/new_goStenographe_resource/images/HeroImage2.png"
             alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
-            width={1400}
-            height={1050}
+            width={1200}
+            height={978}
             priority
             className="td-hero-image"
             style={{
