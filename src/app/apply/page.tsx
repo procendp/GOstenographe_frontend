@@ -623,6 +623,11 @@ function Reception() {
       } else if (tab.speakerNames.some((name: string) => name.trim() === '')) {
         errors.push(`파일 ${fileNumber}: 모든 화자의 이름을 입력해주세요.`);
       }
+
+      // 녹음 일시 검증 (필수)
+      if (!tab.recordingUnsure && !tab.recordingDate) {
+        errors.push(`파일 ${fileNumber}: 녹음 일시를 선택하거나 '잘 모르겠어요'를 체크해주세요.`);
+      }
     });
 
     return errors;
