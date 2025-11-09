@@ -190,6 +190,24 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           </div>
           <div className="text-xs text-red-500 mt-1">※ 영상/음성 파일만 업로드 가능합니다. (파일당 최대 3GB)</div>
         </div>
+
+        {/* 첨부 가능한 파일 형식 안내 */}
+        <div style={{
+          marginTop: '16px',
+          padding: '12px 16px',
+          backgroundColor: '#f3f4f6',
+          borderRadius: '8px',
+          fontSize: '13px',
+          lineHeight: '1.6',
+          color: '#374151'
+        }}>
+          <div style={{ fontWeight: '600', marginBottom: '8px' }}>* 첨부 가능한 파일 형식</div>
+          <div style={{ paddingLeft: '8px' }}>
+            <div>- 음성 : mp3, wav, m4a, cda, mod, ogg, wma, flac, asf</div>
+            <div>- 영상 : avi, mp4, asf, wmv, m2v, mpeg, dpg, mts, webm, divx, amv</div>
+          </div>
+        </div>
+
         <input
           type="file"
           ref={fileInputRef}
