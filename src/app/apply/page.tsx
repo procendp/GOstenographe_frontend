@@ -372,12 +372,12 @@ function Reception() {
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
-    // 업로드 상태 초기화
+    // 업로드 상태 초기화 (기존 상태 유지)
     const newUploadStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
     files.forEach(file => {
       newUploadStatus[file.name] = 'uploading';
     });
-    setUploadStatus(newUploadStatus);
+    setUploadStatus(prev => ({...prev, ...newUploadStatus}));
 
     // 임시로 파일 정보를 상태에 저장 (업로드 시작 표시)
     setTabs(tabs => tabs.map((tab, idx) =>
@@ -422,12 +422,12 @@ function Reception() {
 
       console.log('[apply/page] setTabs 실행 후');
 
-      // 업로드 성공 상태 업데이트
+      // 업로드 성공 상태 업데이트 (기존 상태 유지)
       const successStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
       files.forEach(file => {
         successStatus[file.name] = 'success';
       });
-      setUploadStatus(successStatus);
+      setUploadStatus(prev => ({...prev, ...successStatus}));
 
       console.log('파일 업로드 완료:', uploadedFiles);
       console.log('파일 재생시간:', fileDuration);
@@ -435,12 +435,12 @@ function Reception() {
     } catch (error) {
       console.error('파일 업로드 실패:', error);
       
-      // 업로드 실패 상태 업데이트
+      // 업로드 실패 상태 업데이트 (기존 상태 유지)
       const errorStatus: Record<string, 'idle' | 'uploading' | 'success' | 'error'> = {};
       files.forEach(file => {
         errorStatus[file.name] = 'error';
       });
-      setUploadStatus(errorStatus);
+      setUploadStatus(prev => ({...prev, ...errorStatus}));
 
       alert(`파일 업로드 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
 
