@@ -1791,7 +1791,7 @@ function Reception() {
               </div>
               <div className="form-block w-form" style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}}>
                 <div className="c-apply-form vertical" style={{gap: '0.5rem', width: '100%', maxWidth: '800px'}}>
-                  <input className="c-text-input-field w-input" maxLength={100} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required style={{marginBottom: '0'}} />
+                  <input className="c-text-input-field w-input" maxLength={100} name="customer-name" placeholder="신청인 성함" type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value.trim())} required style={{marginBottom: '0'}} />
                   <div style={{width: '100%'}}>
                     <input
                       className={`c-text-input-field w-input ${phoneError ? 'border-red-500 border-2' : ''}`}
@@ -1816,7 +1816,7 @@ function Reception() {
                       placeholder="이메일 (example@email.com)"
                       type="email"
                       value={customerEmail}
-                      onChange={(e) => setCustomerEmail(e.target.value)}
+                      onChange={(e) => setCustomerEmail(e.target.value.trim())}
                       onBlur={handleEmailBlur}
                       required
                       style={{width: '100%', marginBottom: '0'}}

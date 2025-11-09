@@ -139,8 +139,9 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
                     type="text"
                     value={name || ''}
                     onChange={(e) => {
-                      if (e.target.value.length <= 10) {
-                        handleSpeakerNameUpdate(index, e.target.value);
+                      const trimmedValue = e.target.value.trim();
+                      if (trimmedValue.length <= 10) {
+                        handleSpeakerNameUpdate(index, trimmedValue);
                       }
                     }}
                     placeholder="화자 이름 입력 (최대 10글자)"
