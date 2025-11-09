@@ -54,7 +54,7 @@ export default function HeroSection() {
           style={{ gridColumn: '1 / 9', gridRow: '2 / 4' }}
         >
           {/* 애니메이션되는 첫 번째 타이틀 */}
-          <div className="min-h-[160px] mb-2 relative overflow-hidden md:min-h-[120px] lg:min-h-[58px]">
+          <div className="min-h-[100px] mb-2 relative overflow-hidden md:min-h-[160px] lg:min-h-[120px] xl:min-h-[58px]">
             <h1
               ref={webflowTextRef}
               className="td-hero-title"
