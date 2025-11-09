@@ -544,7 +544,7 @@ function Reception() {
 
   // 이메일 blur 핸들러
   const handleEmailBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
+    const value = e.target.value.replace(/\s/g, '');
     setCustomerEmail(value);
     if (value.length > 0) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1817,7 +1817,7 @@ function Reception() {
                       placeholder="이메일 (example@email.com)"
                       type="email"
                       value={customerEmail}
-                      onChange={(e) => setCustomerEmail(e.target.value.trim())}
+                      onChange={(e) => setCustomerEmail(e.target.value.replace(/\s/g, ''))}
                       onBlur={handleEmailBlur}
                       required
                       style={{width: '100%', marginBottom: '0'}}
