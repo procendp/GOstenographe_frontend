@@ -54,7 +54,7 @@ export default function HeroSection() {
           style={{ gridColumn: '1 / 9', gridRow: '2 / 4' }}
         >
           {/* 애니메이션되는 첫 번째 타이틀 */}
-          <div className="min-h-[140px] mb-2 relative overflow-hidden md:min-h-[100px] lg:min-h-[58px]">
+          <div className="min-h-[140px] mb-6 relative overflow-hidden md:min-h-[100px] lg:min-h-[58px]">
             <h1
               ref={webflowTextRef}
               className="td-hero-title"
@@ -62,15 +62,14 @@ export default function HeroSection() {
             >
             </h1>
           </div>
-          
+
           {/* 고정된 두 번째 타이틀 */}
           <h1
             ref={titleRef}
             className="td-hero-title"
             style={{
               whiteSpace: 'normal', // 모바일에서 자연스러운 줄바꿈 허용
-              lineHeight: '1.2', // 줄 간격 조정
-              marginTop: '1rem' // 위쪽 여백 추가하여 아래로 내림
+              lineHeight: '1.2' // 줄 간격 조정
             }}
           >
             신뢰할 수 있는 <br className="md:hidden" />전문 속기 서비스
