@@ -19,9 +19,52 @@
   box-sizing: border-box !important;
 }
 
+/* 모바일에서 위 간격 축소 */
+@media (max-width: 768px) {
+  .quotation-section-isolated {
+    margin-top: -1rem !important;
+  }
+
+  .quotation-details-box {
+    margin-bottom: 1rem !important;
+  }
+}
+
 .quotation-details-box {
   /* 세부 견적 내역 박스 - 완전히 독립적인 스타일 */
   width: 90% !important;
   margin: 0 auto 2rem auto !important;
   box-sizing: border-box !important;
+}
+
+.quotation-detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.detail-label {
+  flex: 0 1 auto;
+  text-align: left;
+}
+
+.detail-price {
+  flex: 0 0 auto;
+  text-align: right;
+  margin-left: 1rem;
+}
+
+/* 모바일에서 줄바꿈 + 우측 정렬 */
+@media (max-width: 768px) {
+  .quotation-detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-price {
+    align-self: flex-end;
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
 }

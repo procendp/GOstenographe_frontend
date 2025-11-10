@@ -1,0 +1,121 @@
+/* 신청 완료 페이지 모바일 전용 스타일 */
+
+/* 모바일에서만 줄바꿈 표시 */
+.mobile-break {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-break {
+    display: inline;
+  }
+}
+
+/* 서비스 신청 내역 - 모바일 최적화 */
+@media (max-width: 768px) {
+  /* 아코디언 헤더 스타일 개선 */
+  .accordion.blue summary {
+    padding: 0.875rem 1rem !important;
+    font-size: 1rem !important;
+    background-color: #f3f4f6 !important;
+  }
+
+  .accordion.blue[open] summary {
+    background-color: #edead9 !important;
+  }
+
+  /* 아코디언 컨텐츠 패딩 축소 */
+  .c-accordion-content-box {
+    padding: 1rem !important;
+  }
+
+  /* 그리드를 단일 컬럼으로 변경 */
+  .c-order-info-grid {
+    display: block !important;
+  }
+
+  /* 각 항목을 깔끔한 행으로 표시 */
+  .c-app-info-grid-title-block {
+    padding: 0.75rem 1rem !important;
+    background-color: #f9fafb !important;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.875rem !important;
+  }
+
+  .c-app-info-grid-title-block.grey {
+    background-color: #f4f6f9 !important;
+  }
+
+  .c-app-info-grid-contents-block {
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.875rem !important;
+  }
+
+  .c-app-info-grid-contents-block.grey {
+    background-color: #fafbfc !important;
+  }
+
+  /* 제목 텍스트 스타일 */
+  .c-app-info-grid-title {
+    font-weight: 600 !important;
+    color: #374151 !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* 내용 텍스트 스타일 */
+  .c-app-info-grid-contents {
+    color: #1f2937 !important;
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 아코디언 내부 마지막 항목 border 제거 */
+  .c-accordion-content-box .c-app-info-grid-title-block:last-of-type,
+  .c-accordion-content-box .c-app-info-grid-contents-block:last-of-type {
+    border-bottom: none !important;
+  }
+
+  /* 아코디언 자체 스타일 */
+  .accordion.blue {
+    margin-bottom: 0.75rem !important;
+    border-radius: 8px !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* 화살표 아이콘 회전 */
+  .accordion.blue[open] summary span {
+    transform: rotate(180deg);
+    display: inline-block;
+  }
+}
+
+/* 주문자 정보 섹션 - 동일한 스타일 적용 */
+@media (max-width: 768px) {
+  .application-info-container {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .c-app-info-heading {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .c-app-info-title-block {
+    margin-bottom: 1rem !important;
+  }
+
+  /* 주문자 정보 컨테이너 */
+  .application-info-container .container {
+    padding: 0 !important;
+  }
+
+  /* 주문자 정보도 깔끔한 리스트 스타일 */
+  .application-info-container .c-order-info-grid {
+    display: block !important;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+}

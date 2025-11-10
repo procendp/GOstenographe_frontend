@@ -29,9 +29,18 @@ export default function QuotationSection({
 
       {/* 서비스 신청 내역 */}
       <div className="quotation-details-box">
-        <h6 className="c-checkout-f-text" style={{textAlign: 'left', margin: 0}}>- 속기록 제작 ({totalDuration}): {transcriptionPrice.toLocaleString()}원</h6>
-        <h6 className="c-checkout-f-text" style={{textAlign: 'left', margin: 0}}>- 최종본: {finalOptionText} {optionPrice > 0 ? `(+${optionPrice.toLocaleString()}원)` : ''}</h6>
-        <h6 className="c-checkout-f-text" style={{textAlign: 'left', margin: 0}}>- 부가세 (10%): {vatAmount.toLocaleString()}원</h6>
+        <div className="quotation-detail-item">
+          <span className="detail-label">- 속기록 제작 ({totalDuration})</span>
+          <span className="detail-price">: {transcriptionPrice.toLocaleString()}원</span>
+        </div>
+        <div className="quotation-detail-item">
+          <span className="detail-label">- 최종본</span>
+          <span className="detail-price">: {finalOptionText} {optionPrice > 0 ? `(+${optionPrice.toLocaleString()}원)` : ''}</span>
+        </div>
+        <div className="quotation-detail-item">
+          <span className="detail-label">- 부가세 (10%)</span>
+          <span className="detail-price">: {vatAmount.toLocaleString()}원</span>
+        </div>
       </div>
     </div>
   );

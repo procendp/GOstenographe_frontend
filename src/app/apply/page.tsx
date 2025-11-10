@@ -977,7 +977,8 @@ function Reception() {
               <h2 className="c-heading-4 centered" style={{fontSize: '1.75rem', fontWeight: 'normal', lineHeight: '1.2', marginBottom: '0.5rem'}}>
                 감사합니다. 정상 접수되었습니다.<br/>
                 <span className="text-span" style={{color: '#1c58af'}}><strong>작업 가능 여부 확인 후</strong></span>
-                <strong> 비용 안내드리겠습니다.</strong>
+                <br className="mobile-break" />
+                <strong>비용 안내드리겠습니다.</strong>
               </h2>
               <p className="c-finito-subtitle-pharagraph" style={{color: '#ef4444', fontSize: '1rem', marginTop: '0.5rem'}}>
                 * 작업 순서에 따라 안내가 지연될 수 있습니다.
