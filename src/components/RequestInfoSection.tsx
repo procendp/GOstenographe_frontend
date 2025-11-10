@@ -1,5 +1,5 @@
 import { ReceptionFormData, TimestampRange } from '@/types/reception';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import TimestampInput from './TimestampInput';
 import { createEmptyTimestampRange, calculateTotalDuration } from '@/utils/timestampUtils';
 
@@ -88,6 +88,11 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
     }
   }, [formData, setFormData, MAX_TIMESTAMP_RANGES]);
 
+  // Memoize timestampRanges to prevent infinite re-renders in TimestampInput
+  const memoizedTimestampRanges = useMemo(() =>
+    formData.timestampRanges || [],
+    [JSON.stringify(formData.timestampRanges)]
+  );
 
   return (
     <div className="w-layout-hflex c-type-wrapper">
@@ -113,7 +118,7 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                       onDelete={() => handleTimestampRangeDelete(index)}
                       canDelete={(formData.timestampRanges?.length || 0) > 1}
                       fileDuration={fileDuration}
-                      allRanges={formData.timestampRanges}
+                      allRanges={memoizedTimestampRanges}
                       currentIndex={index}
                     />
                   ))}
