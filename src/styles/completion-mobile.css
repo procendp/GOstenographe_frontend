@@ -93,6 +93,7 @@
 /* 주문자 정보 섹션 - 동일한 스타일 적용 */
 @media (max-width: 768px) {
   .application-info-container {
+    width: 96% !important;
     margin-bottom: 1.5rem !important;
   }
 
