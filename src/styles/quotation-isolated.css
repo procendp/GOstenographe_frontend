@@ -4,8 +4,8 @@
   /* 다른 섹션과의 간섭을 방지하기 위한 격리 */
   isolation: isolate;
   contain: layout style;
-  width: 100% !important;
-  max-width: 1200px !important;
+  width: 90% !important;
+  max-width: 1000px !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
