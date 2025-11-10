@@ -14,25 +14,32 @@
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  width: 90% !important;
+  width: 100% !important;
+  max-width: 1200px !important;
   margin: 0 auto 2rem auto !important;
   box-sizing: border-box !important;
 }
 
-/* 모바일에서 위 간격 축소 */
+/* 모바일에서 위 간격 축소 및 너비 조정 */
 @media (max-width: 768px) {
   .quotation-section-isolated {
     margin-top: -1rem !important;
   }
 
+  .quotation-main-box {
+    width: 90% !important;
+  }
+
   .quotation-details-box {
+    width: 90% !important;
     margin-bottom: 1rem !important;
   }
 }
 
 .quotation-details-box {
   /* 세부 견적 내역 박스 - 완전히 독립적인 스타일 */
-  width: 90% !important;
+  width: 100% !important;
+  max-width: 1200px !important;
   margin: 0 auto 2rem auto !important;
   box-sizing: border-box !important;
 }
