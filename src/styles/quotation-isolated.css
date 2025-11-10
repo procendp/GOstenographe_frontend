@@ -28,14 +28,15 @@
 @media (max-width: 768px) {
   .quotation-section-isolated {
     margin-top: -1rem !important;
+    width: 98% !important;
   }
 
   .quotation-main-box {
-    width: 96% !important;
+    width: 100% !important;
   }
 
   .quotation-details-box {
-    width: 96% !important;
+    width: 100% !important;
     margin-bottom: 1rem !important;
   }
 }
@@ -66,11 +67,16 @@
   margin-left: 1rem;
 }
 
-/* 모바일에서 줄바꿈 + 우측 정렬 */
+/* 모바일에서 전체 우측 정렬 */
 @media (max-width: 768px) {
   .quotation-detail-item {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .detail-label {
+    text-align: right;
   }
 
   .detail-price {

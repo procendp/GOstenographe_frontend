@@ -15,8 +15,9 @@
 @media (max-width: 768px) {
   /* 아코디언 헤더 스타일 개선 */
   .accordion.blue summary {
-    padding: 0.875rem 1rem !important;
-    font-size: 1rem !important;
+    padding: 1rem 1.25rem !important;
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
     background-color: #f3f4f6 !important;
   }
 
@@ -93,7 +94,7 @@
 /* 주문자 정보 섹션 - 동일한 스타일 적용 */
 @media (max-width: 768px) {
   .application-info-container {
-    width: 96% !important;
+    width: 98% !important;
     margin-bottom: 1.5rem !important;
   }
 
