@@ -25,6 +25,7 @@ function Reception() {
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
+  const [customerDetailAddress, setCustomerDetailAddress] = useState('');
   const [tabs, setTabs] = useState([
     {
       files: [] as Array<{file: File, file_key: string}>,
@@ -640,6 +641,9 @@ function Reception() {
     if (!validateAddress(customerAddress)) {
       errors.push('주문자 주소를 입력해주세요.');
     }
+    if (customerDetailAddress.trim() === '') {
+      errors.push('상세 주소를 입력해주세요.');
+    }
 
     // 약관 동의 검증
     if (!agree) {
@@ -748,7 +752,7 @@ function Reception() {
         name: customerName,
         phone: customerPhone,
         email: customerEmail,
-        address: customerAddress,
+        address: `${customerAddress}, ${customerDetailAddress}`,
         draft_format: selectedFileFormat,
         final_option: selectedFinalOption,
         agreement: agree,
@@ -1119,7 +1123,7 @@ function Reception() {
                       <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>주소</div>
                     </div>
                     <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
-                      <div className="c-app-info-grid-contents">{customerAddress || '미입력'}</div>
+                      <div className="c-app-info-grid-contents">{customerAddress && customerDetailAddress ? `${customerAddress}, ${customerDetailAddress}` : '미입력'}</div>
                     </div>
                   </div>
                 </div>
@@ -1961,7 +1965,7 @@ function Reception() {
                     )}
                   </div>
                   <div className="address-input-wrapper" style={{width: '100%'}}>
-                    <div style={{display: 'flex', gap: '0.5rem', width: '100%'}}>
+                    <div style={{display: 'flex', gap: '0.5rem', width: '100%', marginBottom: '0.5rem'}}>
                       <input
                         className="c-text-input-field w-input"
                         maxLength={200}
@@ -2001,6 +2005,17 @@ function Reception() {
                         주소 찾기
                       </button>
                     </div>
+                    <input
+                      className="c-text-input-field w-input"
+                      maxLength={100}
+                      name="customer-detail-address"
+                      placeholder="상세 주소 (동/호수 등)"
+                      type="text"
+                      value={customerDetailAddress}
+                      onChange={(e) => setCustomerDetailAddress(e.target.value)}
+                      required
+                      style={{width: '100%', marginBottom: '0'}}
+                    />
                   </div>
                 </div>
               </div>
