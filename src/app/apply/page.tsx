@@ -62,6 +62,15 @@ function Reception() {
   const [isDeletingTab, setIsDeletingTab] = useState(false);
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  // 신청 시점의 금액 정보를 저장 (백엔드 전송 금액과 신청완료 페이지 표시 금액을 일치시키기 위함)
+  const [submittedPriceInfo, setSubmittedPriceInfo] = useState<{
+    totalPrice: number;
+    transcriptionPrice: number;
+    optionPrice: number;
+    vatAmount: number;
+    totalDuration: string;
+    finalOptionText: string;
+  } | null>(null);
   // tabs 최신값을 이벤트 리스너에서 안전하게 참조하기 위한 ref
   const tabsRef = useRef(tabs);
   // 파일 삭제 완료 플래그 (popstate → beforeunload 중복 방지)
@@ -748,6 +757,24 @@ function Reception() {
     
     // 새로운 API 호출 (파일별 Request 생성)
     try {
+      // 신청 시점의 금액 정보를 계산하고 저장 (백엔드 전송 금액과 신청완료 페이지 표시 금액을 일치시키기 위함)
+      const totalPrice = calculateTotalPrice();
+      const transcriptionPrice = calculateTranscriptionPrice();
+      const optionPrice = getSelectedOptionPrice();
+      const vatAmount = calculateVAT();
+      const totalDuration = formatTotalDuration();
+      const finalOptionText = getSelectedOptionText();
+
+      // 금액 정보 저장
+      setSubmittedPriceInfo({
+        totalPrice,
+        transcriptionPrice,
+        optionPrice,
+        vatAmount,
+        totalDuration,
+        finalOptionText
+      });
+
       const requestData = {
         name: customerName,
         phone: customerPhone,
@@ -758,7 +785,7 @@ function Reception() {
         agreement: agree,
         is_temporary: false,
         recording_location: tabs[0]?.recordingLocation === '현장' ? '현장' : '통화',
-        estimated_price: calculateTotalPrice(), // 실제 계산된 견적
+        estimated_price: totalPrice, // 계산된 견적 사용
         files: tabs.map(tab => {
           // timestampRanges에서 duration과 timestamps 계산
           let duration = '00:00:00';
@@ -987,12 +1014,12 @@ function Reception() {
 
             {/* 예상 견적 섹션 - 완전히 독립적인 컴포넌트 */}
             <QuotationSection
-              totalPrice={calculateTotalPrice()}
-              transcriptionPrice={calculateTranscriptionPrice()}
-              optionPrice={getSelectedOptionPrice()}
-              vatAmount={calculateVAT()}
-              totalDuration={formatTotalDuration()}
-              finalOptionText={getSelectedOptionText()}
+              totalPrice={submittedPriceInfo?.totalPrice || calculateTotalPrice()}
+              transcriptionPrice={submittedPriceInfo?.transcriptionPrice || calculateTranscriptionPrice()}
+              optionPrice={submittedPriceInfo?.optionPrice || getSelectedOptionPrice()}
+              vatAmount={submittedPriceInfo?.vatAmount || calculateVAT()}
+              totalDuration={submittedPriceInfo?.totalDuration || formatTotalDuration()}
+              finalOptionText={submittedPriceInfo?.finalOptionText || getSelectedOptionText()}
             />
 
               {/* 서비스 신청 내역 */}
