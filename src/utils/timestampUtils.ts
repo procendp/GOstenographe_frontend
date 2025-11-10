@@ -34,12 +34,12 @@ export const validateTimestampRange = (range: TimestampRange): { isValid: boolea
   if (!range.startTime || !range.endTime || range.startTime === '' || range.endTime === '') {
     return { isValid: false, error: undefined };
   }
-  
+
   // Check format
   if (!isValidTimeFormat(range.startTime)) {
     return { isValid: false, error: '시작 시간 형식이 올바르지 않습니다 (HH:MM:SS)' };
   }
-  
+
   if (!isValidTimeFormat(range.endTime)) {
     return { isValid: false, error: '종료 시간 형식이 올바르지 않습니다 (HH:MM:SS)' };
   }
@@ -47,9 +47,119 @@ export const validateTimestampRange = (range: TimestampRange): { isValid: boolea
   // Check if start time is before end time
   const startSeconds = timeToSeconds(range.startTime);
   const endSeconds = timeToSeconds(range.endTime);
-  
+
   if (startSeconds >= endSeconds) {
     return { isValid: false, error: '시작 시간이 종료 시간보다 늦을 수 없습니다.' };
+  }
+
+  return { isValid: true };
+};
+
+/**
+ * 확장된 검증: 파일 길이, 중복, 전체 구간 합산 체크
+ */
+export const validateTimestampRangeWithFile = (
+  range: TimestampRange,
+  fileDuration: string,
+  allRanges?: TimestampRange[],
+  currentIndex?: number
+): { isValid: boolean; error?: string } => {
+  // 1. 기본 검증 먼저 수행
+  const basicValidation = validateTimestampRange(range);
+  if (!basicValidation.isValid) {
+    return basicValidation;
+  }
+
+  const startSeconds = timeToSeconds(range.startTime);
+  const endSeconds = timeToSeconds(range.endTime);
+  const fileDurationSeconds = timeToSeconds(fileDuration);
+
+  // 2. 파일 길이 초과 검증 (가장 중요!)
+  if (startSeconds > fileDurationSeconds) {
+    return {
+      isValid: false,
+      error: `시작 시간이 파일 길이(${fileDuration})를 초과합니다`
+    };
+  }
+
+  if (endSeconds > fileDurationSeconds) {
+    return {
+      isValid: false,
+      error: `종료 시간이 파일 길이(${fileDuration})를 초과합니다`
+    };
+  }
+
+  // 3. 0초 이상 검증 (음수 방지)
+  if (startSeconds < 0 || endSeconds < 0) {
+    return {
+      isValid: false,
+      error: '시간은 0초 이상이어야 합니다'
+    };
+  }
+
+  // 4. 구간 중복 검증
+  if (allRanges && allRanges.length > 0) {
+    for (let i = 0; i < allRanges.length; i++) {
+      // 자기 자신은 제외
+      if (currentIndex !== undefined && i === currentIndex) {
+        continue;
+      }
+
+      const otherRange = allRanges[i];
+
+      // 다른 구간이 비어있으면 스킵
+      if (!otherRange.startTime || !otherRange.endTime) {
+        continue;
+      }
+
+      const otherStart = timeToSeconds(otherRange.startTime);
+      const otherEnd = timeToSeconds(otherRange.endTime);
+
+      // 겹침 체크: (start < otherEnd) && (end > otherStart)
+      const isOverlapping = (startSeconds < otherEnd) && (endSeconds > otherStart);
+
+      if (isOverlapping) {
+        return {
+          isValid: false,
+          error: `다른 구간과 겹칩니다 (구간${i + 1}: ${otherRange.startTime}-${otherRange.endTime})`
+        };
+      }
+    }
+  }
+
+  return { isValid: true };
+};
+
+/**
+ * 전체 구간 합산이 파일 길이를 초과하는지 검증
+ */
+export const validateTotalDurationWithinFile = (
+  ranges: TimestampRange[],
+  fileDuration: string
+): { isValid: boolean; error?: string } => {
+  if (!ranges || ranges.length === 0) {
+    return { isValid: true };
+  }
+
+  const fileDurationSeconds = timeToSeconds(fileDuration);
+
+  // 모든 유효한 구간의 총 길이 계산
+  let totalSeconds = 0;
+  for (const range of ranges) {
+    if (range.startTime && range.endTime && range.isValid !== false) {
+      const start = timeToSeconds(range.startTime);
+      const end = timeToSeconds(range.endTime);
+      if (start < end) {
+        totalSeconds += (end - start);
+      }
+    }
+  }
+
+  if (totalSeconds > fileDurationSeconds) {
+    return {
+      isValid: false,
+      error: `모든 구간의 총 길이(${secondsToTime(totalSeconds)})가 파일 길이(${fileDuration})를 초과합니다`
+    };
   }
 
   return { isValid: true };

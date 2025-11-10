@@ -8,9 +8,10 @@ interface RequestInfoSectionProps {
   setFormData: (data: ReceptionFormData) => void;
   onNext?: () => void;
   onBack?: () => void;
+  fileDuration?: string; // 파일 총 길이 추가
 }
 
-export default function RequestInfoSection({ formData, setFormData, onNext, onBack }: RequestInfoSectionProps) {
+export default function RequestInfoSection({ formData, setFormData, onNext, onBack, fileDuration = '00:00:00' }: RequestInfoSectionProps) {
   const [totalDuration, setTotalDuration] = useState('00:00:00');
   const MAX_TIMESTAMP_RANGES = 10; // Configurable maximum
 
@@ -111,6 +112,9 @@ export default function RequestInfoSection({ formData, setFormData, onNext, onBa
                       onUpdate={(updatedRange) => handleTimestampRangeUpdate(index, updatedRange)}
                       onDelete={() => handleTimestampRangeDelete(index)}
                       canDelete={(formData.timestampRanges?.length || 0) > 1}
+                      fileDuration={fileDuration}
+                      allRanges={formData.timestampRanges}
+                      currentIndex={index}
                     />
                   ))}
                   {(formData.timestampRanges?.length || 0) < MAX_TIMESTAMP_RANGES && (

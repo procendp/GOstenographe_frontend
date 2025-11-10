@@ -1,5 +1,5 @@
 import { TimestampRange } from '@/types/reception';
-import { validateTimestampRange, formatTimeInput } from '@/utils/timestampUtils';
+import { validateTimestampRangeWithFile, formatTimeInput } from '@/utils/timestampUtils';
 import { useState, useEffect } from 'react';
 
 interface TimestampInputProps {
@@ -7,9 +7,20 @@ interface TimestampInputProps {
   onUpdate: (range: TimestampRange) => void;
   onDelete: () => void;
   canDelete?: boolean;
+  fileDuration: string; // 파일 총 길이
+  allRanges?: TimestampRange[]; // 모든 구간 (중복 검증용)
+  currentIndex?: number; // 현재 구간의 인덱스
 }
 
-export default function TimestampInput({ range, onUpdate, onDelete, canDelete = true }: TimestampInputProps) {
+export default function TimestampInput({
+  range,
+  onUpdate,
+  onDelete,
+  canDelete = true,
+  fileDuration,
+  allRanges,
+  currentIndex
+}: TimestampInputProps) {
   const [startTime, setStartTime] = useState(range.startTime);
   const [endTime, setEndTime] = useState(range.endTime);
   const [showWarning, setShowWarning] = useState(false);
@@ -20,14 +31,20 @@ export default function TimestampInput({ range, onUpdate, onDelete, canDelete = 
       startTime,
       endTime
     };
-    
-    const validation = validateTimestampRange(updatedRange);
+
+    // 확장된 검증 사용 (파일 길이, 중복 체크)
+    const validation = validateTimestampRangeWithFile(
+      updatedRange,
+      fileDuration,
+      allRanges,
+      currentIndex
+    );
     updatedRange.isValid = validation.isValid;
     updatedRange.error = validation.error;
-    
-    setShowWarning(!validation.isValid);
+
+    setShowWarning(!validation.isValid && !!validation.error);
     onUpdate(updatedRange);
-  }, [startTime, endTime, range.id]);
+  }, [startTime, endTime, range.id, fileDuration, allRanges, currentIndex]);
 
   const handleTimeChange = (value: string, type: 'start' | 'end') => {
     // Allow partial input while user is typing

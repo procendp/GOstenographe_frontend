@@ -675,12 +675,27 @@ function Reception() {
         errors.push(`파일 ${fileNumber}: 녹취 종류를 선택해주세요.`);
       }
 
-      // 부분 녹취 시 타임스탬프 검증
+      // 부분 녹취 시 타임스탬프 검증 (강화됨)
       if (tab.recordType === '부분') {
         if (!tab.timestampRanges || tab.timestampRanges.length === 0) {
           errors.push(`파일 ${fileNumber}: 녹취 구간을 입력해주세요.`);
-        } else if (tab.timestampRanges.some((range: any) => range.isValid === false)) {
-          errors.push(`파일 ${fileNumber}: 녹취 구간의 시작 시간이 종료 시간보다 늦습니다.`);
+        } else {
+          // 모든 구간이 완전히 입력되었는지 확인
+          const hasEmptyRange = tab.timestampRanges.some((range: any) =>
+            !range.startTime || !range.endTime || range.startTime === '' || range.endTime === ''
+          );
+
+          if (hasEmptyRange) {
+            errors.push(`파일 ${fileNumber}: 모든 녹취 구간의 시작/종료 시간을 입력해주세요.`);
+          } else if (tab.timestampRanges.some((range: any) => range.isValid === false)) {
+            // 유효하지 않은 구간이 있으면 해당 에러 메시지 표시
+            const invalidRange = tab.timestampRanges.find((range: any) => range.isValid === false);
+            if (invalidRange && invalidRange.error) {
+              errors.push(`파일 ${fileNumber}: ${invalidRange.error}`);
+            } else {
+              errors.push(`파일 ${fileNumber}: 녹취 구간이 올바르지 않습니다.`);
+            }
+          }
         }
       }
 
@@ -1472,6 +1487,7 @@ function Reception() {
                             newTabs[index] = { ...tab, ...data };
                             setTabs(newTabs);
                           }}
+                          fileDuration={tab.fileDuration || '00:00:00'}
                         />
                       )}
                     </div>
