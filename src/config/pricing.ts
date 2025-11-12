@@ -29,7 +29,7 @@ export interface PriceTableItem {
  * - 통화 녹음: 상대적으로 저렴한 요금
  * - 현장 녹음: 통화보다 높은 요금
  *
- * 분량에 따라 차등 적용되며, 60분 초과 시 60분 요금 적용
+ * 분량에 따라 차등 적용되며, 60분 초과 시 10분 단위 추가 과금
  */
 export const PRICE_TABLE: Record<RecordingLocationType, PriceTableItem[]> = {
   '통화': [
@@ -41,7 +41,6 @@ export const PRICE_TABLE: Record<RecordingLocationType, PriceTableItem[]> = {
     { maxMinutes: 40, price: 140000 },
     { maxMinutes: 50, price: 160000 },
     { maxMinutes: 60, price: 180000 },
-    { maxMinutes: Infinity, price: 180000 }, // 60분 초과 시 60분 요금 적용
   ],
   '현장': [
     { maxMinutes: 3, price: 50000 },
@@ -52,8 +51,20 @@ export const PRICE_TABLE: Record<RecordingLocationType, PriceTableItem[]> = {
     { maxMinutes: 40, price: 160000 },
     { maxMinutes: 50, price: 180000 },
     { maxMinutes: 60, price: 200000 },
-    { maxMinutes: Infinity, price: 200000 }, // 60분 초과 시 60분 요금 적용
   ],
+} as const;
+
+/**
+ * 60분 초과 시 10분당 추가 요금
+ *
+ * - 통화: 30,000원 / 10분
+ * - 현장: 40,000원 / 10분
+ *
+ * 예) 80분 통화 = 60분 기본(180,000원) + 2구간(60,000원) = 240,000원
+ */
+export const OVERTIME_RATE: Record<RecordingLocationType, number> = {
+  통화: 30000,
+  현장: 40000,
 } as const;
 
 /**

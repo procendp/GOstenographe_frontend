@@ -14,7 +14,7 @@ import QuotationSection from '@/components/QuotationSection';
 import { uploadMultipleFiles } from '@/utils/fileUpload';
 import { getMediaDuration } from '@/utils/mediaDuration';
 import { Z_INDEX } from '@/constants/zIndex';
-import { PRICE_TABLE, FINAL_OPTION_PRICES, FINAL_OPTION_LABELS } from '@/config/pricing';
+import { PRICE_TABLE, FINAL_OPTION_PRICES, FINAL_OPTION_LABELS, OVERTIME_RATE } from '@/config/pricing';
 
 // API 기본 URL
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
@@ -910,13 +910,23 @@ function Reception() {
       return 0;
     }
 
-    const priceTable = PRICE_TABLE[location];
-    for (const tier of priceTable) {
-      if (minutes <= tier.maxMinutes) {
-        return tier.price;
+    // 60분 이하: 기존 가격표 조회
+    if (minutes <= 60) {
+      const priceTable = PRICE_TABLE[location];
+      for (const tier of priceTable) {
+        if (minutes <= tier.maxMinutes) {
+          return tier.price;
+        }
       }
     }
-    return priceTable[priceTable.length - 1].price; // 기본값
+
+    // 60분 초과: 기본 60분 요금 + 10분 단위 추가 요금
+    const basePrice = PRICE_TABLE[location].find(tier => tier.maxMinutes === 60)!.price;
+    const overtimeMinutes = minutes - 60;
+    const overtimeSlots = Math.ceil(overtimeMinutes / 10);
+    const overtimePrice = overtimeSlots * OVERTIME_RATE[location];
+
+    return basePrice + overtimePrice;
   };
 
   // 모든 탭의 총 속기 구간 길이 계산 (분)
