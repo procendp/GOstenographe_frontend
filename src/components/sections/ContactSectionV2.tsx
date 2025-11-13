@@ -8,7 +8,7 @@ const contacts = [
     icon: "/new_goStenographe_resource/icons/solar_letter-bold.png",
     title: "이메일 상담",
     desc: "대용량 파일 접수 등",
-    contact: "sokgijung@gmail.com",
+    contact: "info@sokgijung.com",
     contactType: "email"
   },
   {

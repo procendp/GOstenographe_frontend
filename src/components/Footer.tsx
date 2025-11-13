@@ -63,7 +63,7 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4">고객센터</h3>
             <div className="space-y-2 text-sm text-gray-300">
               <p>연락처: <a href="tel:010-2681-2571" className="hover:text-white hover:underline transition-colors">010-2681-2571</a></p>
-              <p>이메일: <a href="mailto:sokgijung@gmail.com" className="hover:text-white hover:underline transition-colors">sokgijung@gmail.com</a></p>
+              <p>이메일: <a href="mailto:info@sokgijung.com" className="hover:text-white hover:underline transition-colors">info@sokgijung.com</a></p>
               <p>카카오톡: <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline transition-colors">오픈채팅 '속기사무소 정'</a></p>
             </div>
           </motion.div>

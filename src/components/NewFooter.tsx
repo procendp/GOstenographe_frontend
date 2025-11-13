@@ -103,7 +103,7 @@ export default function NewFooter() {
                 </div>
                 <div className="flex items-center justify-end md:justify-start">
                   <span style={{fontSize: '1rem', fontWeight: 600, color: '#1d1f1e', whiteSpace: 'nowrap', marginRight: '8px'}}>이메일</span>
-                  <a href="mailto:sokgijung@gmail.com" className="hover:underline" style={{fontSize: '1rem', fontWeight: 300, color: '#1d1f1e', whiteSpace: 'nowrap'}}>sokgijung@gmail.com</a>
+                  <a href="mailto:info@sokgijung.com" className="hover:underline" style={{fontSize: '1rem', fontWeight: 300, color: '#1d1f1e', whiteSpace: 'nowrap'}}>info@sokgijung.com</a>
                 </div>
                 <div className="flex items-center justify-end md:justify-start">
                   <span style={{fontSize: '1rem', fontWeight: 600, color: '#1d1f1e', whiteSpace: 'nowrap', marginRight: '8px'}}>카카오톡</span>
