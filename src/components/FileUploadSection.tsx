@@ -167,6 +167,15 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           onClick={() => fileInputRef.current?.click()}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
+          role="button"
+          tabIndex={0}
+          aria-label="파일 업로드 영역. 클릭하거나 파일을 드래그하여 업로드하세요"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              fileInputRef.current?.click();
+            }
+          }}
           className="border-4 border-dashed border-gray-400 rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 transition-colors bg-white min-h-[140px] flex flex-col justify-center"
         >
           <FaCloudUploadAlt className="mx-auto text-4xl text-gray-400 mb-4" />
@@ -312,6 +321,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                       {onDeleteFile && (
                         <button
                           onClick={() => onDeleteFile(currentTabIndex)}
+                          aria-label={`파일 ${currentTabIndex + 1} 삭제`}
                           style={{
                             padding: '6px 12px',
                             fontSize: '12px',
@@ -350,6 +360,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           onChange={handleFileSelect}
           className="hidden"
           accept=".mp3,.wav,.m4a,.cda,.mod,.ogg,.wma,.flac,.asf,.avi,.mp4,.wmv,.m2v,.mpeg,.dpg,.mts,.webm,.divx,.amv"
+          aria-label="음성 또는 영상 파일 선택"
         />
       </div>
       <div className="flex justify-between">

@@ -1232,24 +1232,31 @@ function Reception() {
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none'
               } as React.CSSProperties}>
-                <div className="flex" style={{ minWidth: 'max-content' }}>
+                <div className="flex" style={{ minWidth: 'max-content' }} role="tablist" aria-label="파일 탭 목록">
                   {tabs.map((tab, index) => (
                     <button
                       key={index}
+                      id={`file-tab-${index}`}
                       className={`c-file-tab-button-${index === 0 ? 'left' : index === tabs.length - 1 ? 'right' : 'mid'} w-inline-block w-tab-link ${activeTab === index ? 'w--current' : ''}`}
                       onClick={() => setActiveTab(index)}
                       style={{ flexShrink: 0, padding: '6px 8px' }}
+                      role="tab"
+                      aria-selected={activeTab === index}
+                      aria-controls={`file-panel-${index}`}
+                      aria-label={`파일 ${index + 1} 탭`}
+                      tabIndex={activeTab === index ? 0 : -1}
                     >
                       <div className="c-tab-button-text">파일 {index + 1}</div>
                       <div className="c-tab-button-text-mobile">{index + 1}</div>
                     </button>
                   ))}
-                  
+
                   {tabs.length < 5 && (
                     <button
                       className="c-file-tab-button-right w-inline-block w-tab-link"
                       onClick={handleAddTab}
                       style={{ flexShrink: 0, padding: '6px 8px' }}
+                      aria-label="파일 탭 추가"
                     >
                       <div className="c-tab-button-text">+</div>
                       <div className="c-tab-button-text-mobile">+</div>
@@ -1273,6 +1280,7 @@ function Reception() {
                       border: 'none',
                       cursor: 'pointer'
                     }}
+                    aria-label={`파일 ${activeTab + 1} 탭 삭제`}
                   >
                     <div className="text-block-2">삭제</div>
                   </button>
@@ -1282,7 +1290,14 @@ function Reception() {
 
             <div className="c-tab-content w-tab-content" style={{ marginBottom: '5rem' }}>
               {tabs.map((tab, index) => (
-                <div key={index} className={`c-file-tab-pane w-tab-pane ${index === activeTab ? 'w--tab-active' : ''}`}>
+                <div
+                  key={index}
+                  className={`c-file-tab-pane w-tab-pane ${index === activeTab ? 'w--tab-active' : ''}`}
+                  role="tabpanel"
+                  id={`file-panel-${index}`}
+                  aria-labelledby={`file-tab-${index}`}
+                  hidden={index !== activeTab}
+                >
                   <div className="w-layout-vflex file-tab-container" style={{
                     backgroundColor: 'white',
                     borderBottomRightRadius: '20px',
@@ -2098,6 +2113,9 @@ function Reception() {
                   zIndex: Z_INDEX.MODAL_OVERLAY
                 }}
                 onClick={() => setIsAddressModalOpen(false)}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="address-modal-title"
               >
                 <div
                   style={{
@@ -2118,9 +2136,10 @@ function Reception() {
                     alignItems: 'center',
                     marginBottom: '15px'
                   }}>
-                    <h3 style={{margin: 0, fontSize: '1.25rem', fontWeight: 'bold'}}>주소 검색</h3>
+                    <h3 id="address-modal-title" style={{margin: 0, fontSize: '1.25rem', fontWeight: 'bold'}}>주소 검색</h3>
                     <button
                       onClick={() => setIsAddressModalOpen(false)}
+                      aria-label="주소 검색 모달 닫기"
                       style={{
                         background: 'none',
                         border: 'none',
@@ -2259,18 +2278,24 @@ function Reception() {
 
       {/* 탭 삭제 확인 모달 */}
       {showDeleteModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: Z_INDEX.MODAL_OVERLAY
-        }}>
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: Z_INDEX.MODAL_OVERLAY
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="delete-modal-title"
+          aria-describedby="delete-modal-description"
+        >
           <div style={{
             backgroundColor: 'white',
             borderRadius: '12px',
@@ -2280,20 +2305,26 @@ function Reception() {
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
           }}>
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🗑️</div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: '600',
-                color: '#dc2626',
-                marginBottom: '12px'
-              }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }} aria-hidden="true">🗑️</div>
+              <h3
+                id="delete-modal-title"
+                style={{
+                  fontSize: '20px',
+                  fontWeight: '600',
+                  color: '#dc2626',
+                  marginBottom: '12px'
+                }}
+              >
                 파일 {tabToDelete !== null ? tabToDelete + 1 : ''}을(를) 삭제하시겠습니까?
               </h3>
-              <p style={{
-                fontSize: '14px',
-                color: '#374151',
-                lineHeight: '1.6'
-              }}>
+              <p
+                id="delete-modal-description"
+                style={{
+                  fontSize: '14px',
+                  color: '#374151',
+                  lineHeight: '1.6'
+                }}
+              >
                 이 탭에 업로드된 <strong>파일과 작성된 모든 정보가 삭제</strong>됩니다.<br/>
                 이 작업은 되돌릴 수 없습니다.
               </p>
@@ -2334,6 +2365,7 @@ function Reception() {
               }}>
                 <button
                   onClick={handleCancelDelete}
+                  aria-label="삭제 취소"
                   style={{
                     padding: '12px 24px',
                     backgroundColor: '#e5e7eb',
@@ -2352,6 +2384,7 @@ function Reception() {
                 </button>
                 <button
                   onClick={handleConfirmDelete}
+                  aria-label="파일 삭제 확인"
                   style={{
                     padding: '12px 24px',
                     backgroundColor: '#dc2626',
@@ -2376,18 +2409,24 @@ function Reception() {
 
       {/* 검증 에러 모달 */}
       {showValidationModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: Z_INDEX.MODAL_OVERLAY
-        }}>
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: Z_INDEX.MODAL_OVERLAY
+          }}
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="validation-modal-title"
+          aria-describedby="validation-modal-description"
+        >
           <div style={{
             backgroundColor: 'white',
             borderRadius: '12px',
@@ -2399,20 +2438,26 @@ function Reception() {
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
           }}>
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-              <div style={{ fontSize: '48px', marginBottom: '16px' }}>⚠️</div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: '600',
-                color: '#dc2626',
-                marginBottom: '12px'
-              }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }} aria-hidden="true">⚠️</div>
+              <h3
+                id="validation-modal-title"
+                style={{
+                  fontSize: '20px',
+                  fontWeight: '600',
+                  color: '#dc2626',
+                  marginBottom: '12px'
+                }}
+              >
                 입력 정보를 확인해주세요
               </h3>
-              <p style={{
-                fontSize: '14px',
-                color: '#6b7280',
-                lineHeight: '1.6'
-              }}>
+              <p
+                id="validation-modal-description"
+                style={{
+                  fontSize: '14px',
+                  color: '#6b7280',
+                  lineHeight: '1.6'
+                }}
+              >
                 아래 항목을 확인하고 다시 시도해주세요.
               </p>
             </div>
@@ -2446,6 +2491,7 @@ function Reception() {
 
             <button
               onClick={() => setShowValidationModal(false)}
+              aria-label="검증 에러 모달 닫기"
               style={{
                 width: '100%',
                 padding: '12px 24px',

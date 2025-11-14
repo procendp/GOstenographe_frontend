@@ -145,6 +145,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
                       }
                     }}
                     placeholder="화자 이름 입력 (최대 10글자)"
+                    aria-label={`화자 ${index + 1} 이름 입력`}
                     style={{
                       width: '100%',
                       padding: '12px 16px',
@@ -161,6 +162,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
                     <button
                       type="button"
                       onClick={() => handleSpeakerDelete(index)}
+                      aria-label={`화자 ${index + 1} 삭제`}
                       style={{
                         background: 'none',
                         border: 'none',
@@ -187,6 +189,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
                 <button
                   type="button"
                   onClick={handleSpeakerAdd}
+                  aria-label="화자 추가"
                   style={{
                     width: '100%',
                     padding: '12px 16px',

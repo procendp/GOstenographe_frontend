@@ -16,8 +16,8 @@ export default function RecordingLocationSection({ formData, setFormData, tabInd
   const radioName = `recordingLocation_${tabIndex}`;
 
   return (
-    <div className="w-layout-hflex c-type-container" style={{ gap: '0.5rem', justifyContent: 'flex-start' }}>
-      <label 
+    <div className="w-layout-hflex c-type-container" style={{ gap: '0.5rem', justifyContent: 'flex-start' }} role="radiogroup" aria-label="녹음 종류 선택">
+      <label
         className="radio-button-field w-radio"
         style={{
           cursor: 'pointer',
@@ -34,12 +34,13 @@ export default function RecordingLocationSection({ formData, setFormData, tabInd
           checked={formData.recordingLocation === '통화'}
           onChange={() => handleLocationChange('통화')}
           className="w-form-formradioinput w-radio-input"
+          aria-label="통화 녹음"
           style={{
             margin: 0,
             cursor: 'pointer'
           }}
         />
-        <span 
+        <span
           className="radio-button-label w-form-label"
           style={{
             fontFamily: 'Pretendard',
@@ -51,7 +52,7 @@ export default function RecordingLocationSection({ formData, setFormData, tabInd
           통화 녹음
         </span>
       </label>
-      <label 
+      <label
         className="radio-button-field w-radio"
         style={{
           cursor: 'pointer',
@@ -68,12 +69,13 @@ export default function RecordingLocationSection({ formData, setFormData, tabInd
           checked={formData.recordingLocation === '현장'}
           onChange={() => handleLocationChange('현장')}
           className="w-form-formradioinput w-radio-input"
+          aria-label="현장 녹음"
           style={{
             margin: 0,
             cursor: 'pointer'
           }}
         />
-        <span 
+        <span
           className="radio-button-label w-form-label"
           style={{
             fontFamily: 'Pretendard',

@@ -106,6 +106,7 @@ export default function TimestampInput({
             }}
             onBlur={(e) => handleTimeBlur(e.target.value, 'start')}
             placeholder="시작"
+            aria-label="녹취 구간 시작 시간 입력 (HH:MM:SS 형식)"
             className="c-input-text"
             style={{
               flex: '1',
@@ -138,6 +139,7 @@ export default function TimestampInput({
             }}
             onBlur={(e) => handleTimeBlur(e.target.value, 'end')}
             placeholder="종료"
+            aria-label="녹취 구간 종료 시간 입력 (HH:MM:SS 형식)"
             className="c-input-text"
             style={{
               flex: '1',
@@ -157,6 +159,7 @@ export default function TimestampInput({
           <button
             type="button"
             onClick={onDelete}
+            aria-label="녹취 구간 삭제"
             style={{
               background: 'none',
               border: 'none',
