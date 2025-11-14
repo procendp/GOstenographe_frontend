@@ -3,19 +3,19 @@ import { FaCloudUploadAlt, FaSpinner, FaCheckCircle, FaExclamationCircle } from 
 import { ReceptionFormData } from '@/types/reception';
 
 interface FileUploadSectionProps {
-  formData: ReceptionFormData;
+  formData: ReceptionFormData & { fileDuration?: string };
   setFormData: (data: ReceptionFormData) => void;
   onBack?: () => void;
   onFileSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   uploadStatus?: Record<string, 'idle' | 'uploading' | 'success' | 'error'>;
-  allTabs?: any[];
+  currentTabIndex?: number;
   onDeleteFile?: (tabIndex: number) => void;
 }
 
-export default function FileUploadSection({ formData, setFormData, onBack, onFileSelect, uploadStatus: externalUploadStatus, allTabs = [], onDeleteFile }: FileUploadSectionProps) {
+export default function FileUploadSection({ formData, setFormData, onBack, onFileSelect, uploadStatus: externalUploadStatus, currentTabIndex = 0, onDeleteFile }: FileUploadSectionProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [internalUploadStatus, setInternalUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
-  
+
   // 외부에서 전달받은 업로드 상태를 우선 사용
   const uploadStatus = externalUploadStatus || internalUploadStatus;
 
@@ -193,8 +193,8 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
           <div className="text-xs text-red-500 mt-1">※ 영상/음성 파일만 업로드 가능합니다. (파일당 최대 3GB)</div>
         </div>
 
-        {/* 전체 업로드된 파일 리스트 */}
-        {allTabs.length > 0 && allTabs.some(tab => tab.files && tab.files.length > 0) && (
+        {/* 현재 탭에 업로드된 파일 표시 */}
+        {formData.files && formData.files.length > 0 && formData.files[0].file_key && formData.files[0].file_key !== 'uploading' && (
           <div style={{
             marginTop: '24px',
             backgroundColor: 'white',
@@ -216,27 +216,23 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                 fontWeight: '600',
                 color: '#374151'
               }}>
-                업로드된 파일 ({allTabs.filter(tab => tab.files && tab.files.length > 0).length}/{allTabs.length})
+                업로드된 파일
               </span>
             </div>
 
             <div style={{ padding: '8px' }}>
-              {allTabs.map((tab, tabIndex) => {
-                if (!tab.files || tab.files.length === 0) return null;
-
-                const file = tab.files[0];
-                const fileName = file.file?.name || file.name || '';
+              {(() => {
+                const file = formData.files[0];
+                const fileName = file.file?.name || '';
                 const fileSize = file.file?.size || 0;
                 const fileSizeMB = (fileSize / (1024 * 1024)).toFixed(1);
-                const duration = tab.fileDuration || '00:00:00';
+                const duration = formData.fileDuration || '00:00:00';
                 const status = uploadStatus[fileName] || 'idle';
 
                 return (
                   <div
-                    key={tabIndex}
                     style={{
                       padding: '12px',
-                      marginBottom: '8px',
                       backgroundColor: '#f9fafb',
                       borderRadius: '8px',
                       border: '1px solid #e5e7eb'
@@ -264,7 +260,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                             borderRadius: '4px',
                             flexShrink: 0
                           }}>
-                            파일 {tabIndex + 1}
+                            파일 {currentTabIndex + 1}
                           </span>
                           <span style={{
                             fontSize: '14px',
@@ -293,7 +289,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                       </div>
                       {onDeleteFile && (
                         <button
-                          onClick={() => onDeleteFile(tabIndex)}
+                          onClick={() => onDeleteFile(currentTabIndex)}
                           style={{
                             padding: '6px 12px',
                             fontSize: '12px',
@@ -321,7 +317,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                     </div>
                   </div>
                 );
-              })}
+              })()}
             </div>
           </div>
         )}

@@ -1345,7 +1345,7 @@ function Reception() {
                           }}
                           onFileSelect={handleFileSelect}
                           uploadStatus={uploadStatus}
-                          allTabs={tabs}
+                          currentTabIndex={index}
                           onDeleteFile={handleDeleteFile}
                         />
                       </div>
