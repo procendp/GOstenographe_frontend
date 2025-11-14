@@ -57,6 +57,7 @@ function Reception() {
   const [selectedFileFormat, setSelectedFileFormat] = useState('docx');
   const [selectedFinalOption, setSelectedFinalOption] = useState('file');
   const [uploadStatus, setUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
+  const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({});
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [tabToDelete, setTabToDelete] = useState<number | null>(null);
   const [isDeletingTab, setIsDeletingTab] = useState(false);
@@ -411,6 +412,11 @@ function Reception() {
         customerEmail,
         (fileIndex, progress) => {
           console.log(`파일 ${fileIndex + 1} 업로드 진행률: ${progress}%`);
+          // 업로드 진행률 업데이트
+          setUploadProgress(prev => ({
+            ...prev,
+            [files[fileIndex].name]: progress
+          }));
         }
       );
 
@@ -1345,6 +1351,7 @@ function Reception() {
                           }}
                           onFileSelect={handleFileSelect}
                           uploadStatus={uploadStatus}
+                          uploadProgress={uploadProgress}
                           currentTabIndex={index}
                           onDeleteFile={handleDeleteFile}
                         />

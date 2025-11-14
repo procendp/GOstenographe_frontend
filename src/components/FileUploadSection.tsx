@@ -8,11 +8,12 @@ interface FileUploadSectionProps {
   onBack?: () => void;
   onFileSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   uploadStatus?: Record<string, 'idle' | 'uploading' | 'success' | 'error'>;
+  uploadProgress?: Record<string, number>;
   currentTabIndex?: number;
   onDeleteFile?: (tabIndex: number) => void;
 }
 
-export default function FileUploadSection({ formData, setFormData, onBack, onFileSelect, uploadStatus: externalUploadStatus, currentTabIndex = 0, onDeleteFile }: FileUploadSectionProps) {
+export default function FileUploadSection({ formData, setFormData, onBack, onFileSelect, uploadStatus: externalUploadStatus, uploadProgress = {}, currentTabIndex = 0, onDeleteFile }: FileUploadSectionProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [internalUploadStatus, setInternalUploadStatus] = useState<Record<string, 'idle' | 'uploading' | 'success' | 'error'>>({});
 
@@ -176,10 +177,18 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                 {formData.files.map((f: any, index: number) => {
                   const fileName = f.file?.name || f.name || '';
                   const status = uploadStatus[fileName] || 'idle';
+                  const progress = uploadProgress[fileName] || 0;
                   return (
                     <span key={index} className="flex items-center justify-center gap-2 text-base">
                       <span className="font-bold">{fileName}</span>
-                      {status === 'uploading' && <FaSpinner className="animate-spin text-blue-400" title="업로드 중" />}
+                      {status === 'uploading' && (
+                        <>
+                          <FaSpinner className="animate-spin text-blue-400" title="업로드 중" />
+                          <span style={{ fontSize: '12px', color: '#3b82f6', fontWeight: '500' }}>
+                            {progress}%
+                          </span>
+                        </>
+                      )}
                       {status === 'success' && <FaCheckCircle className="text-green-500" title="업로드 완료" />}
                       {status === 'error' && <FaExclamationCircle className="text-red-500" title="업로드 실패" />}
                     </span>
@@ -228,6 +237,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                 const fileSizeMB = (fileSize / (1024 * 1024)).toFixed(1);
                 const duration = formData.fileDuration || '00:00:00';
                 const status = uploadStatus[fileName] || 'idle';
+                const progress = uploadProgress[fileName] || 0;
 
                 return (
                   <div
@@ -272,7 +282,19 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
                           }}>
                             {fileName}
                           </span>
-                          {status === 'uploading' && <FaSpinner className="animate-spin text-blue-400" style={{ flexShrink: 0 }} />}
+                          {status === 'uploading' && (
+                            <>
+                              <FaSpinner className="animate-spin text-blue-400" style={{ flexShrink: 0 }} />
+                              <span style={{
+                                fontSize: '12px',
+                                color: '#3b82f6',
+                                fontWeight: '500',
+                                flexShrink: 0
+                              }}>
+                                {progress}%
+                              </span>
+                            </>
+                          )}
                           {status === 'success' && <FaCheckCircle className="text-green-500" style={{ flexShrink: 0 }} />}
                           {status === 'error' && <FaExclamationCircle className="text-red-500" style={{ flexShrink: 0 }} />}
                         </div>
