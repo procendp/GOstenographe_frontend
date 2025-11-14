@@ -713,10 +713,8 @@ function Reception() {
       }
 
       // 녹음 일시 검증 (필수)
-      if (!tab.recordingUnsure && !tab.recordingDate) {
+      if (!tab.recordingUnsure && (!tab.recordingDate || !tab.recordingTime)) {
         errors.push(`파일 ${fileNumber}: 녹음 일시를 선택하거나 '잘 모르겠어요'를 체크해주세요.`);
-      } else if (!tab.recordingUnsure && tab.recordingDate && !tab.recordingTime) {
-        errors.push(`파일 ${fileNumber}: 시간을 선택해주세요.`);
       }
     });
 
