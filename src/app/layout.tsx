@@ -82,8 +82,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // 나중에 Google Search Console, Naver 등록 시 추가
-    // google: 'google-site-verification-code',
+    google: '2HfKemjqjafv25U-q6H8_HMnIZFY1K7_YRAXv_BKyLw',
     // other: {
     //   'naver-site-verification': 'naver-verification-code',
     // },
