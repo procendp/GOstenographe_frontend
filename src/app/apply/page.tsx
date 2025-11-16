@@ -63,6 +63,7 @@ function Reception() {
   const [isDeletingTab, setIsDeletingTab] = useState(false);
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // 신청 시점의 금액 정보를 저장 (백엔드 전송 금액과 신청완료 페이지 표시 금액을 일치시키기 위함)
   const [submittedPriceInfo, setSubmittedPriceInfo] = useState<{
     totalPrice: number;
@@ -767,6 +768,11 @@ function Reception() {
 
   // 제출 처리
   const handleSubmit = async () => {
+    // 이미 제출 중이면 중복 클릭 무시
+    if (isSubmitting) {
+      return;
+    }
+
     // 검증 에러 수집
     const errors = collectValidationErrors();
 
@@ -775,7 +781,10 @@ function Reception() {
       setShowValidationModal(true);
       return;
     }
-    
+
+    // 제출 시작
+    setIsSubmitting(true);
+
     // 새로운 API 호출 (파일별 Request 생성)
     try {
       // 신청 시점의 금액 정보를 계산하고 저장 (백엔드 전송 금액과 신청완료 페이지 표시 금액을 일치시키기 위함)
@@ -879,9 +888,11 @@ function Reception() {
           errorData = { error: '응답 파싱 실패' };
         }
         alert(`신청 실패 (${response.status}): ${JSON.stringify(errorData)}`);
+        setIsSubmitting(false);
       }
     } catch (error) {
       alert('신청 처리 중 오류가 발생했습니다.');
+      setIsSubmitting(false);
     }
   };
 
@@ -2257,6 +2268,7 @@ function Reception() {
             </label>
             <button
               onClick={handleSubmit}
+              disabled={isSubmitting}
               style={{
                 width: '100%',
                 padding: '0.75rem 1.5rem',
@@ -2266,11 +2278,12 @@ function Reception() {
                 borderRadius: '8px',
                 fontSize: '1rem',
                 fontWeight: '600',
-                cursor: 'pointer',
+                cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                opacity: isSubmitting ? 0.6 : 1,
                 transition: 'all 0.2s'
               }}
             >
-              접수 완료하기
+              {isSubmitting ? '제출 중...' : '접수 완료하기'}
             </button>
           </div>
         </div>
