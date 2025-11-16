@@ -9,19 +9,41 @@ import '../styles/completion-mobile.css'
 
 export const metadata: Metadata = {
   title: {
-    default: '국가공인 1급 속기사 - 전문 속기 서비스 | GO스테노그래프',
-    template: '%s | GO스테노그래프'
+    default: '전문 녹취록 작성 서비스 | 공인 속기사 음성 파일 텍스트변환',
+    template: '%s | 속기사무소 정'
   },
-  description: '24시간 이내 완성되는 전문 속기 서비스. 국가공인 1급 속기사가 직접 검수하는 정확하고 신속한 녹취록 제작 서비스를 제공합니다.',
+  description: '법원 공증 가능한 전문 속기사의 정확한 녹취록 작성. 회의록, 통화녹음, 음성파일 텍스트변환, 자막 제작까지. 빠르고 정확한 속기 타이핑 서비스를 합리적인 비용으로 이용하세요.',
   viewport: {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 5,
   },
-  keywords: ['속기', '속기사', '녹취록', '회의록', '음성변환', '텍스트변환', '국가공인', '1급속기사', 'GO스테노그래프'],
-  authors: [{ name: 'GO스테노그래프' }],
-  creator: 'GO스테노그래프',
-  publisher: 'GO스테노그래프',
+  keywords: [
+    // 핵심 서비스
+    '속기사', '속기', '녹취록', '녹취록작성', '회의록', 'STT',
+
+    // 변환 서비스
+    '음성텍스트변환', '음성녹음텍스트변환', '녹음텍스트변환',
+    '음성파일텍스트변환', '녹음파일텍스트변환', '텍스트음성변환',
+
+    // 녹음 관련
+    '통화녹음', '음성녹음', '녹취',
+
+    // 증거/법률
+    '녹취록증거', '공증',
+
+    // 비용/업체
+    '녹취록비용', '속기사무소',
+
+    // 기타
+    '타이핑', '자막',
+
+    // 브랜드
+    '속기사무소 정', '국가공인 1급 속기사'
+  ],
+  authors: [{ name: '속기사무소 정' }],
+  creator: '속기사무소 정',
+  publisher: '속기사무소 정',
   metadataBase: new URL('https://sokgijung.com'),
   alternates: {
     canonical: '/',
@@ -30,9 +52,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     url: '/',
-    title: '국가공인 1급 속기사 - 전문 속기 서비스',
-    description: '24시간 이내 완성되는 전문 속기 서비스. 정확하고 신속한 녹취록 제작',
-    siteName: 'GO스테노그래프',
+    title: '전문 속기사의 정확한 녹취록 작성 서비스',
+    description: '회의록, 통화녹음, 음성파일을 정확한 텍스트로 변환. 법원 공증 가능한 전문 속기사무소의 신뢰할 수 있는 녹취록 작성 서비스입니다.',
+    siteName: '속기사무소 정',
     images: [
       {
         url: '/new_goStenographe_resource/images/HeroImage2.png',
@@ -44,8 +66,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '국가공인 1급 속기사 - 전문 속기 서비스',
-    description: '24시간 이내 완성되는 전문 속기 서비스',
+    title: '전문 속기사의 정확한 녹취록 작성 서비스',
+    description: '회의록, 통화녹음, 음성파일을 정확한 텍스트로 변환. 법원 공증 가능한 전문 속기사무소의 신뢰할 수 있는 녹취록 작성 서비스입니다.',
     images: ['/new_goStenographe_resource/images/HeroImage2.png'],
   },
   robots: {
@@ -72,10 +94,10 @@ export const metadata: Metadata = {
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  name: 'GO스테노그래프',
+  name: '속기사무소 정',
   description: '국가공인 1급 속기사가 제공하는 전문 속기 서비스',
     url: 'https://sokgijung.com',
-  telephone: '+82-10-0000-0000', // 실제 번호로 변경 필요
+  telephone: '+82-10-2681-2571',
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'KR',
