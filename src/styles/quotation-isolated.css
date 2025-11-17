@@ -13,8 +13,8 @@
 /* 데스크톱에서 너비 확장 (반응형) */
 @media (min-width: 769px) {
   .quotation-section-isolated {
-    width: 95% !important;
-    max-width: 1400px !important;
+    width: 98% !important;
+    max-width: 1600px !important;
   }
 }
 
@@ -35,7 +35,7 @@
 /* 데스크톱에서 메인 박스 너비 확장 (반응형) */
 @media (min-width: 769px) {
   .quotation-main-box {
-    max-width: 1400px !important;
+    max-width: 1600px !important;
   }
 }
 
@@ -67,7 +67,7 @@
 /* 데스크톱에서 세부 견적 박스 너비 확장 (반응형) */
 @media (min-width: 769px) {
   .quotation-details-box {
-    max-width: 1400px !important;
+    max-width: 1600px !important;
   }
 }
 

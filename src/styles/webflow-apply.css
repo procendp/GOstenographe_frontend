@@ -504,6 +504,8 @@
 @media (min-width: 769px) {
   .c-apply-section {
     padding-bottom: 12rem; /* 견적란 높이(150px) + 여유 공간(70px) */
+    padding-left: 2% !important; /* 좌우 패딩 축소하여 콘텐츠 영역 확장 */
+    padding-right: 2% !important;
   }
 }
 
@@ -511,6 +513,13 @@
   width: 100%;
   max-width: 1400px; /* 입력란을 더 넓게 */
   margin: 0 auto;
+}
+
+/* 데스크톱 환경에서 컨테이너 너비 확장 */
+@media (min-width: 769px) {
+  .c-apply-container {
+    max-width: 1600px !important;
+  }
 }
 
 .apply-title-wrapper {
