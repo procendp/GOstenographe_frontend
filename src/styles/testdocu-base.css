@@ -2041,11 +2041,13 @@
   margin: 0 auto;
 }
 
-/* 데스크톱에서 너비 확장 */
-@media (min-width: 769px) {
+/* 데스크톱에서 너비 확장 - 모바일 CSS 오버라이드 방지 */
+@media screen and (min-width: 769px) {
   .application-info-container {
     width: 100% !important;
     max-width: 1600px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
 

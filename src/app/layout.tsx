@@ -6,6 +6,7 @@ import './globals.css'
 import '../styles/tab-override.css'
 import '../styles/quotation-isolated.css'
 import '../styles/completion-mobile.css'
+import '../styles/completion-desktop-override.css'
 
 export const metadata: Metadata = {
   title: {
