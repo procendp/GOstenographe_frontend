@@ -1355,7 +1355,7 @@ function Reception() {
                         padding: '12px 16px',
                         backgroundColor: '#f3f4f6',
                         borderRadius: '8px',
-                        fontSize: '14px',
+                        fontSize: '16px',
                         lineHeight: '1.6',
                         color: '#374151'
                       }}>
