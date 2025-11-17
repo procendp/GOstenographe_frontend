@@ -1448,9 +1448,9 @@ function Reception() {
                         </div>
 
                         {/* 오른쪽: 속기 구간 길이 */}
-                        <div className="w-layout-hflex c-type-static-wrapper">
-                          <h2 className="c-file-block-heading light">속기 구간 길이</h2>
-                          <h2 className="c-file-block-heading highlight">
+                        <div className="w-layout-hflex c-type-static-wrapper" style={{ gap: '0.75rem' }}>
+                          <h2 className="c-file-block-heading light" style={{ fontWeight: '400', fontSize: '1.15rem' }}>속기 구간 길이</h2>
+                          <h2 className="c-file-block-heading highlight" style={{ fontWeight: '700', fontSize: '1.15rem' }}>
                             {(() => {
                               if (tab.recordType === '전체') {
                                 const duration = tab.fileDuration || '00:00:00';
@@ -1555,9 +1555,9 @@ function Reception() {
                             }}>필수</div>
                           </div>
                         </div>
-                        <div className="w-layout-hflex c-type-static-wrapper">
-                          <h2 className="c-file-block-heading light">총 화자수</h2>
-                          <h2 className="c-file-block-heading highlight">{tab.speakerCount}명</h2>
+                        <div className="w-layout-hflex c-type-static-wrapper" style={{ gap: '0.75rem' }}>
+                          <h2 className="c-file-block-heading light" style={{ fontWeight: '400', fontSize: '1.15rem' }}>총 화자수</h2>
+                          <h2 className="c-file-block-heading highlight" style={{ fontWeight: '700', fontSize: '1.15rem' }}>{tab.speakerCount}명</h2>
                         </div>
                       </div>
                       
