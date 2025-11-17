@@ -752,24 +752,36 @@
   }
 }
 
-/* 1280px ~ 1919px (일반 데스크탑) - 이미지 너비 제한 */
+/* 1280px ~ 1919px (일반 데스크탑) - 이미지 너비 제한 및 섹션 높이 증가 */
 @media (min-width: 1280px) and (max-width: 1919px) {
   .td-hero-image-wrapper {
     max-width: 55% !important;
   }
+
+  .td-section-hero {
+    min-height: 65vh;
+  }
 }
 
-/* 1920px ~ 2559px (Full HD) - 이미지 너비 제한 */
+/* 1920px ~ 2559px (Full HD) - 이미지 너비 제한 및 섹션 높이 증가 */
 @media (min-width: 1920px) and (max-width: 2559px) {
   .td-hero-image-wrapper {
     max-width: 58% !important;
   }
+
+  .td-section-hero {
+    min-height: 70vh;
+  }
 }
 
-/* 2560px 이상 (4K 모니터) - 이미지 너비 제한 */
+/* 2560px 이상 (4K 모니터) - 이미지 너비 제한 및 섹션 높이 증가 */
 @media (min-width: 2560px) {
   .td-hero-image-wrapper {
     max-width: 60% !important;
+  }
+
+  .td-section-hero {
+    min-height: 75vh;
   }
 }
 
