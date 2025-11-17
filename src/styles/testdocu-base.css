@@ -1551,7 +1551,7 @@
   
   /* 컨테이너 패딩 복원 */
   .c-apply-container {
-    padding: 0 1rem !important; /* 데스크톱 패딩 복원 */
+    padding: 0 0.5rem !important; /* 데스크톱 패딩 축소하여 콘텐츠 영역 확장 */
   }
   
   /* 폼 간격 복원 */
