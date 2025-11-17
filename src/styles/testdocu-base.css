@@ -1505,9 +1505,9 @@
   }
   
   .c-file-heading {
-    font-size: 1.25rem !important; /* 데스크톱 폰트 크기 복원 */
+    font-size: 1.75rem !important; /* 데스크톱 폰트 크기 통일 */
     line-height: 1.4 !important; /* 데스크톱 줄 간격 복원 */
-    margin-bottom: 0.75rem !important; /* 데스크톱 여백 복원 */
+    margin-bottom: 1rem !important; /* 데스크톱 여백 증가 */
   }
   
   /* 견적 박스 크기 복원 */
@@ -1860,7 +1860,7 @@
 .c-file-heading {
   font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
   color: #333;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
@@ -1918,14 +1918,13 @@
   margin: 0;
 }
 
-.c-file-block-heading.light {
-  font-size: 1.125rem;
-  font-weight: 300;
-}
-
+/* 타이틀 2 통일 - 모두 동일한 스타일 적용 */
+.c-file-block-heading.light,
 .c-file-block-heading.highlight {
+  font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
   color: #666;
-  font-size: 1.125rem;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 /* 태그 스타일 */

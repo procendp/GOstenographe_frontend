@@ -1328,8 +1328,7 @@ function Reception() {
                     
                     <div className="c-file-block" style={{
                       backgroundColor: '#f4f6f9',
-                      borderRadius: '20px',
-                      padding: '2rem'
+                      borderRadius: '20px'
                     }}>
                       <div className="w-layout-hflex c-file-block-title">
                         <h2 className="c-file-block-heading">파일 업로드</h2>
@@ -1387,8 +1386,7 @@ function Reception() {
                     {/* 녹음 종류 섹션 */}
                     <div className="c-file-block" style={{
                       backgroundColor: '#f4f6f9',
-                      borderRadius: '20px',
-                      padding: '2rem'
+                      borderRadius: '20px'
                     }}>
                       <div className="w-layout-hflex c-file-block-title">
                         <h2 className="c-file-block-heading">녹음 종류</h2>
@@ -1425,8 +1423,7 @@ function Reception() {
                       minHeight: '120px', // 최소 높이 설정으로 공간 확보
                       display: 'flex',
                       flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      padding: '2rem'
+                      justifyContent: 'space-between'
                     }}>
                       {/* 화자 정보 구조와 동일하게 적용 */}
                       <div className="w-layout-hflex c-file-block-title between">
@@ -1537,8 +1534,7 @@ function Reception() {
                     
                     <div className="c-file-block" style={{
                       backgroundColor: '#f4f6f9',
-                      borderRadius: '20px',
-                      padding: '2rem'
+                      borderRadius: '20px'
                     }}>
                       <div className="w-layout-hflex c-file-block-title between">
                         <div className="w-layout-hflex flex-block-9">
@@ -1578,8 +1574,7 @@ function Reception() {
                     {/* 녹음 일시 섹션 */}
                     <div className="c-file-block" style={{
                       backgroundColor: '#f4f6f9',
-                      borderRadius: '20px',
-                      padding: '2rem'
+                      borderRadius: '20px'
                     }}>
                       <div className="w-layout-hflex c-file-block-title">
                         <h2 className="c-file-block-heading">녹음 일시</h2>
@@ -1603,7 +1598,6 @@ function Reception() {
                       <div className="c-datetime-container" style={{
                         backgroundColor: '#f4f6f9',
                         borderRadius: '10px',
-                        padding: '2rem',
                         marginTop: '0.5rem',
                         width: 'calc(100% + 4rem)',
                         marginLeft: '-2rem',
@@ -1770,8 +1764,7 @@ function Reception() {
                     {/* 상세 정보 섹션 */}
                     <div className="c-file-block" style={{
                       backgroundColor: '#f4f6f9',
-                      borderRadius: '20px',
-                      padding: '2rem'
+                      borderRadius: '20px'
                     }}>
                       <div className="w-layout-hflex c-file-block-title">
                         <h2 className="c-file-block-heading">상세 정보</h2>
@@ -1795,7 +1788,6 @@ function Reception() {
                       <div className="c-detail-container" style={{
                         backgroundColor: '#f4f6f9',
                         borderRadius: '10px',
-                        padding: '2rem',
                         marginTop: '0.5rem',
                         width: 'calc(100% + 4rem)',
                         marginLeft: '-2rem',
