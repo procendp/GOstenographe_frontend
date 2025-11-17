@@ -37,6 +37,7 @@
     max-width: 1440px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    margin-bottom: 1rem !important; /* 간격 축소 */
   }
 
   /* 완료 페이지 정보 컨테이너 */
@@ -45,6 +46,7 @@
     max-width: 1440px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    margin-bottom: 1rem !important; /* 간격 축소 */
   }
 
   /* 완료 페이지 내부 컨테이너 */
@@ -58,9 +60,20 @@
   }
 
   /* 견적 박스들 */
-  .c-apply-section:has(.flex-block-14) .quotation-main-box,
+  .c-apply-section:has(.flex-block-14) .quotation-main-box {
+    max-width: 1440px !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important; /* 간격 축소 */
+  }
+
   .c-apply-section:has(.flex-block-14) .quotation-details-box {
     max-width: 1440px !important;
     width: 100% !important;
+    margin-bottom: 1rem !important; /* 간격 축소 */
+  }
+
+  /* 완료 페이지 메인 블록 내부 간격 조정 */
+  .c-apply-section:has(.flex-block-14) .flex-block-14 {
+    gap: 1rem !important; /* 내부 요소 간격 축소 */
   }
 }
