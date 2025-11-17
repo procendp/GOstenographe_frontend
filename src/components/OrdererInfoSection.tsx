@@ -57,11 +57,7 @@ export default function OrdererInfoSection({ formData, setFormData }: OrdererInf
     <div className="c-speaker-container" style={{
       backgroundColor: '#f4f6f9',
       borderRadius: '10px',
-      padding: '2rem',
-      marginTop: '0.5rem',
-      width: 'calc(100% + 4rem)',
-      marginLeft: '-2rem',
-      marginRight: '-2rem'
+      marginTop: '0.5rem'
     }}>
       {/* Speaker Information Section */}
       <div className="c-speaker-block">

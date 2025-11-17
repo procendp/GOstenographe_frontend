@@ -1564,6 +1564,7 @@
   }
 
   /* 내부 컨테이너 박스 크기 조정 - 데스크톱만 */
+  .c-speaker-container,
   .c-datetime-container,
   .c-detail-container {
     width: 100% !important;
