@@ -84,7 +84,6 @@ export default function HeroSection() {
             right: '0',
             bottom: '-20px', // padding-bottom 값만큼 아래로 이동
             zIndex: 1,
-            maxWidth: '55%', // 반응형: 화면의 55% 비율 유지
             width: '100%',
             margin: '0',
             padding: '0'
