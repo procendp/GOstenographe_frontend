@@ -698,6 +698,11 @@
 /* Hero 이미지 반응형 - 데스크탑 브레이크포인트 */
 /* 2560px 이상 (4K 모니터) */
 @media (min-width: 2560px) {
+  .td-section-hero {
+    min-height: 70vh !important;
+    padding-bottom: 3rem !important;
+  }
+
   .td-hero-image-wrapper {
     max-width: 60% !important;
   }
@@ -705,6 +710,11 @@
 
 /* 1920px ~ 2559px (Full HD) */
 @media (min-width: 1920px) and (max-width: 2559px) {
+  .td-section-hero {
+    min-height: 65vh !important;
+    padding-bottom: 2rem !important;
+  }
+
   .td-hero-image-wrapper {
     max-width: 58% !important;
   }
