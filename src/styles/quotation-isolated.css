@@ -10,6 +10,14 @@
   margin-right: auto !important;
 }
 
+/* 데스크톱에서 너비 확장 (반응형) */
+@media (min-width: 769px) {
+  .quotation-section-isolated {
+    width: 95% !important;
+    max-width: 1400px !important;
+  }
+}
+
 .quotation-main-box {
   /* 메인 견적 박스 - 완전히 독립적인 스타일 */
   background-color: #1c58af !important;
@@ -22,6 +30,13 @@
   max-width: 1200px !important;
   margin: 0 auto 2rem auto !important;
   box-sizing: border-box !important;
+}
+
+/* 데스크톱에서 메인 박스 너비 확장 (반응형) */
+@media (min-width: 769px) {
+  .quotation-main-box {
+    max-width: 1400px !important;
+  }
 }
 
 /* 모바일에서 위 간격 축소 및 너비 조정 */
@@ -47,6 +62,13 @@
   max-width: 1200px !important;
   margin: 0 auto 2rem auto !important;
   box-sizing: border-box !important;
+}
+
+/* 데스크톱에서 세부 견적 박스 너비 확장 (반응형) */
+@media (min-width: 769px) {
+  .quotation-details-box {
+    max-width: 1400px !important;
+  }
 }
 
 .quotation-detail-item {

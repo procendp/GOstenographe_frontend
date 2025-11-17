@@ -2030,3 +2030,28 @@
     max-width: 1800px;
   }
 } 
+/* 완료 페이지 컨테이너 너비 (반응형) */
+.application-info-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* 데스크톱에서 너비 확장 */
+@media (min-width: 769px) {
+  .application-info-container {
+    width: 95% !important;
+    max-width: 1400px !important;
+  }
+}
+
+.container.small-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 데스크톱에서 small-container 너비 확장 */
+@media (min-width: 769px) {
+  .container.small-container {
+    max-width: 1400px !important;
+  }
+}

@@ -1065,11 +1065,11 @@ function Reception() {
             />
 
               {/* 서비스 신청 내역 */}
-              <div className="w-layout-vflex application-info-container" style={{marginBottom: '2rem', width: '90%', margin: '0 auto 2rem auto'}}>
+              <div className="w-layout-vflex application-info-container" style={{marginBottom: '2rem'}}>
                 <div className="c-app-info-title-block" style={{textAlign: 'center', marginBottom: '1.5rem'}}>
                   <h2 className="c-app-info-heading" style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937'}}>서비스 신청 내역</h2>
                 </div>
-                <div className="container small-container" style={{maxWidth: '1000px', margin: '0 auto'}}>
+                <div className="container small-container">
                   <div className="flex-vertical">
                     {tabs.map((tab, index) => (
                       <details key={index} className="accordion blue" style={{
@@ -1162,11 +1162,11 @@ function Reception() {
               </div>
 
               {/* 주문자 정보 */}
-              <div className="w-layout-vflex application-info-container" style={{width: '90%', margin: '0 auto'}}>
+              <div className="w-layout-vflex application-info-container">
                 <div className="c-app-info-title-block" style={{textAlign: 'center', marginBottom: '1.5rem'}}>
                   <h2 className="c-app-info-heading" style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937'}}>주문자 정보</h2>
                 </div>
-                <div className="container small-container" style={{maxWidth: '1000px', margin: '0 auto'}}>
+                <div className="container small-container">
                   <div className="w-layout-grid c-client-info-grid grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 bg-white border border-gray-300 rounded-lg p-6">
                     <div className="c-app-info-grid-title-block">
                       <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>성함</div>
