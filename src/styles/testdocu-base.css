@@ -1505,7 +1505,7 @@
   }
   
   .c-file-heading {
-    font-size: 1.75rem !important; /* 데스크톱 폰트 크기 통일 */
+    font-size: 1.50rem !important; /* 데스크톱 폰트 크기 통일 */
     line-height: 1.4 !important; /* 데스크톱 줄 간격 복원 */
     margin-bottom: 1rem !important; /* 데스크톱 여백 증가 */
   }
@@ -1860,7 +1860,7 @@
 .c-file-heading {
   font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
   color: #333;
-  font-size: 1.75rem;
+  font-size: 1.55rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
