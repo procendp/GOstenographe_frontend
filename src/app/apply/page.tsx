@@ -1599,9 +1599,9 @@ function Reception() {
                         backgroundColor: '#f4f6f9',
                         borderRadius: '10px',
                         marginTop: '0.5rem',
-                        width: 'calc(100% + 4rem)',
-                        marginLeft: '-2rem',
-                        marginRight: '-2rem'
+                        width: 'calc(100% + 3rem)',
+                        marginLeft: '-1.5rem',
+                        marginRight: '-1.5rem'
                       }}>
                         <div className="c-datetime-block">
                           <div className="div-w-layout-vflex c-datetime-table-wrapper" style={{
@@ -1789,9 +1789,9 @@ function Reception() {
                         backgroundColor: '#f4f6f9',
                         borderRadius: '10px',
                         marginTop: '0.5rem',
-                        width: 'calc(100% + 4rem)',
-                        marginLeft: '-2rem',
-                        marginRight: '-2rem'
+                        width: 'calc(100% + 3rem)',
+                        marginLeft: '-1.5rem',
+                        marginRight: '-1.5rem'
                       }}>
                         <div className="c-detail-block">
                           <div className="div-w-layout-vflex c-detail-table-wrapper" style={{
