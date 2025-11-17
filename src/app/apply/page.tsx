@@ -1351,7 +1351,7 @@ function Reception() {
 
                       {/* 첨부 가능한 파일 형식 안내 */}
                       <div style={{
-                        marginTop: '16px',
+                        marginTop: '8px',
                         padding: '12px 16px',
                         backgroundColor: '#f3f4f6',
                         borderRadius: '8px',
