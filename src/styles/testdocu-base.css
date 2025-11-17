@@ -360,8 +360,8 @@
 
 .td-hero-container {
   width: 100%;
-  max-width: 1280px;
-  padding: 0 2rem 0 calc(8% + 2rem);  /* testDocu fn-container-grid 패딩 + 컨테이너 패딩 */
+  max-width: none;  /* 원본처럼 너비 제한 제거 */
+  padding: 0 2rem 0 8%;  /* 원본처럼 좌측만 8% */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
@@ -706,6 +706,13 @@
   .td-hero-image-wrapper {
     max-width: 60% !important;
   }
+
+  /* 텍스트 요소 너비 제한 */
+  .td-hero-title,
+  .td-hero-subtitle,
+  .td-hero-description {
+    max-width: 900px !important;
+  }
 }
 
 /* 1920px ~ 2559px (Full HD) */
@@ -717,6 +724,13 @@
 
   .td-hero-image-wrapper {
     max-width: 58% !important;
+  }
+
+  /* 텍스트 요소 너비 제한 */
+  .td-hero-title,
+  .td-hero-subtitle,
+  .td-hero-description {
+    max-width: 800px !important;
   }
 }
 
