@@ -2052,6 +2052,9 @@
 /* 데스크톱에서 small-container 너비 확장 */
 @media (min-width: 769px) {
   .container.small-container {
-    max-width: 1600px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
