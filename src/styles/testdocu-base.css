@@ -698,10 +698,6 @@
 /* Hero 이미지 반응형 - 데스크탑 브레이크포인트 */
 /* 2560px 이상 (4K 모니터) */
 @media (min-width: 2560px) {
-  .td-hero-image-wrapper {
-    max-width: 60% !important;
-  }
-
   /* 텍스트 요소 너비 제한 */
   .td-hero-title,
   .td-hero-subtitle,
@@ -712,10 +708,6 @@
 
 /* 1920px ~ 2559px (Full HD) */
 @media (min-width: 1920px) and (max-width: 2559px) {
-  .td-hero-image-wrapper {
-    max-width: 58% !important;
-  }
-
   /* 텍스트 요소 너비 제한 */
   .td-hero-title,
   .td-hero-subtitle,
@@ -726,16 +718,12 @@
 
 /* 1280px ~ 1919px (일반 데스크탑) */
 @media (min-width: 1280px) and (max-width: 1919px) {
-  .td-hero-image-wrapper {
-    max-width: 55% !important;
-  }
+  /* 이미지 너비는 인라인 스타일에서 처리 */
 }
 
 /* 1024px ~ 1279px (작은 데스크탑/큰 태블릿) */
 @media (min-width: 1024px) and (max-width: 1279px) {
-  .td-hero-image-wrapper {
-    max-width: 52% !important;
-  }
+  /* 이미지 너비는 인라인 스타일에서 처리 */
 
   .td-hero-title {
     white-space: normal !important;

@@ -82,9 +82,11 @@ export default function HeroSection() {
           style={{
             position: 'absolute',
             right: '0',
-            bottom: '-20px', // padding-bottom 값만큼 아래로 이동
+            bottom: '0',
+            height: '100%',
+            width: 'auto',
+            maxWidth: '58%',
             zIndex: 1,
-            width: '100%',
             margin: '0',
             padding: '0'
           }}
@@ -97,8 +99,10 @@ export default function HeroSection() {
             priority
             className="td-hero-image"
             style={{
-              transform: 'scale(0.99)',
-              transformOrigin: 'bottom right',
+              height: '100%',
+              width: 'auto',
+              objectFit: 'contain',
+              objectPosition: 'bottom right',
               margin: '0',
               padding: '0',
               display: 'block'
