@@ -1562,6 +1562,15 @@
   .c-apply-form.vertical {
     gap: 0.75rem !important; /* 데스크톱 간격 복원 */
   }
+
+  /* 내부 컨테이너 박스 크기 조정 - 데스크톱만 */
+  .c-datetime-container,
+  .c-detail-container {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0.5rem !important;
+  }
 }
 
 .c-apply-container {
