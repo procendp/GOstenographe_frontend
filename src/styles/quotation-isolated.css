@@ -13,7 +13,7 @@
 /* 데스크톱에서 너비 확장 (반응형) */
 @media (min-width: 769px) {
   .quotation-section-isolated {
-    width: 98% !important;
+    width: 100% !important;
     max-width: 1600px !important;
   }
 }

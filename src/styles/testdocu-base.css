@@ -1553,6 +1553,11 @@
   .c-apply-container {
     padding: 0 0.5rem !important; /* 데스크톱 패딩 축소하여 콘텐츠 영역 확장 */
   }
+
+  /* 완료 페이지에서만 컨테이너 패딩 완전 제거 */
+  .c-apply-container:has(.flex-block-14) {
+    padding: 0 !important;
+  }
   
   /* 폼 간격 복원 */
   .c-apply-form {
@@ -2039,7 +2044,7 @@
 /* 데스크톱에서 너비 확장 */
 @media (min-width: 769px) {
   .application-info-container {
-    width: 98% !important;
+    width: 100% !important;
     max-width: 1600px !important;
   }
 }
