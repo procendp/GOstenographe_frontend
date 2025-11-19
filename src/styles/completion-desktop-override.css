@@ -16,7 +16,7 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
     width: 90% !important;
-    max-width: 1440px !important;
+    max-width: 1000px !important;
     margin-left: auto !important;
     margin-right: auto !important;
   }
@@ -24,7 +24,7 @@
   /* 완료 페이지 메인 블록 */
   .c-apply-section:has(.flex-block-14) .flex-block-14 {
     width: 90% !important;
-    max-width: 1440px !important;
+    max-width: 1000px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     padding-left: 0 !important;
@@ -34,7 +34,7 @@
   /* 완료 페이지 견적 섹션 */
   .c-apply-section:has(.flex-block-14) .quotation-section-isolated {
     width: 90% !important;
-    max-width: 1440px !important;
+    max-width: 1000px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     margin-bottom: 1rem !important; /* 간격 축소 */
@@ -43,7 +43,7 @@
   /* 완료 페이지 정보 컨테이너 */
   .c-apply-section:has(.flex-block-14) .application-info-container {
     width: 90% !important;
-    max-width: 1440px !important;
+    max-width: 1000px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     margin-bottom: 1rem !important; /* 간격 축소 */
@@ -61,13 +61,13 @@
 
   /* 견적 박스들 */
   .c-apply-section:has(.flex-block-14) .quotation-main-box {
-    max-width: 1440px !important;
+    max-width: 1000px !important;
     width: 100% !important;
     margin-bottom: 1rem !important; /* 간격 축소 */
   }
 
   .c-apply-section:has(.flex-block-14) .quotation-details-box {
-    max-width: 1440px !important;
+    max-width: 1000px !important;
     width: 100% !important;
     margin-bottom: 1rem !important; /* 간격 축소 */
   }
