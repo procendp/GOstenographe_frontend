@@ -53,7 +53,7 @@ export default function FeaturesSection() {
   });
 
   return (
-    <section id="Feature-Section" className="td-section-features">
+    <section id="Feature-Section" className="td-section-features" style={{padding: '8rem 5%'}}>
       <div className="td-container">
         {/* 섹션 제목 */}
         <div 

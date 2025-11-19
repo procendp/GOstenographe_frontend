@@ -35,9 +35,10 @@ export default function ContactSectionV2() {
   return (
     <section
       id="Support-Section"
-      className="w-full py-12 flex flex-col items-center bg-cover bg-center"
+      className="w-full flex flex-col items-center bg-cover bg-center"
       style={{
         backgroundImage: "url('/new_goStenographe_resource/backgrounds/Background-Blue20-s.png')",
+        padding: '8rem 5%'
       }}
     >
       <div className="text-center mb-6">
