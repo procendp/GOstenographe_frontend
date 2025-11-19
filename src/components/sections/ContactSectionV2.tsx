@@ -46,8 +46,8 @@ export default function ContactSectionV2() {
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">도움이 필요하신가요?</h2>
       </div>
       <div
-        className="w-full bg-white/95 rounded-2xl shadow-2xl px-8 md:px-12 py-12 flex flex-col items-center"
-        style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)', maxWidth: '900px' }}
+        className="w-full bg-white/95 rounded-2xl px-8 md:px-12 py-12 flex flex-col items-center"
+        style={{ maxWidth: '900px' }}
       >
         <div className="text-center mb-8">
           <div className="mb-2" style={{color: '#1c58af', fontSize: '1.375rem', fontWeight: 'bold'}}>고객센터 운영 시간</div>
