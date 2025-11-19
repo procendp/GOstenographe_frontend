@@ -55,7 +55,7 @@ export default function NewFooter() {
             href="/apply"
             whileHover={{ scale: 1.02, opacity: 0.9 }}
             whileTap={{ scale: 0.98 }}
-            className="hidden md:flex justify-center items-center text-center bg-[#222] text-white hover:text-white px-6 py-3 w-[180px] h-[80px] rounded-none font-bold text-lg transition-all duration-300 mt-6"
+            className="hidden md:flex justify-center items-center text-center bg-[#272929] text-white hover:text-white px-6 py-4 rounded-none font-bold text-lg transition-all duration-300 mt-6"
           >
             서비스 신청
           </motion.a>
