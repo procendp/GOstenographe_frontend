@@ -1074,7 +1074,7 @@ function Reception() {
                     {tabs.map((tab, index) => (
                       <details key={index} className="accordion blue" style={{
                         backgroundColor: 'white',
-                        borderRadius: '4px',
+                        borderRadius: '0',
                         marginBottom: '1rem',
                         overflow: 'hidden'
                       }} open={openAccordionIndex === index}>
