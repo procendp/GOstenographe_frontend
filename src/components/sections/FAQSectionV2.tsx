@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
-import { useScrollAnimation, useStaggerAnimation } from "../../hooks/useGSAPAnimations";
 
 const faqData = {
   서비스: [
@@ -280,7 +279,7 @@ export default function FAQSectionV2() {
         </div>
 
         {/* FAQ 아이템들 */}
-        <div className="space-y-4">
+        <div>
           {currentTabData.map((item) => (
             <FAQItem
               key={item.id} // 안정적인 ID 사용

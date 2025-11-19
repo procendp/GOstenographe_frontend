@@ -519,7 +519,7 @@
 }
 
 .td-faq-tab {
-  border: 1px solid var(--td-light-grey);
+  border: 1px solid #000000;
   font-family: var(--td-font-accent);
   color: var(--td-grey);
   background-color: white;
@@ -585,7 +585,7 @@
   background: #f4f6f9;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
@@ -638,7 +638,7 @@
 .td-faq-icon {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
-  color: #407be5;
+  color: #1c58af;
   width: 30px;
   height: 30px;
   display: flex;
