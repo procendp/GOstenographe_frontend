@@ -1075,7 +1075,7 @@ function Reception() {
                       <details key={index} className="accordion blue" style={{
                         backgroundColor: 'white',
                         borderRadius: '0',
-                        marginBottom: '1rem',
+                        marginBottom: '0.5rem',
                         overflow: 'hidden'
                       }} open={openAccordionIndex === index}>
                         <summary className="c-accordion-title" style={{
