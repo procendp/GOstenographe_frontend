@@ -20,14 +20,15 @@ export default function ServiceSectionV2() {
         </div>
         <div className="flex mb-8 w-full max-w-md mx-auto justify-center">
           <button
-            className={`w-1/3 py-2 rounded-l-xl text-lg border border-black ${tab==='녹취록' ? 'bg-gray-800 text-white' : 'bg-[#f6f1e7] text-gray-700'}`}
-            style={{marginRight: '-1px'}}
+            className={`w-1/3 py-2 rounded-l-xl text-lg ${tab==='녹취록' ? 'bg-gray-800 text-white' : 'bg-[#f6f1e7] text-gray-700'}`}
+            style={{border: '1px solid #000000', marginRight: '-1px'}}
             onClick={()=>setTab('녹취록')}
           >
             녹취록
           </button>
           <button
-            className={`w-1/3 py-2 rounded-r-xl text-lg border-l-0 border border-black ${tab==='회의록' ? 'bg-gray-800 text-white' : 'bg-[#f6f1e7] text-gray-700'}`}
+            className={`w-1/3 py-2 rounded-r-xl text-lg ${tab==='회의록' ? 'bg-gray-800 text-white' : 'bg-[#f6f1e7] text-gray-700'}`}
+            style={{border: '1px solid #000000', borderLeft: 'none'}}
             onClick={()=>setTab('회의록')}
           >
             회의록
