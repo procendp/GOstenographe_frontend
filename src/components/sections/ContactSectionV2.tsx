@@ -41,7 +41,7 @@ export default function ContactSectionV2() {
         padding: '8rem 5%'
       }}
     >
-      <div className="text-center mb-6">
+      <div className="text-center mb-12">
         <div className="text-base md:text-lg font-medium text-gray-500 mb-2">고객지원</div>
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">도움이 필요하신가요?</h2>
       </div>
