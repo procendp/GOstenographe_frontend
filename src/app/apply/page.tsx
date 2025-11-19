@@ -1074,14 +1074,13 @@ function Reception() {
                     {tabs.map((tab, index) => (
                       <details key={index} className="accordion blue" style={{
                         backgroundColor: 'white',
-                        border: '1px solid #d1d5db',
-                        borderRadius: '10px',
+                        borderRadius: '4px',
                         marginBottom: '1rem',
                         overflow: 'hidden'
                       }} open={openAccordionIndex === index}>
                         <summary className="c-accordion-title" style={{
                           backgroundColor: openAccordionIndex === index ? '#edead9' : '#f3f4f6',
-                          padding: '1rem 1.5rem',
+                          padding: '1.5rem 1.5rem',
                           cursor: 'pointer',
                           display: 'flex',
                           justifyContent: 'space-between',
@@ -1101,7 +1100,7 @@ function Reception() {
                             transition: 'transform 0.2s'
                           }}>▼</span>
                         </summary>
-                        <div className="c-accordion-content-box" style={{padding: '1.5rem', backgroundColor: '#f5f5f5'}}>
+                        <div className="c-accordion-content-box" style={{padding: '1.5rem', backgroundColor: '#fafafa'}}>
                           <div className="w-layout-grid c-order-info-grid grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 items-start">
                             <div className="c-app-info-grid-title-block" style={{padding: '1rem'}}>
                               <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>첨부 파일</div>
