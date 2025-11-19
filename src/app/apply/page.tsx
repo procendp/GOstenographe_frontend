@@ -1087,7 +1087,8 @@ function Reception() {
                           justifyContent: 'space-between',
                           alignItems: 'center',
                           fontWeight: 'bold',
-                          fontSize: '1.1rem'
+                          fontSize: '1.1rem',
+                          color: '#000000'
                         }} onClick={(e) => {
                           e.preventDefault();
                           const newIndex = openAccordionIndex === index ? null : index;
@@ -1100,7 +1101,7 @@ function Reception() {
                             transition: 'transform 0.2s'
                           }}>▼</span>
                         </summary>
-                        <div className="c-accordion-content-box" style={{padding: '1.5rem'}}>
+                        <div className="c-accordion-content-box" style={{padding: '1.5rem', backgroundColor: '#f5f5f5'}}>
                           <div className="w-layout-grid c-order-info-grid grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 items-start">
                             <div className="c-app-info-grid-title-block" style={{padding: '1rem'}}>
                               <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>첨부 파일</div>
