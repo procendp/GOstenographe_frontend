@@ -1168,31 +1168,31 @@ function Reception() {
                 </div>
                 <div className="container small-container">
                   <div className="w-layout-grid c-client-info-grid grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-3 bg-white border border-gray-300 rounded-lg p-6">
-                    <div className="c-app-info-grid-title-block">
+                    <div className="c-app-info-grid-title-block" style={{padding: '1rem'}}>
                       <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>성함</div>
                     </div>
-                    <div className="c-app-info-grid-contents-block">
+                    <div className="c-app-info-grid-contents-block" style={{padding: '1rem'}}>
                       <div className="c-app-info-grid-contents">{customerName || '미입력'}</div>
                     </div>
-                    
-                    <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+
+                    <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '1rem'}}>
                       <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>연락처</div>
                     </div>
-                    <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                    <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '1rem'}}>
                       <div className="c-app-info-grid-contents">{customerPhone || '미입력'}</div>
                     </div>
-                    
-                    <div className="c-app-info-grid-title-block">
+
+                    <div className="c-app-info-grid-title-block" style={{padding: '1rem'}}>
                       <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>이메일</div>
                     </div>
-                    <div className="c-app-info-grid-contents-block">
+                    <div className="c-app-info-grid-contents-block" style={{padding: '1rem'}}>
                       <div className="c-app-info-grid-contents">{customerEmail || '미입력'}</div>
                     </div>
-                    
-                    <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+
+                    <div className="c-app-info-grid-title-block grey" style={{backgroundColor: '#f4f6f9', padding: '1rem'}}>
                       <div className="c-app-info-grid-title" style={{fontWeight: 'bold', color: '#374151'}}>주소</div>
                     </div>
-                    <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '0.5rem'}}>
+                    <div className="c-app-info-grid-contents-block grey" style={{backgroundColor: '#f4f6f9', padding: '1rem'}}>
                       <div className="c-app-info-grid-contents">{customerAddress && customerDetailAddress ? `${customerAddress}, ${customerDetailAddress}` : '미입력'}</div>
                     </div>
                   </div>
