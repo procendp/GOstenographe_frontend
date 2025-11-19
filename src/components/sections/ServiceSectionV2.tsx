@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -10,9 +9,7 @@ export default function ServiceSectionV2() {
   const [ntab, setNtab] = useState<'process'|'price'>('process');
 
   // 색상 추정값
-  const lightBeige = '#ede9d4'; // 진행과정 배경
   const darkBeige = '#e2c89d';  // 이용요금 배경
-  const lineBeige = '#e5dcc3';  // 세로 라인
 
   return (
     <section id="service" className="bg-[url('/new_goStenographe_resource/backgrounds/Background-Beige.png')] bg-cover bg-center w-full py-20" style={{padding: '8rem 5%'}}>
@@ -136,6 +133,21 @@ export default function ServiceSectionV2() {
                     </button>
                   </motion.div>
                 </div>
+                {/* 서비스 신청/상담 문의 버튼 - 좌측 컬럼 하단 고정 */}
+                <div className="flex flex-col gap-2">
+                  <Link href="/apply">
+                    <motion.button
+                      whileHover={{ scale: 1.02, opacity: 0.9 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full py-3 rounded-lg bg-black text-white text-lg transition-all duration-300"
+                    >
+                      서비스 신청
+                    </motion.button>
+                  </Link>
+                  <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
+                    <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
+                  </a>
+                </div>
               </div>
               {/* 우측: 프로세스/요금표 */}
               <div className="w-full md:w-1/2 flex flex-col justify-center ml-0 md:ml-8">
@@ -251,21 +263,6 @@ export default function ServiceSectionV2() {
                           </tbody>
                         </table>
                       </div>
-                      {/* 서비스 신청/상담 문의 버튼 - 테이블 아래로 이동 */}
-                      <div className="flex flex-col gap-2 mt-4">
-                        <Link href="/apply">
-                          <motion.button
-                            whileHover={{ scale: 1.02, opacity: 0.9 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="w-full py-3 rounded-lg bg-black text-white text-lg transition-all duration-300"
-                          >
-                            서비스 신청
-                          </motion.button>
-                        </Link>
-                        <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
-                          <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
-                        </a>
-                      </div>
           </motion.div>
                   )}
                 </AnimatePresence>
@@ -354,6 +351,21 @@ export default function ServiceSectionV2() {
                       </div>
                     </button>
                   </motion.div>
+                </div>
+                {/* 서비스 신청/상담 문의 버튼 - 좌측 컬럼 하단 고정 */}
+                <div className="flex flex-col gap-2">
+                  <Link href="/apply">
+                    <motion.button
+                      whileHover={{ scale: 1.02, opacity: 0.9 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full py-3 rounded-lg bg-black text-white text-lg transition-all duration-300"
+                    >
+                      서비스 신청
+                    </motion.button>
+                  </Link>
+                  <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
+                    <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
+                  </a>
                 </div>
               </div>
               {/* 우측: 토글별 내용 */}
@@ -463,13 +475,6 @@ export default function ServiceSectionV2() {
                             ))}
                           </tbody>
                         </table>
-                      </div>
-
-                      {/* 상담 문의 버튼 - 테이블 아래로 이동 */}
-                      <div className="flex flex-col gap-2 mt-4">
-                        <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
-                          <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
-                        </a>
                       </div>
           </motion.div>
                   )}
