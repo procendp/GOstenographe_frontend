@@ -146,7 +146,7 @@ export default function ServiceSectionV2() {
                     </motion.button>
                   </Link>
                   <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
-                    <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
+                    <button className="w-full py-3 rounded-lg text-black text-lg bg-white" style={{border: '1px solid #000000'}}>상담 문의</button>
                   </a>
                 </div>
               </div>
@@ -353,19 +353,10 @@ export default function ServiceSectionV2() {
                     </button>
                   </motion.div>
                 </div>
-                {/* 서비스 신청/상담 문의 버튼 - 좌측 컬럼 하단 고정 */}
+                {/* 상담 문의 버튼 - 좌측 컬럼 하단 고정 (회의록은 상담문의만) */}
                 <div className="flex flex-col gap-2">
-                  <Link href="/apply">
-                    <motion.button
-                      whileHover={{ scale: 1.02, opacity: 0.9 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-3 rounded-lg bg-black text-white text-lg transition-all duration-300"
-                    >
-                      서비스 신청
-                    </motion.button>
-                  </Link>
                   <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
-                    <button className="w-full py-3 rounded-lg border border-black text-black text-lg bg-gray-200">상담 문의</button>
+                    <button className="w-full py-3 rounded-lg text-black text-lg bg-white" style={{border: '1px solid #000000'}}>상담 문의</button>
                   </a>
                 </div>
               </div>
