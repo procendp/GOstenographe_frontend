@@ -35,7 +35,7 @@ export default function NewFooter() {
             <motion.a
               href="/apply"
               whileTap={{ scale: 0.98 }}
-              className="flex justify-center items-center text-center bg-[#222] text-white px-8 py-4 rounded-xl font-bold text-base transition-all duration-300 flex-shrink-0 active:opacity-90"
+              className="flex justify-center items-center text-center bg-[#222] text-white hover:text-white px-8 py-4 rounded-xl font-bold text-base transition-all duration-300 flex-shrink-0 active:opacity-90"
             >
               서비스 신청
             </motion.a>
@@ -55,7 +55,7 @@ export default function NewFooter() {
             href="/apply"
             whileHover={{ scale: 1.02, opacity: 0.9 }}
             whileTap={{ scale: 0.98 }}
-            className="hidden md:flex justify-center items-center text-center bg-[#222] text-white px-10 py-3 w-[220px] h-[80px] rounded-xl font-bold text-lg transition-all duration-300 mt-6"
+            className="hidden md:flex justify-center items-center text-center bg-[#222] text-white hover:text-white px-10 py-3 w-[220px] h-[80px] rounded-xl font-bold text-lg transition-all duration-300 mt-6"
           >
             서비스 신청
           </motion.a>
