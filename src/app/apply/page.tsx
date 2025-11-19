@@ -868,8 +868,9 @@ function Reception() {
       if (response.ok) {
         const result = await response.json();
         setRequestId(result.order_id); // Order ID를 저장
-        
+
         setShowComplete(true);
+        window.scrollTo(0, 0); // 완료 페이지로 전환 시 최상단으로 스크롤
         setFilesData(tabs.map(tab => ({
           name: tab.files.map(f => f.file.name).join(', '),
           type: tab.recordType,
