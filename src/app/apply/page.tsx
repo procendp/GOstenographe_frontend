@@ -122,7 +122,7 @@ function Reception() {
     return getAllUploadedFiles().length > 0;
   };
 
-  // 페이지 이탈 시 파일 삭제 (S3 + Supabase 동시 삭제)
+  // 페이지 이탈 시 파일 삭제 (S3에서 삭제)
   const handleNavigateAway = async () => {
     const filesToDelete = getAllUploadedFiles();
     
@@ -265,7 +265,7 @@ function Reception() {
   const confirmRemoveTab = async (idx: number) => {
     if (tabs.length === 1) return;
 
-    // 삭제 대상 탭의 업로드 파일을 S3 + Supabase에서 먼저 삭제
+    // 삭제 대상 탭의 업로드 파일을 S3에서 먼저 삭제
     const targetTab = tabs[idx];
     if (targetTab && Array.isArray(targetTab.files) && targetTab.files.length > 0) {
       const fileKeys = targetTab.files
