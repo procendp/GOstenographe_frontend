@@ -820,6 +820,7 @@
     padding: 0 1.5rem;
     max-width: 100%;
     width: 100%;
+    gap: 0.4rem; /* 전체 요소 간격 압축 */
   }
 
   /* 모바일에서 그리드 위치 지정 무시 */
@@ -827,26 +828,39 @@
     grid-column: unset !important;
     grid-row: unset !important;
     width: 100%;
-    margin-bottom: 0.8rem; /* 간격 축소: 1.5rem → 0.8rem */
+    margin-bottom: 0 !important; /* gap으로 통일 */
   }
 
   .td-hero-subtitle {
-    font-size: var(--td-m-h4);
-    margin-bottom: 0.6rem; /* 간격 축소: 1rem → 0.6rem */
+    font-size: 0.75rem !important; /* 더 작게: var(--td-m-h4) → 0.75rem */
+    margin-bottom: 0.3rem !important; /* 간격 더 축소 */
+    opacity: 0.9;
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
-    margin-bottom: 1rem; /* 간격 축소: 1.5rem → 1rem */
+    margin-bottom: 0.5rem; /* 간격 더 축소: 1rem → 0.5rem */
   }
 
-  /* 모바일에서 히어로 이미지 숨김 */
-  .td-hero-image {
-    display: none !important;
-  }
-
+  /* 모바일에서 히어로 이미지 작게 표시 */
   .td-hero-image-wrapper {
-    display: none !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-top: 1.5rem;
+    z-index: 1;
+  }
+
+  .td-hero-image {
+    display: block !important;
+    width: auto !important;
+    height: 200px !important; /* 모바일에서 이미지 높이 고정 */
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: center bottom !important;
   }
   
   .td-container {
