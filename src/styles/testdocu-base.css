@@ -800,27 +800,43 @@
   .td-navbar-links {
     display: none;
   }
-  
+
   .td-mobile-menu-button {
     display: flex;
   }
 
+  /* Hero 섹션에 relative 추가 (이미지 absolute 배치 위해) */
+  .td-section-hero {
+    position: relative;
+    padding-top: 100px !important; /* 상단 여백 증가 */
+    padding-bottom: 0 !important;
+    min-height: 100vh; /* 전체 화면 높이 확보 */
+  }
+
   .td-hero-title {
-    font-size: var(--td-m-h1);
+    font-size: 1.9rem !important; /* 메인 타이틀 크기 축소: 2.2rem → 1.9rem */
     white-space: normal;
-    line-height: normal;
+    line-height: 1.3;
     height: auto;
+  }
+
+  /* 애니메이션되는 타이틀만 더 작게 (베이지 색상) */
+  .td-hero-title[style*="--td-beige"],
+  .td-hero-title[style*="beige"] {
+    font-size: 1.4rem !important; /* 애니메이션 타이틀: 메인보다 작게 */
   }
 
   .td-hero-container {
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important; /* 왼쪽 정렬로 변경 */
-    text-align: left; /* 텍스트도 왼쪽 정렬 */
+    align-items: flex-start !important;
+    text-align: left;
     padding: 0 1.5rem;
     max-width: 100%;
     width: 100%;
-    gap: 0.4rem; /* 전체 요소 간격 압축 */
+    gap: 0.6rem; /* 간격 약간 증가 */
+    position: relative;
+    z-index: 10; /* 이미지보다 위에 */
   }
 
   /* 모바일에서 그리드 위치 지정 무시 */
@@ -828,39 +844,49 @@
     grid-column: unset !important;
     grid-row: unset !important;
     width: 100%;
-    margin-bottom: 0 !important; /* gap으로 통일 */
+    margin-bottom: 0 !important;
   }
 
   .td-hero-subtitle {
-    font-size: 0.75rem !important; /* 더 작게: var(--td-m-h4) → 0.75rem */
-    margin-bottom: 0.3rem !important; /* 간격 더 축소 */
+    font-size: 0.95rem !important; /* 폰트 크기 증가: 0.75rem → 0.95rem */
+    margin-bottom: 0.5rem !important;
+    margin-top: 1rem !important; /* 상단 여백 추가 */
     opacity: 0.9;
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
-    margin-bottom: 0.5rem; /* 간격 더 축소: 1rem → 0.5rem */
+    margin-bottom: 1rem !important; /* 버튼과 간격 확보 */
+    position: relative;
+    z-index: 10;
   }
 
-  /* 모바일에서 히어로 이미지 작게 표시 */
+  /* 모바일에서 히어로 이미지 최하단 우측에 고정 */
   .td-hero-image-wrapper {
-    position: static !important;
-    width: 100% !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: auto !important;
     height: auto !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin-top: 1.5rem;
-    z-index: 1;
+    display: block !important;
+    z-index: 1 !important;
+    margin: 0 !important;
   }
 
   .td-hero-image {
     display: block !important;
     width: auto !important;
-    height: 200px !important; /* 모바일에서 이미지 높이 고정 */
-    max-width: 100% !important;
+    height: 250px !important; /* 이미지 높이 약간 증가 */
+    max-width: 70vw !important;
     object-fit: contain !important;
-    object-position: center bottom !important;
+    object-position: bottom right !important;
+  }
+
+  /* 버튼 z-index 확보 및 가시성 보장 */
+  .td-button-primary {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 2rem !important; /* 하단 여백 확보 */
   }
   
   .td-container {
