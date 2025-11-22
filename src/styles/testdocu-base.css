@@ -402,6 +402,18 @@
   opacity: 0.9;
 }
 
+.td-hero-image-wrapper {
+  /* 데스크탑 기본 스타일 (1025px 이상) */
+  grid-column: 6 / -1;
+  grid-row: 1 / -1;
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  justify-self: end;
+  width: auto;
+  max-width: 100%;
+}
+
 .td-hero-image {
   width: 100%;
   height: 100%;
