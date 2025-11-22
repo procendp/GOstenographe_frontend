@@ -867,17 +867,18 @@
     bottom: 0 !important;
     right: 0 !important;
     width: auto !important;
-    height: auto !important;
+    height: 50vh !important; /* 화면 높이의 50% */
     display: block !important;
     z-index: 1 !important;
     margin: 0 !important;
+    padding: 0 !important;
   }
 
   .td-hero-image {
     display: block !important;
     width: auto !important;
-    height: 250px !important; /* 이미지 높이 약간 증가 */
-    max-width: 70vw !important;
+    height: 100% !important; /* wrapper의 100% 높이 사용 */
+    max-width: 80vw !important;
     object-fit: contain !important;
     object-position: bottom right !important;
   }
