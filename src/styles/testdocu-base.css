@@ -404,14 +404,15 @@
 
 .td-hero-image-wrapper {
   /* 데스크탑 기본 스타일 (1025px 이상) */
-  grid-column: 6 / -1;
+  grid-column: 5 / -1;
   grid-row: 1 / -1;
   position: relative;
   z-index: 1;
   align-self: end;
   justify-self: end;
-  width: auto;
-  max-width: 100%;
+  width: 120%;
+  max-width: 120%;
+  margin-right: -10%;
 }
 
 .td-hero-image {
