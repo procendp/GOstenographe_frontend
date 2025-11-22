@@ -944,12 +944,13 @@
 
   /* Toggle Content List 태블릿 스타일 */
   .toggle-content-list {
-    padding-left: 0.5rem !important;
+    padding-left: 0 !important;
+    margin-left: 1.25rem !important;
   }
 
   .toggle-content-list ul {
     padding-left: 0 !important;
-    margin-left: 0.5rem !important;
+    margin-left: 1.25rem !important;
   }
 
   /* Price Table 태블릿 스타일 */
@@ -1151,12 +1152,13 @@
 
   /* Toggle Content List 모바일 스타일 */
   .toggle-content-list {
-    padding-left: 0.5rem !important;
+    padding-left: 0 !important;
+    margin-left: 1.25rem !important;
   }
 
   .toggle-content-list ul {
     padding-left: 0 !important;
-    margin-left: 0.5rem !important;
+    margin-left: 1.25rem !important;
   }
 
   /* Price Table 모바일 스타일 */
