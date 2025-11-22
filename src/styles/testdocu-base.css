@@ -947,6 +947,10 @@
     padding-left: 1rem !important;
   }
 
+  .toggle-content-list ul {
+    padding-left: 0.5rem !important;
+  }
+
   /* Price Table 태블릿 스타일 */
   .price-table .duration-col {
     white-space: nowrap;
@@ -1147,6 +1151,10 @@
   /* Toggle Content List 모바일 스타일 */
   .toggle-content-list {
     padding-left: 1rem !important;
+  }
+
+  .toggle-content-list ul {
+    padding-left: 0.5rem !important;
   }
 
   /* Price Table 모바일 스타일 */
