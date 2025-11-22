@@ -805,12 +805,12 @@
     display: flex;
   }
 
-  /* Hero 섹션에 relative 추가 (이미지 absolute 배치 위해) */
+  /* Hero 섹션: 자연스러운 높이 확장 - 모든 모바일 브레이크포인트 공통 적용 */
   .td-section-hero {
     position: relative;
-    padding-top: 100px !important; /* 상단 여백 증가 */
-    padding-bottom: 60vh !important; /* 이미지 공간 확보 */
-    min-height: auto !important; /* 콘텐츠에 따라 자동 높이 */
+    padding-top: 100px !important;
+    padding-bottom: 2rem !important;
+    min-height: 100vh !important; /* 최소 화면 높이 유지 */
   }
 
   .td-hero-title {
@@ -826,19 +826,18 @@
     font-size: 1.4rem !important; /* 애니메이션 타이틀: 메인보다 작게 */
   }
 
+  /* Hero 컨테이너: space-between으로 콘텐츠를 상하로 자연스럽게 분산 */
   .td-hero-container {
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    justify-content: flex-start !important; /* 상단부터 시작 */
+    justify-content: space-between !important; /* 콘텐츠를 상하로 분산 */
     text-align: left;
     padding: 0 1.5rem;
-    padding-bottom: 0 !important; /* 하단 여백 제거 (이미지 공간) */
     max-width: 100%;
     width: 100%;
-    gap: 1.5rem; /* 콘텐츠 간 간격 증가 */
+    min-height: calc(100vh - 100px - 2rem) !important; /* 섹션 패딩 제외한 높이 */
     position: relative;
-    z-index: 10; /* 이미지보다 위에 */
   }
 
   /* 모바일에서 그리드 위치 지정 무시 */
@@ -849,47 +848,57 @@
     margin-bottom: 0 !important;
   }
 
+  /* 상단 콘텐츠 그룹: 크기 유지 */
+  .td-hero-subtitle,
+  .td-hero-subtitle ~ div,
+  .td-hero-description {
+    flex-shrink: 0;
+  }
+
   .td-hero-subtitle {
-    font-size: 0.95rem !important; /* 폰트 크기 증가: 0.75rem → 0.95rem */
-    margin-bottom: 0 !important; /* gap으로 간격 조절 */
-    margin-top: 0 !important; /* gap으로 간격 조절 */
+    font-size: 0.95rem !important;
+    margin-bottom: 1rem !important;
+    margin-top: 0 !important;
     opacity: 0.9;
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
-    margin-bottom: 0 !important; /* gap으로 간격 조절 */
-    position: relative;
-    z-index: 10;
+    margin-bottom: 1.5rem !important;
+    margin-top: 1rem !important;
   }
 
-  /* 모바일에서 히어로 이미지 최하단 우측에 고정 */
+  /* 모바일에서 히어로 이미지: 자연스러운 문서 흐름 내 배치 */
   .td-hero-image-wrapper {
-    position: absolute !important;
-    bottom: 0 !important;
-    right: 0 !important;
-    width: 85vw !important; /* 화면 너비의 85% */
-    height: 55vh !important; /* 화면 높이의 55% */
-    display: block !important;
-    z-index: 1 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    position: relative !important; /* absolute 제거 - 자연스러운 흐름 */
+    width: 100% !important;
+    max-width: 500px !important;
+    height: auto !important;
+    aspect-ratio: 1200 / 978 !important; /* 원본 이미지 비율 유지 */
+    align-self: flex-end !important; /* 우측 정렬 */
+    margin-top: auto !important; /* 상단 콘텐츠와 이미지 사이 여백 자동 확장 */
+    margin-bottom: 0 !important;
+    margin-left: auto !important;
+    order: 10 !important; /* 맨 마지막에 배치 */
   }
 
   .td-hero-image {
     display: block !important;
     width: 100% !important;
     height: 100% !important;
-    max-width: none !important;
     object-fit: contain !important;
-    object-position: bottom right !important; /* 우측 하단에 고정 */
+    object-position: bottom right !important;
   }
 
-  /* 버튼 z-index 확보 및 가시성 보장 */
+  /* 버튼을 이미지 앞에 배치 */
+  .td-hero-container > div:has(.td-button-primary) {
+    order: 5 !important; /* 이미지(order: 10)보다 앞에 */
+    margin-top: 1.5rem !important;
+  }
+
   .td-button-primary {
     position: relative;
-    z-index: 10;
-    margin-bottom: 0 !important; /* gap으로 간격 조절 */
+    margin-bottom: 0 !important;
   }
   
   .td-container {
