@@ -36,11 +36,11 @@ export default function ServiceSectionV2() {
         </div>
         <div className="bg-white/90 rounded-2xl shadow-2xl px-4 sm:px-10 py-10 flex flex-col items-center">
           {tab === '녹취록' ? (
-            <div className="w-full flex flex-col md:flex-row gap-6">
+            <div className="w-full flex flex-col md:flex-row gap-6 service-wrapper">
               {/* 좌측: 안내+버튼+박스+버튼 */}
-              <div className="w-full md:w-1/2 flex flex-col gap-4 justify-start">
+              <div className="w-full md:w-1/2 flex flex-col gap-4 justify-start service-left">
                 {/* 안내 타이틀/텍스트 */}
-                <div className="mb-2">
+                <div className="mb-2 service-intro">
                   <div className="text-2xl sm:text-3xl text-gray-900 mb-2 leading-tight">녹취록 속기<br /><span className="font-normal">(음성·영상 파일 속기)</span></div>
                   <ul className="mb-4">
                     <li className="flex items-start mb-0.5">
@@ -61,7 +61,7 @@ export default function ServiceSectionV2() {
                   </ul>
                 </div>
                 {/* 진행 과정/이용요금 박스형 버튼 */}
-                <div className="flex flex-col gap-3 mb-6">
+                <div className="flex flex-col gap-3 mb-6 service-toggles">
                   <motion.div
                     animate={{ 
                       opacity: ntab==='process' ? 1 : 0.95, 
@@ -135,7 +135,7 @@ export default function ServiceSectionV2() {
                   </motion.div>
                 </div>
                 {/* 서비스 신청/상담 문의 버튼 - 좌측 컬럼 하단 고정 */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 service-buttons">
                   <Link href="/apply">
                     <motion.button
                       whileHover={{ scale: 1.02, opacity: 0.9 }}
@@ -151,7 +151,7 @@ export default function ServiceSectionV2() {
                 </div>
               </div>
               {/* 우측: 프로세스/요금표 */}
-              <div className="w-full md:w-1/2 flex flex-col justify-center ml-0 md:ml-8">
+              <div className="w-full md:w-1/2 flex flex-col justify-center ml-0 md:ml-8 service-right">
                 <AnimatePresence mode="wait">
                   {ntab==='process' ? (
                     <motion.div
@@ -271,11 +271,11 @@ export default function ServiceSectionV2() {
             </div>
           ) : (
             // 회의록 탭 리뉴얼 시작
-            <div className="w-full flex flex-col md:flex-row gap-6">
+            <div className="w-full flex flex-col md:flex-row gap-6 service-wrapper">
               {/* 좌측 안내+토글+내용 */}
-              <div className="w-full md:w-1/2 flex flex-col gap-4 justify-start">
+              <div className="w-full md:w-1/2 flex flex-col gap-4 justify-start service-left">
                 {/* 안내 타이틀/텍스트 */}
-                <div className="mb-2">
+                <div className="mb-2 service-intro">
                   <div className="text-2xl sm:text-3xl text-gray-900 mb-2 leading-tight">회의록 속기<br /><span className="font-normal">(대면·비대면)</span></div>
                   <ul className="mb-4">
                     <li className="flex items-start mb-1">
@@ -296,7 +296,7 @@ export default function ServiceSectionV2() {
                   </ul>
                 </div>
                 {/* 토글 버튼+내용 박스 (녹취록 탭과 완전히 동일하게, 아이콘 포함, 위치 고정, 하나의 박스) */}
-                <div className="flex flex-col gap-3 mb-6">
+                <div className="flex flex-col gap-3 mb-6 service-toggles">
                   {/* 진행 과정 토글+내용 */}
                   <motion.div
                     animate={{ 
@@ -354,14 +354,14 @@ export default function ServiceSectionV2() {
                   </motion.div>
                 </div>
                 {/* 상담 문의 버튼 - 좌측 컬럼 하단 고정 (회의록은 상담문의만) */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 service-buttons">
                   <a href="https://open.kakao.com/o/sCaE9jih" target="_blank" rel="noopener noreferrer">
                     <button className="w-full py-3 rounded-lg text-black text-lg bg-white" style={{border: '1px solid #000000'}}>상담 문의</button>
                   </a>
                 </div>
               </div>
               {/* 우측: 토글별 내용 */}
-              <div className="w-full md:w-1/2 flex flex-col justify-center ml-0 md:ml-8">
+              <div className="w-full md:w-1/2 flex flex-col justify-center ml-0 md:ml-8 service-right">
                 <AnimatePresence mode="wait">
                   {ntab==='process' ? (
                     <motion.div

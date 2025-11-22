@@ -915,6 +915,23 @@
   .td-features-grid {
     padding: 0; /* 좌우 여백 완전 제거 */
   }
+
+  /* Service Section 태블릿 순서 조정 */
+  .service-intro {
+    order: 1;
+  }
+
+  .service-toggles {
+    order: 2;
+  }
+
+  .service-right {
+    order: 3;
+  }
+
+  .service-buttons {
+    order: 4;
+  }
 }
 
 
@@ -1075,6 +1092,23 @@
   .td-section-subtitle {
     font-size: 1.1rem !important; /* 폰트 크기 증가: 1rem → 1.1rem */
     margin-bottom: 0.25rem !important; /* 간격 반으로 축소: 0.5rem → 0.25rem */
+  }
+
+  /* Service Section 모바일 순서 조정 */
+  .service-intro {
+    order: 1;
+  }
+
+  .service-toggles {
+    order: 2;
+  }
+
+  .service-right {
+    order: 3;
+  }
+
+  .service-buttons {
+    order: 4;
   }
 
   .td-faq-tabs-container {
