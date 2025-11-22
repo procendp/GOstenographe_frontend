@@ -1518,7 +1518,7 @@
   }
   
   .c-apply-container {
-    padding: 0 0.75rem; /* 좌우 여백 축소 */
+    padding: 0 0.5rem; /* 좌우 여백 더 축소 */
     max-width: 100%;
   }
   
@@ -2050,7 +2050,13 @@
   }
 
   .c-apply-section .c-file-block:first-child {
-    padding: 1rem 0.25rem 0.75rem !important; /* 파일 정보 섹션만 좌우 패딩을 0.25rem으로 줄임 */
+    padding: 1rem 0.15rem 0.75rem !important; /* 파일 정보 섹션 좌우 패딩을 더 축소 */
+  }
+
+  /* 모든 파일 블록 좌우 패딩 축소 */
+  .c-file-block {
+    padding-left: 0.15rem !important;
+    padding-right: 0.15rem !important;
   }
 
   /* 주문자 정보 섹션 이메일 입력 필드 */
