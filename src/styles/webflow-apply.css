@@ -724,7 +724,7 @@
 /* 데스크톱에서 탭 컨테이너 앵커 - 헤더와 콘텐츠를 함께 제어 */
 @media (min-width: 769px) {
   .c-apply-section .c-tab-container {
-    max-width: 900px;
+    max-width: 768px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -995,7 +995,7 @@
   align-items: flex-start;
   width: 100%;
   margin-bottom: 0.5rem;
-  padding: 1rem 1.5rem 0.75rem; /* 데스크톱: 원래 패딩 복원 */
+  padding: 1rem 0 0.75rem; /* 데스크톱: 좌우 패딩 0 (부모가 처리) */
   display: flex;
 }
 
@@ -1466,7 +1466,7 @@
 /* 데스크톱에서 주문 정보 섹션 너비 축소 */
 @media (min-width: 769px) {
   .c-apply-section .personal-info-container {
-    max-width: 900px;
+    max-width: 768px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 2rem;
@@ -1474,7 +1474,7 @@
   }
 
   .c-apply-section .order-info-section {
-    max-width: 900px;
+    max-width: 768px;
   }
 }
 
