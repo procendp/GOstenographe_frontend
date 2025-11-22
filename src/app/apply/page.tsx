@@ -2186,46 +2186,10 @@ function Reception() {
         <div className="c-checkout-container-new">
           {/* 왼쪽: 견적 정보 */}
           <div className="c-checkout-left-new">
-            {/* 토글 버튼 - 모바일/태블릿에서만 표시 */}
-            <button
-              onClick={() => setIsQuoteCollapsed(!isQuoteCollapsed)}
-              className="quote-toggle-btn"
-              style={{
-                display: 'none',
-                width: '100%',
-                padding: '0.5rem',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                marginBottom: '0.5rem'
-              }}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{
-                  margin: '0 auto',
-                  transform: isQuoteCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
-                  transition: 'transform 0.3s ease'
-                }}
-              >
-                <path
-                  d="M5 12.5L10 7.5L15 12.5"
-                  stroke="#1a202c"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'baseline',
+              alignItems: 'center',
               paddingBottom: '0.5rem',
               marginBottom: '0.5rem',
               borderBottom: '1px solid #e5e7eb'
@@ -2236,12 +2200,50 @@ function Reception() {
                 color: '#1a202c',
                 margin: 0
               }}>예상 견적</h2>
-              <h2 style={{
-                fontSize: '1.125rem',
-                fontWeight: '700',
-                color: '#1a202c',
-                margin: 0
-              }}>{calculateTotalPrice().toLocaleString()}원</h2>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}>
+                <h2 style={{
+                  fontSize: '1.125rem',
+                  fontWeight: '700',
+                  color: '#1a202c',
+                  margin: 0
+                }}>{calculateTotalPrice().toLocaleString()}원</h2>
+                {/* 토글 버튼 - 모바일/태블릿에서만 표시 */}
+                <button
+                  onClick={() => setIsQuoteCollapsed(!isQuoteCollapsed)}
+                  className="quote-toggle-btn"
+                  style={{
+                    display: 'none',
+                    padding: '0.25rem',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{
+                      transform: isQuoteCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
+                      transition: 'transform 0.3s ease'
+                    }}
+                  >
+                    <path
+                      d="M5 12.5L10 7.5L15 12.5"
+                      stroke="#1a202c"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div
               className="quote-details"
