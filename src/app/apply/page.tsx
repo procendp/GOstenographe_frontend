@@ -64,7 +64,7 @@ function Reception() {
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isQuoteCollapsed, setIsQuoteCollapsed] = useState(false);
+  const [isQuoteCollapsed, setIsQuoteCollapsed] = useState(true);
   // 신청 시점의 금액 정보를 저장 (백엔드 전송 금액과 신청완료 페이지 표시 금액을 일치시키기 위함)
   const [submittedPriceInfo, setSubmittedPriceInfo] = useState<{
     totalPrice: number;
