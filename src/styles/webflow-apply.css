@@ -280,6 +280,12 @@
   .c-checkout-left-new > div:last-child {
     font-size: 0.75rem !important;
   }
+
+  /* 유의사항, 파일 정보 헤딩 스타일 */
+  .c-file-heading {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+  }
 }
 
 /* 기존 스타일 (백업용) */
