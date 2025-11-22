@@ -739,11 +739,11 @@
   margin-bottom: 0;
 }
 
-/* 데스크톱에서 탭 헤더 패딩 */
+/* 데스크톱에서 탭 헤더 패딩 제거 - 탭 버튼이 왼쪽 정렬되도록 */
 @media (min-width: 769px) {
   .c-apply-section .c-tab-header {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -904,8 +904,8 @@
 /* 데스크톱에서 내부 패딩 조정으로 헤더와 정렬 (마진 대신 패딩 감소) */
 @media (min-width: 769px) {
   .c-apply-section .c-file-tab-pane {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2.5rem !important;
+    padding-right: 2.5rem !important;
   }
 }
 
