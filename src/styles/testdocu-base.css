@@ -2044,6 +2044,11 @@
 
 /* 파일 정보 섹션만을 위한 모바일 패딩 최적화 */
 @media (max-width: 768px) {
+  /* 파일 탭 컨테이너 좌우 패딩 축소 */
+  .file-tab-container {
+    padding: 0 0.5rem 1rem !important;
+  }
+
   .c-apply-section .c-file-block:first-child {
     padding: 1rem 0.25rem 0.75rem !important; /* 파일 정보 섹션만 좌우 패딩을 0.25rem으로 줄임 */
   }
