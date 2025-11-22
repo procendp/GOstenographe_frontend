@@ -1043,7 +1043,7 @@ function Reception() {
           </div>
 
           {/* 완료 메시지 */}
-          <div className="w-layout-vflex flex-block-14" style={{marginTop: '2rem'}}>
+          <div className="w-layout-vflex flex-block-14" style={{marginTop: '1rem'}}>
             <div className="c-finito-subtitle-block text-center" style={{marginBottom: '2rem'}}>
               <h2 className="c-heading-4 centered" style={{fontSize: '1.75rem', fontWeight: 'normal', lineHeight: '1.4', marginBottom: '0.5rem'}}>
                 감사합니다. 정상 접수되었습니다.<br/>
