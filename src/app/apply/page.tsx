@@ -1315,7 +1315,7 @@ function Reception() {
                     backgroundColor: 'white',
                     borderBottomRightRadius: '20px',
                     borderBottomLeftRadius: '20px',
-                    padding: '0 1rem 1rem', // 좌우 패딩을 줄여서 더 넓은 공간 확보
+                    padding: '0 0.5rem 1rem', // 좌우 패딩을 0.5rem으로 줄여서 더 넓은 공간 확보
                     maxWidth: '100%', // 최대 너비 제한 해제
                     width: '100%' // 전체 너비 사용
                   }}>
