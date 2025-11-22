@@ -23,8 +23,8 @@ export default function QuotationSection({
     <div className="quotation-section-isolated">
       {/* 예상 견적 메인 박스 */}
       <div className="quotation-main-box">
-        <h2 style={{color: 'white', fontSize: '1.5rem', fontWeight: 'bold', margin: '0'}}>예상 견적</h2>
-        <h2 style={{color: 'white', fontSize: '1.5rem', fontWeight: 'bold', margin: '0'}}>{totalPrice.toLocaleString()}원</h2>
+        <h2 style={{color: 'white', fontSize: '1.75rem', fontWeight: 'bold', margin: '0'}}>예상 견적</h2>
+        <h2 style={{color: 'white', fontSize: '1.75rem', fontWeight: 'bold', margin: '0'}}>{totalPrice.toLocaleString()}원</h2>
       </div>
 
       {/* 서비스 신청 내역 */}
