@@ -87,7 +87,7 @@ export default function ServiceSectionV2() {
                               transition={{ duration: 0.3, ease: 'easeInOut' }}
                               style={{ overflow: 'hidden' }}
                             >
-                              <ul className="text-base list-disc pl-5 text-gray-900">
+                              <ul className="text-base list-disc text-gray-900">
                                 <li>다양한 형식의 녹음 음성 파일, 영상 파일 접수 가능</li>
                                 <li>대용량 파일은 메일로 접수</li>
                               </ul>
@@ -122,7 +122,7 @@ export default function ServiceSectionV2() {
                               transition={{ duration: 0.3, ease: 'easeInOut' }}
                               style={{ overflow: 'hidden' }}
                             >
-                              <ul className="text-base list-disc pl-5 text-gray-900">
+                              <ul className="text-base list-disc text-gray-900">
                                 <li>화자수에 따른 추가 요금 발생 가능</li>
                                 <li>부가세 10% 별도</li>
                                 <li>부가 옵션
@@ -354,7 +354,7 @@ export default function ServiceSectionV2() {
                               transition={{ duration: 0.3, ease: 'easeInOut' }}
                               style={{ overflow: 'hidden' }}
                             >
-                              <ul className="text-base list-disc pl-5 text-gray-900">
+                              <ul className="text-base list-disc text-gray-900">
                                 <li>화자 추가 시에도 가격 변동 없음</li>
                                 <li>부가세 10% 별도</li>
                               </ul>
