@@ -942,6 +942,11 @@
     order: 4;
   }
 
+  /* Toggle Content List 태블릿 스타일 */
+  .toggle-content-list {
+    padding-left: 1rem !important;
+  }
+
   /* Price Table 태블릿 스타일 */
   .price-table .duration-col {
     white-space: nowrap;
@@ -1137,6 +1142,11 @@
 
   .service-buttons {
     order: 4;
+  }
+
+  /* Toggle Content List 모바일 스타일 */
+  .toggle-content-list {
+    padding-left: 1rem !important;
   }
 
   /* Price Table 모바일 스타일 */
