@@ -739,11 +739,14 @@
   margin-bottom: 0;
 }
 
-/* 데스크톱에서 탭 헤더 패딩 */
+/* 데스크톱에서 탭 메뉴 좌측 마진으로 정렬 */
 @media (min-width: 769px) {
-  .c-apply-section .c-tab-header {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  .c-apply-section .c-tab-menu {
+    margin-left: 1.5rem;
+  }
+
+  .c-apply-section .c-delete-button {
+    margin-right: 1.5rem;
   }
 }
 
