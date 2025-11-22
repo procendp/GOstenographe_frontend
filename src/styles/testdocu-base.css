@@ -1003,12 +1003,12 @@
   .td-features-grid {
     grid-template-columns: 1fr;  /* 모바일에서는 1열 */
     grid-template-rows: auto;    /* 모바일에서는 자동 행 */
-    gap: 1.5rem; /* 모바일에서 카드 간격 조정 */
+    gap: 1rem; /* 카드 간격 축소: 1.5rem → 1rem */
     padding: 0 1rem;
   }
 
   .td-feature-card {
-    padding: 2rem 1.5rem; /* 모바일에서 카드 내부 여백 증가 */
+    padding: 2.6rem 2rem !important; /* 카드 내부 여백 30% 증가: 2rem → 2.6rem */
     border-radius: 16px;
     margin-bottom: 1rem;
   }
@@ -1020,7 +1020,7 @@
   .td-feature-title {
     font-size: var(--td-m-h3);
     margin-bottom: 1rem;
-    font-weight: 600;
+    font-weight: normal !important; /* 볼드체 해제: 600 → normal */
   }
 
   .td-feature-description {
