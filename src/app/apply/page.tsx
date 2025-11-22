@@ -64,6 +64,7 @@ function Reception() {
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isQuoteCollapsed, setIsQuoteCollapsed] = useState(false);
   // 신청 시점의 금액 정보를 저장 (백엔드 전송 금액과 신청완료 페이지 표시 금액을 일치시키기 위함)
   const [submittedPriceInfo, setSubmittedPriceInfo] = useState<{
     totalPrice: number;
@@ -2185,6 +2186,42 @@ function Reception() {
         <div className="c-checkout-container-new">
           {/* 왼쪽: 견적 정보 */}
           <div className="c-checkout-left-new">
+            {/* 토글 버튼 - 모바일/태블릿에서만 표시 */}
+            <button
+              onClick={() => setIsQuoteCollapsed(!isQuoteCollapsed)}
+              className="quote-toggle-btn"
+              style={{
+                display: 'none',
+                width: '100%',
+                padding: '0.5rem',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                marginBottom: '0.5rem'
+              }}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                  margin: '0 auto',
+                  transform: isQuoteCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
+                  transition: 'transform 0.3s ease'
+                }}
+              >
+                <path
+                  d="M5 12.5L10 7.5L15 12.5"
+                  stroke="#1a202c"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -2206,14 +2243,21 @@ function Reception() {
                 margin: 0
               }}>{calculateTotalPrice().toLocaleString()}원</h2>
             </div>
-            <div style={{
-              fontSize: '0.875rem',
-              color: '#4a5568',
-              lineHeight: '1.6',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.25rem'
-            }}>
+            <div
+              className="quote-details"
+              style={{
+                fontSize: '0.875rem',
+                color: '#4a5568',
+                lineHeight: '1.6',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.25rem',
+                maxHeight: isQuoteCollapsed ? '0' : '200px',
+                overflow: 'hidden',
+                transition: 'max-height 0.3s ease, opacity 0.3s ease',
+                opacity: isQuoteCollapsed ? 0 : 1
+              }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>- 속기록 제작 ({formatTotalDuration()})</span>
                 <span>{calculateTranscriptionPrice().toLocaleString()}원</span>

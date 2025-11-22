@@ -258,12 +258,18 @@
     width: 100%;
     min-width: 0;
     padding: 1rem 0;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: none;
   }
 
   .c-checkout-right-new {
     width: 100%;
     padding: 1rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  /* 토글 버튼 표시 */
+  .quote-toggle-btn {
+    display: block !important;
   }
 
   /* 모바일 텍스트 크기 조정 */
