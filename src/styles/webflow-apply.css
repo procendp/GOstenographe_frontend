@@ -721,6 +721,15 @@
   display: flex;
 }
 
+/* 데스크톱에서 탭 컨테이너 앵커 - 헤더와 콘텐츠를 함께 제어 */
+@media (min-width: 769px) {
+  .c-apply-section .c-tab-container {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* 탭 메뉴와 삭제 버튼을 감싸는 상위 컨테이너 */
 .c-tab-header {
   display: flex;
@@ -730,12 +739,9 @@
   margin-bottom: 0;
 }
 
-/* 데스크톱에서 탭 헤더 너비 축소 */
+/* 데스크톱에서 탭 헤더 패딩 */
 @media (min-width: 769px) {
   .c-apply-section .c-tab-header {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
@@ -861,12 +867,9 @@
   overflow: visible;
 }
 
-/* 데스크톱에서 탭 콘텐츠 영역 너비 축소 (배경과 콘텐츠 모두 줄어듦) */
+/* 데스크톱에서 탭 콘텐츠 패딩 */
 @media (min-width: 769px) {
   .c-apply-section .c-tab-content {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
