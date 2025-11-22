@@ -235,7 +235,7 @@ export default function ServiceSectionV2() {
                     >
                       {/* 요금표 테이블 */}
                       <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
-                        <table className="min-w-full text-center text-base">
+                        <table className="min-w-full text-center text-sm">
                           <thead style={{backgroundColor: darkBeige}}>
                             <tr>
                               <th className="py-2 px-3 font-normal">분량</th>
@@ -446,7 +446,7 @@ export default function ServiceSectionV2() {
                     >
                       {/* 요금표 테이블 */}
                       <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
-                        <table className="min-w-full text-center text-base">
+                        <table className="min-w-full text-center text-sm">
                           <thead style={{backgroundColor: '#e2c89d'}}>
                             <tr>
                               <th className="py-2 px-3 font-normal">분량</th>
