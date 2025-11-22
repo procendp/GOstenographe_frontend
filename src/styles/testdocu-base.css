@@ -836,7 +836,7 @@
     justify-content: flex-start !important;
     text-align: left;
     padding: 0 1.5rem;
-    padding-top: 3rem !important; /* GNB와 콘텐츠 사이 간격 */
+    padding-top: 5rem !important; /* GNB와 콘텐츠 사이 간격 증가: 3rem → 5rem */
     max-width: 100%;
     width: 100%;
     height: calc(100vh - 80px) !important; /* 섹션 padding-top 제외한 높이 */
@@ -861,15 +861,15 @@
 
   .td-hero-subtitle {
     font-size: 0.95rem !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.8rem !important; /* 간격 축소: 1rem → 0.8rem */
     margin-top: 0 !important;
     opacity: 0.9;
   }
 
   .td-hero-description {
-    font-size: 1.2rem !important;
-    margin-bottom: 1.5rem !important;
-    margin-top: 1rem !important;
+    font-size: 1.1rem !important; /* 1.2rem → 1.1rem */
+    margin-bottom: 1rem !important; /* 간격 축소: 1.5rem → 1rem */
+    margin-top: 0.8rem !important; /* 간격 축소: 1rem → 0.8rem */
   }
 
   /* 모바일에서 히어로 이미지: 섹션 우측 하단에 고정 */
