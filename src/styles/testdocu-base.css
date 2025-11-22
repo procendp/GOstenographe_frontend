@@ -1518,7 +1518,7 @@
   }
   
   .c-apply-container {
-    padding: 0 0.5rem; /* 좌우 여백 더 축소 */
+    padding: 0 0.15rem !important; /* 좌우 여백 최소화로 컨텐츠 영역 극대화 */
     max-width: 100%;
   }
   
