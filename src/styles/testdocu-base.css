@@ -867,7 +867,7 @@
   }
 
   .td-hero-description {
-    font-size: var(--td-m-h4);
+    font-size: 0.9rem !important; /* var(--td-m-h4)에서 축소 */
     margin-bottom: 1.5rem !important;
     margin-top: 1rem !important;
   }
