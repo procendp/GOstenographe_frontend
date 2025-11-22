@@ -101,8 +101,9 @@
     margin-bottom: 1.5rem !important;
   }
 
+  /* 모바일에서 제목 폰트 크기 증가 (1.75rem) */
   .c-app-info-heading {
-    font-size: 1.25rem !important;
+    font-size: 1.75rem !important;
     margin-bottom: 1rem !important;
   }
 
@@ -110,9 +111,13 @@
     margin-bottom: 1rem !important;
   }
 
-  /* 주문자 정보 컨테이너 */
-  .application-info-container .container {
-    padding: 0 !important;
+  /* 서비스 신청 내역 & 주문자 정보 박스 컨테이너 - 모바일에서만 박스 스타일 적용 */
+  .application-info-container .container.small-container {
+    padding: 1rem !important;
+    width: 100% !important;
+    background-color: white !important;
+    border-radius: 10px !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
   }
 
   /* 주문자 정보도 2컬럼 그리드 스타일 - finish.html과 동일 */
@@ -122,14 +127,22 @@
     grid-column-gap: 0px !important;
     grid-row-gap: 0px !important;
     border-radius: 10px !important;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   }
 
-  /* 주문자 정보의 제목/내용 블록도 동일한 패딩 적용 */
+  /* 모바일에서 주문자 정보를 2컬럼 그리드로 변경 */
+  .application-info-container .c-client-info-grid {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    grid-column-gap: 0px !important;
+    grid-row-gap: 0px !important;
+  }
+
+  /* 주문자 정보의 제목/내용 블록 스타일 - finish.html과 동일한 패딩 */
   .application-info-container .c-app-info-grid-title-block {
     padding: 20px !important;
     background-color: white !important;
     border-bottom: none !important;
+    border: none !important;
   }
 
   .application-info-container .c-app-info-grid-title-block.grey {
@@ -140,9 +153,20 @@
     padding: 20px 10px !important;
     background-color: white !important;
     border-bottom: none !important;
+    border: none !important;
   }
 
   .application-info-container .c-app-info-grid-contents-block.grey {
     background-color: #f4f6f9 !important;
+  }
+
+  /* 주문자 정보 그리드 항목 폰트 크기 조정 */
+  .application-info-container .c-app-info-grid-title {
+    font-size: 1.125rem !important;
+    font-weight: 500 !important;
+  }
+
+  .application-info-container .c-app-info-grid-contents {
+    font-size: 1rem !important;
   }
 }
