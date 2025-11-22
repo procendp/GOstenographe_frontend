@@ -880,7 +880,23 @@
   .td-features-grid {
     grid-template-columns: repeat(2, 1fr);  /* 태블릿에서는 2열 */
     grid-template-rows: repeat(3, 1fr);     /* 태블릿에서는 3행 */
-    gap: var(--td-spacing-lg);
+    gap: 0.3rem; /* 카드 간격 최소화 */
+  }
+
+  .td-feature-card {
+    padding: 2.6rem 3rem !important; /* 좌우 패딩 3rem */
+    border-radius: 16px;
+  }
+
+  .td-feature-title {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem;
+  }
+
+  .td-section-subtitle {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.25rem !important;
   }
 }
 
@@ -1008,7 +1024,7 @@
   }
 
   .td-feature-card {
-    padding: 2.6rem 2.5rem !important; /* 좌우 패딩 25% 증가: 2rem → 2.5rem */
+    padding: 2.6rem 3rem !important; /* 좌우 패딩 3rem */
     border-radius: 16px;
     margin-bottom: 1rem;
   }
@@ -1124,6 +1140,11 @@
   
   .c-file-heading {
     font-size: 1rem !important;
+  }
+
+  /* Features 카드 좌우 패딩 축소 (작은 화면 대응) */
+  .td-feature-card {
+    padding: 2.6rem 2rem !important; /* 3rem → 2rem으로 축소 */
   }
 }
 
