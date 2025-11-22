@@ -963,11 +963,11 @@
 /* 파일 헤딩 - 웹플로우 원본과 동일 */
 .c-file-heading {
   font-family: 'Pretendard', sans-serif;
-  color: #272929; /* 웹플로우 원본 색상 */
-  font-size: 1.75rem; /* 2단계 증가 */
+  color: #272929;
+  font-size: 1.75rem;
   margin-top: 0;
   margin-bottom: 0;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* 파일 제목 블록 내용 - 웹플로우 원본과 동일 */
@@ -1487,6 +1487,8 @@
   .c-file-block-title {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+    padding-top: 0.75rem;
+    margin-bottom: 0.5rem;
   }
 
   /* 모바일에서 타이틀과 콘텐츠 정렬 - 녹음 종류 섹션 */

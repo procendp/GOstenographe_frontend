@@ -1894,14 +1894,7 @@ function Reception() {
             marginRight: 'auto'
           }}>
             <div className="c-file-title-block">
-              <h2 className="c-order-info-heading" style={{
-                fontFamily: 'Pretendard, sans-serif',
-                color: '#333',
-                fontSize: '22px',
-                fontWeight: '700',
-                marginBottom: '0.25rem',
-                marginTop: '0'
-              }}>주문 정보</h2>
+              <h2 className="c-file-heading">주문 정보</h2>
             </div>
             
             <div className="c-file-block">
