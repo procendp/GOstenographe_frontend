@@ -22,7 +22,7 @@ export default function HeroSection() {
   return (
     <section
       id="Hero"
-      className="td-section-hero pt-[120px] md:pt-[140px] pb-0"
+      className="td-section-hero md:pt-[140px] pb-0"
       style={{
         backgroundColor: '#1c58af', // 4000포트와 동일한 파란색 배경
         backgroundImage: "url('/new_goStenographe_resource/backgrounds/bg-b-vl.png')",
@@ -33,7 +33,6 @@ export default function HeroSection() {
         alignItems: 'center',
         width: '100vw', // 전체 화면 너비
         display: 'flex',
-        minHeight: 'auto', // 고정 높이 제거
         position: 'relative',
         margin: '0'
       }}
@@ -77,19 +76,7 @@ export default function HeroSection() {
         </div>
         
         {/* 히어로 이미지 */}
-        <div
-          className="td-hero-image-wrapper"
-          style={{
-            position: 'absolute',
-            right: '0',
-            bottom: '0',
-            height: '100%',
-            width: 'auto',
-            zIndex: 1,
-            margin: '0',
-            padding: '0'
-          }}
-        >
+        <div className="td-hero-image-wrapper">
           <Image
             src="/new_goStenographe_resource/images/HeroImage2.png"
             alt="국가공인 1급 속기사 일러스트 - 전문 속기 서비스"
@@ -97,15 +84,6 @@ export default function HeroSection() {
             height={978}
             priority
             className="td-hero-image"
-            style={{
-              height: '100%',
-              width: 'auto',
-              objectFit: 'contain',
-              objectPosition: 'bottom right',
-              margin: '0',
-              padding: '0',
-              display: 'block'
-            }}
           />
         </div>
         
