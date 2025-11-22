@@ -830,11 +830,13 @@
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
+    justify-content: flex-start !important; /* 상단부터 시작 */
     text-align: left;
     padding: 0 1.5rem;
+    padding-bottom: 0 !important; /* 하단 여백 제거 (이미지 공간) */
     max-width: 100%;
     width: 100%;
-    gap: 0.6rem; /* 간격 약간 증가 */
+    gap: 1.5rem; /* 콘텐츠 간 간격 증가 */
     position: relative;
     z-index: 10; /* 이미지보다 위에 */
   }
@@ -849,14 +851,14 @@
 
   .td-hero-subtitle {
     font-size: 0.95rem !important; /* 폰트 크기 증가: 0.75rem → 0.95rem */
-    margin-bottom: 0.5rem !important;
-    margin-top: 1rem !important; /* 상단 여백 추가 */
+    margin-bottom: 0 !important; /* gap으로 간격 조절 */
+    margin-top: 0 !important; /* gap으로 간격 조절 */
     opacity: 0.9;
   }
 
   .td-hero-description {
     font-size: var(--td-m-h4);
-    margin-bottom: 1rem !important; /* 버튼과 간격 확보 */
+    margin-bottom: 0 !important; /* gap으로 간격 조절 */
     position: relative;
     z-index: 10;
   }
@@ -866,8 +868,8 @@
     position: absolute !important;
     bottom: 0 !important;
     right: 0 !important;
-    width: auto !important;
-    height: 60vh !important; /* 섹션 padding-bottom과 동일 */
+    width: 85vw !important; /* 화면 너비의 85% */
+    height: 55vh !important; /* 화면 높이의 55% */
     display: block !important;
     z-index: 1 !important;
     margin: 0 !important;
@@ -876,18 +878,18 @@
 
   .td-hero-image {
     display: block !important;
-    width: auto !important;
-    height: 100% !important; /* wrapper의 100% 높이 사용 */
-    max-width: 75vw !important; /* 화면 너비의 75% */
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
     object-fit: contain !important;
-    object-position: bottom right !important;
+    object-position: bottom right !important; /* 우측 하단에 고정 */
   }
 
   /* 버튼 z-index 확보 및 가시성 보장 */
   .td-button-primary {
     position: relative;
     z-index: 10;
-    margin-bottom: 2rem !important; /* 하단 여백 확보 */
+    margin-bottom: 0 !important; /* gap으로 간격 조절 */
   }
   
   .td-container {
