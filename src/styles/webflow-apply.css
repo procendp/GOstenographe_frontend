@@ -867,11 +867,11 @@
   overflow: visible;
 }
 
-/* 데스크톱: c-tab-content 패딩 제거 (c-file-tab-pane이 이미 2.5rem 패딩 보유) */
+/* 데스크톱에서 탭 콘텐츠 패딩 */
 @media (min-width: 769px) {
   .c-apply-section .c-tab-content {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
