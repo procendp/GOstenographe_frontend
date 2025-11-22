@@ -761,14 +761,14 @@
 /* 1024px ~ 1279px (작은 데스크탑/큰 태블릿) - 이미지 너비 제한 */
 @media (min-width: 1024px) and (max-width: 1279px) {
   .td-hero-image-wrapper {
-    max-width: 52% !important;
+    max-width: 62% !important;
   }
 }
 
 /* 1280px ~ 1919px (일반 데스크탑) - 이미지 너비 제한 및 섹션 높이 증가 */
 @media (min-width: 1280px) and (max-width: 1919px) {
   .td-hero-image-wrapper {
-    max-width: 55% !important;
+    max-width: 66% !important;
   }
 
   .td-section-hero {
@@ -779,7 +779,7 @@
 /* 1920px ~ 2559px (Full HD) - 이미지 너비 제한 및 섹션 높이 증가 */
 @media (min-width: 1920px) and (max-width: 2559px) {
   .td-hero-image-wrapper {
-    max-width: 58% !important;
+    max-width: 70% !important;
   }
 
   .td-section-hero {
@@ -790,7 +790,7 @@
 /* 2560px 이상 (4K 모니터) - 이미지 너비 제한 및 섹션 높이 증가 */
 @media (min-width: 2560px) {
   .td-hero-image-wrapper {
-    max-width: 60% !important;
+    max-width: 72% !important;
   }
 
   .td-section-hero {
