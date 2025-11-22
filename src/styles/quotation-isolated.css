@@ -39,6 +39,20 @@
   }
 }
 
+/* 예상 견적 메인 박스 폰트 크기 - 데스크톱 기본 */
+.quotation-title,
+.quotation-price {
+  font-size: 1.5rem;
+}
+
+/* 모바일에서만 폰트 크기 증가 */
+@media (max-width: 768px) {
+  .quotation-title,
+  .quotation-price {
+    font-size: 1.75rem !important;
+  }
+}
+
 /* 모바일에서 위 간격 축소 및 너비 조정 */
 @media (max-width: 768px) {
   .quotation-section-isolated {
