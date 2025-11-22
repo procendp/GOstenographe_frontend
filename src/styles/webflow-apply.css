@@ -860,6 +860,15 @@
   margin-right: 0;
 }
 
+/* 모바일에서만 작은 패딩 적용 (스크롤 기능 유지) */
+@media (max-width: 768px) {
+  .c-file-tab-button-left,
+  .c-file-tab-button-mid,
+  .c-file-tab-button-right {
+    padding: 6px 8px !important;
+  }
+}
+
 /* 탭 콘텐츠 */
 .c-tab-content {
   width: 100%;

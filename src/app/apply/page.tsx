@@ -1252,7 +1252,7 @@ function Reception() {
                       id={`file-tab-${index}`}
                       className={`c-file-tab-button-${index === 0 ? 'left' : index === tabs.length - 1 ? 'right' : 'mid'} w-inline-block w-tab-link ${activeTab === index ? 'w--current' : ''}`}
                       onClick={() => setActiveTab(index)}
-                      style={{ flexShrink: 0, padding: '6px 8px' }}
+                      style={{ flexShrink: 0 }}
                       role="tab"
                       aria-selected={activeTab === index}
                       aria-controls={`file-panel-${index}`}
@@ -1268,7 +1268,7 @@ function Reception() {
                     <button
                       className="c-file-tab-button-right w-inline-block w-tab-link"
                       onClick={handleAddTab}
-                      style={{ flexShrink: 0, padding: '6px 8px' }}
+                      style={{ flexShrink: 0 }}
                       aria-label="파일 탭 추가"
                     >
                       <div className="c-tab-button-text">+</div>
@@ -1314,9 +1314,7 @@ function Reception() {
                   <div className="w-layout-vflex file-tab-container" style={{
                     backgroundColor: 'white',
                     borderBottomRightRadius: '20px',
-                    borderBottomLeftRadius: '20px',
-                    maxWidth: '100%', // 최대 너비 제한 해제
-                    width: '100%' // 전체 너비 사용
+                    borderBottomLeftRadius: '20px'
                   }}>
                     <div className="c-file-title-block">
                       <h2 className="c-file-heading">유의사항</h2>
