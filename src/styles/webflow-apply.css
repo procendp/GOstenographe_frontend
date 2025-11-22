@@ -867,14 +867,6 @@
   overflow: visible;
 }
 
-/* 데스크톱에서 탭 콘텐츠 패딩 */
-@media (min-width: 769px) {
-  .c-apply-section .c-tab-content {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
 /* 탭 콘텐츠 내부 정렬 - 웹플로우 원본과 동일 */
 .c-file-tab-pane {
   box-sizing: border-box;
@@ -883,6 +875,15 @@
   width: 100%;
   padding: 2.5rem 2.5rem; /* 웹플로우 원본 패딩 */
   overflow: visible;
+}
+
+/* 데스크톱에서 좌우 마진으로 헤더와 정렬 */
+@media (min-width: 769px) {
+  .c-apply-section .c-file-tab-pane {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    width: calc(100% - 3rem);
+  }
 }
 
 .c-file-tab-pane.w--tab-active {
