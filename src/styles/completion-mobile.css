@@ -13,74 +13,77 @@
 
 /* 서비스 신청 내역 - 모바일 최적화 */
 @media (max-width: 768px) {
-  /* 아코디언 헤더 스타일 개선 */
+  /* 아코디언 헤더 스타일 - finish.html과 동일하게 */
   .accordion.blue summary {
-    padding: 1rem 1.25rem !important;
+    padding: 1.5rem 2rem !important;
     font-size: 1.125rem !important;
     font-weight: 700 !important;
     background-color: #f3f4f6 !important;
+    border-radius: 10px !important;
   }
 
   .accordion.blue[open] summary {
     background-color: #edead9 !important;
+    border-radius: 10px !important;
   }
 
-  /* 아코디언 컨텐츠 패딩 축소 */
+  /* 아코디언 컨텐츠 박스 - finish.html과 동일하게 패딩 0, border-radius 10px */
   .c-accordion-content-box {
-    padding: 1rem !important;
+    padding: 0 !important;
+    border-radius: 10px !important;
   }
 
-  /* 그리드를 단일 컬럼으로 변경 */
+  /* 그리드를 2컬럼으로 변경 - finish.html과 동일 (auto 1fr) */
   .c-order-info-grid {
-    display: block !important;
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    grid-column-gap: 0px !important;
+    grid-row-gap: 0px !important;
+    border-radius: 10px !important;
   }
 
-  /* 각 항목을 깔끔한 행으로 표시 */
+  /* 제목 블록 스타일 - finish.html과 동일하게 padding: 20px */
   .c-app-info-grid-title-block {
-    padding: 0.75rem 1rem !important;
-    background-color: #f9fafb !important;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 0.875rem !important;
+    padding: 20px !important;
+    background-color: white !important;
+    border-bottom: none !important;
+    font-size: 1.125rem !important;
   }
 
   .c-app-info-grid-title-block.grey {
     background-color: #f4f6f9 !important;
   }
 
+  /* 내용 블록 스타일 - finish.html과 동일하게 padding: 20px 10px */
   .c-app-info-grid-contents-block {
-    padding: 0.75rem 1rem !important;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 0.875rem !important;
+    padding: 20px 10px !important;
+    background-color: white !important;
+    border-bottom: none !important;
+    font-size: 1rem !important;
   }
 
   .c-app-info-grid-contents-block.grey {
-    background-color: #fafbfc !important;
+    background-color: #f4f6f9 !important;
   }
 
-  /* 제목 텍스트 스타일 */
+  /* 제목 텍스트 스타일 - finish.html과 동일 */
   .c-app-info-grid-title {
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     color: #374151 !important;
-    font-size: 0.875rem !important;
+    font-size: 1.125rem !important;
   }
 
-  /* 내용 텍스트 스타일 */
+  /* 내용 텍스트 스타일 - finish.html과 동일 */
   .c-app-info-grid-contents {
     color: #1f2937 !important;
-    font-size: 0.875rem !important;
+    font-size: 1rem !important;
     line-height: 1.5 !important;
   }
 
-  /* 아코디언 내부 마지막 항목 border 제거 */
-  .c-accordion-content-box .c-app-info-grid-title-block:last-of-type,
-  .c-accordion-content-box .c-app-info-grid-contents-block:last-of-type {
-    border-bottom: none !important;
-  }
-
-  /* 아코디언 자체 스타일 */
+  /* 아코디언 자체 스타일 - finish.html과 동일 */
   .accordion.blue {
     margin-bottom: 0.75rem !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
   }
 
@@ -91,7 +94,7 @@
   }
 }
 
-/* 주문자 정보 섹션 - 동일한 스타일 적용 */
+/* 주문자 정보 섹션 - finish.html과 동일한 스타일 적용 */
 @media (max-width: 768px) {
   .application-info-container {
     width: 98%;
@@ -112,12 +115,34 @@
     padding: 0 !important;
   }
 
-  /* 주문자 정보도 깔끔한 리스트 스타일 */
+  /* 주문자 정보도 2컬럼 그리드 스타일 - finish.html과 동일 */
   .application-info-container .c-order-info-grid {
-    display: block !important;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    overflow: hidden;
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    grid-column-gap: 0px !important;
+    grid-row-gap: 0px !important;
+    border-radius: 10px !important;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  /* 주문자 정보의 제목/내용 블록도 동일한 패딩 적용 */
+  .application-info-container .c-app-info-grid-title-block {
+    padding: 20px !important;
+    background-color: white !important;
+    border-bottom: none !important;
+  }
+
+  .application-info-container .c-app-info-grid-title-block.grey {
+    background-color: #f4f6f9 !important;
+  }
+
+  .application-info-container .c-app-info-grid-contents-block {
+    padding: 20px 10px !important;
+    background-color: white !important;
+    border-bottom: none !important;
+  }
+
+  .application-info-container .c-app-info-grid-contents-block.grey {
+    background-color: #f4f6f9 !important;
   }
 }
