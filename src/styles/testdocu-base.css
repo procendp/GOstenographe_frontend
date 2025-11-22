@@ -917,6 +917,15 @@
   }
 
   /* Service Section 태블릿 순서 조정 */
+  .service-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-left {
+    display: contents; /* 자식들을 wrapper의 직접 자식처럼 만듦 */
+  }
+
   .service-intro {
     order: 1;
   }
@@ -1095,6 +1104,15 @@
   }
 
   /* Service Section 모바일 순서 조정 */
+  .service-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-left {
+    display: contents; /* 자식들을 wrapper의 직접 자식처럼 만듦 */
+  }
+
   .service-intro {
     order: 1;
   }
