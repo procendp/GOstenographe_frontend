@@ -805,12 +805,12 @@
     display: flex;
   }
 
-  /* Hero 섹션: 자연스러운 높이 확장 - 모든 모바일 브레이크포인트 공통 적용 */
+  /* Hero 섹션: 높이 축소 및 텍스트 여백 증가 */
   .td-section-hero {
     position: relative;
     padding-top: 100px !important;
-    padding-bottom: 2rem !important;
-    min-height: 100vh !important; /* 최소 화면 높이 유지 */
+    padding-bottom: 0 !important;
+    min-height: 85vh !important; /* 100vh → 85vh로 축소 */
   }
 
   .td-hero-title {
@@ -826,17 +826,18 @@
     font-size: 1.4rem !important; /* 애니메이션 타이틀: 메인보다 작게 */
   }
 
-  /* Hero 컨테이너: space-between으로 콘텐츠를 상하로 자연스럽게 분산 */
+  /* Hero 컨테이너: 텍스트 하단 여백 증가 */
   .td-hero-container {
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    justify-content: space-between !important; /* 콘텐츠를 상하로 분산 */
+    justify-content: flex-start !important;
     text-align: left;
     padding: 0 1.5rem;
+    padding-top: 3rem !important; /* GNB와의 간격 증가 */
     max-width: 100%;
     width: 100%;
-    min-height: calc(100vh - 100px - 2rem) !important; /* 섹션 패딩 제외한 높이 */
+    min-height: calc(85vh - 100px) !important;
     position: relative;
   }
 
@@ -868,18 +869,17 @@
     margin-top: 1rem !important;
   }
 
-  /* 모바일에서 히어로 이미지: 자연스러운 문서 흐름 내 배치 */
+  /* 모바일에서 히어로 이미지: 우측 하단에 고정 */
   .td-hero-image-wrapper {
-    position: relative !important; /* absolute 제거 - 자연스러운 흐름 */
-    width: 100% !important;
-    max-width: 500px !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: 90vw !important; /* 화면 너비의 90% */
+    max-width: 450px !important;
     height: auto !important;
-    aspect-ratio: 1200 / 978 !important; /* 원본 이미지 비율 유지 */
-    align-self: flex-end !important; /* 우측 정렬 */
-    margin-top: auto !important; /* 상단 콘텐츠와 이미지 사이 여백 자동 확장 */
-    margin-bottom: 0 !important;
-    margin-left: auto !important;
-    order: 10 !important; /* 맨 마지막에 배치 */
+    aspect-ratio: 1200 / 978 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .td-hero-image {
@@ -890,9 +890,10 @@
     object-position: bottom right !important;
   }
 
-  /* 버튼을 이미지 앞에 배치 */
+  /* 버튼 z-index 확보 */
   .td-hero-container > div:has(.td-button-primary) {
-    order: 5 !important; /* 이미지(order: 10)보다 앞에 */
+    position: relative;
+    z-index: 10;
     margin-top: 1.5rem !important;
   }
 
