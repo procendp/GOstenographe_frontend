@@ -867,7 +867,7 @@
     bottom: 0 !important;
     right: 0 !important;
     width: auto !important;
-    height: 50vh !important; /* 화면 높이의 50% */
+    height: 65vh !important; /* 화면 높이의 65%로 증가 */
     display: block !important;
     z-index: 1 !important;
     margin: 0 !important;
@@ -878,7 +878,7 @@
     display: block !important;
     width: auto !important;
     height: 100% !important; /* wrapper의 100% 높이 사용 */
-    max-width: 80vw !important;
+    max-width: 85vw !important; /* 너비도 약간 증가 */
     object-fit: contain !important;
     object-position: bottom right !important;
   }
