@@ -941,6 +941,16 @@
   .service-buttons {
     order: 4;
   }
+
+  /* Price Table 태블릿 스타일 */
+  .price-table .duration-col {
+    white-space: nowrap;
+  }
+
+  .price-table .price-with-unit {
+    word-break: break-word;
+    white-space: pre-line;
+  }
 }
 
 
@@ -1127,6 +1137,16 @@
 
   .service-buttons {
     order: 4;
+  }
+
+  /* Price Table 모바일 스타일 */
+  .price-table .duration-col {
+    white-space: nowrap;
+  }
+
+  .price-table .price-with-unit {
+    word-break: break-word;
+    white-space: pre-line;
   }
 
   .td-faq-tabs-container {

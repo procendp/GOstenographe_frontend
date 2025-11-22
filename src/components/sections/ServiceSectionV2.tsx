@@ -235,10 +235,10 @@ export default function ServiceSectionV2() {
                     >
                       {/* 요금표 테이블 */}
                       <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
-                        <table className="min-w-full text-center text-sm">
+                        <table className="min-w-full text-center text-sm price-table">
                           <thead style={{backgroundColor: darkBeige}}>
                             <tr>
-                              <th className="py-2 px-3 font-normal">분량</th>
+                              <th className="py-2 px-3 font-normal duration-col">분량</th>
                               <th className="py-2 px-3 font-normal">통화 녹음</th>
                               <th className="py-2 px-3 font-normal">현장 녹음</th>
                             </tr>
@@ -257,7 +257,14 @@ export default function ServiceSectionV2() {
                             ].map((row, i) => (
                               <tr key={i} className={i%2===0 ? 'bg-[#f6f1e7]' : ''}>
                                 {row.map((cell, j) => (
-                                  <td key={j} className="py-2 px-3 font-normal">{cell}</td>
+                                  <td key={j} className={`py-2 px-3 font-normal ${j === 0 ? 'duration-col' : ''} ${i === 8 && j > 0 ? 'price-with-unit' : ''}`}>
+                                    {i === 8 && j > 0 ? (
+                                      <>
+                                        <span className="hidden md:inline">{cell}</span>
+                                        <span className="md:hidden">{cell.replace('/', '/\n')}</span>
+                                      </>
+                                    ) : cell}
+                                  </td>
                                 ))}
                               </tr>
                             ))}
@@ -446,10 +453,10 @@ export default function ServiceSectionV2() {
                     >
                       {/* 요금표 테이블 */}
                       <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
-                        <table className="min-w-full text-center text-sm">
+                        <table className="min-w-full text-center text-sm price-table">
                           <thead style={{backgroundColor: '#e2c89d'}}>
                             <tr>
-                              <th className="py-2 px-3 font-normal">분량</th>
+                              <th className="py-2 px-3 font-normal duration-col">분량</th>
                               <th className="py-2 px-3 font-normal">녹음 파일<br/>(비대면 회의)</th>
                               <th className="py-2 px-3 font-normal">출장 속기<br/>(대면 회의)</th>
                             </tr>
@@ -461,7 +468,7 @@ export default function ServiceSectionV2() {
                             ].map((row, i) => (
                               <tr key={i} className={i%2===0 ? 'bg-[#f6f1e7]' : ''}>
                                 {row.map((cell, j) => (
-                                  <td key={j} className="py-2 px-3 font-normal">{cell}</td>
+                                  <td key={j} className={`py-2 px-3 font-normal ${j === 0 ? 'duration-col' : ''}`}>{cell}</td>
                                 ))}
                               </tr>
                             ))}
