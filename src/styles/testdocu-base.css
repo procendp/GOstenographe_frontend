@@ -2059,12 +2059,6 @@
     padding-right: 0.15rem !important;
   }
 
-  /* 주문자 정보 블록 좌우 패딩 강제 축소 */
-  .c-personal-info-block {
-    padding-left: 0.25rem !important;
-    padding-right: 0.25rem !important;
-  }
-
   /* 주문자 정보 섹션 이메일 입력 필드 */
   .c-personal-info-block input[type="email"] {
     font-size: 13px !important;
