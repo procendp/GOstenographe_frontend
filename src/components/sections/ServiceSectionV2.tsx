@@ -125,8 +125,13 @@ export default function ServiceSectionV2() {
                               <ul className="text-base list-disc pl-5 text-gray-900">
                                 <li>화자수에 따른 추가 요금 발생 가능</li>
                                 <li>부가세 10% 별도</li>
-                                <li>부가 옵션: 등기 우편 발송 5천원, 저장장치(CD/USB) 선택 1</li>
-            </ul>
+                                <li>부가 옵션
+                                  <ul className="list-none pl-4 mt-1">
+                                    <li>① 등기 우편 발송: 5천원</li>
+                                    <li>② 저장 장치: CD(1천원), USB(5천원) 중 택 1</li>
+                                  </ul>
+                                </li>
+                              </ul>
                             </motion.div>
                           )}
                         </AnimatePresence>
