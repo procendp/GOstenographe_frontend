@@ -2228,22 +2228,7 @@
   justify-content: space-between;
 }
 
-.c-file-block-heading {
-  font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
-  color: #666;
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-/* 타이틀 2 통일 - 모두 동일한 스타일 적용 */
-.c-file-block-heading.light,
-.c-file-block-heading.highlight {
-  font-family: 'SpoqaHanSansNeo', Verdana, sans-serif;
-  color: #666;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
+/* c-file-block-heading 스타일은 webflow-apply.css에 정의되어 있음 */
 
 /* 태그 스타일 */
 .c-file-block-title-tag {
