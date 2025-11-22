@@ -84,9 +84,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: '2HfKemjqjafv25U-q6H8_HMnIZFY1K7_YRAXv_BKyLw',
-    // other: {
-    //   'naver-site-verification': 'naver-verification-code',
-    // },
+    other: {
+      'naver-site-verification': '504d8c386c92c2311100d0d32e2e813cf35b286f',
+    },
   },
 }
 
