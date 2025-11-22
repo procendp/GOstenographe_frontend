@@ -986,26 +986,26 @@
 .c-file-block {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 20px; /* 웹플로우 원본 값 */
+  border-radius: 20px;
   flex-flow: column;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
   margin-bottom: 0.5rem;
-  padding: 0.75rem 1.25rem; /* 패딩 축소 */
+  padding: 1rem 1.5rem 0.75rem; /* 데스크톱: 원래 패딩 복원 */
   display: flex;
 }
 
-/* 모바일에서 패딩 줄여서 콘텐츠 영역 확장 */
+/* 모바일에서만 패딩 줄여서 콘텐츠 영역 확장 */
 @media (max-width: 768px) {
   .c-file-block {
-    padding: 0.75rem 0.25rem !important; /* 좌우 패딩을 0.25rem으로 극단적으로 줄임 */
+    padding: 0.75rem 0.25rem !important;
   }
 }
 
 @media (max-width: 480px) {
   .c-file-block {
-    padding: 0.75rem 0.125rem !important; /* 더 작은 모바일에서는 0.125rem으로 더 줄임 */
+    padding: 0.75rem 0.125rem !important;
   }
 }
 
