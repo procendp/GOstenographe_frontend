@@ -885,14 +885,6 @@
   overflow: visible;
 }
 
-/* Desktop: 헤더와 동일한 좌우 패딩 적용 */
-@media (min-width: 769px) {
-  .c-apply-section .c-file-tab-pane {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
 .c-file-tab-pane.w--tab-active {
   display: block;
 }
@@ -1003,7 +995,7 @@
   align-items: flex-start;
   width: 100%;
   margin-bottom: 0.5rem;
-  padding: 1rem 0 0.75rem; /* 데스크톱: 좌우 패딩 제거 (부모에서 처리) */
+  padding: 1rem 1.5rem 0.75rem; /* 데스크톱: 원래 패딩 복원 */
   display: flex;
 }
 
