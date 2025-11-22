@@ -805,13 +805,14 @@
     display: flex;
   }
 
-  /* Hero 섹션: GNB 아래부터 시작, 화면 가득 채움 */
+  /* Hero 섹션: GNB 아래부터 시작, 화면 정확히 100vh */
   .td-section-hero {
     position: relative;
-    padding-top: 120px !important; /* GNB 높이 + 추가 여백 */
-    padding-bottom: 2rem !important;
-    min-height: 100vh !important; /* 화면 전체 높이 */
-    overflow: hidden !important; /* 이미지가 섹션 밖으로 나가지 않도록 */
+    padding-top: 80px !important; /* GNB 높이만큼만 (겹치지 않도록) */
+    padding-bottom: 0 !important;
+    height: 100vh !important; /* min-height가 아닌 정확한 height */
+    overflow: hidden !important;
+    box-sizing: border-box !important; /* padding 포함한 높이 계산 */
   }
 
   .td-hero-title {
@@ -835,11 +836,12 @@
     justify-content: flex-start !important;
     text-align: left;
     padding: 0 1.5rem;
-    padding-top: 2rem !important; /* GNB와의 추가 간격 */
+    padding-top: 3rem !important; /* GNB와 콘텐츠 사이 간격 */
     max-width: 100%;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 80px) !important; /* 섹션 padding-top 제외한 높이 */
     position: relative;
+    box-sizing: border-box !important;
   }
 
   /* 모바일에서 그리드 위치 지정 무시 */
