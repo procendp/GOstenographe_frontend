@@ -787,6 +787,96 @@
 
 /* 태블릿 스타일 */
 @media (max-width: 1024px) and (min-width: 769px) {
+  /* Hero 섹션: 태블릿 레이아웃 */
+  .td-section-hero {
+    position: relative;
+    padding-top: 100px !important;
+    padding-bottom: 2rem !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .td-hero-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left;
+    padding: 0 3rem; /* 태블릿은 좌우 여백 증가 */
+    padding-top: 4rem !important;
+    max-width: 100%;
+    width: 100%;
+    height: calc(100vh - 100px) !important;
+    position: relative;
+    box-sizing: border-box !important;
+  }
+
+  .td-hero-container > div {
+    grid-column: unset !important;
+    grid-row: unset !important;
+    width: 100%;
+    margin-bottom: 0 !important;
+  }
+
+  .td-hero-subtitle {
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+    margin-top: 0 !important;
+    opacity: 0.9;
+  }
+
+  .td-hero-title {
+    font-size: 2.5rem !important; /* 태블릿은 모바일보다 크게 */
+    white-space: normal;
+    line-height: 1.3;
+    height: auto;
+  }
+
+  .td-hero-title[style*="--td-beige"],
+  .td-hero-title[style*="beige"] {
+    font-size: 1.8rem !important;
+  }
+
+  .td-hero-description {
+    font-size: 1.3rem !important;
+    margin-bottom: 1.5rem !important;
+    margin-top: 1rem !important;
+  }
+
+  /* 태블릿에서 히어로 이미지: 섹션 우측 하단에 고정 */
+  .td-hero-image-wrapper {
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: 60vw !important; /* 태블릿은 60% */
+    max-width: 600px !important;
+    height: auto !important;
+    aspect-ratio: 1200 / 978 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 1 !important;
+  }
+
+  .td-hero-image {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: bottom right !important;
+  }
+
+  .td-hero-container > div:has(.td-button-primary) {
+    position: relative;
+    z-index: 10;
+    margin-top: 2rem !important;
+  }
+
+  .td-button-primary {
+    position: relative;
+    margin-bottom: 0 !important;
+  }
+
   .td-features-grid {
     grid-template-columns: repeat(2, 1fr);  /* 태블릿에서는 2열 */
     grid-template-rows: repeat(3, 1fr);     /* 태블릿에서는 3행 */
