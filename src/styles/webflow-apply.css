@@ -877,12 +877,11 @@
   overflow: visible;
 }
 
-/* 데스크톱에서 좌우 마진으로 헤더와 정렬 */
+/* 데스크톱에서 내부 패딩 조정으로 헤더와 정렬 (마진 대신 패딩 감소) */
 @media (min-width: 769px) {
   .c-apply-section .c-file-tab-pane {
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-    width: calc(100% - 3rem);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
