@@ -860,6 +860,21 @@
   margin-right: 0;
 }
 
+/* 데스크톱에서 정상 패딩 강제 적용 */
+@media (min-width: 769px) {
+  .c-file-tab-button-left,
+  .c-file-tab-button-mid,
+  .c-file-tab-button-right {
+    padding: 12px 20px !important;
+  }
+
+  .c-file-tab-button-left.w--current,
+  .c-file-tab-button-mid.w--current,
+  .c-file-tab-button-right.w--current {
+    padding: 12px 20px !important;
+  }
+}
+
 /* 모바일에서만 작은 패딩 적용 (스크롤 기능 유지) */
 @media (max-width: 768px) {
   .c-file-tab-button-left,
