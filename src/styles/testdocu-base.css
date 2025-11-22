@@ -809,8 +809,8 @@
   .td-section-hero {
     position: relative;
     padding-top: 100px !important; /* 상단 여백 증가 */
-    padding-bottom: 0 !important;
-    min-height: 100vh; /* 전체 화면 높이 확보 */
+    padding-bottom: 60vh !important; /* 이미지 공간 확보 */
+    min-height: auto !important; /* 콘텐츠에 따라 자동 높이 */
   }
 
   .td-hero-title {
@@ -867,7 +867,7 @@
     bottom: 0 !important;
     right: 0 !important;
     width: auto !important;
-    height: 75vh !important; /* 화면 높이의 75% */
+    height: 60vh !important; /* 섹션 padding-bottom과 동일 */
     display: block !important;
     z-index: 1 !important;
     margin: 0 !important;
@@ -878,7 +878,7 @@
     display: block !important;
     width: auto !important;
     height: 100% !important; /* wrapper의 100% 높이 사용 */
-    max-width: 90vw !important; /* 화면 너비의 90% */
+    max-width: 75vw !important; /* 화면 너비의 75% */
     object-fit: contain !important;
     object-position: bottom right !important;
   }
@@ -1062,13 +1062,7 @@
 }
 
 @media (max-width: 480px) {
-  .td-hero-title {
-    font-size: var(--td-m-h1);
-  }
-  
-  .td-hero-description {
-    font-size: var(--td-m-button);
-  }
+  /* Hero 타이틀은 768px 설정 유지 (제거) */
 
   .td-feature-card {
     padding: var(--td-spacing-md);
