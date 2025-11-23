@@ -93,7 +93,9 @@ export default function TimestampInput({
           borderRadius: '8px',
           border: '1px solid #e5e7eb',
           flex: '1'
-        }}>
+        }}
+        className="timestamp-input-container"
+        >
           <input
             type="text"
             value={startTime || ''}
