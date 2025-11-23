@@ -2059,14 +2059,14 @@
     padding-right: 0.15rem !important;
   }
 
-  /* 주문자 정보 섹션 이메일 입력 필드 */
+  /* 주문자 정보 섹션 이메일 입력 필드 - 폰트 크기 고정 */
   .c-personal-info-block input[type="email"] {
-    font-size: 13px !important;
+    font-size: 16px !important;
   }
 
-  /* 이메일 placeholder만 폰트 크기 축소 */
+  /* 이메일 placeholder 폰트 크기 고정 (모바일에서도 동일) */
   .c-personal-info-block input[type="email"]::placeholder {
-    font-size: 11px !important;
+    font-size: 16px !important;
   }
 
   /* 하단 여백 증가하여 주소 찾기 버튼이 예상 견적란에 가려지지 않도록 */
