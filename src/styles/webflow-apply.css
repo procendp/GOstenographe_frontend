@@ -901,10 +901,10 @@
   overflow: visible;
 }
 
-/* 데스크톱에서 내부 패딩 조정으로 헤더와 정렬 (좌측 선에 맞춤) */
+/* 데스크톱에서 내부 패딩 조정 - 좌우 대칭으로 주문 정보와 동일하게 */
 @media (min-width: 769px) {
   .c-apply-section .c-file-tab-pane {
-    padding-left: 0 !important;
+    padding-left: 2rem !important;
     padding-right: 2rem !important;
   }
 }
