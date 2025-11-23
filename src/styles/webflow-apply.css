@@ -1857,4 +1857,9 @@
   }
 }
 
+/* 타임스탬프 블록 하단 패딩 축소 - 컴팩트하게 */
+.c-timestamp-block {
+  padding-bottom: 0.5rem !important;
+}
+
 /* 웹플로우 레이아웃 클래스 조합 - 중복 제거됨 */
