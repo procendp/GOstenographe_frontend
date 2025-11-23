@@ -2015,10 +2015,10 @@
 
 /* 삭제 버튼 스타일은 미디어 쿼리별로 관리 (1218라인: 모바일, 1435라인: 데스크톱) */
 
-/* 탭 콘텐츠 스타일 - padding 제거하여 webflow-apply.css의 우측 간격 설정이 적용되도록 함 */
+/* 탭 콘텐츠 스타일 */
 .c-file-tab-pane {
   background: transparent;
-  /* padding: 0; */
+  padding: 0;
   border-radius: 0;
   box-shadow: none;
 }
