@@ -5,7 +5,7 @@
   }
 }
 
-/* 데스크톱에서도 패딩 제거 */
-.c-file-tab-pane {
+/* 데스크톱에서도 패딩 제거 - 주석 처리 (webflow-apply.css의 우측 간격 설정 적용) */
+/* .c-file-tab-pane {
   padding: 0 !important;
-}
+} */
