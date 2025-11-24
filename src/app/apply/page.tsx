@@ -1351,6 +1351,7 @@ function Reception() {
                       {/* 첨부 가능한 파일 형식 안내 */}
                       <div style={{
                         marginTop: '-8px',
+                        marginBottom: '12px',
                         padding: '12px 16px',
                         backgroundColor: '#f3f4f6',
                         borderRadius: '8px',
@@ -1365,7 +1366,7 @@ function Reception() {
                         </div>
                       </div>
 
-                      <div className="link-block w-inline-block">
+                      <div className="link-block w-inline-block" style={{marginTop: '-12px'}}>
                         <FileUploadSection
                           formData={tab as any}
                           setFormData={(data) => {
