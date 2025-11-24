@@ -1613,7 +1613,7 @@ function Reception() {
                           }}>
                             {/* Content Section */}
                             <div className="c-datetime-content" style={{
-                              padding: '1.5rem'
+                              padding: '1rem'
                             }}>
                               <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
                                 <div style={{ position: 'relative' }}>
