@@ -65,8 +65,13 @@ export default function ContactSectionV2() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -8 }}
-              className="px-6 py-8 rounded-xl shadow-lg text-center flex flex-col items-center border-none"
-              style={{ backgroundColor: '#f4f6f9' }}
+              className="px-6 py-8 rounded-xl text-center flex flex-col items-center"
+              style={{
+                backgroundColor: '#f4f6f9',
+                border: 'none',
+                outline: 'none',
+                boxShadow: 'none'
+              }}
             >
               <div className="w-12 h-12 mb-3 flex items-center justify-center">
                 <Image src={c.icon} alt={c.title} width={48} height={48} className="object-contain" />

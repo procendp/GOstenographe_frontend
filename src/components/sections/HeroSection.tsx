@@ -106,6 +106,10 @@ export default function HeroSection() {
             whileHover={{ scale: 1.02, opacity: 0.9 }}
             whileTap={{ scale: 0.98 }}
             className="td-button-primary"
+            style={{
+              backgroundColor: '#222',
+              color: 'white'
+            }}
             title="속기 서비스 신청하기"
           >
             서비스 신청
