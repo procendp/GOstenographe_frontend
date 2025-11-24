@@ -176,7 +176,7 @@ export default function FileUploadSection({ formData, setFormData, onBack, onFil
               fileInputRef.current?.click();
             }
           }}
-          className="border-4 border-dashed border-gray-400 rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 transition-colors bg-white min-h-[140px] flex flex-col justify-center"
+          className="border-4 border-dashed border-gray-400 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors bg-white min-h-[100px] flex flex-col justify-center"
         >
           <FaCloudUploadAlt className="mx-auto text-4xl text-gray-400 mb-4" />
           <div className="text-gray-500 mb-4">
