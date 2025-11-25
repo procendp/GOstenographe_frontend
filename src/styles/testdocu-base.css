@@ -1,7 +1,7 @@
 /* testDocu 디자인 기반 스타일 */
-@import url('/css/normalize.css');
-@import url('/css/webflow.css');
-@import url('/css/professional-transcription-service.webflow.css');
+@import './vendor/normalize.css';
+@import './vendor/webflow.css';
+@import './vendor/professional-transcription-service.css';
 
 /* 폰트 정의 */
 @font-face {
