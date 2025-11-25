@@ -602,8 +602,14 @@ section.c-checkout-section > div > div.c-checkout-right {
   background-color: #ffffff;
   border-radius: 0 0 20px 20px;
   width: 100%;
-  padding: 3rem 2rem; /* 패딩을 줄여서 더 왼쪽에 가깝게 */
   overflow: visible;
+}
+
+/* 모바일/태블릿에서만 패딩 적용 */
+@media (max-width: 768px) {
+  .c-file-tab-pane {
+    padding: 3rem 2rem;
+  }
 }
 
 .c-file-tab-pane.w--tab-active {
