@@ -1,11 +1,8 @@
-/* 파란 섹션이 초록 섹션을 모두 채우도록 패딩 완전 제거 */
+/* 모바일에서만 파란 섹션이 초록 섹션을 모두 채우도록 패딩 완전 제거 */
 @media screen and (max-width: 767px) {
   .c-file-tab-pane {
     padding: 0 !important; /* 패딩 완전 제거 */
   }
 }
 
-/* 데스크톱에서도 패딩 제거 */
-.c-file-tab-pane {
-  padding: 0 !important;
-}
+/* 데스크톱은 webflow-apply.css의 2rem 좌우 패딩 유지 */
