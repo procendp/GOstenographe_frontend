@@ -910,15 +910,17 @@
     padding-right: 0 !important;
   }
 
-  /* file-tab-container의 모든 패딩을 제거하여 흰색 배경이 전체 너비 사용 */
+  /* file-tab-container의 모든 패딩을 제거하고 네거티브 마진으로 확장 */
   .c-apply-section .c-file-tab-pane .file-tab-container {
     padding: 0 !important;
+    margin-left: -2rem; /* 부모 .c-tab-container의 좌 패딩만큼 확장 */
+    margin-right: -2rem; /* 부모 .c-tab-container의 우 패딩만큼 확장 */
   }
 
-  /* file-tab-container 내부 콘텐츠에 좌우 마진 추가하여 여백 확보 */
+  /* file-tab-container 내부 콘텐츠에 좌우 패딩 추가하여 여백 확보 */
   .c-apply-section .c-file-tab-pane .file-tab-container > * {
-    margin-left: 2rem;
-    margin-right: 2rem;
+    padding-left: 4rem; /* 2rem(원래 여백) + 2rem(네거티브 마진 보상) */
+    padding-right: 4rem;
   }
 }
 
