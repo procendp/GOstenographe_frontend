@@ -910,10 +910,9 @@
     padding-right: 0 !important;
   }
 
-  /* file-tab-container의 패딩도 제거하여 흰색 배경이 전체 너비 사용 */
+  /* file-tab-container의 모든 패딩을 제거하여 흰색 배경이 전체 너비 사용 */
   .c-apply-section .c-file-tab-pane .file-tab-container {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
   }
 
   /* file-tab-container 내부 콘텐츠에 좌우 마진 추가하여 여백 확보 */
