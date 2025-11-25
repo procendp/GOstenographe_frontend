@@ -910,8 +910,8 @@
     padding-right: 0 !important;
   }
 
-  /* 내부 섹션들에 좌우 마진 추가하여 여백 확보 */
-  .c-apply-section .c-file-tab-pane > * {
+  /* file-tab-container 내부 콘텐츠에 좌우 마진 추가하여 여백 확보 */
+  .c-apply-section .c-file-tab-pane .file-tab-container > * {
     margin-left: 2rem;
     margin-right: 2rem;
   }
