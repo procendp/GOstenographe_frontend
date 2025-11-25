@@ -727,8 +727,8 @@
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 0; /* 패딩 제거하여 네거티브 마진 효과 활용 */
+    padding-right: 0;
   }
 }
 
@@ -910,12 +910,10 @@
     padding-right: 0 !important;
   }
 
-  /* file-tab-container를 네거티브 마진으로 확장하고 내부에 패딩 설정 */
+  /* file-tab-container에 좌우 패딩 설정 */
   .c-apply-section .c-file-tab-pane .file-tab-container {
-    margin-left: -2rem !important; /* 부모 .c-tab-container의 좌 패딩만큼 확장 */
-    margin-right: -2rem !important; /* 부모 .c-tab-container의 우 패딩만큼 확장 */
-    padding-left: 4rem !important; /* 2rem(원래 여백) + 2rem(네거티브 마진 보상) */
-    padding-right: 4rem !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
