@@ -909,6 +909,12 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+
+  /* 내부 섹션들에 좌우 마진 추가하여 여백 확보 */
+  .c-apply-section .c-file-tab-pane > * {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 }
 
 .c-file-tab-pane.w--tab-active {
