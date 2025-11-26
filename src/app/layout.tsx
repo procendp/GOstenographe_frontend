@@ -58,10 +58,10 @@ export const metadata: Metadata = {
     siteName: '속기사무소 정',
     images: [
       {
-        url: '/new_goStenographe_resource/images/HeroImage2.png',
-        width: 1200,
-        height: 900,
-        alt: '국가공인 1급 속기사 전문 서비스',
+        url: '/apple-touch-icon.png',
+        width: 180,
+        height: 180,
+        alt: '속기사무소 정',
       },
     ],
   },
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '전문 속기사의 정확한 녹취록 작성 서비스',
     description: '회의록, 통화녹음, 음성파일을 정확한 텍스트로 변환. 법원 공증 가능한 전문 속기사무소의 신뢰할 수 있는 녹취록 작성 서비스입니다.',
-    images: ['/new_goStenographe_resource/images/HeroImage2.png'],
+    images: ['/apple-touch-icon.png'],
   },
   robots: {
     index: true,
@@ -198,7 +198,7 @@ export default function RootLayout({
         />
         <link
           rel="preload"
-          href="/new_goStenographe_resource/images/HeroImage2.png"
+          href="/apple-touch-icon.png"
           as="image"
         />
         {/* DNS prefetch for external resources */}
