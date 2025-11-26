@@ -1877,4 +1877,9 @@
   padding-bottom: 0.5rem !important;
 }
 
+/* 부분 녹취 섹션 하단 여백 제거 */
+.c-type-wrapper .w-tab-content {
+  margin-bottom: 0 !important;
+}
+
 /* 웹플로우 레이아웃 클래스 조합 - 중복 제거됨 */
