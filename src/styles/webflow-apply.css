@@ -1876,6 +1876,8 @@
 .c-timestamp-block {
   padding-bottom: 0.5rem !important;
   padding-top: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   background-color: #ffffff;
   border-radius: 12px;
 }
@@ -1885,11 +1887,11 @@
   margin-bottom: 0 !important;
 }
 
-/* 모바일에서 부분 녹취 섹션 좌우 패딩 추가 */
+/* 모바일/태블릿에서 부분 녹취 섹션 좌우 패딩 조정 */
 @media (max-width: 768px) {
   .c-type-wrapper .c-timestamp-block {
-    padding-left: 0.65rem;
-    padding-right: 0.65rem;
+    padding-left: 0.65rem !important;
+    padding-right: 0.65rem !important;
   }
 }
 
