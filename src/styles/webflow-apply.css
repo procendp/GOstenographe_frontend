@@ -1549,9 +1549,9 @@
     padding-right: 0.65rem;
   }
 
-  /* 모바일에서 최종본 옵션 가격 부분 줄바꿈 */
+  /* 모바일에서 최종본 옵션 가격을 한 줄로 표시 */
   .final-option-label .price-break {
-    display: block;
+    display: inline;
   }
 }
 
