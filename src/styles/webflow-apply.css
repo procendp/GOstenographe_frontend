@@ -1872,9 +1872,12 @@
   }
 }
 
-/* 타임스탬프 블록 하단 패딩 축소 - 컴팩트하게 */
+/* 타임스탬프 블록 배경 및 패딩 */
 .c-timestamp-block {
   padding-bottom: 0.5rem !important;
+  padding-top: 1rem;
+  background-color: #f9fafb;
+  border-radius: 12px;
 }
 
 /* 부분 녹취 섹션 하단 여백 제거 */
