@@ -1882,4 +1882,12 @@
   margin-bottom: 0 !important;
 }
 
+/* 모바일에서 부분 녹취 섹션 좌우 패딩 추가 */
+@media (max-width: 768px) {
+  .c-type-wrapper .c-timestamp-block {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+}
+
 /* 웹플로우 레이아웃 클래스 조합 - 중복 제거됨 */
