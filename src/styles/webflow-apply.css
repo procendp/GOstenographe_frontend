@@ -1549,6 +1549,12 @@
     padding-right: 0.65rem;
   }
 
+  /* 모바일에서 최종본 옵션 라디오 버튼을 가로 정렬 */
+  .radio-button-field {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
   /* 모바일에서 최종본 옵션 가격 부분 줄바꿈 */
   .final-option-label .price-break {
     display: block;
